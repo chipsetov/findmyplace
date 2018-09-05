@@ -1,0 +1,40 @@
+version: "3.1"
+services:
+  api:
+    image: fmp_api
+    build:
+      context: ./api/
+    ports:
+     - "8080:8080"
+  db:
+    container_name: "fmp_postgres"
+    image: postgres:9.6
+    restart: always
+    environment:
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: repoleved
+      POSTGRES_DB: fmp_db
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: adminer
+    ports:
+     - "5050:5050"
+    restart: unless-stopped
+
+#version: '3.1'
+#
+#services:
+#
+#  db:
+#    image: postgres:9.6
+#    restart: always
+#    environment:
+#      POSTGRES_PASSWORD: example
+#
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:
+#    - 8080:8080
