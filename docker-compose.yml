@@ -1,11 +1,14 @@
 version: "3.1"
 services:
   api:
-    image: fmp_api
-    build:
-      context: ./api/
+    restart: always
+    build: ./api/
+    working_dir: /usr/src/findmeplace/api
+    volumes:
+          - ./api:/usr/src/findmeplace/api
     ports:
      - "8080:8080"
+    command: mvn clean spring-boot:run
     depends_on:
       - db
   db:
