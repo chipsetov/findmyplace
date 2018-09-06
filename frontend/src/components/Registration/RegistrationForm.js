@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { Input, Button, Row } from 'react-materialize';
 
-
 class RegistrationForm extends Component {
 
-    state = {
-        first_name: '',
-        last_name: '',
-        email: '',
-        password: '',
-        confirm_password: '',
+    constructor (props) {
+        super(props);
+        this.state = {
+            first_name: '',
+            last_name: '',
+            email: '',
+            password: '',
+            confirm_password: ''
+        }
     };
 
     render() {

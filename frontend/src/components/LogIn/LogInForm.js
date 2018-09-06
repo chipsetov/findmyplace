@@ -4,9 +4,12 @@ import { Link } from 'react-router-dom';
 
 class LogInForm extends Component {
 
-    state = {
-        email: '',
-        password: ''
+    constructor (props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: ''
+        }
     }
 
     render() {
