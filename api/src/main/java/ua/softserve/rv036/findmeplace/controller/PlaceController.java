@@ -23,17 +23,13 @@ public class PlaceController {
         return placeRepository.findAll();
     }
 
-//    @GetMapping("/placeByType")
-//    public Iterable<Place> placesByType() {
-//        return placeRepository.findByPlaceTypeId(2);
-//    }
+    @GetMapping("/placeByType")
+    public Iterable<Place> placesByType() {
+        return placeRepository.findByPlaceType(PlaceType.CAFE);
+    }
 
     @GetMapping("/insert")
     public void insert() {
-        PlaceType placeType = new PlaceType();
-        placeType.setName("TestType");
-        placeType.setDescription("TestTypeDescription");
-
         Place place = new Place();
         place.setName("TestName");
         place.setAddress("TestAddress");
@@ -41,7 +37,7 @@ public class PlaceController {
         place.setClose(new Time(17, 0, 0));
         place.setDescription("testDescription");
         place.setCountFreePlaces(10);
-        place.setPlaceType(placeType);
+        place.setPlaceType(PlaceType.CAFE);
 
         placeRepository.save(place);
     }

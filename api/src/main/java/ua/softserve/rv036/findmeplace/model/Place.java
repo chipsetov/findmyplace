@@ -28,9 +28,11 @@ public class Place {
     @NotNull
     private Time close;
 
-    @NotNull
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
     private PlaceType placeType;
+//    @NotNull
+//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private PlaceType placeType;
 
     //@NotNull
     //@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
