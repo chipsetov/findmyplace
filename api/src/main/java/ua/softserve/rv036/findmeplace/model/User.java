@@ -56,6 +56,7 @@ public class User {
     private Collection<Role> roles;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name = "status")
     private BanStatus banStatus;
 
     @CreationTimestamp
