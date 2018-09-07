@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-//import LogInForm from './components/LogIn/LogInForm.js';
+//import LoginForm from './components/Login/Logi
+nForm.js';
 import RegistrationForm from './components/Registration/RegistrationForm.js';
 
 class App extends Component {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Input, Button, Row } from 'react-materialize';
 import { Link } from 'react-router-dom';
 
-class LogInForm extends Component {
+class LoginForm extends Component {
 
     constructor (props) {
         super(props);
@@ -54,4 +54,4 @@ class LogInForm extends Component {
 
 }
 
-export default LogInForm;
+export default LoginForm;
