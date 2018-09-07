@@ -45,7 +45,7 @@ class LogInForm extends Component {
                         onChange={this.handlePasswordChange}
                         s={12}
                     />
-                     <Link className="forgot-password-link" to="/">Forgot password?</Link>
+                    <Link className="forgot-password-link" to="/">Forgot password?</Link>
                 </Row>
                 <Button waves="light" /*onClick={}*/>Sign In</Button>
             </div>
