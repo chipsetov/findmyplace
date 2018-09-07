@@ -6,7 +6,7 @@ class Login extends Component {
     render() {
         return (
             <Button bsStyle="primary" bsSize="large" block>
-                Log In
+                Sign In
             </Button>
         );
     }

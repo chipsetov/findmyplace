@@ -16,7 +16,8 @@ class RegistrationForm extends Component {
 
     render() {
         return (
-            <div className="form">
+            <div className="app-form">
+                <h2>Sign Up</h2>
                 <Row>
                     <Input
                         id="first_name"
@@ -67,7 +68,7 @@ class RegistrationForm extends Component {
                         s={12}
                     />
                 </Row>
-                <Button waves="light">Register</Button>
+                <Button waves="light">Sign Up</Button>
             </div>
         );
     }

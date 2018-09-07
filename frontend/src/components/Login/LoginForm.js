@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Button, Row } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import '../../styles/Form.css';
 
 class LoginForm extends Component {
 
@@ -25,13 +26,14 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <div className="form">
+            <div className="app-form">
+                <h2>Sign In</h2>
                 <Row>
                     <Input
                         id="email"
                         type="email"
-                        label="Email"
                         value={this.state.email}
+                        placeholder="EMAIL"
                         onChange={this.handleEmailChange}
                         s={12}
                     />
@@ -40,14 +42,16 @@ class LoginForm extends Component {
                     <Input
                         id="password"
                         type="password"
-                        label="Password"
                         value={this.state.password}
+                        placeholder="PASSWORD"
                         onChange={this.handlePasswordChange}
                         s={12}
                     />
-                    <Link className="forgot-password-link" to="/">Forgot password?</Link>
                 </Row>
-                <Button waves="light" /*onClick={}*/>Log In</Button>
+                <div class="confirm-row">
+                    <Link className="forgot-password-link" to="/">Forgot password?</Link>
+                    <Button  id="sign-in" waves="light" /*onClick={}*/>Sign In</Button>
+                </div>
             </div>
         );
     }
