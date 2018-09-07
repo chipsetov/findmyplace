@@ -67,7 +67,7 @@ class RegistrationForm extends Component {
                         s={12}
                     />
                 </Row>
-                <Button waves="light">Sign Up</Button>
+                <Button waves="light">Register</Button>
             </div>
         );
     }

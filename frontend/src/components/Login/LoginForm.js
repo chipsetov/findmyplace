@@ -47,7 +47,7 @@ class LoginForm extends Component {
                     />
                     <Link className="forgot-password-link" to="/">Forgot password?</Link>
                 </Row>
-                <Button waves="light" /*onClick={}*/>Sign In</Button>
+                <Button waves="light" /*onClick={}*/>Log In</Button>
             </div>
         );
     }
