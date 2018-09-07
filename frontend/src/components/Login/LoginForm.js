@@ -50,7 +50,7 @@ class LoginForm extends Component {
                 </Row>
                 <div class="confirm-row">
                     <Link className="forgot-password-link" to="/">Forgot password?</Link>
-                    <Button  id="sign-in" waves="light" /*onClick={}*/>Sign In</Button>
+                    <Button id="sign-in" waves="light" /*onClick={}*/>Sign In</Button>
                 </div>
             </div>
         );

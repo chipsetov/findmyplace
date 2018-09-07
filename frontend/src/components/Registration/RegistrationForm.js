@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Input, Button, Row } from 'react-materialize';
+import '../../styles/Form.css';
 
 class RegistrationForm extends Component {
 
@@ -22,8 +23,8 @@ class RegistrationForm extends Component {
                     <Input
                         id="first_name"
                         type="text"
-                        label="First Name"
                         value={this.state.first_name}
+                        placeholder="FIRST NAME"
                         //onChange={}
                         s={12}
                     />
@@ -32,8 +33,8 @@ class RegistrationForm extends Component {
                     <Input
                         id="last_name"
                         type="text"
-                        label="Last Name"
                         value={this.state.last_name}
+                        placeholder="LAST NAME"
                         //onChange={}
                         s={12}
                     />
@@ -42,8 +43,8 @@ class RegistrationForm extends Component {
                     <Input
                         id="email"
                         type="email"
-                        label="Email"
                         value={this.state.email}
+                        placeholder="EMAIL"
                         //onChange={}
                         s={12}
                     />
@@ -52,8 +53,8 @@ class RegistrationForm extends Component {
                     <Input
                         id="password"
                         type="password"
-                        label="Password"
                         value={this.state.password}
+                        placeholder="PASSWORD"
                         //onChange={}
                         s={12}
                     />
@@ -62,13 +63,15 @@ class RegistrationForm extends Component {
                     <Input
                         id="confirm_password"
                         type="password"
-                        label="Confirm Password"
                         value={this.state.confirm_password}
+                        placeholder="CONFIRM PASSWORD"
                         //onChange={}
                         s={12}
                     />
                 </Row>
-                <Button waves="light">Sign Up</Button>
+                <div class="confirm-row">
+                    <Button id="sign-up" waves="light" /*onClick={}*/>Sign Up</Button>
+                </div>
             </div>
         );
     }
