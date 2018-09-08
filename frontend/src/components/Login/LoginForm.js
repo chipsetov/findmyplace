@@ -11,17 +11,10 @@ class LoginForm extends Component {
             email: '',
             password: ''
         }
-
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
-    handleEmailChange (e) {
-        this.setState({ email: e.target.value });
-    }
-
-    handlePasswordChange (e) {
-        this.setState({ password: e.target.value });
+    handleChange(key, value) {
+        this.setState({ [key]: value });
     }
 
     render() {
@@ -34,7 +27,7 @@ class LoginForm extends Component {
                         type="email"
                         value={this.state.email}
                         placeholder="EMAIL"
-                        onChange={this.handleEmailChange}
+                        onChange={e => this.handleChange("email", e.target.value)}
                         s={12}
                     />
                 </Row>
@@ -44,13 +37,13 @@ class LoginForm extends Component {
                         type="password"
                         value={this.state.password}
                         placeholder="PASSWORD"
-                        onChange={this.handlePasswordChange}
+                        onChange={e => this.handleChange("password", e.target.value)}
                         s={12}
                     />
                 </Row>
-                <div class="confirm-row">
+                <div className="confirm-row">
                     <Link className="forgot-password-link" to="/">Forgot password?</Link>
-                    <Button id="sign-in" waves="light" /*onClick={}*/>Sign In</Button>
+                    <Button waves="light" id="sign-in" onClick={this.handleClick}>Sign In</Button>
                 </div>
             </div>
         );

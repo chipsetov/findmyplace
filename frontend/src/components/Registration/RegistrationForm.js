@@ -15,6 +15,10 @@ class RegistrationForm extends Component {
         }
     };
 
+    handleChange(key, value) {
+        this.setState({ [key]: value });
+    }
+
     render() {
         return (
             <div className="app-form">
@@ -25,7 +29,7 @@ class RegistrationForm extends Component {
                         type="text"
                         value={this.state.first_name}
                         placeholder="FIRST NAME"
-                        //onChange={}
+                        onChange={e => this.handleChange("first_name", e.target.value)}
                         s={12}
                     />
                 </Row>
@@ -35,7 +39,7 @@ class RegistrationForm extends Component {
                         type="text"
                         value={this.state.last_name}
                         placeholder="LAST NAME"
-                        //onChange={}
+                        onChange={e => this.handleChange("last_name", e.target.value)}
                         s={12}
                     />
                 </Row>
@@ -45,7 +49,7 @@ class RegistrationForm extends Component {
                         type="email"
                         value={this.state.email}
                         placeholder="EMAIL"
-                        //onChange={}
+                        onChange={e => this.handleChange("email", e.target.value)}
                         s={12}
                     />
                 </Row>
@@ -55,7 +59,7 @@ class RegistrationForm extends Component {
                         type="password"
                         value={this.state.password}
                         placeholder="PASSWORD"
-                        //onChange={}
+                        onChange={e => this.handleChange("password", e.target.value)}
                         s={12}
                     />
                 </Row>
@@ -65,7 +69,7 @@ class RegistrationForm extends Component {
                         type="password"
                         value={this.state.confirm_password}
                         placeholder="CONFIRM PASSWORD"
-                        //onChange={}
+                        onChange={e => this.handleChange("confirm_password", e.target.value)}
                         s={12}
                     />
                 </Row>
