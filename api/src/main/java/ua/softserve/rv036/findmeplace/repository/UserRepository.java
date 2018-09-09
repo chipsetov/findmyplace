@@ -1,4 +1,9 @@
 package ua.softserve.rv036.findmeplace.repository;
 
-public interface UserRepository {
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import ua.softserve.rv036.findmeplace.model.User;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByUsername(String username);
 }
