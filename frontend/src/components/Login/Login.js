@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Button } from 'react-materialize';
+import '../../styles/Form.css';
 
 class Login extends Component {
 
     render() {
         return (
-            <Button bsStyle="primary" bsSize="large" block>
+            <Button id="sign-up" bsSize="large" block>
                 Sign In
             </Button>
         );

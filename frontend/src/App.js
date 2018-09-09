@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import './App.css';
 import LoginForm from './components/Login/LoginForm.js';
 //import RegistrationForm from './components/Registration/RegistrationForm.js';
 //import AuthenticationBar from './components/Header/AuthenticationBar.js';

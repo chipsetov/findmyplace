@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Input, Button, Row } from 'react-materialize';
+import { Input, Row } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import Login from './Login.js';
 import '../../styles/Form.css';
 
 class LoginForm extends Component {
@@ -43,7 +44,7 @@ class LoginForm extends Component {
                 </Row>
                 <div className="confirm-row">
                     <Link className="forgot-password-link" to="/">Forgot password?</Link>
-                    <Button waves="light" id="sign-in" onClick={this.handleClick}>Sign In</Button>
+                    <Login/>
                 </div>
             </div>
         );
