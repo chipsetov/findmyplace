@@ -1,4 +1,10 @@
 package ua.softserve.rv036.findmeplace.model;
 
-public class PlaceType {
+public enum PlaceType {
+    HOTEL,
+    PARKING,
+    CAFE,
+    PUB,
+    RESTAURANT
+    //etc
 }
