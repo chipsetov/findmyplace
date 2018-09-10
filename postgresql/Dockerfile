@@ -1,4 +1,4 @@
-FROM postgres:9.6-alpine
+FROM postgres:9.6
 
 ENV POSTGRES_USER developer
 ENV POSTGRES_PASSWORD repoleved
