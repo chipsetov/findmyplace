@@ -23,15 +23,21 @@ public class PlaceController {
         return placeRepository.findAll();
     }
 
+    @GetMapping("/placeByType")
+    public Iterable<Place> placesByType() {
+        return placeRepository.findByPlaceType(PlaceType.CAFE);
+    }
+
     @GetMapping("/insert")
     public void insert() {
-        Place place = new Place("TestName",
-                new PlaceType("TestType", "Test"),
-                "Address",
-                "description",
-                1,
-                new Time(8, 0, 0),
-                new Time(17, 0, 0));
+        Place place = new Place();
+        place.setName("TestName");
+        place.setAddress("TestAddress");
+        place.setOpen(new Time(8, 0, 0));
+        place.setClose(new Time(17, 0, 0));
+        place.setDescription("testDescription");
+        place.setCountFreePlaces(10);
+        place.setPlaceType(PlaceType.CAFE);
 
         placeRepository.save(place);
     }
