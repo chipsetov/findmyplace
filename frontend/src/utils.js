@@ -1,0 +1,1 @@
+export const emailValidation = email => /\S+@\S+\.\S+/.test(email);
