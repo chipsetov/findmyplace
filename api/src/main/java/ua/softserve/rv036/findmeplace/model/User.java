@@ -1,6 +1,5 @@
 package ua.softserve.rv036.findmeplace.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.NaturalId;
@@ -14,7 +13,6 @@ import java.util.Collection;
 
 @Data
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "Users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"nick_name"}),
         @UniqueConstraint(columnNames = {"email"})

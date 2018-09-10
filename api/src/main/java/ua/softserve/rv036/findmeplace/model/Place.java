@@ -11,30 +11,35 @@ import java.sql.Time;
 @Entity
 @Table(name = "Places")
 public class Place {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "count_free_places")
     private Integer countFreePlaces;
 
     @NotBlank
     private String name;
+
     @NotBlank
     private String address;
+
     @NotBlank
     private String description;
+
     @NotNull
     private Time open;
+
     @NotNull
     private Time close;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "place_type")
     private PlaceType placeType;
-//    @NotNull
-//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private PlaceType placeType;
 
-    //@NotNull
-    //@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //private User owner;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
 }
