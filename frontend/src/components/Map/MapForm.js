@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet'
 import '../../styles/Form.css';
 
+
+
 export default class MapForm extends Component {
     state = {
         lat: 51.505,
