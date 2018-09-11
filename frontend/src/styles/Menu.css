@@ -1,0 +1,81 @@
+.container {
+    background-color: rgba(0 ,0 ,0 ,0.3);
+    max-width: 100%;
+}
+
+.menu-bar {
+    position:relative;
+    margin: 0 1% 40px;
+    display: flex;
+    vertical-align: baseline;
+}
+
+.logo-wrapper {
+    margin: 0 30px 0 20px;
+    float: left;
+}
+
+.logo-wrapper .logo {
+    display: block;
+    padding: 10px 0;
+    text-decoration: none;
+    height: 70px;
+    line-height: 70px;
+}
+
+.logo-wrapper .logo img {
+    width: 140px;
+    max-height: 100%;
+}
+
+.menu-wrapper .menu {
+    margin: 0;
+    padding: 0;
+    float: left;
+    position: relative;
+    list-style: none;
+}
+
+.menu-wrapper .menu li {
+    margin: 0;
+    float: left;
+    display: block;
+    position: relative;
+    vertical-align: baseline;
+}
+
+.menu-wrapper .menu li a {
+    display: block;
+    line-height: 70px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.menu-wrapper .menu li a:hover, .auth-block #auth-sign-in:hover {
+    color: #e23c52;
+}
+
+.menu-wrapper .menu #auth-bar {
+    float: right;
+}
+
+.menu-wrapper .menu .auth-bar .auth-block button {
+    font-family: sans-serif;
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #1d2120;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.auth-block #auth-sign-in {
+    background: none;
+}
+
+.brand-logo, .side-nav, .button-collapse {
+    display: none;
+}
+

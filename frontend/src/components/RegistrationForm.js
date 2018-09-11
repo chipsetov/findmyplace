@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Input, Button, Row } from 'react-materialize';
-import '../../styles/Form.css';
+import '../styles/Form.css';
 
 class RegistrationForm extends Component {
 
