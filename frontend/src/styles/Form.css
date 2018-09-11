@@ -54,10 +54,16 @@
     color: #e9ece5;
 }
 
-.app-form .confirm-row #sign-in {
-    background-color: #1d2120;
+.app-form .confirm-row .forgot-password-link {
+    padding: 5px;
+    margin: 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #e9ece5;
 }
 
 .app-form .confirm-row #sign-up {
     background-color: #1d2120;
 }
+
+#mapid { height: 180px; }
