@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Carousel } from 'react-materialize';
+import '../../styles/PlacePage.css';
+import ButtonsBlock from "./ButtonsBlock";
 
 class PlacePage extends Component {
 
@@ -12,7 +15,6 @@ class PlacePage extends Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result)
                     this.setState({
                         place: result
                     });
@@ -26,12 +28,27 @@ class PlacePage extends Component {
 
         return (
             <div>
-                <h1>Name: {place.name}</h1>
-                <h2>Address: {place.address}</h2>
-                <h2>Description: {place.description}</h2>
-                <h2>Free places: {place.countFreePlaces}</h2>
-                <h2>Open time: {place.open}</h2>
-                <h2>Close time: {place.close}</h2>
+
+                <Carousel
+                    fixedItem={
+                        <div>
+                            <h2 className="name">{place.name}</h2>
+                            <h4>{place.address}</h4>
+                        </div>
+                    }
+                    options={{
+                        fullWidth: true,
+                        indicators: true }}
+                    images={[
+                    '../img/background.jpg',
+                    '../img/background1.jpg'
+                ]} />
+
+                <ButtonsBlock/>
+                {/*<h2>Description: {place.description}</h2>*/}
+                {/*<h2>Free places: {place.countFreePlaces}</h2>*/}
+                {/*<h2>Open time: {place.open}</h2>*/}
+                {/*<h2>Close time: {place.close}</h2>*/}
             </div>
         );
     }
