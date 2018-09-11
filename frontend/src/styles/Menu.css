@@ -4,23 +4,32 @@
 }
 
 .menu-bar {
-    position:relative;
+    position: relative;
     margin: 0 1% 40px;
     display: flex;
     vertical-align: baseline;
 }
 
+.menu-wrapper .menu, .menu-wrapper .menu li {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.logo-wrapper, .menu-wrapper .menu li {
+    float: left;
+}
+
 .logo-wrapper {
     margin: 0 30px 0 20px;
-    float: left;
 }
 
 .logo-wrapper .logo {
     display: block;
     padding: 10px 0;
-    text-decoration: none;
     height: 70px;
     line-height: 70px;
+    text-decoration: none;
 }
 
 .logo-wrapper .logo img {
@@ -28,26 +37,14 @@
     max-height: 100%;
 }
 
-.menu-wrapper .menu {
-    margin: 0;
-    padding: 0;
-    float: left;
-    position: relative;
-    list-style: none;
-}
-
-.menu-wrapper .menu li {
-    margin: 0;
-    float: left;
-    display: block;
-    position: relative;
-    vertical-align: baseline;
+.menu-wrapper {
+    flex: 1;
 }
 
 .menu-wrapper .menu li a {
-    display: block;
-    line-height: 70px;
     padding: 10px 20px;
+    line-height: 70px;
+    display: block;
     text-decoration: none;
     color: #fff;
 }
@@ -56,8 +53,8 @@
     color: #e23c52;
 }
 
-.menu-wrapper .menu #auth-bar {
-    float: right;
+.menu-wrapper .menu .auth-bar {
+    float:right;
 }
 
 .menu-wrapper .menu .auth-bar .auth-block button {
