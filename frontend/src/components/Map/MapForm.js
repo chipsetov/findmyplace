@@ -1,33 +1,45 @@
 import React, {Component} from 'react';
-import {Map, Marker, Popup, TileLayer} from 'react-leaflet'
+import { Input, Row, Button } from 'react-materialize';
+//import { Link } from 'react-router-dom';
+import MapLayout from './MapLayout.js';
 import '../../styles/Map.css';
 
 
 
 export default class MapForm extends Component {
-    state = {
-        lat: 51.505,
-        lng: -0.09,
-        zoom: 13,
+
+    constructor (props) {
+        super(props);
+        this.state = {
+            place_name: '',
+        }
+    };
+    handleChange(key, value) {
+        this.setState({ [key]: value });
     }
 
     render() {
-        const position = [this.state.lat, this.state.lng]
-        return (
-            <div id="mapid">
-                <Map center={position} zoom={this.state.zoom}>
-                    <TileLayer
-                        attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <Marker position={position}>
-                        <Popup>
-                            A pretty CSS3 popup. <br/> Easily customizable.
-                        </Popup>
-                    </Marker>
-                </Map>
+        return(
+            <div className="main-map-form">
+                <div className="filter-form">
+                    <Row>
+                        <div className="confirm-row">
+                            <Input
+                                id="place_name"
+                                type="text"
+                                value={this.state.place_name}
+                                placeholder="What are you looking for?"
+                                onChange={e => this.handleChange("place_name", e.target.value)}
+                            />
+                            <Button id="search" waves="light" /*onClick={}*/>Search</Button>
+                        </div>
+                    </Row>
+                </div>
+                <div className="map-form">
+                    <MapLayout/>
+                </div>
             </div>
-
-        )
+        );
     }
+
 }
