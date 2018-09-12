@@ -3,7 +3,6 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 //import LoginForm from './components/LoginForm.js';
 //import RegistrationForm from './components/RegistrationForm.js';
-//import AuthenticationBar from './components/AuthenticationBar.js';
 import Menu from './components/Menu.js';
 
 

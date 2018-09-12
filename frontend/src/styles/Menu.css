@@ -49,15 +49,15 @@
     color: #fff;
 }
 
-.menu-wrapper .menu li a:hover, .auth-block #auth-sign-in:hover {
+.menu-wrapper .menu li a:hover, .menu-wrapper .menu #auth-sign-up button:hover {
     color: #e23c52;
 }
 
-.menu-wrapper .menu .auth-bar {
+.menu-wrapper .menu #auth-sign-in, .menu-wrapper .menu #auth-sign-up {
     float:right;
 }
 
-.menu-wrapper .menu .auth-bar .auth-block button {
+.menu-wrapper .menu #auth-sign-up button {
     font-family: sans-serif;
     font-size: 16px;
     padding: 10px 20px;
@@ -66,10 +66,6 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.auth-block #auth-sign-in {
-    background: none;
 }
 
 .brand-logo, .side-nav, .button-collapse {

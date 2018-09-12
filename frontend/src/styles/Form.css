@@ -3,6 +3,7 @@
     padding: 30px 0;
     position: absolute;
     text-align: center;
+    font-family: 'Nunito', sans-serif;
     background-color: rgba(0, 0, 0, 0.50);
     border-radius: 3px;
     margin: 300px 0 0 1150px;
@@ -14,7 +15,6 @@
     font-size: 26px;
     color: #fff;
     font-weight: 400;
-    font-family: 'Nunito', sans-serif;
 }
 
 .app-form input {
@@ -38,7 +38,6 @@
     padding: 12px;
     font-size: 17px;
     font-weight: 300;
-    font-family: 'Nunito', sans-serif;
     text-transform: uppercase;
     border: none;
     border-radius: 4px;
@@ -47,8 +46,8 @@
 }
 
 .app-form .confirm-row .forgot-password-link {
-    padding: 5px;
     margin: 20px;
+    padding: 5px;
     font-size: 16px;
     text-decoration: none;
     color: #e9ece5;
