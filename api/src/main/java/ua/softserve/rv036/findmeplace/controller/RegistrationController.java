@@ -1,3 +1,4 @@
+/*
 package ua.softserve.rv036.findmeplace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,3 +40,4 @@ public class RegistrationController {
     }
 
 }
+*/
