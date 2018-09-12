@@ -30,7 +30,27 @@
     color: #fff;
     background-color: rgba(0, 0, 0, 0.20);
 }
+.filter-form .select-form {
+    float:left;
+    width: 55%;
+    padding: 9px 5px 7px 9px;
+    margin: 10px 10px 5px 20px;
+    font-size: 15px;
+    text-align: center;
+    border: 1px solid #edd9c0;
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.20);
+}
 
+.filter-form .place-row {
+    float:bottom;
+    padding: 9px 5px 7px 9px;
+    margin: 10px 10px 5px 20px;
+    text-align: center;
+    border: 1px solid #edd9c0;
+    border-radius: 4px;
+}
 
 .filter-form .btn {
     width: 25%;
@@ -44,10 +64,13 @@
     border-radius: 4px;
     cursor: pointer;
     color: #edd9c0;
+    background-color: #1d2120;
 }
 
-.filter-form #search {
-    background-color: #1d2120;
+
+
+input::placeholder {
+    color: #040104;
 }
 
 

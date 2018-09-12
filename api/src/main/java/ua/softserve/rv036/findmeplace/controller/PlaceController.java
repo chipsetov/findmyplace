@@ -17,7 +17,7 @@ public class PlaceController {
     @Autowired
     private PlaceRepository placeRepository;
 
-    @GetMapping("/places")
+    @GetMapping("/map")
     List<Place> getPlace() {
         return placeRepository.findAll();
     }
