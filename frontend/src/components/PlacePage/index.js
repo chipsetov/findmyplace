@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Carousel } from 'react-materialize';
 import '../../styles/PlacePage.css';
-import ButtonsBlock from "./ButtonsBlock";
+import ButtonsBlock from './ButtonsBlock.js';
+import ReviewsBlock from './ReviewsBlock.js';
 
 class PlacePage extends Component {
 
@@ -43,8 +44,9 @@ class PlacePage extends Component {
                     '../img/background.jpg',
                     '../img/background1.jpg'
                 ]} />
-
                 <ButtonsBlock/>
+                <ReviewsBlock placeId={this.props.placeId}/>
+
                 {/*<h2>Description: {place.description}</h2>*/}
                 {/*<h2>Free places: {place.countFreePlaces}</h2>*/}
                 {/*<h2>Open time: {place.open}</h2>*/}

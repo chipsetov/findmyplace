@@ -35,7 +35,9 @@ INSERT INTO Places (id, name, address, description, count_free_places, open, clo
     VALUES (4, 'MAC', 'Rivne 4', 'best restaurant', 15, '09:00:00', '23:00:00', 'RESTAURANT', 4);
 
 INSERT INTO Feedbacks (id, user_id, place_id, comment, mark)
-    VALUES (1, 1, 1, 'Very well', 10);
+    VALUES (1, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' ||
+     'incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation' ||
+      ' ullamco laboris nisi ut aliquip ex ea commodo consequat.', 10);
 
 INSERT INTO Feedbacks (id, user_id, place_id, comment, mark)
     VALUES (2, 2, 1, 'Very bad place', 2);
