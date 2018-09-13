@@ -9,15 +9,15 @@ class Menu extends Component {
             <div className="menu-container">
                 <div className="menu-wrapper">
                     <Navbar brand="logo" className="menu" right>
-                        <NavItem href=''>Home</NavItem>
-                        <NavItem href=''>Map</NavItem>
-                        <NavItem href=''>About us</NavItem>
-                        <NavItem href='' id="auth-sign-up">
+                        <NavItem href='#/'>Home</NavItem>
+                        <NavItem href='#/map'>Map</NavItem>
+                        <NavItem href='#about'>About us</NavItem>
+                        <NavItem href='#/signup' id="auth-sign-up">
                             <Button waves="light">
                                 Sign Up
                             </Button>
                         </NavItem>
-                        <NavItem href='' id="auth-sign-in">Sign In</NavItem>
+                        <NavItem href='#/signin' id="auth-sign-in">Sign In</NavItem>
                     </Navbar>
                 </div>
             </div>

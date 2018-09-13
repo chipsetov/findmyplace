@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
+import Routes from './components/Routes';
 import './App.css';
 //import LoginForm from './components/LoginForm.js';
 //import RegistrationForm from './components/RegistrationForm.js';
@@ -10,11 +11,12 @@ class App extends Component {
 
     render() {
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div className="app">
                     <Menu />
+                    <Routes />
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 
