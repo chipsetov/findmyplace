@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Review from "./Review";
+import { Row } from 'react-materialize';
 
 class ReviewsBlock extends Component {
 
@@ -26,7 +27,8 @@ class ReviewsBlock extends Component {
         const reviews = this.state.reviews;
 
         return(
-            <div>
+            <Row className="reviews-container">
+                <h1>Reviews</h1>
                 { reviews.map(item => (
                     <Review key={item.feedbackOwner.nickName}
                             ownerName={item.feedbackOwner.nickName}
@@ -34,7 +36,7 @@ class ReviewsBlock extends Component {
                             comment={item.comment}
                             mark={item.mark}/>
                 ))}
-            </div>
+            </Row>
         );
     }
 }

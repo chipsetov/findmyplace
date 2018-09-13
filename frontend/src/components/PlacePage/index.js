@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Carousel } from 'react-materialize';
+import { Row } from 'react-materialize';
 import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
+import Info from './Info.js';
+import Menu from "../Menu";
 
 class PlacePage extends Component {
 
@@ -28,28 +30,20 @@ class PlacePage extends Component {
         const place = this.state.place;
 
         return (
-            <div>
-                <Carousel
-                    fixedItem={
-                        <div>
-                            <h2 className="name">{place.name}</h2>
-                            <h4>{place.address}</h4>
-                        </div>
-                    }
-                    options={{
-                        fullWidth: true,
-                        indicators: true }}
-                    images={[
-                    '../img/background.jpg',
-                    '../img/background1.jpg'
-                ]} />
-                <ButtonsBlock/>
-                <ReviewsBlock placeId={this.props.match.params.placeId}/>
-
-                {/*<h2>Description: {place.description}</h2>*/}
-                {/*<h2>Free places: {place.countFreePlaces}</h2>*/}
-                {/*<h2>Open time: {place.open}</h2>*/}
-                {/*<h2>Close time: {place.close}</h2>*/}
+            <div className="place-page">
+                <Menu/>
+                <div className="content-container">
+                    <Row className="place-header">
+                        <h2>{place.name}</h2>
+                        <h2>{place.address}</h2>
+                    </Row>
+                    <ButtonsBlock/>
+                    <Info openTime={place.open}
+                          closeTime={place.close}
+                          freePlaces={place.countFreePlaces}
+                          description={place.description}/>
+                    <ReviewsBlock placeId={this.props.match.params.placeId}/>
+                </div>
             </div>
         );
     }

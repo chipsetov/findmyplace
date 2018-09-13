@@ -13,7 +13,7 @@ class App extends Component {
         return (
             <HashRouter>
                 <div className="app">
-                    <Menu />
+                    {/*<Menu />*/}
                     <Routes />
                 </div>
             </HashRouter>

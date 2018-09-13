@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'react-materialize';
+import {Row, Col, CardPanel} from 'react-materialize';
 
 class Review extends Component {
 
     render() {
         return(
-            <div>
+            <CardPanel className="card-panel blue-grey lighten-5">
                 <Row className="center">
-                    <Col>
+                    <Col s={1}>
                         <p>{this.props.ownerName}</p>
                         <img src={this.props.avatar}/>
                     </Col>
-                    <Col>
+                    <Col s={10}>
                         <p>{this.props.comment}</p>
                     </Col>
-                    <Col>
-                        <p>{this.props.mark}</p>
+                    <Col s={1}>
+                        <h1>{this.props.mark}</h1>
                     </Col>
                 </Row>
-            </div>
+            </CardPanel>
         );
     }
 
