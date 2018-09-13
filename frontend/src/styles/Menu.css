@@ -55,7 +55,8 @@
 
 .menu-wrapper .menu #auth-sign-in,
 .menu-wrapper .menu #auth-sign-up,
-.menu-wrapper .menu #auth-sign-out {
+.menu-wrapper .menu #auth-sign-out,
+.menu-wrapper .menu #search {
     float:right;
 }
 
@@ -64,6 +65,18 @@
     letter-spacing: 0px;
     background-color: #1d2120;
     border-radius: 4px;
+}
+
+.menu-wrapper .menu #search {
+    font-size: 26px;
+    height: 70px;
+    line-height: 70px;
+}
+
+.menu-wrapper .menu #search i {
+    font-size: 26px;
+    height: 70px;
+    line-height: 70px;
 }
 
 .hidden {

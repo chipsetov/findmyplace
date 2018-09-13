@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Navbar, NavItem, Button } from 'react-materialize';
+import { Navbar, NavItem, Button, Icon } from 'react-materialize';
 import { withRouter } from 'react-router-dom';
 import Logout from './Logout';
 import '../styles/Menu.css';
-import {LOGIN_CHANGED, Session} from "../utils";
+import { LOGIN_CHANGED, Session } from "../utils";
 
 class Menu extends Component {
 
@@ -17,6 +17,10 @@ class Menu extends Component {
                 this.props.history.push('/');
             }
         });
+    }
+
+    onLogoutHandler() {
+        Session.logout();
     }
 
     render() {
@@ -39,14 +43,11 @@ class Menu extends Component {
                         <NavItem href='#/sign-in' id="auth-sign-in" className={isLoggedIn ? "hidden" : ""}>
                             Sign In
                         </NavItem>
+                        <NavItem href='' id="search"><Icon>search</Icon></NavItem>
                     </Navbar>
                 </div>
             </div>
         );
-    }
-
-    onLogoutHandler() {
-        Session.logout();
     }
 
 }

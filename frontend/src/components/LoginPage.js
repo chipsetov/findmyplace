@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import LoginForm from "./LoginForm";
-import {Session} from "../utils";
+import { Session } from "../utils";
 
 class LoginPage extends Component {
+
     componentWillMount() {
         if (Session.isLoggedIn()) {
             this.props.history.push('/');
@@ -18,4 +19,4 @@ class LoginPage extends Component {
 
 }
 
-export default withRouter(LoginPage)
+export default withRouter(LoginPage);

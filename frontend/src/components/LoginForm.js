@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Input, Button, Row } from 'react-materialize';
 import { Link } from 'react-router-dom';
 import '../styles/Form.css';
-import {emailValidation, Session} from "../utils";
+import { emailValidation, Session } from "../utils";
 
 class LoginForm extends Component {
 

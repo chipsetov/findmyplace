@@ -55,6 +55,7 @@
     color: #e9ece5;
 }
 
-.app-form .confirm-row #sign-in, .app-form .confirm-row #sign-up {
+.app-form .confirm-row #sign-in,
+.app-form .confirm-row #sign-up {
     background-color: #1d2120;
 }

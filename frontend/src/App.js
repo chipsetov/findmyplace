@@ -4,7 +4,8 @@ import Routes from './components/Routes';
 import './App.css';
 //import LoginForm from './components/LoginForm.js';
 //import RegistrationForm from './components/RegistrationForm.js';
-import Menu from './components/Menu.js';
+//import Menu from './components/Menu.js';
+import HomePage from './components/HomePage.js';
 
 
 class App extends Component {
@@ -13,7 +14,7 @@ class App extends Component {
         return (
             <HashRouter>
                 <div className="app">
-                    <Menu />
+                    <HomePage />
                     <Routes />
                 </div>
             </HashRouter>
