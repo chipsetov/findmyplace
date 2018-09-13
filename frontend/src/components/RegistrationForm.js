@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Input, Button, Row } from 'react-materialize';
-import '../../styles/Form.css';
+import '../styles/Form.css';
 
 class RegistrationForm extends Component {
 
@@ -73,7 +73,7 @@ class RegistrationForm extends Component {
                         s={12}
                     />
                 </Row>
-                <div class="confirm-row">
+                <div className="confirm-row">
                     <Button id="sign-up" waves="light" /*onClick={}*/>Sign Up</Button>
                 </div>
             </div>

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Input, Row } from 'react-materialize';
+import { Input, Button, Row } from 'react-materialize';
 import { Link } from 'react-router-dom';
-import Login from './Login.js';
-import '../../styles/Form.css';
+import '../styles/Form.css';
 
 class LoginForm extends Component {
 
@@ -17,6 +16,8 @@ class LoginForm extends Component {
     handleChange(key, value) {
         this.setState({ [key]: value });
     }
+
+    login = (e) => {}
 
     render() {
         return (
@@ -44,7 +45,9 @@ class LoginForm extends Component {
                 </Row>
                 <div className="confirm-row">
                     <Link className="forgot-password-link" to="/">Forgot password?</Link>
-                    <Login/>
+                    <Button waves="light" id="sign-in" onClick={this.login}>
+                        Sign In
+                    </Button>
                 </div>
             </div>
         );
