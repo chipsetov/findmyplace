@@ -5,8 +5,17 @@ import '../styles/Menu.css';
 import Logout from './Logout/Logout';
 
 class Menu extends Component {
+    constructor(options) {
+        super(options);
+
+        this.state = {
+            isLoggedIn: true
+        };
+    }
 
     render() {
+        const isLoggedIn = this.state.isLoggedIn;
+
         return (
             <div className="menu-container">
                 <div className="menu-wrapper">
@@ -14,17 +23,37 @@ class Menu extends Component {
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#about'>About us</NavItem>
-                        <Logout />
-                        <NavItem href='#/signup' id="auth-sign-up">
+                        <Logout
+                            isLoggedIn={this.state.isLoggedIn}
+                            logout={this.onLogoutHandler.bind(this)}
+                        />
+
+                        <NavItem className={isLoggedIn ? "hidden" : ""}
+                                 href='#/signup'
+                                 id="auth-sign-up">
+
                             <Button waves="light">
                                 Sign Up
                             </Button>
                         </NavItem>
-                        <NavItem href='#/signin' id="auth-sign-in">Sign In</NavItem>
+
+                        <NavItem
+                            className={isLoggedIn ? "hidden" : ""}
+                            href='#/signin'
+                            id="auth-sign-in">
+
+                            Sign In
+                        </NavItem>
                     </Navbar>
                 </div>
             </div>
         );
+    }
+
+    onLogoutHandler() {
+        this.setState({
+            isLoggedIn: false
+        });
     }
 
 }
