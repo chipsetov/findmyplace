@@ -5,8 +5,6 @@
 
 .logout a{
     padding: 10px 0px!important;
-
-    /*flex*/
     display: flex!important;
     align-items: center;
     justify-content: center;
