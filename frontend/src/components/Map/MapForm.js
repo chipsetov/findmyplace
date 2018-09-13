@@ -62,7 +62,7 @@ export default class MapForm extends Component {
                     ))}
                 </div>
                 <div className="map-form">
-                    <MapLayout/>
+                    <MapLayout items={this.state.places}/>
                 </div>
             </div>
         );

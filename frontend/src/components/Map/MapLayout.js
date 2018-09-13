@@ -12,6 +12,7 @@ export default class MapLayout extends Component {
     }
 
     render() {
+        console.log('items', this.props.items);
         const position = [this.state.lat, this.state.lng]
         return (
             <div id="mapid">
@@ -21,9 +22,11 @@ export default class MapLayout extends Component {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <Marker position={position}>
-                        <Popup>
-                            This app starts here.
+                        {this.props.items.map(place => (
+                        <Popup key={place.id}>
+                            {place.id}
                         </Popup>
+                            ))}
                     </Marker>
                 </Map>
             </div>
