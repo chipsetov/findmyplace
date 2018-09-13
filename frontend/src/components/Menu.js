@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Navbar, NavItem, Button } from 'react-materialize';
 import '../styles/Menu.css';
 
+import Logout from './Logout/Logout';
+
 class Menu extends Component {
 
     render() {
@@ -12,6 +14,7 @@ class Menu extends Component {
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#about'>About us</NavItem>
+                        <Logout />
                         <NavItem href='#/signup' id="auth-sign-up">
                             <Button waves="light">
                                 Sign Up
