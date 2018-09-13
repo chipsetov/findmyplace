@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter as BrowserRouter } from 'react-router-dom';
 import './App.css';
 //import LoginForm from './components/LoginForm.js';
 //import RegistrationForm from './components/RegistrationForm.js';
+
 import Menu from './components/Menu.js';
+import Routes from "./components/Route/Routes";
 
 
 class App extends Component {
@@ -13,6 +15,7 @@ class App extends Component {
             <BrowserRouter>
                 <div className="app">
                     <Menu />
+                    <Routes/>
                 </div>
             </BrowserRouter>
         );

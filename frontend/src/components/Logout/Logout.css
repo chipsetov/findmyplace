@@ -1,0 +1,10 @@
+.logout img {
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.logout a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
