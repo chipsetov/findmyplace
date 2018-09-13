@@ -12,7 +12,7 @@ class PlacePage extends Component {
     }
 
     componentDidMount() {
-        fetch("/places/" + this.props.placeId)
+        fetch("/places/" + this.props.match.params.placeId)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -29,7 +29,6 @@ class PlacePage extends Component {
 
         return (
             <div>
-
                 <Carousel
                     fixedItem={
                         <div>
@@ -45,7 +44,7 @@ class PlacePage extends Component {
                     '../img/background1.jpg'
                 ]} />
                 <ButtonsBlock/>
-                <ReviewsBlock placeId={this.props.placeId}/>
+                <ReviewsBlock placeId={this.props.match.params.placeId}/>
 
                 {/*<h2>Description: {place.description}</h2>*/}
                 {/*<h2>Free places: {place.countFreePlaces}</h2>*/}
