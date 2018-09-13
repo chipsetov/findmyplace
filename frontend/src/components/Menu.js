@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import { Navbar, NavItem, Button } from 'react-materialize';
+import { withRouter } from 'react-router-dom';
 import Logout from './Logout';
 import '../styles/Menu.css';
+import {LOGIN_CHANGED, Session} from "../utils";
 
 class Menu extends Component {
 
     constructor(options) {
         super(options);
 
-        this.state = {
-            isLoggedIn: true
-        };
+        window.addEventListener(LOGIN_CHANGED, () => {
+            this.forceUpdate();
+
+            if (Session.isLoggedIn()) {
+                this.props.history.push('/');
+            }
+        });
     }
 
     render() {
-        const isLoggedIn = this.state.isLoggedIn;
+        const isLoggedIn = Session.isLoggedIn();
 
         return (
             <div className="menu-container">
@@ -23,7 +29,7 @@ class Menu extends Component {
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#about'>About us</NavItem>
-                        <Logout isLoggedIn={this.state.isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
+                        <Logout isLoggedIn={isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
                         <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>
                             <Button waves="light">
                                 Sign Up
@@ -40,11 +46,9 @@ class Menu extends Component {
     }
 
     onLogoutHandler() {
-        this.setState({
-            isLoggedIn: false
-        });
+        Session.logout();
     }
 
 }
 
-export default Menu;
+export default withRouter(Menu);

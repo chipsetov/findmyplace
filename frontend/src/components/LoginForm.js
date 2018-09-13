@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Input, Button, Row } from 'react-materialize';
 import { Link } from 'react-router-dom';
 import '../styles/Form.css';
+import {emailValidation, Session} from "../utils";
 
 class LoginForm extends Component {
 
@@ -17,7 +18,13 @@ class LoginForm extends Component {
         this.setState({ [key]: value });
     }
 
-    login = (e) => {}
+    login = (e) => {
+        if (emailValidation(this.state.email)) {
+            Session.login("1");
+        } else {
+            alert("Your email isn't valid");
+        }
+    };
 
     render() {
         return (
