@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 
