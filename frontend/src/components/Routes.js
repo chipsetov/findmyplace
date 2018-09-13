@@ -4,7 +4,7 @@ import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 
 
-export  default class App extends Component {
+export  default class Routes extends Component {
 
     render() {
         return (
