@@ -1,10 +1,10 @@
 .logout img {
-    margin-right: 10px;
+    margin-right: 20px;
     border-radius: 50%;
 }
 
-.logout a{
-    padding: 10px 0px!important;
+.logout a {
+    padding: 10px 0px !important;
     display: flex!important;
     align-items: center;
     justify-content: center;

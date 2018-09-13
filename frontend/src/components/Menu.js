@@ -23,20 +23,14 @@ class Menu extends Component {
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#about'>About us</NavItem>
-                        <Logout isLoggedIn={this.state.isLoggedIn} logout={this.onLogoutHandler.bind(this)} />
-                        <NavItem className={isLoggedIn ? "hidden" : ""}
-                                 href='#/signup'
-                                 id="auth-sign-up">
-
+                        <Logout isLoggedIn={this.state.isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
+                        <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>
                             <Button waves="light">
                                 Sign Up
                             </Button>
                         </NavItem>
 
-                        <NavItem className={isLoggedIn ? "hidden" : ""}
-                                 href='#/signin'
-                                 id="auth-sign-in">
-
+                        <NavItem href='#/sign-in' id="auth-sign-in" className={isLoggedIn ? "hidden" : ""}>
                             Sign In
                         </NavItem>
                     </Navbar>

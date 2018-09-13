@@ -6,7 +6,7 @@
     font-family: 'Nunito', sans-serif;
     background-color: rgba(0, 0, 0, 0.50);
     border-radius: 3px;
-    margin: 300px 0 0 1150px;
+    margin: 100px 0 0 1200px;
 }
 
 .app-form .row {
@@ -55,6 +55,6 @@
     color: #e9ece5;
 }
 
-.app-form .confirm-row #sign-in, .app-form .confirm-row #sign-up{
+.app-form .confirm-row #sign-in, .app-form .confirm-row #sign-up {
     background-color: #1d2120;
 }

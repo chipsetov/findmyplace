@@ -9,8 +9,8 @@ export  default class Routes extends Component {
     render() {
         return (
             <div>
-                <Route path="/signin" component={LoginForm}/>
-                <Route path="/signup" component={RegistrationForm}/>
+                <Route path="/sign-in" component={LoginForm}/>
+                <Route path="/sign-up" component={RegistrationForm}/>
             </div>
         );
     }

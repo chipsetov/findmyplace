@@ -53,7 +53,9 @@
     color: #e23c52;
 }
 
-.menu-wrapper .menu #auth-sign-in, .menu-wrapper .menu #auth-sign-up {
+.menu-wrapper .menu #auth-sign-in,
+.menu-wrapper .menu #auth-sign-up,
+.menu-wrapper .menu #auth-sign-out {
     float:right;
 }
 
@@ -65,5 +67,5 @@
 }
 
 .hidden {
-    display: none!important;
+    display: none !important;
 }
