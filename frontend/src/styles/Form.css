@@ -3,9 +3,14 @@
     padding: 30px 0;
     position: absolute;
     text-align: center;
+    font-family: 'Nunito', sans-serif;
     background-color: rgba(0, 0, 0, 0.50);
     border-radius: 3px;
     margin: 300px 0 0 1150px;
+}
+
+.app-form .row {
+    margin-bottom: 0px;
 }
 
 .app-form h2 {
@@ -14,17 +19,16 @@
     font-size: 26px;
     color: #fff;
     font-weight: 400;
-    font-family: 'Nunito', sans-serif;
 }
 
 .app-form input {
     width: 70%;
     padding: 10px 40px 10px 10px;
+    height: 2rem;
     margin-bottom: 15px;
     font-size: 20px;
     border: 1px solid #edd9c0;
     border-radius: 4px;
-    color: #fff;
     background-color: rgba(0, 0, 0, 0.20);
 }
 
@@ -35,29 +39,22 @@
 
 .app-form .confirm-row .btn {
     width: 50%;
-    padding: 12px;
     font-size: 17px;
-    font-weight: 300;
-    font-family: 'Nunito', sans-serif;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
     color: #edd9c0;
+    text-transform: none;
+    letter-spacing: 0px;
+    background-color: #1d2120;
+    border-radius: 4px;
 }
 
 .app-form .confirm-row .forgot-password-link {
-    padding: 5px;
     margin: 20px;
+    padding: 5px;
     font-size: 16px;
     text-decoration: none;
     color: #e9ece5;
 }
 
-.app-form .confirm-row #sign-in {
-    background-color: #1d2120;
-}
-
-.app-form .confirm-row #sign-up {
+.app-form .confirm-row #sign-in, .app-form .confirm-row #sign-up{
     background-color: #1d2120;
 }

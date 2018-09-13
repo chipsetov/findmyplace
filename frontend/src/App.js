@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
+import Routes from './components/Routes';
 import './App.css';
-import LoginForm from './components/Login/LoginForm.js';
-//import RegistrationForm from './components/Registration/RegistrationForm.js';
-//import AuthenticationBar from './components/Header/AuthenticationBar.js';
+//import LoginForm from './components/LoginForm.js';
+//import RegistrationForm from './components/RegistrationForm.js';
+import Menu from './components/Menu.js';
 
 
 class App extends Component {
 
     render() {
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div className="app">
-                    <LoginForm/>
+                    <Menu />
+                    <Routes />
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 
