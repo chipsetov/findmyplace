@@ -25,23 +25,23 @@ public class User extends DateAudit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-   // @NotBlank
+    @NotBlank
     @Column(name = "f_name")
     private String firstName;
 
-   // @NotBlank
+    @NotBlank
     @Column(name = "l_name")
     private String lastName;
 
-  //  @NotBlank
+    @NotBlank
     private String phone;
 
     @NaturalId
-   // @NotBlank
-   // @Email
+    @NotBlank
+    @Email
     private String email;
 
-   // @NotBlank
+    @NotBlank
     @Column(name = "nick_name")
     private String nickName;
 
@@ -61,13 +61,6 @@ public class User extends DateAudit {
     @JoinColumn(name = "status")
     private BanStatus banStatus;
 
-    @CreationTimestamp
-    @Column(name = "registration_date")
-    private LocalDateTime registrationDate;
-
-    @UpdateTimestamp
-    @Column(name = "last_update_date")
-    private LocalDateTime lastUpdateDate;
 
     public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank @Email String email, @NotBlank String nickName, @NotBlank String password) {
         this.firstName = firstName;
