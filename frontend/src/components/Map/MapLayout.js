@@ -6,14 +6,12 @@ import '../../styles/Map.css';
 export default class MapLayout extends Component {
 
     state = {
-        lat: this.props.latitude,
-        lng: this.props.longitude,
         zoom: 15,
     }
 
     render() {
         console.log('items', this.props.items);
-        const position = [this.state.lat, this.state.lng]
+        const position = [this.props.latitude, this.props.longitude]
         return (
             <div id="mapid">
                 <Map center={position} zoom={this.state.zoom}>
@@ -23,7 +21,7 @@ export default class MapLayout extends Component {
                     />
                     {this.props.items.map(place => (
                         <Marker position={[place.latitude, place.longitude]}>
-                            <Popup key={place.id}>
+                            <Popup key={place.name}>
                                 {place.name}
                             </Popup>
                         </Marker>
