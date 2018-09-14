@@ -22,17 +22,17 @@ INSERT INTO Users (id, f_name, l_name, phone, email, nick_name, password, status
 VALUES (4, 'Arnold', 'Shwartzneger', '1111', 'terminator@gmail.com', 'T1000', 'saveworld', 2, '12.08.2018 12:00:01',
    '07.09.2018 : 10:10:10');
 
-INSERT INTO Places (id, name, address, description, count_free_places, open, close, place_type, owner_id)
-    VALUES (1, 'Presto Pizza', 'Rivne 1', 'best pizza', 5, '09:00:00', '23:00:00', 'CAFE', 4);
+INSERT INTO Places (id, name, address, description, count_free_places, open, close, place_type, owner_id, latitude, longitude)
+    VALUES (1, 'Челентано', 'Rivne 1', 'best pizza', 5, '09:00:00', '23:00:00', 'CAFE', 4, 50.6220633, 26.2489738);
 
-INSERT INTO Places (id, name, address, description, count_free_places, open, close, place_type, owner_id)
-    VALUES (2, 'HOTEL', 'Rivne 2', 'best hotel', 10, '00:00:01', '23:59:00', 'HOTEL', 4);
+INSERT INTO Places (id, name, address, description, count_free_places, open, close, place_type, owner_id, latitude, longitude)
+    VALUES (2, 'Манхетен', 'Rivne 2', 'best hotel', 10, '00:00:01', '23:59:00', 'HOTEL', 4, 50.6203452, 26.2486262);
 
-INSERT INTO Places (id, name, address, description, count_free_places, open, close, place_type, owner_id)
-    VALUES (3, 'PARKING', 'Rivne 3', 'best parking', 6, '09:00:00', '23:00:00', 'PARKING', 4);
+INSERT INTO Places (id, name, address, description, count_free_places, open, close, place_type, owner_id, latitude, longitude)
+    VALUES (3, 'Стоянка МИР', 'Rivne 3', 'best parking', 6, '09:00:00', '23:00:00', 'PARKING', 4, 50.6203138, 26.2503237);
 
-INSERT INTO Places (id, name, address, description, count_free_places, open, close, place_type, owner_id)
-    VALUES (4, 'MAC', 'Rivne 4', 'best restaurant', 15, '09:00:00', '23:00:00', 'RESTAURANT', 4);
+INSERT INTO Places (id, name, address, description, count_free_places, open, close, place_type, owner_id, latitude, longitude)
+    VALUES (4, 'МакДональдз', 'Rivne 4', 'best restaurant', 15, '09:00:00', '23:00:00', 'RESTAURANT', 4, 50.6189508, 26.2488015);
 
 INSERT INTO users_roles (user_id, role_id) VALUES (1, 1);
 INSERT INTO users_roles (user_id, role_id) VALUES (2, 1);

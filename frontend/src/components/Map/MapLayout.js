@@ -3,11 +3,11 @@ import {Map, Marker, Popup, TileLayer} from 'react-leaflet'
 import '../../styles/Map.css';
 
 
-
 export default class MapLayout extends Component {
+
     state = {
-        lat: 50.6219427,
-        lng: 26.2493254,
+        lat: this.props.latitude,
+        lng: this.props.longitude,
         zoom: 15,
     }
 
@@ -21,13 +21,13 @@ export default class MapLayout extends Component {
                         attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <Marker position={position}>
-                        {this.props.items.map(place => (
-                        <Popup key={place.id}>
-                            {place.id}
-                        </Popup>
-                            ))}
-                    </Marker>
+                    {this.props.items.map(place => (
+                        <Marker position={[place.latitude, place.longitude]}>
+                            <Popup key={place.id}>
+                                {place.name}
+                            </Popup>
+                        </Marker>
+                    ))}
                 </Map>
             </div>
 
