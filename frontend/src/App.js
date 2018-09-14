@@ -4,8 +4,9 @@ import Routes from './components/Routes';
 import './App.css';
 //import LoginForm from './components/LoginForm.js';
 //import RegistrationForm from './components/RegistrationForm.js';
-//import Menu from './components/Menu.js';
-import HomePage from './components/HomePage.js';
+import Menu from './components/Menu.js';
+// import HomePage from './components/HomePage.js';
+import Footer from './components/Footer';
 
 
 class App extends Component {
@@ -14,8 +15,9 @@ class App extends Component {
         return (
             <HashRouter>
                 <div className="app">
-                    <HomePage />
+                    <Menu />
                     <Routes />
+                    <Footer />
                 </div>
             </HashRouter>
         );

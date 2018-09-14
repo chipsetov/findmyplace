@@ -79,6 +79,10 @@
     line-height: 70px;
 }
 
+.router {
+    height: 800px;
+}
+
 .hidden {
     display: none !important;
 }
