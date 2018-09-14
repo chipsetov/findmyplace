@@ -32,7 +32,7 @@ public class PlaceController {
         return placeRepository.findByPlaceType(PlaceType.CAFE);
     }
 
-    @RolesAllowed(" ROLE_USER")
+    @RolesAllowed("ROLE_USER")
     @GetMapping("/places/{id}")
     Optional<Place> getUserById(@PathVariable Long id) {
         return placeRepository.findById(id);

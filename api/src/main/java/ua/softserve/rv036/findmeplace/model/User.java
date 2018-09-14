@@ -41,7 +41,7 @@ public class User extends DateAudit {
    // @Email
     private String email;
 
-    @NotBlank
+   // @NotBlank
     @Column(name = "nick_name")
     private String nickName;
 
