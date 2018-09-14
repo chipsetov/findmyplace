@@ -34,6 +34,20 @@ INSERT INTO Places (id, name, address, description, count_free_places, open, clo
 INSERT INTO Places (id, name, address, description, count_free_places, open, close, place_type, owner_id, latitude, longitude)
     VALUES (4, 'МакДональдз', 'Rivne 4', 'best restaurant', 15, '09:00:00', '23:00:00', 'RESTAURANT', 4, 50.6189508, 26.2488015);
 
+INSERT INTO Feedbacks (id, user_id, place_id, comment, mark)
+    VALUES (1, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' ||
+     'incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation' ||
+      ' ullamco laboris nisi ut aliquip ex ea commodo consequat.', 10);
+
+INSERT INTO Feedbacks (id, user_id, place_id, comment, mark)
+    VALUES (2, 2, 1, 'Very bad place', 2);
+
+INSERT INTO Feedbacks (id, user_id, place_id, comment, mark)
+    VALUES (3, 3, 2, 'Nice place', 9);
+
+INSERT INTO Feedbacks (id, user_id, place_id, comment, mark)
+    VALUES (4, 4, 3, 'I like it', 8);
+
 INSERT INTO users_roles (user_id, role_id) VALUES (1, 1);
 INSERT INTO users_roles (user_id, role_id) VALUES (2, 1);
 INSERT INTO users_roles (user_id, role_id) VALUES (2, 2);
