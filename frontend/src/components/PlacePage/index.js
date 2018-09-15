@@ -4,7 +4,6 @@ import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
 import Info from './Info.js';
-import Menu from "../Menu";
 
 class PlacePage extends Component {
 
