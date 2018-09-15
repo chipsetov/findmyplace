@@ -5,16 +5,15 @@ import '../../styles/Map.css';
 
 export default class MapLayout extends Component {
 
-    state = {
-        zoom: 15,
-    }
+
 
     render() {
         console.log('items', this.props.items);
         const position = [this.props.latitude, this.props.longitude]
+        const zoom = this.props.zoom
         return (
             <div id="mapid">
-                <Map center={position} zoom={this.state.zoom}>
+                <Map center={position} zoom={zoom}>
                     <TileLayer
                         attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

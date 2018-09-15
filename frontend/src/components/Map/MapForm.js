@@ -12,7 +12,8 @@ export default class MapForm extends Component {
         this.state = {
             places: [],
             latitude: 50.6219427,
-            longitude: 26.2493254
+            longitude: 26.2493254,
+            zoom: 15
         };
     }
 
@@ -52,16 +53,16 @@ export default class MapForm extends Component {
                         <Row key={place.name} className="place-row">
                             <button  onClick={() => {
                                 console.log("setState");
-                                this.setState({latitude : place.latitude, longitude : place.longitude})
+                                this.setState({latitude : place.latitude, longitude : place.longitude, zoom : 18})
                             }}>{place.name}  </button>
 
                             <p/>
-                            <span>Free place: {place.countFreePlaces}</span
+                            <span>Free place: {place.countFreePlaces}</span>
                         </Row>
                     ))}
                 </div>
                 <div class="col s10">
-                    <MapLayout items={this.state.places} latitude={this.state.latitude} longitude={this.state.longitude}/>
+                    <MapLayout items={this.state.places} latitude={this.state.latitude} longitude={this.state.longitude} zoom={this.state.zoom}/>
                 </div>
             </div>
         );
