@@ -28,7 +28,6 @@ export default class MapForm extends Component {
     }
 
     render() {
-    console.log("render");
         const options = [
             {value: 'RESTAURANT', label: 'Restaurant'},
             {value: 'PARKING', label: 'Parking'},
@@ -51,10 +50,9 @@ export default class MapForm extends Component {
                     </Row>
                     {this.state.places.map(place => (
                         <Row key={place.name} className="place-row">
-                            <button  onClick={() => {
-                                console.log("setState");
+                            <a  href="/#/map" onClick={() => {
                                 this.setState({latitude : place.latitude, longitude : place.longitude, zoom : 18})
-                            }}>{place.name}  </button>
+                            }}>{place.name}  </a>
 
                             <p/>
                             <span>Free place: {place.countFreePlaces}</span>

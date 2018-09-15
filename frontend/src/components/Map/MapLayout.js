@@ -8,7 +8,6 @@ export default class MapLayout extends Component {
 
 
     render() {
-        console.log('items', this.props.items);
         const position = [this.props.latitude, this.props.longitude]
         const zoom = this.props.zoom
         return (
