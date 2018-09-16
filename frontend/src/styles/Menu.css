@@ -80,7 +80,7 @@
 }
 
 .router {
-    height: 800px;
+    min-height: 800px;
 }
 
 .place-page-mixin {
