@@ -5,4 +5,10 @@ body {
 
 #root, .app {
     min-height:100vh;
+    background: url("/img/background1.jpg") no-repeat center center fixed;
+}
+
+.leaflet-container {
+    height: 100%;
+    width: 100%;
 }

@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
-import { Navbar, NavItem, Button } from 'react-materialize';
+import { Navbar, NavItem, Button, Icon } from 'react-materialize';
+import { withRouter } from 'react-router-dom';
 import Logout from './Logout';
 import '../styles/Menu.css';
+import { LOGIN_CHANGED, Session } from "../utils";
 
 class Menu extends Component {
 
     constructor(options) {
         super(options);
 
-        this.state = {
-            isLoggedIn: true
-        };
+        window.addEventListener(LOGIN_CHANGED, () => {
+            this.forceUpdate();
+
+            if (Session.isLoggedIn()) {
+                this.props.history.push('/');
+            }
+        });
+    }
+
+    onLogoutHandler() {
+        Session.logout();
     }
 
     render() {
-        const isLoggedIn = this.state.isLoggedIn;
+        const isLoggedIn = Session.isLoggedIn();
 
         return (
             <div className="menu-container">
@@ -23,34 +33,23 @@ class Menu extends Component {
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#about'>About us</NavItem>
-                        <Logout isLoggedIn={this.state.isLoggedIn} logout={this.onLogoutHandler.bind(this)} />
-                        <NavItem className={isLoggedIn ? "hidden" : ""}
-                                 href='#/signup'
-                                 id="auth-sign-up">
-
+                        <Logout isLoggedIn={isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
+                        <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>
                             <Button waves="light">
                                 Sign Up
                             </Button>
                         </NavItem>
 
-                        <NavItem className={isLoggedIn ? "hidden" : ""}
-                                 href='#/signin'
-                                 id="auth-sign-in">
-
+                        <NavItem href='#/sign-in' id="auth-sign-in" className={isLoggedIn ? "hidden" : ""}>
                             Sign In
                         </NavItem>
+                        <NavItem href='' id="search"><Icon>search</Icon></NavItem>
                     </Navbar>
                 </div>
             </div>
         );
     }
 
-    onLogoutHandler() {
-        this.setState({
-            isLoggedIn: false
-        });
-    }
-
 }
 
-export default Menu;
+export default withRouter(Menu);

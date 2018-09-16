@@ -53,7 +53,10 @@
     color: #e23c52;
 }
 
-.menu-wrapper .menu #auth-sign-in, .menu-wrapper .menu #auth-sign-up {
+.menu-wrapper .menu #auth-sign-in,
+.menu-wrapper .menu #auth-sign-up,
+.menu-wrapper .menu #auth-sign-out,
+.menu-wrapper .menu #search {
     float:right;
 }
 
@@ -64,6 +67,22 @@
     border-radius: 4px;
 }
 
+.menu-wrapper .menu #search {
+    font-size: 26px;
+    height: 70px;
+    line-height: 70px;
+}
+
+.menu-wrapper .menu #search i {
+    font-size: 26px;
+    height: 70px;
+    line-height: 70px;
+}
+
+.router {
+    height: 800px;
+}
+
 .hidden {
-    display: none!important;
+    display: none !important;
 }

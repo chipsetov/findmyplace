@@ -34,6 +34,12 @@ public class Place {
     @NotNull
     private Time close;
 
+    @NotNull
+    private Double latitude;
+
+    @NotNull
+    private Double longitude;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "place_type")
     private PlaceType placeType;

@@ -1,0 +1,76 @@
+
+#mapid { height: 700px; }
+
+.main-map-form {
+    width: 95%;
+    padding: 2px 2px;
+    position: absolute;
+    font-family: 'Nunito', sans-serif;
+    background-color: rgba(252, 254, 250, 0.5);
+    margin: 0px 0px 0 35px;
+}
+
+.filter-form .row {
+    margin-bottom: 0px;
+}
+
+
+
+.filter-form {
+    float:left;
+    width: 20%;
+    text-align: left;
+}
+.map-form {
+    float:right;
+    width: 80%;
+}
+
+
+.filter-form input {
+    float:left;
+    width: 80%;
+    padding: 9px 9px 9px 9px;
+    margin: 10px 10px 10px 0;
+    height: 2rem;
+    font-size: 15px;
+    border: 1px solid #edd9c0;
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.20);
+}
+.filter-form select {
+    padding: 9px 9px 9px 9px;
+    margin: 10px 10px 10px 10px;
+}
+
+.filter-form .place-row {
+    padding: 9px 5px 7px 9px;
+    margin: 10px 10px 5px 20px;
+    text-align: center;
+    border: 1px solid #edd9c0;
+    border-radius: 4px;
+}
+
+.filter-form .btn {
+    margin: 10px 10px 10px 0px;
+    font-size: 15px;
+    font-weight: 300;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0px;
+    background-color: #1d2120;
+    border-radius: 4px;
+}
+
+
+
+input::placeholder {
+    color: #040104;
+}
+
+
+
+
+
