@@ -1,0 +1,11 @@
+.animation  {
+    margin-top: 200px;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.animation span {
+    color: #fff;
+    font-size: 50px;
+    text-shadow: 5px 5px 0px rgba(0,0,0,0.3);
+}
