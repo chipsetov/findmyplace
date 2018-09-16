@@ -56,7 +56,7 @@ export default class MapForm extends Component {
                             }}>{place.name}  </button>
 
                             <p/>
-                            <span>Free place: {place.countFreePlaces}</span
+                            <span>Free place: {place.countFreePlaces}</span>
                         </Row>
                     ))}
                 </div>
