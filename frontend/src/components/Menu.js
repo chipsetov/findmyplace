@@ -43,7 +43,7 @@ class Menu extends Component {
                         <NavItem href='#/sign-in' id="auth-sign-in" className={isLoggedIn ? "hidden" : ""}>
                             Sign In
                         </NavItem>
-                        <NavItem href='' id="search"><Icon>search</Icon></NavItem>
+                        <NavItem href='#/map' id="search"><Icon>search</Icon></NavItem>
                     </Navbar>
                 </div>
             </div>

@@ -21,7 +21,7 @@
     font-weight: 400;
 }
 
-.app-form input {
+.app-form .form-input {
     width: 70%;
     padding: 10px 40px 10px 10px;
     height: 2rem;
@@ -30,6 +30,10 @@
     border: 1px solid #edd9c0;
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.20);
+}
+
+.app-form .form-input::placeholder {
+    color: #edd9c0;
 }
 
 .app-form .confirm-row {

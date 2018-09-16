@@ -9,13 +9,13 @@
     color: #fff;
 }
 
-.footer .column {
+.footer .col {
     float: left;
     width: 25%;
     padding: 15px 0;
 }
 
-.footer .column a {
+.footer .col a {
     color: #fff;
 }
 

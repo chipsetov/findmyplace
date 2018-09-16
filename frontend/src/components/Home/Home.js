@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Animation from './Animation.js';
 import { withRouter } from "react-router-dom";
+import Animation from './Animation.js';
+import AppInfo from "./AppInfo";
 
-class HomePage extends Component {
+class Home extends Component {
 
     render() {
         const greeting = "Speed up the search and booking of places with our service";
@@ -10,10 +11,11 @@ class HomePage extends Component {
         return (
              <div className="container-fluid">
                  <Animation text={greeting}/>
+                 <AppInfo/>
              </div>
         );
     }
 
 }
 
-export default withRouter(HomePage);
+export default withRouter(Home);
