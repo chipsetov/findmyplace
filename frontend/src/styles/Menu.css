@@ -83,6 +83,12 @@
     height: 800px;
 }
 
+.place-page-mixin {
+    position: absolute;
+    top: 0;
+    max-height: 90px;
+}
+
 .hidden {
     display: none !important;
 }

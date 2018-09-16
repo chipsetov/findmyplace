@@ -3,20 +3,19 @@ import { Navbar, NavItem, Button, Icon } from 'react-materialize';
 import { withRouter } from 'react-router-dom';
 import Logout from './Logout';
 import '../styles/Menu.css';
-import { LOGIN_CHANGED, Session } from "../utils";
+import {LOGIN_CHANGED, PAGE_CHANGED, Session} from "../utils";
 
 class Menu extends Component {
 
     constructor(options) {
         super(options);
 
-        window.addEventListener(LOGIN_CHANGED, () => {
-            this.forceUpdate();
+        this.state = {
+            style: "menu-container"
+        };
 
-            if (Session.isLoggedIn()) {
-                this.props.history.push('/');
-            }
-        });
+        window.addEventListener(LOGIN_CHANGED, this.onLoginChangedHandler.bind(this));
+        window.addEventListener(PAGE_CHANGED, this.onPageChangedHandler.bind(this));
     }
 
     onLogoutHandler() {
@@ -27,12 +26,13 @@ class Menu extends Component {
         const isLoggedIn = Session.isLoggedIn();
 
         return (
-            <div className="menu-container">
+            <div className={this.state.style}>
                 <div className="menu-wrapper">
                     <Navbar brand="logo" className="menu" right>
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#about'>About us</NavItem>
+                        <NavItem href='#place/1'>Place</NavItem>
                         <Logout isLoggedIn={isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
                         <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>
                             <Button waves="light">
@@ -48,6 +48,28 @@ class Menu extends Component {
                 </div>
             </div>
         );
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener(LOGIN_CHANGED, this.onLoginChangedHandler.bind(this));
+        window.removeEventListener(PAGE_CHANGED, this.onPageChangedHandler.bind(this));
+    }
+
+    onLoginChangedHandler() {
+        this.forceUpdate();
+
+        if (Session.isLoggedIn()) {
+            this.props.history.push('/');
+        }
+    }
+
+    onPageChangedHandler(e) {
+        const detail = e.detail;
+        const className = "menu-container" + (detail.show ? (" " + detail.name + "-mixin") : "");
+
+        this.setState({
+            style: className
+        });
     }
 
 }

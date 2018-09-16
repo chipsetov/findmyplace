@@ -1,6 +1,7 @@
 export const emailValidation = email => /\S+@\S+\.\S+/.test(email);
 
 export const LOGIN_CHANGED = 'login_changed';
+export const PAGE_CHANGED = 'page_changed';
 
 export const Session = {
 

@@ -4,13 +4,22 @@ import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
 import Info from './Info.js';
-import Menu from "../Menu";
+import { PAGE_CHANGED } from "../../utils";
 
 class PlacePage extends Component {
 
     constructor(props) {
         super(props);
         this.state = { place: {} } ;
+    }
+
+    componentWillMount() {
+        window.dispatchEvent(new CustomEvent(PAGE_CHANGED, {
+            detail: {
+                show: true,
+                name: "place-page"
+            }
+        }));
     }
 
     componentDidMount() {
@@ -45,6 +54,15 @@ class PlacePage extends Component {
                 </div>
             </div>
         );
+    }
+
+    componentWillUnmount() {
+        window.dispatchEvent(new CustomEvent(PAGE_CHANGED, {
+            detail: {
+                show: false,
+                name: "place-page"
+            }
+        }));
     }
 }
 
