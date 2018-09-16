@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Wave } from 'react-animated-text';
-
+import '../../styles/Animation.css';
 
 class Animation extends Component {
 
