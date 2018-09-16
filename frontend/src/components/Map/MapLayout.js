@@ -5,8 +5,6 @@ import '../../styles/Map.css';
 
 export default class MapLayout extends Component {
 
-
-
     render() {
         const position = [this.props.latitude, this.props.longitude]
         const zoom = this.props.zoom
@@ -18,8 +16,8 @@ export default class MapLayout extends Component {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     {this.props.items.map(place => (
-                        <Marker position={[place.latitude, place.longitude]}>
-                            <Popup key={place.name}>
+                        <Marker key={place.name} position={[place.latitude, place.longitude]}>
+                            <Popup>
                                 {place.name}
                             </Popup>
                         </Marker>
