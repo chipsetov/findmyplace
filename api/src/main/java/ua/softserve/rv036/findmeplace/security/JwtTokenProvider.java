@@ -1,4 +1,4 @@
-package ua.softserve.rv036.findmeplace.config;
+package ua.softserve.rv036.findmeplace.security;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;

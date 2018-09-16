@@ -1,4 +1,4 @@
-package ua.softserve.rv036.findmeplace.config;
+package ua.softserve.rv036.findmeplace.security;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import java.lang.annotation.*;

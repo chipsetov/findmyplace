@@ -1,4 +1,4 @@
-package ua.softserve.rv036.findmeplace.config;
+package ua.softserve.rv036.findmeplace.security;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,7 +10,6 @@ import ua.softserve.rv036.findmeplace.model.User;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Data
