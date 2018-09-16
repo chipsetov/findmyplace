@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Input, Row} from 'react-materialize';
 import Select from 'react-select'
-import {Redirect, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import MapLayout from './MapLayout.js';
 import '../../styles/Map.css';
 
@@ -37,32 +36,30 @@ class MapForm extends Component {
         return (
             <div class="row">
                 <div class="col s2">
-                    <Row>
-                        <Input
-                            id="place_name"
-                            type="text"
-                            placeholder="What are you looking for?"
-                            onChange={e => this.handleChange("place_name", e.target.value)}
-                        />
-                        <Button id="search" waves="light" /*onClick={}*/>Search</Button>
-                    </Row>
-                    <Row>
+                    <div class="input-field inline">
+                            <input
+                                id="place_name"
+                                type="text"
+                                placeholder="Type the Place name..."
+                                onChange={e => this.handleChange("place_name", e.target.value)}
+                            />
+                            <i class="material-icons small prefix">search</i>
+                    </div>
+                    <div class="row">
                         <Select placeholder="Place Filter" className="select-form" options={options}/>
-                    </Row>
+                    </div>
                     {this.state.places.map(place => (
-                        <Row key={place.name} className="place-row">
+                        <div class="row" key={place.name} className="place-row">
                             <a href="/#/map" onClick={() => {
                                 this.setState({latitude: place.latitude, longitude: place.longitude, zoom: 18})
                             }}>{place.name}  </a>
 
-                            <p/>
-                            <span>Free place: {place.countFreePlaces}</span>
-                            <p/>
-                            <span>
-                                <Link to={`/place/${place.id}`}>Place page</Link>
-                            </span>
 
-                        </Row>
+                            <h6>Free place: {place.countFreePlaces}</h6>
+                            <h6>
+                                <Link to={`/place/${place.id}`}>Place page</Link>
+                            </h6>
+                        </div>
                     ))}
                 </div>
                 <div class="col s10">
