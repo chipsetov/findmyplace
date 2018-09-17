@@ -34,6 +34,7 @@ class LoginForm extends Component {
                     <Input
                         id="email"
                         type="email"
+                        className="form-input"
                         value={this.state.email}
                         placeholder="EMAIL"
                         onChange={e => this.handleChange("email", e.target.value)}
@@ -44,6 +45,7 @@ class LoginForm extends Component {
                     <Input
                         id="password"
                         type="password"
+                        className="form-input"
                         value={this.state.password}
                         placeholder="PASSWORD"
                         onChange={e => this.handleChange("password", e.target.value)}
