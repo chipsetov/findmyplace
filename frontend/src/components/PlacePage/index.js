@@ -4,12 +4,22 @@ import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
 import Info from './Info.js';
+import { PAGE_CHANGED } from "../../utils";
 
 class PlacePage extends Component {
 
     constructor(props) {
         super(props);
         this.state = { place: {} } ;
+    }
+
+    componentWillMount() {
+        window.dispatchEvent(new CustomEvent(PAGE_CHANGED, {
+            detail: {
+                show: true,
+                name: "place-page"
+            }
+        }));
     }
 
     componentDidMount() {
@@ -30,11 +40,11 @@ class PlacePage extends Component {
 
         return (
             <div className="place-page">
+                <Row className="place-header">
+                    <h2>{place.name}</h2>
+                    <h2>{place.address}</h2>
+                </Row>
                 <div className="content-container">
-                    <Row className="place-header">
-                        <h2>{place.name}</h2>
-                        <h2>{place.address}</h2>
-                    </Row>
                     <ButtonsBlock/>
                     <Info openTime={place.open}
                           closeTime={place.close}
@@ -44,6 +54,15 @@ class PlacePage extends Component {
                 </div>
             </div>
         );
+    }
+
+    componentWillUnmount() {
+        window.dispatchEvent(new CustomEvent(PAGE_CHANGED, {
+            detail: {
+                show: false,
+                name: "place-page"
+            }
+        }));
     }
 }
 

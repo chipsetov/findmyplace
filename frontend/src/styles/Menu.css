@@ -80,8 +80,13 @@
 }
 
 .router {
-    min-height: 650px;
-    height:100%;
+    min-height: 800px;
+}
+
+.place-page-mixin {
+    position: absolute;
+    top: 0;
+    max-height: 90px;
 }
 
 .hidden {
