@@ -6,6 +6,7 @@
     position: center;
     margin-left: auto;
     margin-right: auto;
+    color: white;
 }
 
 h1 {
@@ -38,6 +39,10 @@ h1 {
 .card-panel-btn .col:hover , .text :hover {
     background-color: rgba(0, 0, 0, 0.10);
     /*margin: auto;*/
+}
+
+.card-panel-rvw {
+    color: black;
 }
 
 .place-header {
