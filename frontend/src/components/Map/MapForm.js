@@ -56,7 +56,7 @@ class MapForm extends Component {
                             <i class="material-icons small">search</i>
                         </div>
                     </div>
-                    <div className="select-form" class="row" >
+                    <div class="row" >
                         <Select
                             name="basic-multi-select"
                             value={selectedOption}

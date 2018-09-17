@@ -5,6 +5,10 @@ input::placeholder {
     color: #040104;
 }
 
+.select-form {
+    height: 50px;
+}
+
 
 
 
