@@ -1,23 +1,25 @@
 package ua.softserve.rv036.findmeplace.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.UpdateTimestamp;
-
+import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "Users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"nick_name"}),
         @UniqueConstraint(columnNames = {"email"})
 })
-public class User {
+public class User extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,7 +38,7 @@ public class User {
 
     @NaturalId
     @NotBlank
-    @Email
+   // @Email
     private String email;
 
     @NotBlank
@@ -59,11 +61,12 @@ public class User {
     @JoinColumn(name = "status")
     private BanStatus banStatus;
 
-    @CreationTimestamp
-    @Column(name = "registration_date")
-    private LocalDateTime registrationDate;
 
-    @UpdateTimestamp
-    @Column(name = "last_update_date")
-    private LocalDateTime lastUpdateDate;
+    public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank @Email String email, @NotBlank String nickName, @NotBlank String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.nickName = nickName;
+        this.password = password;
+    }
 }

@@ -18,7 +18,6 @@ public class PlaceController {
 
     @Autowired
     private PlaceRepository placeRepository;
-
     @Autowired
     private FeedbackRepository feedbackRepository;
 
