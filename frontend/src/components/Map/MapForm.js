@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import Select from 'react-select'
-import {Link} from 'react-router-dom';
+import {Icon, Row, Button, Input} from 'react-materialize';
 import MapLayout from './MapLayout.js';
 import '../../styles/Map.css';
 
@@ -29,7 +28,7 @@ class MapForm extends Component {
     }
 
     handleChange = (selectedOption) => {
-        this.setState({ selectedOption });
+        this.setState({selectedOption});
         console.log(`Option selected:`, selectedOption);
     }
 
@@ -39,9 +38,39 @@ class MapForm extends Component {
             {value: 'PARKING', label: 'Parking'},
             {value: 'HOTEL', label: 'Hotel'}
         ];
-        const { selectedOption } = this.state;
+        const {selectedOption} = this.state;
         return (
-            <div class="row">
+
+            <div className="container-fluid">
+                <div className="up-row">
+                    <Row>
+                            <Input
+                                type="text"
+                                className="form-input"
+                                s={3}
+                                offset="true"
+                                label="Type the Place name..."
+                                validate
+                                onChange={e => this.handleChange("place_name", e.target.value)}
+                            />
+                        <Button waves='light'>Search<Icon right>search</Icon></Button>
+                    </Row>
+                </div>
+                    <Row>
+                        <MapLayout items={this.state.places}
+                                   latitude={this.state.latitude}
+                                   longitude={this.state.longitude}
+                                   zoom={this.state.zoom}/>
+                    </Row>
+            </div>
+        );
+    }
+
+}
+
+export default MapForm
+
+/*<div class="row">
                 <div class="col s2">
                     <div class="row valign-wrapper">
                         <div class="col s10">
@@ -83,10 +112,4 @@ class MapForm extends Component {
                                longitude={this.state.longitude}
                                zoom={this.state.zoom}/>
                 </div>
-            </div>
-        );
-    }
-
-}
-
-export default MapForm
+            </div>*/
