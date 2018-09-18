@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+#root, .app {
+    min-height:100vh;
+    background: url("/img/home/background-coffee.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.leaflet-container {
+    height: 100%;
+    width: 100%;
+}

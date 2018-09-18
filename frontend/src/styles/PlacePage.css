@@ -1,0 +1,80 @@
+.place-page {
+}
+
+.content-container {
+    width: 70%;
+    position: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+h1 {
+    font: bold 50px Helvetica;
+    text-align: center;
+}
+
+.card-panel-btn {
+    width: 700px;
+    position: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Nunito', sans-serif;
+    background-color: rgba(0, 0, 0, 0.50);
+    border-radius: 3px;
+}
+
+.card-panel-btn .text {
+    font-size: 16px;
+    text-decoration: none;
+    color: #000000;
+}
+
+.card-panel-btn .col {
+    width: 25%;
+    /*margin: auto;*/
+}
+
+.card-panel-btn .col:hover , .text :hover {
+    background-color: rgba(0, 0, 0, 0.10);
+    /*margin: auto;*/
+}
+
+.card-panel-rvw {
+    color: black;
+}
+
+.place-header {
+    background: url("/img/restaurant.jpeg") no-repeat center center;
+    background-size: cover;
+    /*position: center;*/
+    text-align: center;
+    color: white;
+    width: 100%;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    font: bold 55px Helvetica;
+    padding-top: 110px;
+    /*margin-bottom: 80px;*/
+}
+
+.reviews-container {
+    /*width: 100%;*/
+    position: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+}
+
+.place-image {
+    max-width: 100%;
+}
+
+/*.image-container {*/
+    /*!*margin-left: 250px;*!*/
+    /*!*width: 30%;*!*/
+    /*background-size: cover;*/
+/*}*/

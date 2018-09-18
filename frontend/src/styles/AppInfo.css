@@ -1,0 +1,30 @@
+.app-info {
+    height: 400px;
+    margin-top: 600px;
+    padding: 30px 200px;
+    background-color: #fff;
+}
+
+.app-info .col {
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.app-info h3, .app-info p {
+    color: #444444;
+}
+
+.app-info p {
+    font-size: 18px;
+}
+
+.app-info .text-col {
+    padding: 10px 20px;
+}
+
+.app-info .picture-col {
+    text-align: center;
+    background: url(/img/home/app.png) no-repeat center;
+    background-size: contain;
+}
