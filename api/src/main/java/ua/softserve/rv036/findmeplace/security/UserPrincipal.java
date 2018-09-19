@@ -40,21 +40,21 @@ public class UserPrincipal implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().name())
-        ).collect(Collectors.toList());
-
-        return new UserPrincipal(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getNickName(),
-                user.getEmail(),
-                user.getPassword(),
-                authorities
-        );
-    }
+//    public static UserPrincipal create(User user) {
+//        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
+//                new SimpleGrantedAuthority(role.getName().name())
+//        ).collect(Collectors.toList());
+//
+//        return new UserPrincipal(
+//                user.getId(),
+//                user.getFirstName(),
+//                user.getLastName(),
+//                user.getNickName(),
+//                user.getEmail(),
+//                user.getPassword(),
+//                authorities
+//        );
+//    }
 
 
     @Override

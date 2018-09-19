@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- Roles -->
+    <changeSet id="1" author="rv036">
+        <createTable tableName="roles">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="description" type="varchar(255)">
+                <constraints nullable = "true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Ban Statuses -->
+    <changeSet id="2" author="rv036">
+        <createTable tableName="ban_statuses">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="description" type="varchar(255)">
+                <constraints nullable = "true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Users -->
+    <changeSet id="3" author="rv036">
+        <createTable tableName="users">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable = "true"/>
+            </column>
+
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable = "true"/>
+            </column>
+
+            <column name="phone" type="varchar(255)">
+                <constraints nullable = "true"/>
+            </column>
+
+            <column name="email" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="nick_name" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="password" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="role_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_user_role_id" references="roles(id)"/>
+            </column>
+
+            <column name="ban_status_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_user_ban_status_id" references="ban_statuses(id)"/>
+            </column>
+
+            <column name="registration_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_update_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+            <addUniqueConstraint columnNames="email, nick_name" constraintName="user_unique"
+                              tableName="users"/>
+    </changeSet>
+
+    <!-- Place Types -->
+    <changeSet id="4" author="rv036">
+        <createTable tableName="place_types">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Places -->
+    <changeSet id="5" author="rv036">
+        <createTable tableName="places">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="address" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="description" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="latitude" type="decimal">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="longitude" type="decimal">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="open" type="time">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="close" type="time">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="count_free_places" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="place_type_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_place_type_id" references="place_types(id)"/>
+            </column>
+
+            <column name="owner_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Feedbacks -->
+    <changeSet id="6" author="rv036">
+        <createTable tableName="feedbacks">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="comment" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="mark" type="int">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="user_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)"/>
+            </column>
+
+            <column name="place_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_place_id" references="places(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

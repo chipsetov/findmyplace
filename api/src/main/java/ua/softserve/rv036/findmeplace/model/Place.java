@@ -1,51 +1,46 @@
 package ua.softserve.rv036.findmeplace.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.sql.Time;
 
 @Data
 @Entity
-@Table(name = "Places")
+@Table(name = "places")
 public class Place {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "count_free_places")
-    private Integer countFreePlaces;
-
-    @NotBlank
+    @Column(name = "name")
     private String name;
 
-    @NotBlank
+    @Column(name = "address")
     private String address;
 
-    @NotBlank
+    @Column(name = "description")
     private String description;
 
-    @NotNull
-    private Time open;
-
-    @NotNull
-    private Time close;
-
-    @NotNull
+    @Column(name = "latitude")
     private Double latitude;
 
-    @NotNull
+    @Column(name = "longitude")
     private Double longitude;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "place_type")
-    private PlaceType placeType;
+    @Column(name = "open")
+    private Time open;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner_id")
-    private User owner;
+    @Column(name = "close")
+    private Time close;
+
+    @Column(name = "count_free_places")
+    private int countFreePlaces;
+
+    @Column(name = "place_type_id")
+    private Long placeTypeId;
+
+    @Column(name = "owner_id")
+    private Long ownerId;
 
 }

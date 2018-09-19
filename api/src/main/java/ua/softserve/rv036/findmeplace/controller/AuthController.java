@@ -16,7 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.softserve.rv036.findmeplace.security.JwtTokenProvider;
 import ua.softserve.rv036.findmeplace.exception.AppException;
 import ua.softserve.rv036.findmeplace.model.Role;
-import ua.softserve.rv036.findmeplace.model.RoleName;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.JwtAuthenticationResponse;
@@ -51,25 +50,25 @@ public class AuthController {
     @Autowired
     private JwtTokenProvider tokenProvider;
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword()
-                )
-        );
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = tokenProvider.generateToken(authentication);
-        Set<String> users =  userRepository.findByNickNameOrEmail
-                (loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail()).get().
-                getRoles().stream().map((s) -> s.getName().toString()).collect(Collectors.toSet());
-
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, users));
-    }
+//    @PostMapping("/signin")
+//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+//
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        loginRequest.getUsernameOrEmail(),
+//                        loginRequest.getPassword()
+//                )
+//        );
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        String jwt = tokenProvider.generateToken(authentication);
+//        Set<String> users =  userRepository.findByNickNameOrEmail
+//                (loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail()).get().
+//                getRoles().stream().map((s) -> s.getName().toString()).collect(Collectors.toSet());
+//
+//        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, users));
+//    }
 
 //    @PostMapping("/signup")
 //    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
@@ -90,7 +89,7 @@ public class AuthController {
 //
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));
 //
-//        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+//        Role userRole = roleRepository.findByName(RoleType.ROLE_USER)
 //                .orElseThrow(() -> new AppException("User Role not set."));
 //
 //        user.setRoles(Collections.singleton(userRole));
