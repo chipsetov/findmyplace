@@ -5,6 +5,7 @@ import PlacePage from "./PlacePage/index.js";
 import RegistrationForm from "./RegistrationForm";
 import LoginPage from "./LoginPage";
 import MapForm from "./Map/MapForm";
+import RegisterPlace from "./RegisterPlace/RegisterPlace";
 
 export default class Routes extends Component {
 
@@ -16,6 +17,7 @@ export default class Routes extends Component {
                 <Route path="/sign-up" component={RegistrationForm}/>
                 <Route path="/map" component={MapForm}/>
                 <Route path="/place/:placeId" component={PlacePage}/>
+                <Route path="/register-place" component={RegisterPlace}/>
             </div>
         );
     }
