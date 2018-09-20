@@ -1,12 +1,16 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import javax.persistence.*;
 import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
+import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends DateAudit {
 
     @Id
@@ -34,12 +38,20 @@ public class User extends DateAudit {
     @Transient
     private String confirmPassword;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ban_status_id", nullable = false)
     private BanStatus banStatus;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ownerId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Place> places;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "feedbackOwnerId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Feedback> feedbacks;
 
 }

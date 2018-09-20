@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import ua.softserve.rv036.findmeplace.model.Feedback;
 import ua.softserve.rv036.findmeplace.model.Place;
-import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
-import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
+import ua.softserve.rv036.findmeplace.repository.*;
 import java.util.List;
 import java.util.Optional;
 

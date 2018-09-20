@@ -1,11 +1,13 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "feedbacks")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Feedback {
 
     @Id
@@ -18,10 +20,12 @@ public class Feedback {
     @Column(name = "mark")
     private Integer mark;
 
-    @Column(name = "user_id")
-    private Long feedbackOwnerId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User feedbackOwnerId;
 
-    @Column(name = "place_id")
-    private Long placeId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "place_id", nullable = false)
+    private Place placeId;
 
 }
