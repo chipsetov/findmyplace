@@ -14,6 +14,27 @@
     margin-bottom: 0px;
     line-height: 1;
 }
+.up-row .col .input-field{
+    position: relative;
+    left: 130px;
+}
+
+.up-row .col .input-field label{
+    color: #fff6e4;
+}
+
+
+.up-row #check-row-filter{
+    margin: 30px 0px;
+    position: relative;
+    left: 100px;
+
+}
+
+.up-row #check-row-filter label{
+   color: #fff6e4;
+    font-size: 20px;
+}
 
 .up-row .btn {
     font-size: 17px;
@@ -23,6 +44,7 @@
     background-color: #1d2120;
     border-radius: 4px;
     margin: 20px 0px;
+    padding: 0px 20px;
 }
 
 
