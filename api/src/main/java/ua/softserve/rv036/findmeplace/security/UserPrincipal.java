@@ -10,8 +10,6 @@ import ua.softserve.rv036.findmeplace.model.User;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 public class UserPrincipal implements UserDetails {
@@ -42,8 +40,8 @@ public class UserPrincipal implements UserDetails {
     }
 
     public static UserPrincipal create(User user) {
-        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
 
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
 
         return new UserPrincipal(
                 user.getId(),
