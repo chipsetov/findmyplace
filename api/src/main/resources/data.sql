@@ -7,23 +7,23 @@ INSERT INTO Ban_Status (id, name, description) VALUES (1, 'NOT_BAN', 'user not b
 INSERT INTO Ban_Status (id, name, description) VALUES (2, 'BAN', 'user was banned');
 
 -- user
-INSERT INTO Users (id, f_name, l_name, phone, email, nick_name, password, status, registration_date, last_update_date)
-VALUES (1, 'Vasya', 'Pupkin', '0935588774', 'user@gmail.com', 'user',
+INSERT INTO Users ( f_name, l_name, phone, email, nick_name, password, status, registration_date, last_update_date)
+VALUES ( 'Vasya', 'Pupkin', '0935588774', 'user@gmail.com', 'user',
         '$2a$10$DramkVeQZgQBpPf9KyE5Au5jWF.iRJD3wbRmCPDgw5nAviWMMpg2y', 1, '12.08.2018 12:00:01',
         '07.09.2018 : 10:10:10');
 --admin
-INSERT INTO Users (id, f_name, l_name, phone, email, nick_name, password, status, registration_date, last_update_date)
-VALUES (2, 'John', 'Conor', '88003553555', 'admin@gmail.com', 'admin',
+INSERT INTO Users ( f_name, l_name, phone, email, nick_name, password, status, registration_date, last_update_date)
+VALUES ( 'John', 'Conor', '88003553555', 'admin@gmail.com', 'admin',
         '$2a$10$LxTMU51ynTUJpDyUZdfShuuOXVJJFiwnOmAmnQ3UXR4V68YN0Q2QS', 1, '12.06.2018 12:00:01',
         '02.09.2018 : 10:10:10');
 --owner
-INSERT INTO Users (id, f_name, l_name, phone, email, nick_name, password, status, registration_date, last_update_date)
-VALUES (3, 'Sara', 'Conor', '88004557564', 'owner@gmail.com', 'owner',
+INSERT INTO Users ( f_name, l_name, phone, email, nick_name, password, status, registration_date, last_update_date)
+VALUES ( 'Sara', 'Conor', '88004557564', 'owner@gmail.com', 'owner',
         '$2a$10$iv9c8suPgZ71dQAw25i3/eA639RTtHVX59fThBNfYybvhWnSMdl9a', 1,
         '12.08.2012 12:00:01', '01.06.2018 : 10:10:10');
 --manager
-INSERT INTO Users (id, f_name, l_name, phone, email, nick_name, password, status, registration_date, last_update_date)
-VALUES (4, 'Arnold', 'Shwartzneger', '1111', 'manager@gmail.com', 'manager',
+INSERT INTO Users ( f_name, l_name, phone, email, nick_name, password, status, registration_date, last_update_date)
+VALUES ( 'Arnold', 'Shwartzneger', '1111', 'manager@gmail.com', 'manager',
         '$2a$10$2J8YaN9kMcpwvaMtE7qJTOnYwusXKwk8HVao3GlsTRRt4NSdkJRKq', 1,
         '12.08.2018 12:00:01','07.09.2018 : 10:10:10');
 

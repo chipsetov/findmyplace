@@ -22,7 +22,7 @@ import java.util.Collection;
 public class User extends DateAudit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -33,12 +33,12 @@ public class User extends DateAudit {
     @Column(name = "l_name")
     private String lastName;
 
-    @NotBlank
+    // @NotBlank
     private String phone;
 
     @NaturalId
-    @NotBlank
-   // @Email
+    //  @NotBlank
+    // @Email
     private String email;
 
     @NotBlank
@@ -48,14 +48,8 @@ public class User extends DateAudit {
     @NotBlank
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "status")

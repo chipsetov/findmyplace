@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ua.softserve.rv036.findmeplace.model.User;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,22 +29,21 @@ public class UserPrincipal implements UserDetails {
     @JsonIgnore
     private String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private  GrantedAuthority authority;
 
-    public UserPrincipal(Long id, String firstName, String lastName, String nickName, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String firstName, String lastName, String nickName, String email, String password,  GrantedAuthority authority) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickName = nickName;
         this.email = email;
         this.password = password;
-        this.authorities = authorities;
+        this.authority = authority;
     }
 
     public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().name())
-        ).collect(Collectors.toList());
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
+
 
         return new UserPrincipal(
                 user.getId(),
@@ -52,10 +52,15 @@ public class UserPrincipal implements UserDetails {
                 user.getNickName(),
                 user.getEmail(),
                 user.getPassword(),
-                authorities
+                authority
         );
     }
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(authority);
+    }
 
     @Override
     public String getUsername() {

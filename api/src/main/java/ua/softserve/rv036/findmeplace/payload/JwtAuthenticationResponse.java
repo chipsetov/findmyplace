@@ -7,9 +7,9 @@ import java.util.Set;
 public class JwtAuthenticationResponse {
     private String accessToken;
     private String tokenType = "Bearer";
-    private Set<String> roles;
+    private String roles;
 
-    public JwtAuthenticationResponse(String accessToken, Set<String> roles) {
+    public JwtAuthenticationResponse(String accessToken, String roles) {
         this.accessToken = accessToken;
         this.roles = roles;
     }
