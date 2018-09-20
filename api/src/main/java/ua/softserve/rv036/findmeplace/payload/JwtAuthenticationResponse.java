@@ -1,16 +1,16 @@
 package ua.softserve.rv036.findmeplace.payload;
 
 import lombok.Data;
-import ua.softserve.rv036.findmeplace.model.Role;
+import java.util.Set;
 
 @Data
 public class JwtAuthenticationResponse {
     private String accessToken;
     private String tokenType = "Bearer";
-    private Role role;
+    private Set<String> roles;
 
-    public JwtAuthenticationResponse(String accessToken, Role role) {
+    public JwtAuthenticationResponse(String accessToken, Set<String> roles) {
         this.accessToken = accessToken;
-        this.role = role;
+        this.roles = roles;
     }
 }
