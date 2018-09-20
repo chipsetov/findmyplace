@@ -22,10 +22,10 @@ public class Feedback {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    private User feedbackOwnerId;
+    private User feedbackOwner;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "place_id", nullable = false)
-    private Place placeId;
+    private Place place;
 
 }

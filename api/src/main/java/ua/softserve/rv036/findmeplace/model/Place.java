@@ -48,7 +48,7 @@ public class Place {
     private User ownerId;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "placeId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Feedback> feedbacks;
 
 }

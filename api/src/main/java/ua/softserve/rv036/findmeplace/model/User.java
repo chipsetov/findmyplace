@@ -51,7 +51,7 @@ public class User extends DateAudit {
     private Set<Place> places;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "feedbackOwnerId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "feedbackOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Feedback> feedbacks;
 
 }
