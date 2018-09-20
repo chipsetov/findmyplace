@@ -15,13 +15,13 @@ public class AppController {
     }
 
     @GetMapping("/test")
-    @RolesAllowed("USER")
+    @RolesAllowed("ROLE_USER")
     public String test() {
         return "TEST world";
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String admin() {
         return "ADMIN world";
     }

@@ -2,15 +2,12 @@ package ua.softserve.rv036.findmeplace.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.UpdateTimestamp;
 import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
-import java.util.Collection;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -22,23 +19,22 @@ import java.util.Collection;
 public class User extends DateAudit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+
     @Column(name = "f_name")
     private String firstName;
 
-    @NotBlank
+
     @Column(name = "l_name")
     private String lastName;
 
-    @NotBlank
+
     private String phone;
 
     @NaturalId
     @NotBlank
-   // @Email
     private String email;
 
     @NotBlank
@@ -48,14 +44,8 @@ public class User extends DateAudit {
     @NotBlank
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "status")

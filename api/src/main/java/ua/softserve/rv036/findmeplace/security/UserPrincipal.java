@@ -9,8 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ua.softserve.rv036.findmeplace.model.User;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
 @Data
 public class UserPrincipal implements UserDetails {
@@ -41,9 +40,9 @@ public class UserPrincipal implements UserDetails {
     }
 
     public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().name())
-        ).collect(Collectors.toList());
+
+        Collection<GrantedAuthority> authority = Collections.singleton(
+                new SimpleGrantedAuthority(user.getRole().name()));
 
         return new UserPrincipal(
                 user.getId(),
@@ -52,7 +51,7 @@ public class UserPrincipal implements UserDetails {
                 user.getNickName(),
                 user.getEmail(),
                 user.getPassword(),
-                authorities
+                authority
         );
     }
 
@@ -82,4 +81,4 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 
-   }
+}
