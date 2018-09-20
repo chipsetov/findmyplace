@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
-import Animation from './Animation.js';
-import AppInfo from "./AppInfo";
+import '../../styles/HomePage.css';
+import { NavItem } from "react-materialize";
 
 class Home extends Component {
 
     render() {
-        const greeting = "Speed up the search and booking of places with our service";
-
-        return (
+         return (
              <div className="container-fluid">
-                 <Animation text={greeting}/>
-                 <AppInfo/>
+                 <div className="greeting">
+                     <p>Speed up the search and booking of places with our service</p>
+                     <NavItem href='#/app-info' id="learn-more">Learn more</NavItem>
+                 </div>
              </div>
         );
     }

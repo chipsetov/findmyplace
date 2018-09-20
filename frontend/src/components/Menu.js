@@ -31,7 +31,6 @@ class Menu extends Component {
                     <Navbar brand="logo" className="menu" right>
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
-                        <NavItem href='#about'>About us</NavItem>
                         <NavItem href='#place/1'>Place</NavItem>
                         <Logout isLoggedIn={isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
                         <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>
