@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Long> {
     List<Place> findByPlaceType(PlaceType placeType);
+    Boolean existsByName(String name);
 }
