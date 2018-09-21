@@ -39,6 +39,14 @@ export function signup(signupRequest) {
     });
 }
 
+export function filterPlace(filterRequest) {
+    return request({
+        url: API_BASE_URL + "/map",
+        method: 'POST',
+        body: JSON.stringify(filterRequest)
+    });
+}
+
 export function checkUsernameAvailability(username) {
     return request({
         url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,
