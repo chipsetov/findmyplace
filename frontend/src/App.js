@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter } from 'react-router-dom';
 import Routes from './components/Routes';
-import './App.css';
+//import './App.css';
 import Menu from './components/Menu.js';
 import Footer from './components/Footer';
 

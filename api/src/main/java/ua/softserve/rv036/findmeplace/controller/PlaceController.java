@@ -64,6 +64,8 @@ public class PlaceController {
             place.setClose(registerPlaceRequest.getCloseTime());
             place.setDescription(registerPlaceRequest.getDescription());
             place.setPlaceType(registerPlaceRequest.getPlaceType());
+            place.setLatitude(registerPlaceRequest.getLatitude());
+            place.setLongitude(registerPlaceRequest.getLongitude());
 
             Place result = placeRepository.save(place);
 

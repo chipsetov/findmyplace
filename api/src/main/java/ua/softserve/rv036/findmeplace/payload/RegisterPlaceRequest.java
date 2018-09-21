@@ -3,7 +3,7 @@ package ua.softserve.rv036.findmeplace.payload;
 import lombok.Data;
 import ua.softserve.rv036.findmeplace.model.PlaceType;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Time;
 
@@ -19,12 +19,15 @@ public class RegisterPlaceRequest {
     @Size(min = 2, max = 255)
     String description;
 
-    //@NotBlank
-    Time openTime;
 
-    //@NotBlank
+    Time openTime;
     Time closeTime;
 
-    //@NotBlank
     PlaceType placeType;
+
+    @NotNull
+    private Double latitude;
+
+    @NotNull
+    private Double longitude;
 }

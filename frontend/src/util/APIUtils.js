@@ -39,6 +39,14 @@ export function signup(signupRequest) {
     });
 }
 
+export function registerPlace(registerPlaceRequest) {
+    return request({
+        url: API_BASE_URL + "/places/register",
+        method: 'POST',
+        body: JSON.stringify(registerPlaceRequest)
+    });
+}
+
 export function checkUsernameAvailability(username) {
     return request({
         url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,
