@@ -1,29 +1,31 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-@Table(name = "Feedbacks")
+@Table(name = "feedbacks")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Feedback {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User feedbackOwner;
+    @Column(name = "comment")
+    private String comment;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "place_id")
-    private Place place;
-
-    @NotNull
+    @Column(name = "mark")
     private Integer mark;
 
-    private String comment;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User feedbackOwner;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "place_id", nullable = false)
+    private Place place;
+
 }

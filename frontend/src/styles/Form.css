@@ -1,39 +1,39 @@
 .app-form {
     width: 30%;
     padding: 30px 0;
-    position: absolute;
     text-align: center;
     font-family: 'Nunito', sans-serif;
-    background-color: rgba(0, 0, 0, 0.50);
+    background: #ffffff;
+    opacity: 0.9;
     border-radius: 3px;
-    margin: 100px 0 0 1200px;
+    margin: 100px auto 50px auto;
+}
+
+.app-form h2,
+.app-form .form-input::placeholder,
+.app-form .confirm-row .forgot-password-link{
+    color: #1d2120;
 }
 
 .app-form .row {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .app-form h2 {
     margin: 0;
     padding-bottom: 20px;
     font-size: 26px;
-    color: #fff;
     font-weight: 400;
 }
 
 .app-form .form-input {
-    width: 70%;
-    padding: 10px 40px 10px 10px;
-    height: 2rem;
-    margin-bottom: 15px;
     font-size: 20px;
-    border: 1px solid #edd9c0;
+    width: 70%;
+    height: 2rem;
+    padding: 10px 40px 10px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #1d2120;
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.20);
-}
-
-.app-form .form-input::placeholder {
-    color: #edd9c0;
 }
 
 .app-form .confirm-row {
@@ -46,7 +46,7 @@
     font-size: 17px;
     color: #edd9c0;
     text-transform: none;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     background-color: #1d2120;
     border-radius: 4px;
 }
@@ -56,7 +56,6 @@
     padding: 5px;
     font-size: 16px;
     text-decoration: none;
-    color: #e9ece5;
 }
 
 .app-form .confirm-row #sign-in,

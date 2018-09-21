@@ -79,16 +79,17 @@
     line-height: 70px;
 }
 
-.router {
-    min-height: 800px;
-}
-
-.place-page-mixin {
-    position: absolute;
-    top: 0;
-    max-height: 90px;
-}
-
 .hidden {
     display: none !important;
 }
+
+.router {
+    min-height: 600px;
+}
+
+.place-page-mixin {
+    top: 0;
+    position: absolute;
+    max-height: 90px;
+}
+

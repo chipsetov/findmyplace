@@ -5,6 +5,7 @@ import PlacePage from "./PlacePage/index.js";
 import RegistrationForm from "./RegistrationForm";
 import LoginPage from "./LoginPage";
 import MapForm from "./Map/MapForm";
+import AppInfo from "./Home/AppInfo";
 
 export default class Routes extends Component {
 
@@ -12,6 +13,7 @@ export default class Routes extends Component {
         return (
             <div className='router'>
                 <Route path="//" component={Home}/>
+                <Route path="/app-info" component={AppInfo}/>
                 <Route path="/sign-in" component={LoginPage}/>
                 <Route path="/sign-up" component={RegistrationForm}/>
                 <Route path="/map" component={MapForm}/>
