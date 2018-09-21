@@ -86,10 +86,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers("/user/checkUsernameAvailability", "/user/checkEmailAvailability")
                     .permitAll()
-                .antMatchers(HttpMethod.GET, "/places/**", "/map")
+                .antMatchers(HttpMethod.GET, "/places/**", "/map", "/users", "/placeByType")
+                    .permitAll()
+                .antMatchers(HttpMethod.POST, "/map")
                     .permitAll()
                 .anyRequest()
-                    .authenticated();
+                    .permitAll();
 
         // Add our custom JWT security filter
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
