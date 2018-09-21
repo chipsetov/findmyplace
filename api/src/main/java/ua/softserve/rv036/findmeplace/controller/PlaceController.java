@@ -28,22 +28,12 @@ public class PlaceController {
     }
 
     @PostMapping("/map")
-    List<Place> filteredPlaces(@RequestBody PlaceTypeObject placeType) {
-        List<PlaceType> list = new ArrayList<>();
-        if (placeType.getRestaurant()) {
-            list.add(PlaceType.RESTAURANT);
-        }
-        if (placeType.getParking()){
-            list.add(PlaceType.PARKING);
-        }
-        if (placeType.getHotel()){
-            list.add(PlaceType.HOTEL);
-        }
-        return placeRepository.findByPlaceTypeIn(list);
+    List<Place> filteringPlaces(@RequestBody PlaceTypeObject placeTypeObject) {
+        return placeRepository.findByPlaceTypeIn(placeTypeObject.getCurrnetPlaceTypes());
     }
 
     @GetMapping("/places/{id}")
-    Optional<Place> getUserById(@PathVariable Long id) {
+    Optional<Place> getPlaceById(@PathVariable Long id) {
         return placeRepository.findById(id);
     }
 
