@@ -22,16 +22,6 @@ public class PlaceController {
     @Autowired
     private FeedbackRepository feedbackRepository;
 
-    @GetMapping("/map")
-    List<Place> getPlace() {
-        return placeRepository.findAll();
-    }
-
-    @PostMapping("/map")
-    List<Place> filteringPlaces(@RequestBody PlaceTypeObject placeTypeObject) {
-        return placeRepository.findByPlaceTypeIn(placeTypeObject.getCurrnetPlaceTypes());
-    }
-
     @GetMapping("/places/{id}")
     Optional<Place> getPlaceById(@PathVariable Long id) {
         return placeRepository.findById(id);

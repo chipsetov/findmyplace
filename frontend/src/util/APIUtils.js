@@ -41,7 +41,7 @@ export function signup(signupRequest) {
 
 export function filterPlace(filterRequest) {
     return request({
-        url: API_BASE_URL + "/map",
+        url: API_BASE_URL + "/map/filter",
         method: 'POST',
         body: JSON.stringify(filterRequest)
     });
