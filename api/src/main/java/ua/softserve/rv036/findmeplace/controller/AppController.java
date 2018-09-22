@@ -18,6 +18,8 @@ public class AppController {
 
     @GetMapping("/")
     public List<User> hello() {
+        User user = new User("aaa@gmail.com", "hshsh", "ssss");
+        userRepository.save(user);
         return userRepository.findAll();
     }
 

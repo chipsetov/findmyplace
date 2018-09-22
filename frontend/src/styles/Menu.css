@@ -1,5 +1,5 @@
 .menu-container {
-    background-color: rgba(0 ,0 ,0 ,0.3);
+    background-color: rgba(0 ,0 ,0 , 0.5);
     width: 100%;
 }
 
@@ -84,7 +84,7 @@
 }
 
 .router {
-    min-height: 600px;
+    min-height: 750px;
 }
 
 .place-page-mixin {

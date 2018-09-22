@@ -3,14 +3,10 @@ package ua.softserve.rv036.findmeplace.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.NaturalId;
 import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
 import java.util.Set;
 
 @Data
@@ -18,6 +14,12 @@ import java.util.Set;
 @Table(name = "users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends DateAudit {
+
+    public User(@NotBlank @Email String email, @NotBlank String nickName, @NotBlank String password) {
+        this.email = email;
+        this.nickName = nickName;
+        this.password = password;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,11 +56,6 @@ public class User extends DateAudit {
     @OneToMany(mappedBy = "ownerId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Place> places;
 
-    public User(@NotBlank @Email String email, @NotBlank String nickName, @NotBlank String password) {
-        this.email = email;
-        this.nickName = nickName;
-        this.password = password;
-    }
     @JsonIgnore
     @OneToMany(mappedBy = "feedbackOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Feedback> feedbacks;

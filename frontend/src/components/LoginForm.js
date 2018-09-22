@@ -8,7 +8,6 @@ import {Session} from "../utils";
 
 class LoginForm extends Component {
 
-
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -59,8 +58,8 @@ class LoginForm extends Component {
                     <Input
                         id="usernameOrEmail"
                         type="email"
-                        value={this.state.usernameOrEmail}
                         className="form-input"
+                        value={this.state.usernameOrEmail}
                         value={this.state.email}
                         placeholder="EMAIL"
                         onChange={e => this.handleChange("usernameOrEmail", e.target.value)}

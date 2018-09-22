@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, NavItem, Button, Icon } from 'react-materialize';
+import { Navbar, NavItem, Button, Icon, Dropdown } from 'react-materialize';
 import { withRouter } from 'react-router-dom';
 import Logout from './Logout';
 import '../styles/Menu.css';
@@ -40,7 +40,14 @@ class Menu extends Component {
                         </NavItem>
 
                         <NavItem href='#/sign-in' id="auth-sign-in" className={isLoggedIn ? "hidden" : ""}>
-                            Sign In
+                            <Dropdown trigger={
+                                <Button>Drop me!</Button>
+                            }>
+                                <NavItem>one</NavItem>
+                                <NavItem>two</NavItem>
+                                <NavItem divider />
+                                <NavItem>three</NavItem>
+                            </Dropdown>
                         </NavItem>
                         <NavItem href='#/map' id="search"><Icon>search</Icon></NavItem>
                     </Navbar>
