@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link, withRouter} from "react-router-dom";
-import '../../styles/HomePage.css';
+import './Home.css';
 import {Row} from "react-materialize";
 
 class Home extends Component {

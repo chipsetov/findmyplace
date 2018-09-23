@@ -93,3 +93,12 @@
     max-height: 90px;
 }
 
+.dropdown-button {
+    float: right;
+    margin-top: 30px;
+}
+
+.dropdown-content {
+    margin-top: 70px;
+}
+

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row } from "react-materialize";
-import '../../styles/HomePage.css';
+import './Home.css';
 
 class AppInfo extends Component {
 

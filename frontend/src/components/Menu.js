@@ -3,6 +3,7 @@ import { Navbar, NavItem, Button, Icon, Dropdown } from 'react-materialize';
 import { withRouter } from 'react-router-dom';
 import Logout from './Logout';
 import '../styles/Menu.css';
+import "../styles/Logout.css";
 import {LOGIN_CHANGED, PAGE_CHANGED, Session} from "../utils";
 
 class Menu extends Component {
@@ -44,6 +45,9 @@ class Menu extends Component {
                             Sign In
                         </NavItem>
                         <NavItem href='#/map' id="search"><Icon>search</Icon></NavItem>
+                        <Dropdown trigger={<img src="img/avatar.png" alt=""/>}>
+                            <NavItem href='#users/1/places'>My places</NavItem>
+                        </Dropdown>
                     </Navbar>
                 </div>
             </div>
