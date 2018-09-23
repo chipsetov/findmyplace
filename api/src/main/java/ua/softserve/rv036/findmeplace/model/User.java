@@ -7,6 +7,7 @@ import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -54,7 +55,7 @@ public class User extends DateAudit {
 
     @JsonIgnore
     @OneToMany(mappedBy = "ownerId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Place> places;
+    private List<Place> places;
 
     @JsonIgnore
     @OneToMany(mappedBy = "feedbackOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

@@ -1,0 +1,47 @@
+.places-container {
+    width: 70%;
+    padding: 0 10px;
+}
+
+.places-container .small {
+    font-size: 14px;
+    width: 400px;
+    height: 430px !important;
+    float: left;
+    margin: .5rem;
+    border-radius: 3px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+
+.card-image, .card-content {
+    height: 50%;
+    position: relative;
+    max-height: none !important;
+}
+
+.card-content .place-info {
+    margin-bottom: 10px;
+}
+
+.card-content .place-type  {
+    font-size: 14px;
+    color: #c7ccd5;
+}
+
+.card-content .place-name a {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1d2120;
+}
+
+.card-content .place-name a:hover {
+    color: #ff8d15;
+}
+
+.card-content .free-places {
+    position: absolute;
+    margin: 0 24px 10px 24px;
+    bottom: 0;
+    left: 0;
+}

@@ -1,5 +1,28 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum PlaceType {
-    HOTEL, PARKING, CAFE, PUB, RESTAURANT
+
+    HOTEL("Hotel"),
+    PARKING("Parking"),
+    CAFE("Cafe"),
+    PUB("Pub"),
+    RESTAURANT("Restaurant");
+
+    String name;
+
+    private PlaceType(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return this.toString();
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }
