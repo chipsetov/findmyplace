@@ -1,12 +1,16 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 import javax.persistence.*;
 import java.sql.Time;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "places")
 public class Place {
 

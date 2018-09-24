@@ -1,9 +1,8 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.util.Set;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.NoArgsConstructor;
 import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
 import ua.softserve.rv036.findmeplace.model.enums.BanStatusType;
 import ua.softserve.rv036.findmeplace.model.enums.RoleType;
@@ -13,8 +12,9 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends DateAudit {
 
     public User(@NotBlank @Email String email, @NotBlank String nickName, @NotBlank String password) {
@@ -53,9 +53,5 @@ public class User extends DateAudit {
     @Column(name = "ban_status")
     @Enumerated(EnumType.STRING)
     private BanStatusType banStatus;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "feedbackOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Feedback> feedbacks;
 
 }

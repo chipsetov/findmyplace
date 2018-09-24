@@ -31,7 +31,7 @@ public class PlaceController {
 
     @GetMapping("places/{id}/feedbacks")
     List<Feedback> feedbacksByPlaceId(@PathVariable Long id) {
-        return feedbackRepository.findByPlaceId(id);
+        return feedbackRepository.findAllByPlaceId(id);
     }
 
 }
