@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.utils.PlaceTypeObject;
+import ua.softserve.rv036.findmeplace.utils.SearchObject;
 
 import java.util.List;
 
@@ -23,5 +24,9 @@ public class MapController {
     @PostMapping("/map/filter")
     List<Place> filteringPlaces(@RequestBody PlaceTypeObject placeTypeObject) {
         return placeRepository.findByPlaceTypeIn(placeTypeObject.getCurrnetPlaceTypes());
+    }
+    @PostMapping("/map/search")
+    List<Place> searchPlaces(@RequestBody SearchObject searchObject) {
+        return placeRepository.findByNameIn(searchObject.getSearchValue());
     }
 }

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Col, Icon, Input, Row} from 'react-materialize';
 import MapLayout from './MapLayout.js';
-import {filterPlace} from '../../util/APIUtils';
+import SearchPlace from './SearchPlace';
+import {filterPlace, searchPlace} from '../../util/APIUtils';
 import '../../styles/Map.css';
 
 
@@ -17,10 +18,12 @@ class MapForm extends Component {
             active: true,
             parking: true,
             restaurant: true,
-            hotel: true
+            hotel: true,
+            searchValue: ''
 
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -61,6 +64,29 @@ class MapForm extends Component {
             })
     }
 
+    updateData = (value) => {
+        this.setState({ searchValue: value })
+
+        const searchRequest = {
+            searchValue: value,
+        };
+
+        console.log(searchRequest);
+
+        searchPlace(searchRequest)
+            .then(result => {
+                this.setState({places: result});
+        })
+    }
+
+    handleSearchSubmit() {
+        const searchRequest = {
+            searchValue: this.state.searchValue,
+        };
+        console.log(searchRequest);
+
+    }
+
     render() {
         return (
             <div className="container-fluid">
@@ -93,17 +119,10 @@ class MapForm extends Component {
                         <Col s={1}>
                             <Button waves='light' onClick={this.handleSubmit}>Use Filter</Button>
                         </Col>
-                        <Col s={2} offset="s2">
-                            <Input
-                                type="text"
-                                label="Type the Place name..."
-                                validate
-                                onChange={e => this.handleChange("place_name", e.target.value)}
-                            />
+                        <Col s={2} offset="s3">
+                            <SearchPlace updateData={this.updateData}/>
                         </Col>
-                        <Col s={1}>
-                            <Button waves='light'>Search<Icon right>search</Icon></Button>
-                        </Col>
+
                     </Row>
                 </div>
                 <Row>
@@ -120,30 +139,8 @@ class MapForm extends Component {
 
 export default MapForm
 
-/*<div class="row">
-                <div class="col s2">
-                    <div class="row valign-wrapper">
-                        <div class="col s10">
-                            <input
-                                id="place_name"
-                                type="text"
-                                placeholder="Type the Place name..."
-                                onChange={e => this.handleChange("place_name", e.target.value)}
-                            />
-                        </div>
-                        <div class="col s2">
-                            <i class="material-icons small">search</i>
-                        </div>
-                    </div>
-                    <div class="row" >
-                        <Select
-                            name="basic-multi-select"
-                            value={selectedOption}
-                            onChange={this.handleChange}
-                            isMulti={true}
-                            options={options}
-                        />
-                    </div>
+
+/*
                     {this.state.places.map(place => (
                         <div class="row" key={place.name} className="place-row">
                             <a href="/#/map" onClick={() => {

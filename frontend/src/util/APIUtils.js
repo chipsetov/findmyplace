@@ -47,6 +47,14 @@ export function filterPlace(filterRequest) {
     });
 }
 
+export function searchPlace(searchRequest) {
+    return request({
+        url: API_BASE_URL + "/map/search",
+        method: 'POST',
+        body: JSON.stringify(searchRequest)
+    });
+}
+
 export function checkUsernameAvailability(username) {
     return request({
         url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,

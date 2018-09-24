@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Long> {
     List<Place> findByPlaceTypeIn(List<PlaceType> placeTypes);
+
+    List<Place> findByNameIn(String searchValue);
 }
