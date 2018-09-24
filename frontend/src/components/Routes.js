@@ -5,7 +5,7 @@ import PlacePage from "./PlacePage/index.js";
 import RegistrationForm from "./RegistrationForm";
 import LoginPage from "./LoginPage";
 import MapForm from "./Map/MapForm";
-import UserPage from "./UserPage";
+import UserPage from "./UserPage/UserPage";
 
 export default class Routes extends Component {
 

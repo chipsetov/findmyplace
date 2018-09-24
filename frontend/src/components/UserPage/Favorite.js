@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-export default class UserPage extends Component {
+export default class Favorite extends Component {
     render() {
         return (
-            <h1>User's page</h1>
+            <h1>Favorite component</h1>
         );
     }
 }
