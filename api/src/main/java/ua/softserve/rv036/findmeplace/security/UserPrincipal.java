@@ -41,7 +41,10 @@ public class UserPrincipal implements UserDetails {
 
     public static UserPrincipal create(User user) {
 
-        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
+        String name = user.getRole().name();
+        System.out.println(name);
+
+        GrantedAuthority authority = new SimpleGrantedAuthority(name);
 
         return new UserPrincipal(
                 user.getId(),

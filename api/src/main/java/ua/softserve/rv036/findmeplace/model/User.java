@@ -39,6 +39,7 @@ public class User extends DateAudit {
     @Column(name = "nick_name")
     private String nickName;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 

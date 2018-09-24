@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ua.softserve.rv036.findmeplace.model.BanStatus;
 import ua.softserve.rv036.findmeplace.model.Role;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
@@ -24,6 +25,8 @@ import ua.softserve.rv036.findmeplace.security.JwtTokenProvider;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.Instant;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/auth")
@@ -56,8 +59,12 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final String jwt = tokenProvider.generateToken(authentication);
-        Role role = userRepository.findByNickNameOrEmail
-                (loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail()).get().getRole();
+        User user = userRepository.findByNickNameOrEmail
+                (loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail()).get();
+        user.setLastUpdateDate(Instant.now());
+        System.out.println(Instant.now());
+        userRepository.save(user);
+        Role role = user.getRole();
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, role));
     }
@@ -75,19 +82,19 @@ public class AuthController {
         }
 
         // Creating user's account
-        User user = new User(signUpRequest.getNickName(),
-                signUpRequest.getEmail(), signUpRequest.getPassword());
+        User user = new User(signUpRequest.getEmail(),
+                signUpRequest.getNickName(), signUpRequest.getPassword());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        user.setRole(user.getRole());
+        user.setRole(Role.ROLE_USER);
+        user.setBanStatus(BanStatus.NOT_BAN);
 
         User result = userRepository.save(user);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/users/{username}")
                 .buildAndExpand(result.getNickName()).toUri();
-
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
 }

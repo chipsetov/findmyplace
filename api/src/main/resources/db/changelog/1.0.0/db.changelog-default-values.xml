@@ -10,8 +10,7 @@
     <!-- Users -->
     <changeSet id="1" author="rv036">
         <insert tableName="users">
-            <column name="id" value="1"/>
-            <column name="first_name" value="Vasya"/>
+                       <column name="first_name" value="Vasya"/>
             <column name="last_name" value="Pupkin"/>
             <column name="phone" value="0935588774"/>
             <column name="email" value="user@gmail.com"/>
@@ -23,7 +22,6 @@
             <column name="last_update_date" value="07.09.2018 : 10:10:10"/>
         </insert>
         <insert tableName="users">
-            <column name="id" value="2"/>
             <column name="first_name" value="John"/>
             <column name="last_name" value="Conor"/>
             <column name="phone" value="88003553555"/>
@@ -36,7 +34,6 @@
             <column name="last_update_date" value="02.09.2018 : 10:10:10"/>
         </insert>
         <insert tableName="users">
-            <column name="id" value="3"/>
             <column name="first_name" value="Sara"/>
             <column name="last_name" value="Conor"/>
             <column name="phone" value="88004557564"/>
@@ -49,7 +46,6 @@
             <column name="last_update_date" value="01.06.2018 : 10:10:10"/>
         </insert>
         <insert tableName="users">
-            <column name="id" value="4"/>
             <column name="first_name" value="Arnold"/>
             <column name="last_name" value="Shwartzneger"/>
             <column name="phone" value="1111"/>
@@ -68,7 +64,6 @@
     <!-- Places -->
     <changeSet id="2" author="rv036">
         <insert tableName="places">
-            <column name="id" value="1"/>
             <column name="name" value="Челентано"/>
             <column name="address" value="Rivne"/>
             <column name="description" value="best pizza"/>
@@ -81,7 +76,6 @@
             <column name="owner_id" value="1"/>
         </insert>
         <insert tableName="places">
-            <column name="id" value="2"/>
             <column name="name" value="Манхетен"/>
             <column name="address" value="Rivne"/>
             <column name="description" value="best hotel"/>
@@ -94,7 +88,6 @@
             <column name="owner_id" value="2"/>
         </insert>
         <insert tableName="places">
-            <column name="id" value="3"/>
             <column name="name" value="Стоянка МИР"/>
             <column name="address" value="Rivne"/>
             <column name="description" value="best parking"/>
@@ -107,7 +100,6 @@
             <column name="owner_id" value="2"/>
         </insert>
         <insert tableName="places">
-            <column name="id" value="4"/>
             <column name="name" value="МакДональдз"/>
             <column name="address" value="Rivne"/>
             <column name="description" value="best cafe"/>
@@ -124,7 +116,6 @@
     <!-- Feedback -->
     <changeSet id="3" author="rv036">
         <insert tableName="feedbacks">
-            <column name="id" value="1"/>
             <column name="comment" value="Very bad place"/>
             <column name="mark" value="2"/>
             <column name="user_id" value="2"/>
@@ -132,7 +123,6 @@
 
         </insert>
         <insert tableName="feedbacks">
-            <column name="id" value="2"/>
             <column name="comment" value="Nice place"/>
             <column name="mark" value="8"/>
             <column name="user_id" value="3"/>
@@ -141,7 +131,6 @@
 
         </insert>
         <insert tableName="feedbacks">
-            <column name="id" value="3"/>
             <column name="comment" value="I like it"/>
             <column name="mark" value="10"/>
             <column name="user_id" value="4"/>
