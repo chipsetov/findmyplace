@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Feedback;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.PlaceType;
-import ua.softserve.rv036.findmeplace.payload.ApiResponse;
-import ua.softserve.rv036.findmeplace.payload.RegisterPlaceRequest;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
+import ua.softserve.rv036.findmeplace.repository.UserRepository;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -25,6 +24,8 @@ public class PlaceController {
     private PlaceRepository placeRepository;
     @Autowired
     private FeedbackRepository feedbackRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/map")
     List<Place> getPlace() {
@@ -52,21 +53,12 @@ public class PlaceController {
     }
 
     @PostMapping("/places/register")
-    ResponseEntity<RegisterPlaceRequest> registerPlace(@Valid @RequestBody RegisterPlaceRequest registerPlaceRequest) {
+    ResponseEntity<Place> registerPlace(@Valid @RequestBody Place place) {
 
-        if(placeRepository.existsByName(registerPlaceRequest.getPlaceName())) {
+        if(placeRepository.existsByName(place.getName())) {
             return new ResponseEntity("Place already exists", new HttpHeaders(), HttpStatus.BAD_REQUEST);
         } else {
-            Place place = new Place();
-            place.setName(registerPlaceRequest.getPlaceName());
-            place.setAddress(registerPlaceRequest.getAddress());
-            place.setOpen(registerPlaceRequest.getOpenTime());
-            place.setClose(registerPlaceRequest.getCloseTime());
-            place.setDescription(registerPlaceRequest.getDescription());
-            place.setPlaceType(registerPlaceRequest.getPlaceType());
-            place.setLatitude(registerPlaceRequest.getLatitude());
-            place.setLongitude(registerPlaceRequest.getLongitude());
-
+            place.setCountFreePlaces(0);
             Place result = placeRepository.save(place);
 
             return new ResponseEntity(result, HttpStatus.CREATED);

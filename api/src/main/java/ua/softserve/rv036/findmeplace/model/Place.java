@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Time;
 
 @Data
@@ -13,24 +14,26 @@ import java.sql.Time;
 public class Place {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "count_free_places")
     private Integer countFreePlaces;
 
     @NotBlank
+    @Size(min = 1, max = 255)
     private String name;
 
     @NotBlank
+    @Size(min = 1, max = 255)
     private String address;
 
     @NotBlank
+    @Size(min = 1, max = 255)
     private String description;
 
     @NotNull
     private Time open;
-
     @NotNull
     private Time close;
 

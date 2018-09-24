@@ -43,11 +43,11 @@ class RegisterPlace extends Component {
         event.preventDefault();
 
         const registerPlaceRequest = {
-            placeName: this.state.placeName,
+            name: this.state.placeName,
             address: this.state.address,
 
-            openTime: this.state.openTime + ":00",
-            closeTime: this.state.closeTime + ":00",
+            open: this.state.openTime + ":00",
+            close: this.state.closeTime + ":00",
             placeType: this.state.placeType,
             description: this.state.description,
             longitude: this.state.longitude,
