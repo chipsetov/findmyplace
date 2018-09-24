@@ -10,8 +10,12 @@ import UserPage from "./UserPage/UserPage";
 export default class Routes extends Component {
 
     render() {
+        const style = {
+            minHeight: this.props.minHeight
+        };
+
         return (
-            <div className='router'>
+            <div id="router" style={style} /*className='router'*/>
                 <Route path="//" component={Home}/>
                 <Route path="/sign-in" component={LoginPage}/>
                 <Route path="/sign-up" component={RegistrationForm}/>

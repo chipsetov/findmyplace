@@ -39,6 +39,11 @@ export function signup(signupRequest) {
     });
 }
 
+export const getProfile = (nickname) => request({
+    url: API_BASE_URL + `/users/nick/${nickname}`,
+    method: 'GET'
+});
+
 export function checkUsernameAvailability(username) {
     return request({
         url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,

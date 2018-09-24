@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Row, Col, Input, Button } from 'react-materialize';
 
 import '../../styles/UserPage.css';
-import {USER_NAME} from "../../constants";
 
 export default class Profile extends Component {
     constructor(props) {
@@ -17,7 +16,6 @@ export default class Profile extends Component {
     }
 
     render() {
-        const name = localStorage.getItem(USER_NAME);
         return (
             <div className="container">
                 <div className="profile-editor">
@@ -26,7 +24,11 @@ export default class Profile extends Component {
                             <p>name:</p>
                         </Col>
                         <Col s={4}>
-                            <Input onChange={ (e) => { this.onChangeStateHandler('userName', e.target.value)} }/>
+                            <Input
+                                defaultValue={this.props.userName}
+                                onChange={(e) => {
+                                    this.onChangeStateHandler('userName', e.target.value)
+                                }}/>
                         </Col>
                     </Row>
 
@@ -35,8 +37,9 @@ export default class Profile extends Component {
                             <p>email:</p>
                         </Col>
                         <Col s={4}>
-                            <Input placeholder="Your email"
-                                   onChange={ (e) => { this.onChangeStateHandler('email', e.target.value)} }/>
+                            <Input defaultValue={this.props.email}
+                                   onChange={ (e) => {
+                                       this.onChangeStateHandler('email', e.target.value)} }/>
                         </Col>
                     </Row>
 
@@ -83,15 +86,25 @@ export default class Profile extends Component {
         );
     }
 
+    error(message) {
+        window["Materialize"].toast(message, 3000);
+    }
+
     onChangeStateHandler(key, value) {
         this.setState({[key]: value});
-
-        console.clear();
-        console.log(this.state);
     }
 
     onSaveChangesHandler() {
-
+        if (this.state.newPassword.length) {
+            if (!this.state.oldPassword.length) {
+                this.error("You have to enter your old password");
+                return;
+            }
+            if (!this.state.confirmPassword.length) {
+                this.error("You have to confirm new password!");
+                return;
+            }
+        }
     }
 
     onCancelChangesHandler() {
