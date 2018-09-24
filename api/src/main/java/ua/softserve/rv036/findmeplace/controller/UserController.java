@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.User;
+import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PlaceRepository placeRepository;
 
     @GetMapping("/users")
     List<User> getAll() {
@@ -28,8 +32,7 @@ public class UserController {
 
     @GetMapping("/users/{id}/places")
     List<Place> getUserPlaces(@PathVariable Long id) {
-        User user = userRepository.findById(id).get();
-        return user.getPlaces();
+        return placeRepository.findAllByOwnerId(id);
     }
 
 }

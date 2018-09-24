@@ -1,10 +1,9 @@
 package ua.softserve.rv036.findmeplace.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Set;
 
 @Data
 @Entity
@@ -46,12 +45,7 @@ public class Place {
     @Column(name = "place_type")
     private PlaceType placeType;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner_id", nullable = false)
-    private User ownerId;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Feedback> feedbacks;
+    @Column(name = "owner_id")
+    private Long ownerId;
 
 }

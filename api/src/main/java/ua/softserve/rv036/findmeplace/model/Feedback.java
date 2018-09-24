@@ -21,11 +21,10 @@ public class Feedback {
     private Integer mark;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "owner_id", nullable = false)
     private User feedbackOwner;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "place_id", nullable = false)
-    private Place place;
+    @Column(name = "place_id")
+    private Long placeId;
 
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ua.softserve.rv036.findmeplace.model.Role;
+import ua.softserve.rv036.findmeplace.model.enums.RoleType;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.JwtAuthenticationResponse;
@@ -56,7 +56,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final String jwt = tokenProvider.generateToken(authentication);
-        Role role = userRepository.findByNickNameOrEmail
+        RoleType role = userRepository.findByNickNameOrEmail
                 (loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail()).get().getRole();
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, role));

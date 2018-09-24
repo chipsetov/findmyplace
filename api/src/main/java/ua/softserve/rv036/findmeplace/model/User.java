@@ -1,14 +1,15 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import lombok.Data;
+import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
+import ua.softserve.rv036.findmeplace.model.enums.BanStatusType;
+import ua.softserve.rv036.findmeplace.model.enums.RoleType;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -47,15 +48,11 @@ public class User extends DateAudit {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private RoleType role;
 
     @Column(name = "ban_status")
     @Enumerated(EnumType.STRING)
-    private BanStatus banStatus;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "ownerId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Place> places;
+    private BanStatusType banStatus;
 
     @JsonIgnore
     @OneToMany(mappedBy = "feedbackOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

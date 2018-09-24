@@ -1,4 +1,4 @@
-package ua.softserve.rv036.findmeplace.model;
+package ua.softserve.rv036.findmeplace.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -11,7 +11,7 @@ public enum PlaceType {
     PUB("Pub"),
     RESTAURANT("Restaurant");
 
-    String name;
+    private String name;
 
     private PlaceType(String name) {
         this.name = name;
