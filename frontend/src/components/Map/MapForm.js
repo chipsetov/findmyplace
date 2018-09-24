@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Icon, Row, Button, Input} from 'react-materialize';
+import {Icon, Row, Button, Input, Col} from 'react-materialize';
 import MapLayout from './MapLayout.js';
 import '../../styles/Map.css';
 
@@ -44,16 +44,22 @@ class MapForm extends Component {
             <div className="container-fluid">
                 <div className="up-row">
                     <Row>
+                    <Col s={2}>
+                        <Input type="switch"/>
+                    </Col>
+                    <Col s={2} offset="s9">
                             <Input
                                 type="text"
                                 className="form-input"
-                                s={3}
                                 offset="true"
                                 label="Type the Place name..."
                                 validate
                                 onChange={e => this.handleChange("place_name", e.target.value)}
                             />
+                    </Col>
+                    <Col s={1} >
                         <Button waves='light'>Search<Icon right>search</Icon></Button>
+                    </Col>
                     </Row>
                 </div>
                     <Row>

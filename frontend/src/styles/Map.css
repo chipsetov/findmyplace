@@ -15,6 +15,10 @@
     line-height: 1;
 }
 
+.up-row .switch {
+     margin: 50px 0px;
+}
+
 .up-row .btn {
     font-size: 17px;
     color: #edd9c0;
