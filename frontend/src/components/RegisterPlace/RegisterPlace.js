@@ -11,6 +11,7 @@ class RegisterPlace extends Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCoordinates = this.handleCoordinates.bind(this);
+        this.validateData = this.validateData.bind(this);
         this.state = {
             placeName: "",
             address: "",
@@ -23,9 +24,45 @@ class RegisterPlace extends Component {
             latitude: 50.6219427,
             longitude: 26.2493254,
 
-            placeTypes: []
+            placeTypes: [],
+
+            isError: true,
         }
     };
+
+    validateData() {
+        this.setState({isError: false});
+
+        if(this.state.placeName.trim().length == 0) {
+            this.setState({isError: true});
+            window.Materialize.toast('Place name is required field', 3000);
+        }
+
+        if(this.state.address.trim().length == 0) {
+            this.setState({isError: true});
+            window.Materialize.toast('Address is required field', 3000);
+        }
+
+        if(this.state.openTime.trim().length == 0) {
+            this.setState({isError: true});
+            window.Materialize.toast('Open time is required field', 3000);
+        }
+
+        if(this.state.closeTime.trim().length == 0) {
+            this.setState({isError: true});
+            window.Materialize.toast('Close time is required field', 3000);
+        }
+
+        if(this.state.description.trim().length == 0) {
+            this.setState({isError: true});
+            window.Materialize.toast('Description is required field', 3000);
+        }
+
+        if(this.state.placeType.trim().length == 0) {
+            this.setState({isError: true});
+            window.Materialize.toast('PlaceType is required field', 3000);
+        }
+    }
 
     handleCoordinates(lat, lng) {
         this.setState({
@@ -39,33 +76,35 @@ class RegisterPlace extends Component {
     }
 
     handleSubmit(event) {
-
         event.preventDefault();
+        this.validateData();
+        //this.validateData();
 
-        const registerPlaceRequest = {
-            name: this.state.placeName,
-            address: this.state.address,
+        if(!this.state.isError) {
+            const registerPlaceRequest = {
+                name: this.state.placeName,
+                address: this.state.address,
 
-            open: this.state.openTime + ":00",
-            close: this.state.closeTime + ":00",
-            placeType: this.state.placeType,
-            description: this.state.description,
-            longitude: this.state.longitude,
-            latitude: this.state.latitude
-        };
-        console.log(JSON.stringify(registerPlaceRequest));
+                open: this.state.openTime + ":00",
+                close: this.state.closeTime + ":00",
+                placeType: this.state.placeType,
+                description: this.state.description,
+                longitude: this.state.longitude,
+                latitude: this.state.latitude
+            };
+            console.log(JSON.stringify(registerPlaceRequest));
 
-        registerPlace(registerPlaceRequest)
-            .then(registerPlaceRequest => {
+            registerPlace(registerPlaceRequest)
+                .then(registerPlaceRequest => {
 
-                this.props.history.push("/map");
-                window.Materialize.toast("Place registered", 7000);
+                    this.props.history.push("/map");
+                    window.Materialize.toast("Place registered", 7000);
 
-            }).catch(error => {
+                }).catch(error => {
                 console.log(error);
                 window.Materialize.toast('Sorry! Something went wrong. Please try again!', 3000);
-        });
-
+            });
+        }
     }
 
     componentDidMount() {

@@ -11,7 +11,7 @@ public enum PlaceType {
     RESTAURANT("Restaurant");
     //etc
 
-    String name;
+    private String name;
 
     private PlaceType(String name) {
         this.name = name;

@@ -18,9 +18,8 @@ public class Feedback {
     @JoinColumn(name = "user_id")
     private User feedbackOwner;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "place_id")
-    private Place place;
+    @Column(name = "place_id")
+    private Long placeId;
 
     @NotNull
     private Integer mark;

@@ -20,15 +20,15 @@ public class Place {
     @Column(name = "count_free_places")
     private Integer countFreePlaces;
 
-    @NotBlank
+    @NotBlank(message = "Name is required field")
     @Size(min = 1, max = 255)
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "Address is required field")
     @Size(min = 1, max = 255)
     private String address;
 
-    @NotBlank
+    @NotBlank(message = "Description is required field")
     @Size(min = 1, max = 255)
     private String description;
 
@@ -47,8 +47,7 @@ public class Place {
     @Column(name = "place_type")
     private PlaceType placeType;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner_id")
-    private User owner;
+    @Column(name = "owner_id")
+    private Long ownerId;
 
 }
