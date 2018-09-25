@@ -1,8 +1,6 @@
 package ua.softserve.rv036.findmeplace.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
 import ua.softserve.rv036.findmeplace.model.enums.BanStatusType;
 import ua.softserve.rv036.findmeplace.model.enums.RoleType;
@@ -12,8 +10,6 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "users")
 public class User extends DateAudit {
 

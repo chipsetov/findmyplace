@@ -35,4 +35,9 @@ public class UserController {
         return placeRepository.findAllByOwnerId(id);
     }
 
+    @GetMapping("/users/nick/{nickname}")
+    Optional<User> getUserByNickName(@PathVariable String nickname) {
+        return userRepository.findByNickName(nickname);
+    }
+
 }
