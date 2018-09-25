@@ -32,9 +32,9 @@ public class Place {
     @Size(min = 1, max = 255)
     private String description;
 
-    @NotNull
+    @NotNull(message = "Time is a required field")
     private Time open;
-    @NotNull
+    @NotNull(message = "Time is a required field")
     private Time close;
 
     @NotNull

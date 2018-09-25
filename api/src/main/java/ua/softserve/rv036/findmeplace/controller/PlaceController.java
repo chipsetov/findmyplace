@@ -12,6 +12,7 @@ import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
@@ -53,6 +54,7 @@ public class PlaceController {
     }
 
     @PostMapping("/places/register")
+    @RolesAllowed("ROLE_OWNER")
     ResponseEntity<Place> registerPlace(@Valid @RequestBody Place place) {
 
         if(placeRepository.existsByName(place.getName())) {
