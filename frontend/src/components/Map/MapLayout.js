@@ -9,7 +9,6 @@ export default class MapLayout extends Component {
         const position = [this.props.latitude, this.props.longitude]
         const zoom = this.props.zoom
         return (
-            <div id="mapid">
                 <Map center={position} zoom={zoom}>
                     <TileLayer
                         attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -23,8 +22,6 @@ export default class MapLayout extends Component {
                         </Marker>
                     ))}
                 </Map>
-            </div>
-
         )
     }
 }

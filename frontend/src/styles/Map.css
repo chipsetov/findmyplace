@@ -1,5 +1,8 @@
 
-#mapid { height: 700px; }
+.leaflet-container {
+    height: 700px;
+
+}
 
 
 
@@ -8,15 +11,11 @@
     padding: 0px 1px;
     background-color: rgba(0 ,0 ,0 ,0.3);
     color: #edd9c0;
+    margin-bottom: 0px;
 }
 
 .up-row .row{
     margin-bottom: 0px;
-}
-
-.up-row .col .input{
-    position: relative;
-    left: 130px;
 }
 
 .up-row .col .input-field label{
@@ -25,7 +24,7 @@
 
 
 .up-row #check-row-filter{
-    margin: 30px 0px;
+    margin-top: 15px;
     position: relative;
 
 }
@@ -42,8 +41,9 @@
     letter-spacing: 0px;
     background-color: #1d2120;
     border-radius: 4px;
-    margin: 25px 0px;
-    padding: 0px 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 0px 7px;
 }
 
 

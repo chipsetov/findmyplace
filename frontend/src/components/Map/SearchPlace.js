@@ -1,6 +1,7 @@
 import Autosuggest from 'react-autosuggest';
-import {Button} from 'react-materialize';
+import {Button, Col, Row, Icon} from 'react-materialize';
 import React, {Component} from 'react';
+import '../../styles/searchStyle.css'
 
 export default class SearchPlace extends Component {
     constructor() {
@@ -70,17 +71,23 @@ export default class SearchPlace extends Component {
         };
 
         return (
-            <div>
-            <Autosuggest
-                suggestions={suggestions}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                getSuggestionValue={this.getSuggestionValue}
-                renderSuggestion={this.renderSuggestion}
-                inputProps={inputProps}
-            />
-            <Button waves='light' onClick={() => { this.props.updateData(this.state.value)}}>Search</Button>
-            </div>
+            <Row>
+                <Col s={10} className="check-row-search">
+                    <Autosuggest
+                        suggestions={suggestions}
+                        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                        getSuggestionValue={this.getSuggestionValue}
+                        renderSuggestion={this.renderSuggestion}
+                        inputProps={inputProps}
+                    />
+                </Col>
+                <Col s={2}>
+                    <Button waves='light' onClick={() => {
+                        this.props.updateData(this.state.value)
+                    }}><Icon>search</Icon></Button>
+                </Col>
+            </Row>
         );
     }
 }

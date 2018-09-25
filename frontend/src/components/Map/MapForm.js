@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Col, Icon, Input, Row} from 'react-materialize';
+import {Button, Col, Input, Row} from 'react-materialize';
 import MapLayout from './MapLayout.js';
 import SearchPlace from './SearchPlace';
 import {filterPlace, searchPlace} from '../../util/APIUtils';
@@ -90,8 +90,7 @@ class MapForm extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <div className="up-row">
-                    <Row>
+                    <Row className="up-row">
                         <Col s={2} id="check-row-filter">
                             <Input
                                 type='checkbox'
@@ -124,7 +123,6 @@ class MapForm extends Component {
                         </Col>
 
                     </Row>
-                </div>
                 <Row>
                     <MapLayout items={this.state.places}
                                latitude={this.state.latitude}
