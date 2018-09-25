@@ -2,6 +2,7 @@ export const API_BASE_URL = 'http://localhost:8080';
 export const ACCESS_TOKEN = 'accessToken';
 export const TOKEN_TYPE = 'Bearer';
 export const ROLES = [];
+export const USER_ID = null;
 
 export const NAME_MIN_LENGTH = 4;
 export const NAME_MAX_LENGTH = 40;

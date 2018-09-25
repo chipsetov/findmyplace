@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Input, Row} from 'react-materialize';
 import {Link, withRouter} from 'react-router-dom';
 import '../styles/Form.css';
-import {ACCESS_TOKEN, ROLES} from '../constants';
+import {ACCESS_TOKEN, ROLES, USER_ID} from '../constants';
 import {login} from '../util/APIUtils';
 import {Session} from "../utils";
 
@@ -35,11 +35,13 @@ class LoginForm extends Component {
             .then(response => {
                 localStorage.setItem(ACCESS_TOKEN, response.accessToken);
                 localStorage.setItem(ROLES, JSON.stringify(response.roles));
+                localStorage.setItem(USER_ID, response.userId);
 
                 Session.login(ACCESS_TOKEN);
 
                 this.props.history.push("/map");
                 window.Materialize.toast('Welcome as: ' + localStorage.getItem(ROLES), 7000);
+                window.Materialize.toast(localStorage.getItem(USER_ID), 7000);
 
             }).catch(error => {
             if (error.status === 401) {

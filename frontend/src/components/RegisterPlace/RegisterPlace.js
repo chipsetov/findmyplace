@@ -2,6 +2,8 @@ import React, { Component, createRef } from 'react';
 import {Row, Input, Button} from 'react-materialize';
 import PutMarker from "./PutMarker";
 import {registerPlace} from '../../util/APIUtils';
+import {USER_ID} from '../../constants';
+import "../../styles/RegisterPlace.css";
 
 
 class RegisterPlace extends Component {
@@ -16,51 +18,60 @@ class RegisterPlace extends Component {
             placeName: "",
             address: "",
 
-            openTime: "",
-            closeTime: "",
+            openTime: "00:00",
+            closeTime: "00:00",
             placeType: "",
             description: "",
 
             latitude: 50.6219427,
             longitude: 26.2493254,
+            ownerId: localStorage.getItem(USER_ID),
 
             placeTypes: [],
+
+            error_placeName: "",
+            error_address: "",
+            error_openTime: "",
+            error_closeTime: "",
+            error_placeType: "",
+            error_description: "",
 
             isError: true,
         }
     };
 
     validateData() {
-        this.setState({isError: false});
+        this.setState({
+            error_placeName: "",
+            error_address: "",
+            error_placeType: "",
+            error_description: "",
+            isError: false,
+        });
 
         if(this.state.placeName.trim().length == 0) {
-            this.setState({isError: true});
-            window.Materialize.toast('Place name is required field', 3000);
+            this.setState({
+                error_placeName: "Place name is required field",
+                isError: true,
+            });
         }
-
         if(this.state.address.trim().length == 0) {
-            this.setState({isError: true});
-            window.Materialize.toast('Address is required field', 3000);
+            this.setState({
+                error_address: "Address is required field",
+                isError: true,
+            });
         }
-
-        if(this.state.openTime.trim().length == 0) {
-            this.setState({isError: true});
-            window.Materialize.toast('Open time is required field', 3000);
-        }
-
-        if(this.state.closeTime.trim().length == 0) {
-            this.setState({isError: true});
-            window.Materialize.toast('Close time is required field', 3000);
-        }
-
         if(this.state.description.trim().length == 0) {
-            this.setState({isError: true});
-            window.Materialize.toast('Description is required field', 3000);
+            this.setState({
+                error_description: "Description is required field",
+                isError: true,
+            });
         }
-
         if(this.state.placeType.trim().length == 0) {
-            this.setState({isError: true});
-            window.Materialize.toast('PlaceType is required field', 3000);
+            this.setState({
+                error_placeType: "PlaceType is required field",
+                isError: true,
+            });
         }
     }
 
@@ -78,7 +89,6 @@ class RegisterPlace extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.validateData();
-        //this.validateData();
 
         if(!this.state.isError) {
             const registerPlaceRequest = {
@@ -90,7 +100,8 @@ class RegisterPlace extends Component {
                 placeType: this.state.placeType,
                 description: this.state.description,
                 longitude: this.state.longitude,
-                latitude: this.state.latitude
+                latitude: this.state.latitude,
+                ownerId: this.state.ownerId,
             };
             console.log(JSON.stringify(registerPlaceRequest));
 
@@ -125,12 +136,18 @@ class RegisterPlace extends Component {
         const placeTypes = this.state.placeTypes;
 
         return(
-            <div className="container">
+            <div className="container form-container">
+                <Row>
+                    <h1>Register place</h1>
+                </Row>
                 <Row>
                     <Input
                         id="placeName"
                         type="text"
                         value={this.state.placeName}
+                        error={this.state.error_placeName}
+                        validate
+                        required
                         s={12}
                         label="Place name"
                         onChange={e => this.handleChange("placeName", e.target.value)}/>
@@ -141,17 +158,26 @@ class RegisterPlace extends Component {
                         type="text"
                         value={this.state.address}
                         s={12}
+                        error={this.state.error_address}
+                        validate
+                        required
                         label="Address"
                         onChange={e => this.handleChange("address", e.target.value)}/>
                     <Input
                         type="time"
+                        validate
+                        required
                         label="Open time"
+                        defaultValue="00:00"
                         options = {{twelvehour: false}}
                         onChange={e => this.handleChange("openTime", e.target.value)}
                     />
                     <Input
                         type="time"
+                        validate
+                        required
                         label="Close time"
+                        defaultValue="00:00"
                         options = {{twelvehour: false}}
                         onChange={e => this.handleChange("closeTime", e.target.value)}
                     />
@@ -160,9 +186,14 @@ class RegisterPlace extends Component {
                     <Input
                         s={12}
                         type='select'
+                        validate
+                        required
+                        error={this.state.error_placeType}
                         label="Place type"
                         onChange={e => this.handleChange("placeType", e.target.value)}>
-                            { placeTypes.map(type => (
+                                <option></option>
+                            {
+                                placeTypes.map(type => (
                                 <option key={type.name}
                                         value={type.value}
                                 >{type.name}</option>
@@ -173,6 +204,9 @@ class RegisterPlace extends Component {
                     <Input
                         id="description"
                         type="textarea"
+                        validate
+                        required
+                        error={this.state.error_description}
                         value={this.state.description}
                         s={12}
                         label="Description"

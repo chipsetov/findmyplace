@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
-import '../../styles/Map.css';
+import '../../styles/RegisterPlace.css';
 
 class PutMarker extends Component {
     constructor(props) {
@@ -39,7 +39,7 @@ class PutMarker extends Component {
         const markerPosition = [this.state.marker.lat, this.state.marker.lng]
 
         return (
-            <Map id="mapid" center={position} zoom={this.state.zoom}>
+            <Map className="map-container" center={position} zoom={this.state.zoom}>
                 <TileLayer
                     attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
