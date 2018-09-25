@@ -20,5 +20,17 @@ services:
       POSTGRES_DB: fmp_db
     ports:
       - "5432:5432"
+  client:
+     restart: unless-stopped
+     build:
+       context: ./frontend/
+     command: npm start
+     volumes:
+         - ./frontend/:/usr/app/frontend
+         - /usr/app/frontend/node_modules
+     ports:
+         - "3000:3000"
+     depends_on:
+           - api
 
 
