@@ -1,5 +1,40 @@
-.header {
-    background: url("/img/background1.jpg") no-repeat center center fixed;
-    background-size: cover;
-    min-height: 800px;
+.greeting {
+    margin-top: 150px;
+    padding: 0 150px;
+}
+
+.greeting p {
+    color: #fff;
+    font-size: 40px;
+    text-align: left;
+    margin-bottom: 15px;
+    padding: 10px 0;
+}
+
+.greeting #learn-more {
+    display: block;
+}
+
+.greeting #learn-more a {
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    width: 200px;
+    padding: 10px 30px;
+    border: 2px solid #fff;
+}
+
+.app-info {
+    height: 600px;
+    margin-top: 100px;
+    padding: 0 150px;
+}
+
+.app-info h4, .app-info p {
+    color: #fff;
+}
+
+.app-info p {
+    font-size: 18px;
 }

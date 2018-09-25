@@ -5,7 +5,7 @@ body {
 
 #root, .app {
     min-height:100vh;
-    background: url("/img/home/background-coffee.jpg") no-repeat center center fixed;
+    background: url("/img/home/background.jpg") no-repeat center center fixed;
     background-size: cover;
 }
 

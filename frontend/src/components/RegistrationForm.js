@@ -29,7 +29,7 @@ class RegistrationForm extends Component {
                         className="form-input"
                         value={this.state.user_name}
                         placeholder="USER NAME"
-                        onChange={e => this.handleChange("last_name", e.target.value)}
+                        onChange={e => this.handleChange("user_name", e.target.value)}
                         s={12}
                     />
                 </Row>

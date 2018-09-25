@@ -33,11 +33,6 @@ public class PlaceController {
         return placeRepository.findAll();
     }
 
-    @GetMapping("/placeByType")
-    List<Place> placesByType() {
-        return placeRepository.findByPlaceType(PlaceType.CAFE);
-    }
-
     @GetMapping("/places/{id}")
     Optional<Place> getUserById(@PathVariable Long id) {
         return placeRepository.findById(id);
