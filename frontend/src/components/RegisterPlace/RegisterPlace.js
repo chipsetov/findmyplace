@@ -7,10 +7,10 @@ import "../../styles/RegisterPlace.css";
 
 
 class RegisterPlace extends Component {
-
     constructor(props) {
         super(props);
 
+        this.isError = false;
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCoordinates = this.handleCoordinates.bind(this);
         this.validateData = this.validateData.bind(this);
@@ -35,10 +35,10 @@ class RegisterPlace extends Component {
             error_closeTime: "",
             error_placeType: "",
             error_description: "",
-
-            isError: true,
         }
     };
+
+
 
     validateData() {
         this.setState({
@@ -46,32 +46,32 @@ class RegisterPlace extends Component {
             error_address: "",
             error_placeType: "",
             error_description: "",
-            isError: false,
         });
+        this.isError = false;
 
         if(this.state.placeName.trim().length == 0) {
             this.setState({
                 error_placeName: "Place name is required field",
-                isError: true,
             });
+            this.isError = true;
         }
         if(this.state.address.trim().length == 0) {
             this.setState({
                 error_address: "Address is required field",
-                isError: true,
             });
+            this.isError = true;
         }
         if(this.state.description.trim().length == 0) {
             this.setState({
                 error_description: "Description is required field",
-                isError: true,
             });
+            this.isError = true;
         }
         if(this.state.placeType.trim().length == 0) {
             this.setState({
                 error_placeType: "PlaceType is required field",
-                isError: true,
             });
+            this.isError = true;
         }
     }
 
@@ -90,7 +90,7 @@ class RegisterPlace extends Component {
         event.preventDefault();
         this.validateData();
 
-        if(!this.state.isError) {
+        if(!this.isError) {
             const registerPlaceRequest = {
                 name: this.state.placeName,
                 address: this.state.address,
