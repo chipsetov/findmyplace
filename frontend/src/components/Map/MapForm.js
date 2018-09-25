@@ -22,7 +22,6 @@ class MapForm extends Component {
             searchValue: ''
 
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -39,24 +38,25 @@ class MapForm extends Component {
 
 
     handleChange(event) {
-        if (event.target.name === "parking") {
-            this.setState({parking: event.target.checked});
-        }
-        if (event.target.name === "hotel") {
-            this.setState({hotel: event.target.checked});
-        }
-        if (event.target.name === "restaurant") {
-            this.setState({restaurant: event.target.checked});
-        }
-    }
-
-    handleSubmit() {
         const filterRequest = {
             parking: this.state.parking,
             hotel: this.state.hotel,
             restaurant: this.state.restaurant,
         };
-        console.log(filterRequest);
+
+        if (event.target.name === "parking") {
+            this.setState({parking: event.target.checked});
+            filterRequest.parking = event.target.checked;
+        }
+        if (event.target.name === "hotel") {
+            this.setState({hotel: event.target.checked});
+            filterRequest.hotel = event.target.checked;
+        }
+        if (event.target.name === "restaurant") {
+            this.setState({restaurant: event.target.checked});
+            filterRequest.restaurant = event.target.checked;
+        }
+
 
         filterPlace(filterRequest)
             .then(result => {
@@ -115,15 +115,13 @@ class MapForm extends Component {
                                 checked={this.state.active}
                                 onChange={this.handleChange}/>
                         </Col>
-                        <Col s={1}>
-                            <Button waves='light' onClick={this.handleSubmit}>Use Filter</Button>
-                        </Col>
-                        <Col s={2} offset="s3">
+
+                        <Col s={3} offset="s3">
                             <SearchPlace updateData={this.updateData}/>
                         </Col>
 
                     </Row>
-                <Row>
+                <Row className="map-row">
                     <MapLayout items={this.state.places}
                                latitude={this.state.latitude}
                                longitude={this.state.longitude}

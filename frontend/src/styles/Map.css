@@ -1,6 +1,6 @@
 
 .leaflet-container {
-    height: 700px;
+    height: 800px;
 
 }
 
@@ -15,6 +15,10 @@
 }
 
 .up-row .row{
+    margin-bottom: 0px;
+}
+
+.map-row {
     margin-bottom: 0px;
 }
 
@@ -39,7 +43,7 @@
     color: #edd9c0;
     text-transform: none;
     letter-spacing: 0px;
-    background-color: #1d2120;
+    background-color: rgba(29, 33, 32, 0.56);
     border-radius: 4px;
     margin-top: 10px;
     margin-bottom: 5px;
