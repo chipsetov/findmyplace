@@ -22,7 +22,6 @@ class MapForm extends Component {
             searchValue: ''
 
         };
-        this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -75,16 +74,10 @@ class MapForm extends Component {
 
         searchPlace(searchRequest)
             .then(result => {
-                this.setState({places: result});
+                this.setState({places: result, latitude: result[0].latitude, longitude: result[0].longitude, zoom: 18});
         })
-    }
 
-    handleSearchSubmit() {
-        const searchRequest = {
-            searchValue: this.state.searchValue,
-        };
-        console.log(searchRequest);
-
+        console.log(this.state.longitude, this.state.latitude);
     }
 
     render() {
@@ -115,7 +108,6 @@ class MapForm extends Component {
                                 checked={this.state.active}
                                 onChange={this.handleChange}/>
                         </Col>
-
                         <Col s={3} offset="s3">
                             <SearchPlace updateData={this.updateData}/>
                         </Col>
