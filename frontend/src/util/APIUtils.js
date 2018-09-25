@@ -1,9 +1,9 @@
-import { API_BASE_URL, POLL_LIST_SIZE, ACCESS_TOKEN, TOKEN_TYPE } from '../constants';
+import { API_BASE_URL, ACCESS_TOKEN, TOKEN_TYPE } from '../constants';
 
 export const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
-    })
+    });
     
     if(localStorage.getItem(ACCESS_TOKEN)) {
         headers.append('Authorization', TOKEN_TYPE + " " + localStorage.getItem(ACCESS_TOKEN))
@@ -41,14 +41,14 @@ export function signup(signupRequest) {
 
 export function checkUsernameAvailability(username) {
     return request({
-        url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,
+        url: API_BASE_URL + "/auth/checkUsernameAvailability?username=" + username,
         method: 'GET'
     });
 }
 
 export function checkEmailAvailability(email) {
     return request({
-        url: API_BASE_URL + "/user/checkEmailAvailability?email=" + email,
+        url: API_BASE_URL + "/auth/checkEmailAvailability?email=" + email,
         method: 'GET'
     });
 }

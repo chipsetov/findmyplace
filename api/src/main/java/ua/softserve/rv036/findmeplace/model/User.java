@@ -13,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "users")

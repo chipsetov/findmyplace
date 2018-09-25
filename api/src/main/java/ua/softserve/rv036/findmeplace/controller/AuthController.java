@@ -8,18 +8,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.softserve.rv036.findmeplace.model.BanStatus;
 import ua.softserve.rv036.findmeplace.model.Role;
 import ua.softserve.rv036.findmeplace.model.User;
-import ua.softserve.rv036.findmeplace.payload.ApiResponse;
-import ua.softserve.rv036.findmeplace.payload.JwtAuthenticationResponse;
-import ua.softserve.rv036.findmeplace.payload.LoginRequest;
-import ua.softserve.rv036.findmeplace.payload.SignUpRequest;
+import ua.softserve.rv036.findmeplace.payload.*;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.JwtTokenProvider;
 
@@ -37,7 +31,6 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
-
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -96,5 +89,15 @@ public class AuthController {
                 .fromCurrentContextPath().path("/users/{username}")
                 .buildAndExpand(result.getNickName()).toUri();
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+    }
+    @GetMapping("/checkUsernameAvailability")
+    public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "username") String username) {
+        Boolean isAvailable = !userRepository.existsByNickName(username);
+        return new UserIdentityAvailability(isAvailable);
+    }
+    @GetMapping("/checkEmailAvailability")
+    public UserIdentityAvailability checkEmailAvailability(@RequestParam(value = "email") String email) {
+        Boolean isAvailable = !userRepository.existsByEmail(email);
+        return new UserIdentityAvailability(isAvailable);
     }
 }

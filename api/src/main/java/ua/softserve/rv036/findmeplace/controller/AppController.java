@@ -22,7 +22,7 @@ public class AppController {
     }
 
     @GetMapping("/test")
-    @RolesAllowed("ROLE_USER")
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     public String test() {
         return "TEST world";
     }
