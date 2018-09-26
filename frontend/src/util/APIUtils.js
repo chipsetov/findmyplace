@@ -39,16 +39,9 @@ export function signup(signupRequest) {
     });
 }
 
-export function checkUsernameAvailability(username) {
+export function checkUserAvailability(username, email) {
     return request({
-        url: API_BASE_URL + "/auth/checkUsernameAvailability?username=" + username,
-        method: 'GET'
-    });
-}
-
-export function checkEmailAvailability(email) {
-    return request({
-        url: API_BASE_URL + "/auth/checkEmailAvailability?email=" + email,
+        url: API_BASE_URL + "/auth/checkUsernameAvailability?username=" + username + "&?email=" + email,
         method: 'GET'
     });
 }

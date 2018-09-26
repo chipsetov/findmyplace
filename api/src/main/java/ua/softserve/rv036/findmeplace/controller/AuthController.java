@@ -90,14 +90,12 @@ public class AuthController {
                 .buildAndExpand(result.getNickName()).toUri();
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
-    @GetMapping("/checkUsernameAvailability")
-    public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "username") String username) {
-        Boolean isAvailable = !userRepository.existsByNickName(username);
-        return new UserIdentityAvailability(isAvailable);
+    @GetMapping("/checkUserAvailability")
+    public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "username") String username, @RequestParam(value = "email") String email) {
+        Boolean isNickNameAvailable = !userRepository.existsByNickName(username);
+        Boolean isEmailAvailable = !userRepository.existsByEmail(email);
+
+        return new UserIdentityAvailability(isNickNameAvailable, isEmailAvailable);
     }
-    @GetMapping("/checkEmailAvailability")
-    public UserIdentityAvailability checkEmailAvailability(@RequestParam(value = "email") String email) {
-        Boolean isAvailable = !userRepository.existsByEmail(email);
-        return new UserIdentityAvailability(isAvailable);
-    }
+
 }

@@ -1,16 +1,16 @@
 version: "3.1"
 services:
-  api:
-    restart: unless-stopped
-    build: ./api/
-    working_dir: /usr/src/findmeplace/api
-    volumes:
-          - ./api:/usr/src/findmeplace/api
-    ports:
-     - "8080:8080"
-    command: mvn clean spring-boot:run
-    depends_on:
-      - db
+#  api:
+#    restart: unless-stopped
+#    build: ./api/
+#    working_dir: /usr/src/findmeplace/api
+#    volumes:
+#          - ./api:/usr/src/findmeplace/api
+#    ports:
+#     - "8080:8080"
+#    command: mvn clean spring-boot:run
+#    depends_on:
+#      - db
   db:
     image: postgres:9.6
     restart: unless-stopped

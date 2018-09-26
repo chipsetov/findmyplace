@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Input, Button, Row} from 'react-materialize';
-import {signup, checkUsernameAvailability, checkEmailAvailability} from '../util/APIUtils';
+import {signup, checkUserAvailability} from '../util/APIUtils';
 import {Link} from 'react-router-dom';
 import {
     USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
@@ -123,7 +123,7 @@ class RegistrationForm extends Component {
 
     // Validation Function
 
-    validateForm() {
+  async validateForm() {
 
         let fields = this.state.fields;
         let errors = {};
@@ -141,23 +141,6 @@ class RegistrationForm extends Component {
             errors["username"] = `Username is too long (Maximum ${USERNAME_MAX_LENGTH} characters allowed.)`;
         }
 
-
-        if (formIsValid) {
-            checkUsernameAvailability(fields["username"])
-                .then(response => {
-                    if (!response.available) {
-                        this.formIsValid = false;
-                        errors["username"] = "This username is already taken";
-                        console.log('inside ' + formIsValid);
-
-                    }
-                }).catch(error => {
-
-                window.Materialize.toast('Sorry! Something went wrong. Please try again!', 5000);
-
-            });
-        }
-        console.log("validate1 - " + formIsValid);
 
 
         if (!fields["email"]) {
@@ -177,17 +160,7 @@ class RegistrationForm extends Component {
             errors["email"] = `Email is too long (Maximum ${EMAIL_MAX_LENGTH} characters allowed)`;
         }
 
-        if (formIsValid) {
-            checkEmailAvailability(fields["email"])
-                .then(response => {
-                    if (!response.available) {
-                        formIsValid = false;
-                        errors["email"] = "This Email is already registered\n";
-                    }
-                }).catch(error => {
-                window.Materialize.toast('Sorry! Something went wrong. Please try again!', 5000);
-            });
-        }
+
 
         if (!fields["password"]) {
             formIsValid = false;
@@ -212,11 +185,34 @@ class RegistrationForm extends Component {
             errors["confirm_password"] = "Password doesn't match";
         }
 
+        if (formIsValid) {
+                  await checkUserAvailability(fields["username"],fields["email"])
+                        .then(response => {
+                            if (!response.isNickNameAvailable) {
+                                formIsValid = false;
+                                errors["username"] = `This username is already taken`;
+                                console.log(errors["username"]);
+                            }
+                            if (!response.isEmailAvailable) {
+                               formIsValid = false;
+                               errors["email"] = "This Email is already registered";
+                                 console.log(errors["email"]);
+       }
+
+                        }).catch(error => {
+
+                        window.Materialize.toast('Sorry! Something went wrong. Please try again!', 5000);
+
+                    });
+                }
+                console.log("out - " + formIsValid);
+
+
 
         this.setState({
             errors: errors
         });
-        console.log("validate - " + formIsValid);
+console.log('validation - '+formIsValid);
         return formIsValid;
     }
 
