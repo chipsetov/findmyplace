@@ -55,6 +55,13 @@ export function searchPlace(searchRequest) {
     });
 }
 
+export function showAllPlaces() {
+    return request({
+        url: API_BASE_URL + "/map/all",
+        method: 'POST',
+    });
+}
+
 export function checkUsernameAvailability(username) {
     return request({
         url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,

@@ -50,6 +50,13 @@
     padding: 0px 7px;
 }
 
+.up-row #gps {
+    float: right;
+}
+.up-row #filter {
+    float: left;
+}
+
 
 
 

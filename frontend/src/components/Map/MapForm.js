@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Button, Col, Input, Row} from 'react-materialize';
+import {Button, Col, Icon, Input, Row} from 'react-materialize';
 import MapLayout from './MapLayout.js';
 import SearchPlace from './SearchPlace';
-import {filterPlace, searchPlace} from '../../util/APIUtils';
+import {filterPlace, searchPlace, showAllPlaces} from '../../util/APIUtils';
 import '../../styles/Map.css';
 
 
@@ -13,7 +13,9 @@ class MapForm extends Component {
         this.state = {
             places: [],
             latitude: 50.6219427,
+            currentLatitude: ' ',
             longitude: 26.2493254,
+            currentLongitude: ' ',
             zoom: 15,
             active: true,
             parking: true,
@@ -44,15 +46,21 @@ class MapForm extends Component {
         };
 
         if (event.target.name === "parking") {
-            this.setState({parking: event.target.checked});
+            this.setState({
+                parking: event.target.checked});
+
             filterRequest.parking = event.target.checked;
         }
         if (event.target.name === "hotel") {
-            this.setState({hotel: event.target.checked});
+            this.setState({
+                hotel: event.target.checked});
+
             filterRequest.hotel = event.target.checked;
         }
         if (event.target.name === "restaurant") {
-            this.setState({restaurant: event.target.checked});
+            this.setState({
+                restaurant: event.target.checked});
+
             filterRequest.restaurant = event.target.checked;
         }
 
@@ -64,7 +72,7 @@ class MapForm extends Component {
     }
 
     updateData = (value) => {
-        this.setState({ searchValue: value })
+        this.setState({searchValue: value});
 
         const searchRequest = {
             searchValue: value,
@@ -74,49 +82,88 @@ class MapForm extends Component {
 
         searchPlace(searchRequest)
             .then(result => {
-                this.setState({places: result, latitude: result[0].latitude, longitude: result[0].longitude, zoom: 18});
-        })
+                this.setState({
+                    places: result,
+                    latitude: result[0].latitude,
+                    longitude: result[0].longitude,
+                    zoom: 18});
+            })
 
-        console.log(this.state.longitude, this.state.latitude);
+    };
+
+    showAll() {
+        showAllPlaces()
+            .then(result => {
+                this.setState({
+                    places: result,
+                    latitude: result[0].latitude,
+                    longitude: result[0].longitude,
+                    zoom: 15,
+                    active: true
+                });
+            });
     }
+
+    watchID = navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({
+            currentLatitude: position.coords.latitude,
+            currentLongitude: position.coords.longitude});
+    });
+
 
     render() {
         return (
             <div className="container-fluid">
-                    <Row className="up-row">
-                        <Col s={2} id="check-row-filter">
-                            <Input
-                                type='checkbox'
-                                name="parking"
-                                label='Parking'
-                                checked={this.state.active}
-                                onChange={this.handleChange}/>
-                        </Col>
-                        <Col s={2} id="check-row-filter">
-                            <Input
-                                type='checkbox'
-                                name='hotel'
-                                label='Hotel'
-                                checked={this.state.active}
-                                onChange={this.handleChange}/>
-                        </Col>
-                        <Col s={2} id="check-row-filter">
-                            <Input
-                                type='checkbox'
-                                name='restaurant'
-                                label='Restaurant'
-                                checked={this.state.active}
-                                onChange={this.handleChange}/>
-                        </Col>
-                        <Col s={3} offset="s3">
-                            <SearchPlace updateData={this.updateData}/>
-                        </Col>
+                <Row className="up-row">
+                    <Col s={2} id="check-row-filter">
+                        <Input
+                            type='checkbox'
+                            name="parking"
+                            label='Parking'
+                            checked={this.state.active}
+                            onChange={this.handleChange}/>
+                    </Col>
+                    <Col s={2} id="check-row-filter">
+                        <Input
+                            type='checkbox'
+                            name='hotel'
+                            label='Hotel'
+                            checked={this.state.active}
+                            onChange={this.handleChange}/>
+                    </Col>
+                    <Col s={2} id="check-row-filter">
+                        <Input
+                            type='checkbox'
+                            name='restaurant'
+                            label='Restaurant'
+                            checked={this.state.active}
+                            onChange={this.handleChange}/>
+                    </Col>
+                    <Col s={1}>
+                        <Button title="Go to your current location" id="gps" waves='light' onClick={() => {
+                            this.setState({
+                                latitude: this.state.currentLatitude,
+                                longitude: this.state.currentLongitude,
+                                zoom: 16
+                            })
+                        }}><Icon>gps_fixed</Icon></Button>
+                    </Col>
+                    <Col s={1}>
+                        <Button title="Reset all filters" id="filter" waves='light' onClick={() => {
+                            this.showAll()
+                        }}><Icon>clear_all</Icon></Button>
+                    </Col>
+                    <Col s={3} offset="s1">
+                        <SearchPlace updateData={this.updateData}/>
+                    </Col>
 
-                    </Row>
+                </Row>
                 <Row className="map-row">
                     <MapLayout items={this.state.places}
                                latitude={this.state.latitude}
+                               currentLatitude={this.state.currentLatitude}
                                longitude={this.state.longitude}
+                               currentLongitude={this.state.currentLongitude}
                                zoom={this.state.zoom}/>
                 </Row>
             </div>
