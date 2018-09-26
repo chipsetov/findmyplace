@@ -44,6 +44,12 @@ export const getProfile = (nickname) => request({
     method: 'GET'
 });
 
+export const updateProfile = profile => request({
+    url: API_BASE_URL + "/users/update",
+    method: 'POST',
+    body: JSON.stringify(profile)
+});
+
 export function checkUsernameAvailability(username) {
     return request({
         url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,
