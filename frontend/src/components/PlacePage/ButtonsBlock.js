@@ -9,7 +9,7 @@ class ButtonsBlock extends Component {
         return (
             <CardPanel className="card-panel-btn blue-grey lighten-5">
                 <Row className="center">
-                    <Link to="/">
+                    <Link to="/map">
                         <Col>
                             <Icon className="black-text" large>place</Icon>
                             <p className="text">On the map</p>
