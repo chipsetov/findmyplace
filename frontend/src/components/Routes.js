@@ -8,7 +8,7 @@ import MapForm from "./Map/MapForm";
 import UserPage from "./UserPage/UserPage";
 import RegisterPlace from "./RegisterPlace/RegisterPlace";
 import AppInfo from "./Home/AppInfo";
-import UserPlaces from "./User/Place/UserPlaces";
+import UserPlaces from "./User/UserPlaces/UserPlaces";
 
 export default class Routes extends Component {
 
@@ -18,7 +18,7 @@ export default class Routes extends Component {
         };
 
         return (
-            <div id="router" style={style} /*className='router'*/>
+            <div id="router" style={style}>
                 <Route path="//" component={Home}/>
                 <Route path="/app-info" component={AppInfo}/>
                 <Route path="/sign-in" component={LoginPage}/>

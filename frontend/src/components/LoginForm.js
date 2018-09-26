@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Input, Row} from 'react-materialize';
 import {Link, withRouter} from 'react-router-dom';
 import '../styles/Form.css';
-import {ACCESS_TOKEN, ROLE, USER_NAME, USER_ID} from '../constants';
+import {ACCESS_TOKEN, ROLE, USER_ID} from '../constants';
 import {login} from '../util/APIUtils';
 import {Session} from "../utils";
 
@@ -61,7 +61,6 @@ class LoginForm extends Component {
                         <Input
                             id="usernameOrEmail"
                             type="email"
-                            className="form-input"
                             value={this.state.usernameOrEmail}
                             placeholder="EMAIL"
                             onChange={e => this.handleChange("usernameOrEmail", e.target.value)}
@@ -72,7 +71,6 @@ class LoginForm extends Component {
                         <Input
                             id="password"
                             type="password"
-                            className="form-input"
                             value={this.state.password}
                             placeholder="PASSWORD"
                             onChange={e => this.handleChange("password", e.target.value)}

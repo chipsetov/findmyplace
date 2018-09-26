@@ -54,9 +54,7 @@ class RegistrationForm extends Component {
             fields["password"] = "";
             fields["confirm_password"] = "";
             this.setState({fields: fields});
-
         }
-
     }
 
     render() {
@@ -67,8 +65,8 @@ class RegistrationForm extends Component {
                         <h2>Sign Up</h2>
                         <Row>
                             <Input
+                                id="username"
                                 type="text"
-                                className="form-input"
                                 name="username"
                                 value={this.state.fields.username}
                                 placeholder="USER NAME"
@@ -79,9 +77,9 @@ class RegistrationForm extends Component {
                         </Row>
                         <Row>
                             <Input
+                                id="email"
                                 type="text"
                                 name="email"
-                                className="form-input"
                                 value={this.state.fields.emailid}
                                 onChange={this.handleChange}
                                 placeholder="EMAIL"
@@ -91,8 +89,8 @@ class RegistrationForm extends Component {
                         </Row>
                         <Row>
                             <Input
+                                id="password"
                                 type="password"
-                                className="form-input"
                                 name="password"
                                 value={this.state.fields.password}
                                 placeholder="PASSWORD"
@@ -103,8 +101,8 @@ class RegistrationForm extends Component {
                         </Row>
                         <Row>
                             <Input
+                                id="confirm_password"
                                 type="password"
-                                className="form-input"
                                 name="confirm_password"
                                 value={this.state.fields.confirm_password}
                                 placeholder="CONFIRM PASSWORD"
@@ -113,17 +111,18 @@ class RegistrationForm extends Component {
                             />
                             <div className="errorMsg">{this.state.errors.confirm_password}</div>
                         </Row>
-                        <div className="confirm-row">
+                        <Row className="confirm-row">
                             <Button id="sign-up" waves="light">Sign Up</Button>
-                            <Row>Already registed? <Link to="/sign-in">Login now!</Link></Row>
-                        </div>
+                        </Row>
+                        <Row className="check-register">
+                            <span>Already registered?</span>
+                            <Link to="/sign-in">Login now!</Link>
+                        </Row>
                     </form>
                 </div>
             </div>
         );
     }
-
-    // Validation Function
 
     validateForm() {
 
