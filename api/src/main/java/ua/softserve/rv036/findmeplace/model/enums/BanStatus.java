@@ -1,5 +1,5 @@
 package ua.softserve.rv036.findmeplace.model.enums;
 
-public enum BanStatusType {
+public enum BanStatus {
     BAN, NOT_BAN
 }

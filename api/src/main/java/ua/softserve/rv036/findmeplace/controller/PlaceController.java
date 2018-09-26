@@ -1,16 +1,15 @@
 package ua.softserve.rv036.findmeplace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import ua.softserve.rv036.findmeplace.model.Feedback;
 import ua.softserve.rv036.findmeplace.model.Place;
-import ua.softserve.rv036.findmeplace.model.PlaceType;
+import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
-import ua.softserve.rv036.findmeplace.utils.PlaceTypeObject;
-import java.util.ArrayList;
-import java.util.Arrays;
-import ua.softserve.rv036.findmeplace.repository.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +22,7 @@ public class PlaceController {
     @Autowired
     private FeedbackRepository feedbackRepository;
 
-    @GetMapping("/map")
+    @GetMapping("place/map")
     List<Place> getPlace() {
         return placeRepository.findAll();
     }

@@ -9,6 +9,7 @@
     <changeSet id="1" author="rv036">
         <insert tableName="users">
             <column name="first_name" value="Vasya"/>
+            <column name="first_name" value="Vasya"/>
             <column name="last_name" value="Pupkin"/>
             <column name="phone" value="0935588774"/>
             <column name="email" value="user@gmail.com"/>

@@ -36,6 +36,11 @@
     border-radius: 4px;
 }
 
+.errorMsg {
+    color: #cc0000;
+    margin-bottom: 12px;
+}
+
 .app-form .confirm-row {
     width: 70%;
     margin: auto;

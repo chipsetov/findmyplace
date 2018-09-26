@@ -1,13 +1,16 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
-import ua.softserve.rv036.findmeplace.model.enums.BanStatusType;
-import ua.softserve.rv036.findmeplace.model.enums.RoleType;
+import ua.softserve.rv036.findmeplace.model.enums.BanStatus;
+import ua.softserve.rv036.findmeplace.model.enums.Role;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "users")
@@ -44,10 +47,10 @@ public class User extends DateAudit {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private RoleType role;
+    private Role role;
 
     @Column(name = "ban_status")
     @Enumerated(EnumType.STRING)
-    private BanStatusType banStatus;
+    private BanStatus banStatus;
 
 }

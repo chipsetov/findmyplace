@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Input, Row} from 'react-materialize';
 import {Link, withRouter} from 'react-router-dom';
 import '../styles/Form.css';
-import {ACCESS_TOKEN, ROLES, USER_NAME} from '../constants';
+import {ACCESS_TOKEN, ROLE, USER_NAME} from '../constants';
 import {login} from '../util/APIUtils';
 import {Session} from "../utils";
 
@@ -12,7 +12,7 @@ class LoginForm extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            roles: [],
+            role: '',
             usernameOrEmail: '',
             password: ''
         }
@@ -29,16 +29,15 @@ class LoginForm extends Component {
             usernameOrEmail: this.state.usernameOrEmail,
             password: this.state.password,
         };
-        console.log(loginRequest);
+
         login(loginRequest)
             .then(response => {
-                localStorage.setItem(ROLES, JSON.stringify(response.roles));
-                localStorage.setItem(USER_NAME, this.state.usernameOrEmail);
+                localStorage.setItem(ROLE, JSON.stringify(response.roles));
 
                 Session.login(response.accessToken);
 
                 this.props.history.push("/map");
-                window.Materialize.toast('Welcome as: ' + localStorage.getItem(ROLES), 7000);
+                window.Materialize.toast('Welcome ' + this.state.usernameOrEmail, 7000);
 
             }).catch(error => {
             if (error.status === 401) {
@@ -60,7 +59,6 @@ class LoginForm extends Component {
                         type="email"
                         className="form-input"
                         value={this.state.usernameOrEmail}
-                        value={this.state.email}
                         placeholder="EMAIL"
                         onChange={e => this.handleChange("usernameOrEmail", e.target.value)}
                         s={12}

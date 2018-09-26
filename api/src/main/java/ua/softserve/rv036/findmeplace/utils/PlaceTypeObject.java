@@ -1,7 +1,7 @@
 package ua.softserve.rv036.findmeplace.utils;
 
 import lombok.Data;
-import ua.softserve.rv036.findmeplace.model.PlaceType;
+import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 
 import java.util.ArrayList;
 import java.util.List;
