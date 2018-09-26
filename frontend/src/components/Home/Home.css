@@ -1,12 +1,13 @@
 .greeting {
-    margin-top: 200px;
-    padding: 0 150px;
+    /*margin-top: 200px;*/
+    padding: 200px 150px 0px;
     color: #1d2120;
+    margin-bottom: 0px;
 }
 
 .greeting p, .greeting #learn-more {
     display: block;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
 }
 
 .greeting p {
@@ -14,6 +15,7 @@
     font-size: 40px;
     text-align: left;
     padding: 10px 0;
+    margin: 0;
 }
 
 .greeting #learn-more {
@@ -27,8 +29,9 @@
 }
 
 .app-info {
-    margin-top: 100px;
-    padding: 0 150px;
+    /*margin-top: 100px;*/
+    margin-bottom: 0px;
+    padding: 200px 150px 0px;
 }
 
 .app-info h4, .app-info p {
