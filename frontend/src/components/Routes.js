@@ -6,6 +6,7 @@ import RegistrationForm from "./RegistrationForm";
 import LoginPage from "./LoginPage";
 import MapForm from "./Map/MapForm";
 import UserPage from "./UserPage/UserPage";
+import RegisterPlace from "./RegisterPlace/RegisterPlace";
 import AppInfo from "./Home/AppInfo";
 import UserPlaces from "./User/Place/UserPlaces";
 
@@ -26,6 +27,7 @@ export default class Routes extends Component {
                 <Route path="/place/:placeId" component={PlacePage}/>
                 <Route path="/user" component={UserPage}/>
                 <Route path="/users/:userId/places" component={UserPlaces}/>
+                <Route path="/register-place" component={RegisterPlace}/>
             </div>
         );
     }

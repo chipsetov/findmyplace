@@ -95,6 +95,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers(HttpMethod.POST, "/map")
                     .permitAll()
+                .antMatchers(HttpMethod.POST, "/places/**", "/map")
+                    .permitAll()
                 .anyRequest()
                     .authenticated();
 

@@ -73,6 +73,14 @@ export function showAllPlaces() {
     });
 }
 
+export function registerPlace(registerPlaceRequest) {
+    return request({
+        url: API_BASE_URL + "/places/register",
+        method: 'POST',
+        body: JSON.stringify(registerPlaceRequest)
+    });
+}
+
 export function checkUsernameAvailability(username) {
     return request({
         url: API_BASE_URL + "/auth/checkUsernameAvailability?username=" + username,

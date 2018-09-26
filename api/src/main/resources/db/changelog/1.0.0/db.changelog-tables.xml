@@ -104,7 +104,7 @@
             </column>
 
             <column name="owner_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)"/>
+                <constraints nullable="true" foreignKeyName="fk_owner_id" references="users(id)"/>
             </column>
         </createTable>
     </changeSet>

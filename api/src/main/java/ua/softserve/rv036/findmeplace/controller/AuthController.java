@@ -58,8 +58,9 @@ public class AuthController {
         System.out.println(Instant.now());
         userRepository.save(user);
         Role role = user.getRole();
+        Long id = user.getId();
 
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, role));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, role, id));
     }
 
     @PostMapping("/signup")
