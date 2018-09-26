@@ -48,7 +48,8 @@
     color: #fff;
 }
 
-.menu-wrapper .menu li a:hover, .menu-wrapper .menu #auth-sign-up button:hover {
+.menu-wrapper .menu li a:hover,
+.menu-wrapper .menu #auth-sign-up button:hover {
     color: #e23c52;
 }
 
@@ -61,7 +62,7 @@
 
 .menu-wrapper .menu #auth-sign-up button {
     text-transform: none;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     background-color: #1d2120;
     border-radius: 4px;
 }
@@ -90,10 +91,21 @@
 
 .dropdown-button {
     float: right;
-    margin-top: 30px;
 }
 
 .dropdown-content {
-    margin-top: 70px;
+    margin-top: 40px;
+    min-width: 130px;
+    background-color: #1d2120;
 }
 
+.dropdown-content li a {
+    text-align: center;
+    padding: 5px 20px !important;
+    line-height: 40px !important;
+    border-radius: 4px;
+}
+
+.dropdown-content li:hover {
+    background-color: transparent;
+}
