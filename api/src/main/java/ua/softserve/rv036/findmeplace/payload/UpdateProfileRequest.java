@@ -4,8 +4,10 @@ import lombok.Data;
 
 @Data
 public class UpdateProfileRequest {
-    private String oldNickName;
+    private Long userId;
     private String nickName;
     private String email;
     private String password;
+    private String newPassword;
+    private String confirmPassword;
 }

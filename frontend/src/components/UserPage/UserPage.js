@@ -7,8 +7,8 @@ import Booking from "./Booking";
 import Favorite from "./Favorite";
 import {Session} from "../../utils";
 
-import {getProfile} from "../../util/APIUtils";
-import {USER_NAME} from "../../constants";
+import {getUserProfile} from "../../util/APIUtils";
+import { USER_ID } from "../../constants";
 
 class UserPage extends Component {
     constructor(props) {
@@ -49,9 +49,9 @@ class UserPage extends Component {
     }
 
     componentDidMount() {
-        const nickName = localStorage.getItem(USER_NAME);
+        const userId = localStorage.getItem(USER_ID);
 
-        getProfile(nickName)
+        getUserProfile(userId)
             .then((response) => {
                 this.setState({
                     userName: response['nickName'],

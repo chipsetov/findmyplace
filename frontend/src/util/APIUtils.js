@@ -39,11 +39,6 @@ export function signup(signupRequest) {
     });
 }
 
-export const getProfile = (nickname) => request({
-    url: API_BASE_URL + `/users/nick/${nickname}`,
-    method: 'GET'
-});
-
 export const updateProfile = profile => request({
     url: API_BASE_URL + "/users/update",
     method: 'POST',

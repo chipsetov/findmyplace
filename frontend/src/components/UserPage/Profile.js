@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Input, Button } from 'react-materialize';
 
 import {updateProfile} from "../../util/APIUtils";
-import {USER_NAME} from "../../constants";
+import {USER_ID} from "../../constants";
 
 import '../../styles/UserPage.css';
 
@@ -99,46 +99,46 @@ export default class Profile extends Component {
     }
 
     onSaveChangesHandler() {
-        const { oldPassword } = this.state;
+        const {
+            userName,
+            email,
+            oldPassword,
+            newPassword,
+            confirmPassword } = this.state;
 
         if (!oldPassword.length) {
             this.error("You have to enter your password");
             return;
         }
 
-        const oldNickName = localStorage.getItem(USER_NAME);
+        if (newPassword.length) {
+            if (!oldPassword.length) {
+                this.error("You have to enter your old password");
+                return;
+            }
+
+            if (!confirmPassword.length) {
+                this.error("You have to confirm new password!");
+                return;
+            }
+        }
+
+        const userId = localStorage.getItem(USER_ID);
 
         const profile = {
-            oldNickName: oldNickName,
-            nickName: this.state.userName,
-            email: this.state.email,
-            password: this.state.oldPassword
+            userId: userId,
+            nickName: userName,
+            email: email,
+            password: oldPassword,
+            newPassword: newPassword,
+            confirmPassword: confirmPassword
         };
-
-        // TODO: implement it
-        // if (this.state.newPassword.length) {
-        //     if (!this.state.oldPassword.length) {
-        //         this.error("You have to enter your old password");
-        //         return;
-        //     }
-        //     if (!this.state.confirmPassword.length) {
-        //         this.error("You have to confirm new password!");
-        //         return;
-        //     }
-        // }
 
         updateProfile(profile)
             .then(response => {
-                localStorage.setItem(USER_NAME, this.state.userName);
             });
     }
 
     onCancelChangesHandler() {
-        this.setState({
-            userName: "",
-            oldPassword: "",
-            newPassword: "",
-            confirmPassword: ""
-        });
     }
 }
