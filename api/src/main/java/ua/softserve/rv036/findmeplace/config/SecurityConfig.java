@@ -91,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers("/user/checkUsernameAvailability", "/user/checkEmailAvailability")
                     .permitAll()
-                .antMatchers(HttpMethod.GET, "/places/**", "/map", "/users", "/placeByType")
+                .antMatchers(HttpMethod.GET, "/places/**", "/map", "/users/**", "/placeByType")
                     .permitAll()
                 .antMatchers(HttpMethod.POST, "/map")
                     .permitAll()
