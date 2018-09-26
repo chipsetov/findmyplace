@@ -50,6 +50,29 @@ export const updateProfile = profile => request({
     body: JSON.stringify(profile)
 });
 
+export function filterPlace(filterRequest) {
+    return request({
+        url: API_BASE_URL + "/map/filter",
+        method: 'POST',
+        body: JSON.stringify(filterRequest)
+    });
+}
+
+export function searchPlace(searchRequest) {
+    return request({
+        url: API_BASE_URL + "/map/search",
+        method: 'POST',
+        body: JSON.stringify(searchRequest)
+    });
+}
+
+export function showAllPlaces() {
+    return request({
+        url: API_BASE_URL + "/map/all",
+        method: 'POST',
+    });
+}
+
 export function checkUsernameAvailability(username) {
     return request({
         url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,
