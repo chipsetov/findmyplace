@@ -49,25 +49,25 @@ class RegisterPlace extends Component {
         });
         this.isError = false;
 
-        if(this.state.placeName.trim().length == 0) {
+        if(this.state.placeName.trim().length === 0) {
             this.setState({
                 error_placeName: "Place name is required field",
             });
             this.isError = true;
         }
-        if(this.state.address.trim().length == 0) {
+        if(this.state.address.trim().length === 0) {
             this.setState({
                 error_address: "Address is required field",
             });
             this.isError = true;
         }
-        if(this.state.description.trim().length == 0) {
+        if(this.state.description.trim().length === 0) {
             this.setState({
                 error_description: "Description is required field",
             });
             this.isError = true;
         }
-        if(this.state.placeType.trim().length == 0) {
+        if(this.state.placeType.trim().length === 0) {
             this.setState({
                 error_placeType: "PlaceType is required field",
             });
@@ -113,7 +113,9 @@ class RegisterPlace extends Component {
 
                 }).catch(error => {
                 console.log(error);
-                window.Materialize.toast('Sorry! Something went wrong. Please try again!', 3000);
+                if(error.status === 403)
+                    window.Materialize.toast("You are not the owner", 3000);
+                else window.Materialize.toast(error.message, 3000);
             });
         }
     }
