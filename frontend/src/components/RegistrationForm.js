@@ -13,9 +13,16 @@ class RegistrationForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fields: {},
-            errors: {}
+            fields: {
+            username : "",
+            email : "",
+            password : "",
+            confirm_password : "",
+            },
+            errors: {
+            }
         };
+        this.formIsValid = true;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     };
@@ -29,9 +36,10 @@ class RegistrationForm extends Component {
         });
     }
 
-    handleSubmit(event) {
+   async handleSubmit(event) {
         event.preventDefault();
-        if (this.validateForm()) {
+       await this.validateForm();
+        if (this.formIsValid) {
             const signupRequest = {
                 nickName: this.state.fields["username"],
                 email: this.state.fields["email"],
@@ -81,7 +89,7 @@ class RegistrationForm extends Component {
                             type="text"
                             name="email"
                             className="form-input"
-                            value={this.state.fields.emailid}
+                            value={this.state.fields.email}
                             onChange={this.handleChange}
                             placeholder="EMAIL"
                             s={12}
@@ -127,24 +135,25 @@ class RegistrationForm extends Component {
 
         let fields = this.state.fields;
         let errors = {};
-        let formIsValid = true;
+        this.formIsValid = true;
+
 
         if (!fields["username"]) {
-            formIsValid = false;
+            this.formIsValid = false;
             errors["username"] = "*Please enter your username.";
         }
         else if (fields["username"].length < USERNAME_MIN_LENGTH) {
-            formIsValid = false;
+            this.formIsValid = false;
             errors["username"] = `Username is too short (Minimum ${USERNAME_MIN_LENGTH} characters needed.)`;
         } else if (fields["username"].length > USERNAME_MAX_LENGTH) {
-            formIsValid = false;
+            this.formIsValid = false;
             errors["username"] = `Username is too long (Maximum ${USERNAME_MAX_LENGTH} characters allowed.)`;
         }
 
 
 
         if (!fields["email"]) {
-            formIsValid = false;
+            this.formIsValid = false;
             errors["email"] = "*Please enter your email.";
         }
 
@@ -152,7 +161,7 @@ class RegistrationForm extends Component {
             //regular expression for email validation
             var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
             if (!pattern.test(fields["email"])) {
-                formIsValid = false;
+                this.formIsValid = false;
                 errors["email"] = "*Please enter valid e-mail.";
             }
         }
@@ -163,40 +172,38 @@ class RegistrationForm extends Component {
 
 
         if (!fields["password"]) {
-            formIsValid = false;
+            this.formIsValid = false;
             errors["password"] = "*Please enter your password.";
         }
         else if (fields["password"].length < PASSWORD_MIN_LENGTH) {
-            formIsValid = false;
+            this.formIsValid = false;
             errors["password"] = `Password is too short (Minimum ${PASSWORD_MIN_LENGTH} characters needed.)`;
 
 
         } else if (fields["password"].length > PASSWORD_MAX_LENGTH) {
-            formIsValid = false;
+            this.formIsValid = false;
             errors["password"] = `Password is too long (Maximum ${PASSWORD_MAX_LENGTH} characters allowed.)`;
         }
 
         if (!fields["confirm_password"]) {
-            formIsValid = false;
+            this.formIsValid = false;
             errors["confirm_password"] = "*Please confirm your password.";
         }
         else if (fields["password"] !== fields["confirm_password"]) {
-            formIsValid = false;
+            this.formIsValid = false;
             errors["confirm_password"] = "Password doesn't match";
         }
 
-        if (formIsValid) {
-                  await checkUserAvailability(fields["username"],fields["email"])
+        if (this.formIsValid) {
+                await  checkUserAvailability(fields["username"],fields["email"])
                         .then(response => {
                             if (!response.isNickNameAvailable) {
-                                formIsValid = false;
+                                this.formIsValid = false;
                                 errors["username"] = `This username is already taken`;
-                                console.log(errors["username"]);
                             }
                             if (!response.isEmailAvailable) {
-                               formIsValid = false;
+                               this.formIsValid = false;
                                errors["email"] = "This Email is already registered";
-                                 console.log(errors["email"]);
        }
 
                         }).catch(error => {
@@ -205,15 +212,10 @@ class RegistrationForm extends Component {
 
                     });
                 }
-                console.log("out - " + formIsValid);
-
-
 
         this.setState({
             errors: errors
         });
-console.log('validation - '+formIsValid);
-        return formIsValid;
     }
 
 }
