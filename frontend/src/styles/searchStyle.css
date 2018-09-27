@@ -36,7 +36,7 @@
     display: block;
     position: absolute;
     top: auto;
-    width: 100%;
+    width: auto;
     border-radius: 10px;
     font-family: 'Nunito', sans-serif;
     font-weight: 300;
