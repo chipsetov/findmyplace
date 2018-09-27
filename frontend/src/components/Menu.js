@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Navbar, NavItem, Button, Icon } from 'react-materialize';
+import { Navbar, NavItem, Button, Icon, Dropdown } from 'react-materialize';
 import { withRouter } from 'react-router-dom';
 import Logout from './Logout';
 import '../styles/Menu.css';
+import "../styles/Logout.css";
 import {LOGIN_CHANGED, PAGE_CHANGED, Session} from "../utils";
 
 class Menu extends Component {

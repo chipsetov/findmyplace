@@ -5,10 +5,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-
-
-
-
     <!-- Users -->
     <changeSet id="1" author="rv036">
         <createTable tableName="users">
@@ -49,18 +45,16 @@
             </column>
 
             <column name="registration_date" type="timestamp">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
 
             <column name="last_update_date" type="timestamp">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
         </createTable>
             <addUniqueConstraint columnNames="email, nick_name" constraintName="user_unique"
                               tableName="users"/>
     </changeSet>
-
-
 
     <!-- Places -->
     <changeSet id="2" author="rv036">
@@ -68,35 +62,49 @@
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+
             <column name="name" type="varchar(255)">
                 <constraints nullable = "false"/>
             </column>
+
             <column name="address" type="varchar(255)">
                 <constraints nullable = "false"/>
             </column>
+
+            <column name="rating" type="decimal">
+                <constraints nullable = "true"/>
+            </column>
+
             <column name="description" type="varchar(255)">
                 <constraints nullable = "false"/>
             </column>
+
             <column name="latitude" type="decimal">
                 <constraints nullable = "false"/>
             </column>
+
             <column name="longitude" type="decimal">
                 <constraints nullable = "false"/>
             </column>
+
             <column name="open" type="time">
                 <constraints nullable = "false"/>
             </column>
+
             <column name="close" type="time">
                 <constraints nullable = "false"/>
             </column>
+
             <column name="count_free_places" type="int">
                 <constraints nullable="false"/>
             </column>
+
             <column name="place_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+
             <column name="owner_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)"/>
+                <constraints nullable="true" foreignKeyName="fk_owner_id" references="users(id)"/>
             </column>
         </createTable>
     </changeSet>
@@ -116,7 +124,7 @@
                 <constraints nullable = "false"/>
             </column>
 
-            <column name="user_id" type="int">
+            <column name="owner_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)"/>
             </column>
 

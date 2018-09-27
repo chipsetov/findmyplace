@@ -1,26 +1,42 @@
 package ua.softserve.rv036.findmeplace.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Time;
-import java.util.Set;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "places")
 public class Place {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is required field")
+    @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
 
+    @NotBlank(message = "Address is required field")
+    @Size(min = 1, max = 255)
     @Column(name = "address")
     private String address;
 
+    @Column(name = "rating")
+    private Double rating;
+
+    @NotBlank(message = "Description is required field")
+    @Size(min = 1, max = 255)
     @Column(name = "description")
     private String description;
 
@@ -30,9 +46,11 @@ public class Place {
     @Column(name = "longitude")
     private Double longitude;
 
+    @NotNull(message = "Time is a required field")
     @Column(name = "open")
     private Time open;
 
+    @NotNull(message = "Time is a required field")
     @Column(name = "close")
     private Time close;
 
@@ -43,12 +61,7 @@ public class Place {
     @Column(name = "place_type")
     private PlaceType placeType;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner_id", nullable = false)
-    private User ownerId;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Feedback> feedbacks;
+    @Column(name = "owner_id")
+    private Long ownerId;
 
 }

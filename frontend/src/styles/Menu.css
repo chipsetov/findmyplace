@@ -1,10 +1,9 @@
 .menu-container {
-    background-color: rgba(0 ,0 ,0 ,0.3);
+    background-color: rgba(0 ,0 ,0 , 0.5);
     width: 100%;
 }
 
 .menu-wrapper {
-    margin: 0 1% 40px;
     vertical-align: baseline;
 }
 
@@ -83,13 +82,18 @@
     display: none !important;
 }
 
-.router {
-    min-height: 600px;
+.place-page-mixin {
+    position: absolute;
+    top: 0;
+    max-height: 90px;
 }
 
-.place-page-mixin {
-    top: 0;
-    position: absolute;
-    max-height: 90px;
+.dropdown-button {
+    float: right;
+    margin-top: 30px;
+}
+
+.dropdown-content {
+    margin-top: 70px;
 }
 

@@ -38,6 +38,47 @@ export function signup(signupRequest) {
         body: JSON.stringify(signupRequest)
     });
 }
+export const getProfile = (nickname) => request({
+    url: API_BASE_URL + `/users/nick/${nickname}`,
+    method: 'GET'
+});
+
+export const updateProfile = profile => request({
+    url: API_BASE_URL + "/users/update",
+    method: 'POST',
+    body: JSON.stringify(profile)
+});
+
+export function filterPlace(filterRequest) {
+    return request({
+        url: API_BASE_URL + "/map/filter",
+        method: 'POST',
+        body: JSON.stringify(filterRequest)
+    });
+}
+
+export function searchPlace(searchRequest) {
+    return request({
+        url: API_BASE_URL + "/map/search",
+        method: 'POST',
+        body: JSON.stringify(searchRequest)
+    });
+}
+
+export function showAllPlaces() {
+    return request({
+        url: API_BASE_URL + "/map/all",
+        method: 'POST',
+    });
+}
+
+export function registerPlace(registerPlaceRequest) {
+    return request({
+        url: API_BASE_URL + "/places/register",
+        method: 'POST',
+        body: JSON.stringify(registerPlaceRequest)
+    });
+}
 
 export function checkUserAvailability(username, email) {
     return request({

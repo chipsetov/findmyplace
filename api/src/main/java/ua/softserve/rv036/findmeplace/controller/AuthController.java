@@ -10,8 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ua.softserve.rv036.findmeplace.model.BanStatus;
-import ua.softserve.rv036.findmeplace.model.Role;
+import ua.softserve.rv036.findmeplace.model.enums.BanStatus;
+import ua.softserve.rv036.findmeplace.model.enums.Role;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.*;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
@@ -58,8 +58,9 @@ public class AuthController {
         System.out.println(Instant.now());
         userRepository.save(user);
         Role role = user.getRole();
+        Long id = user.getId();
 
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, role));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, role, id));
     }
 
     @PostMapping("/signup")

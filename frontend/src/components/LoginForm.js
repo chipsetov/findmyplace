@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import {Button, Input, Row} from 'react-materialize';
 import {Link, withRouter} from 'react-router-dom';
 import '../styles/Form.css';
-import {ACCESS_TOKEN, ROLE} from '../constants';
+import {ACCESS_TOKEN, ROLE, USER_ID} from '../constants';
 import {login} from '../util/APIUtils';
 import {Session} from "../utils";
 
 class LoginForm extends Component {
-
 
     constructor(props) {
         super(props);
@@ -33,13 +32,15 @@ class LoginForm extends Component {
 
         login(loginRequest)
             .then(response => {
-                localStorage.setItem(ACCESS_TOKEN, response.accessToken);
                 localStorage.setItem(ROLE, JSON.stringify(response.roles));
+                localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+                localStorage.setItem(USER_ID, response.userId);
 
-                Session.login(ACCESS_TOKEN);
+                Session.login(response.accessToken);
 
                 this.props.history.push("/map");
-                window.Materialize.toast('Welcome ' + this.state.usernameOrEmail, 7000);
+                window.Materialize.toast('Welcome as: ' + localStorage.getItem(ROLE), 7000);
+                window.Materialize.toast(localStorage.getItem(USER_ID), 7000);
 
             }).catch(error => {
             if (error.status === 401) {
@@ -53,36 +54,35 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <div className="app-form">
-                <h2>Sign In</h2>
-                <Row>
-                    <Input
-                        id="usernameOrEmail"
-                        type="email"
-                        value={this.state.usernameOrEmail}
-                        className="form-input"
-                        value={this.state.email}
-                        placeholder="EMAIL"
-                        onChange={e => this.handleChange("usernameOrEmail", e.target.value)}
-                        s={12}
-                    />
-                </Row>
-                <Row>
-                    <Input
-                        id="password"
-                        type="password"
-                        className="form-input"
-                        value={this.state.password}
-                        placeholder="PASSWORD"
-                        onChange={e => this.handleChange("password", e.target.value)}
-                        s={12}
-                    />
-                </Row>
-                <div className="confirm-row">
-                    <Link className="forgot-password-link" to="/">Forgot password?</Link>
-                    <Button waves="light" id="sign-in" onClick={this.handleSubmit}>
-                        Sign In
-                    </Button>
+            <div className="form-wrapper">
+                <div className="app-form">
+                    <h2>Sign In</h2>
+                    <Row>
+                        <Input
+                            id="usernameOrEmail"
+                            type="email"
+                            value={this.state.usernameOrEmail}
+                            placeholder="EMAIL"
+                            onChange={e => this.handleChange("usernameOrEmail", e.target.value)}
+                            s={12}
+                        />
+                    </Row>
+                    <Row>
+                        <Input
+                            id="password"
+                            type="password"
+                            value={this.state.password}
+                            placeholder="PASSWORD"
+                            onChange={e => this.handleChange("password", e.target.value)}
+                            s={12}
+                        />
+                    </Row>
+                    <div className="confirm-row">
+                        <Link className="forgot-password-link" to="/">Forgot password?</Link>
+                        <Button waves="light" id="sign-in" onClick={this.handleSubmit}>
+                            Sign In
+                        </Button>
+                    </div>
                 </div>
             </div>
         );
