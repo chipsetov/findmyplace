@@ -53,4 +53,14 @@ public class User extends DateAudit {
     @Enumerated(EnumType.STRING)
     private BanStatus banStatus;
 
+    @Column(name = "active")
+    private boolean active;
+
+    @JsonIgnore
+    @Column(name = "activation_code")
+    private String activationCode;
+
+
+
+
 }
