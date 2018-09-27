@@ -25,8 +25,9 @@ export const Session = {
 
     isOwner: () => {
         const role = localStorage.getItem(ROLE);
-        console.log(role);
-        return role.includes("ROLE_OWNER");
+        if(role)
+            return role.includes("ROLE_OWNER");
+        else return false;
     }
 
 };
