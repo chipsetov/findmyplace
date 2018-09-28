@@ -43,13 +43,13 @@ public class MapControllerTest {
     @MockBean
     private MapController mapController;
 
-    Place place;
+    private Place place;
 
-    List<Place> places;
+    private List<Place> places;
 
     @Before
     public void setup(){
-        place = createPlace();
+        place = TestUtil.createPlace();
         places = Collections.singletonList(place);
     }
 
@@ -107,19 +107,5 @@ public class MapControllerTest {
                 .andExpect(jsonPath("$[0].name", is(place.getName())));
     }
 
-    private Place createPlace() {
-        Place place = new Place();
-        place.setName("Starbucks");
-        place.setAddress("LA");
-        place.setRating(5.0);
-        place.setDescription("Best Coffee");
-        place.setLatitude(25.111);
-        place.setLongitude(55.666);
-        place.setOpen(Time.valueOf(LocalTime.MIN));
-        place.setClose(Time.valueOf(LocalTime.MAX));
-        place.setPlaceType(PlaceType.CAFE);
-        place.setOwnerId((long) 1);
 
-        return place;
-    }
 }
