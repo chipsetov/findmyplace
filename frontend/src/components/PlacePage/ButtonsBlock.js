@@ -7,7 +7,7 @@ class ButtonsBlock extends Component {
 
     render() {
         return (
-            <CardPanel className="card-panel-btn blue-grey lighten-5">
+            <CardPanel className="card-panel-btn blue lighten-5">
                 <Row className="center">
                     <Link to="/map">
                         <Col>

@@ -62,6 +62,7 @@ public class PlaceController {
                     HttpStatus.BAD_REQUEST);
         } else {
             place.setCountFreePlaces(0);
+            place.setRating(0.0);
             Place result = placeRepository.save(place);
 
             return new ResponseEntity(result, HttpStatus.CREATED);
