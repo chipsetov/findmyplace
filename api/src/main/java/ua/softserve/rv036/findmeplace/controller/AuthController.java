@@ -21,6 +21,7 @@ import ua.softserve.rv036.findmeplace.security.JwtTokenProvider;
 import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.time.Instant;
 
@@ -83,9 +84,11 @@ public class AuthController {
         User user = new User(signUpRequest.getEmail(),
                 signUpRequest.getNickName(), signUpRequest.getPassword());
 
-        userService.createUser(user);
-
+       boolean response = userService.createUser(user);
+if (response)
         return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
+else
+    return new ResponseEntity<>(new ApiResponse(false, "User in't registered"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/checkUserAvailability")
@@ -116,7 +119,12 @@ public class AuthController {
         User user = userRepository.findByNickNameOrEmail
                 (usernameOrEmail, usernameOrEmail).get();
 
-        userService.sendEmailConfirmation(user);
+        try {
+            userService.sendEmailConfirmation(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ApiResponse(false, "Something goes wrong");
+        }
 
         return new ApiResponse(true, "New email confirmation has been send");
     }
