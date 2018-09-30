@@ -25,7 +25,7 @@ public class Feedback {
     @Column(name = "user_id")
     private Long userId;
 
-    private String ownerNickName;
+    private String userName;
 
     @Column(name = "place_id")
     private Long placeId;

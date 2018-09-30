@@ -35,6 +35,8 @@ class UserPlaces extends Component {
                 this.setState({
                     places: places
                 });
+
+                window["Materialize"].toast("Place deleted", 3000);
             }).catch((error) => {
                 console.error('error', error);
             });
