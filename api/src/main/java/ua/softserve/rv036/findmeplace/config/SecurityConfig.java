@@ -58,10 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.POST, "/map/**");
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -93,9 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers(HttpMethod.GET, "/places/**", "/map", "/users/**", "/placeByType")
                     .permitAll()
-                .antMatchers(HttpMethod.POST, "/map")
-                    .permitAll()
-                .antMatchers(HttpMethod.POST, "/places/**", "/map")
+                .antMatchers(HttpMethod.POST, "/places/**", "/map/**")
                     .permitAll()
                 .anyRequest()
                     .authenticated();
