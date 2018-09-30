@@ -22,8 +22,8 @@ public class Feedback {
     @Column(name = "mark")
     private Integer mark;
 
-    @Column(name = "owner_id")
-    private Long ownerId;
+    @Column(name = "user_id")
+    private Long userId;
 
     private String ownerNickName;
 

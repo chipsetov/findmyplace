@@ -23,6 +23,22 @@ export const request = (options) => {
     );
 };
 
+export const deleteRequest = (options) => {
+    const headers = new Headers();
+
+    if(localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', TOKEN_TYPE + " " + localStorage.getItem(ACCESS_TOKEN))
+    }
+
+    const defaults = {headers: headers};
+    options = Object.assign({}, defaults, options);
+
+    return fetch(options.url, options)
+        .then(response => {
+            return response;
+        }).catch(error => error);
+};
+
 export function login(loginRequest) {
     return request({
         url: API_BASE_URL + "/auth/signin",
@@ -111,6 +127,13 @@ export function getUserProfile(username) {
     return request({
         url: API_BASE_URL + "/users/" + username,
         method: 'GET'
+    });
+}
+
+export function deleteUserPlace(id) {
+    return deleteRequest({
+        url: API_BASE_URL + '/user/delete-place/' + id,
+        method: 'DELETE'
     });
 }
 

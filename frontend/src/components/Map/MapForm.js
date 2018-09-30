@@ -5,7 +5,6 @@ import SearchPlace from './SearchPlace';
 import {filterPlace, searchPlace, showAllPlaces} from '../../util/APIUtils';
 import '../../styles/Map.css';
 
-
 class MapForm extends Component {
 
     constructor(props) {

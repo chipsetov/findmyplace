@@ -124,12 +124,14 @@
                 <constraints nullable = "false"/>
             </column>
 
-            <column name="owner_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)"/>
+            <column name="user_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)"
+                             deleteCascade="true"/>
             </column>
 
             <column name="place_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_place_id" references="places(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_place_id" references="places(id)"
+                             deleteCascade="true"/>
             </column>
         </createTable>
     </changeSet>
