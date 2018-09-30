@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
-import {Row} from "react-materialize";
+import {Col, Row} from "react-materialize";
 import {deleteUserPlace} from "../../../util/APIUtils";
 import Place from "./Place";
 import {Link} from "react-router-dom";
+import SearchPlace from "../../Map/SearchPlace";
 
 class UserPlaces extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            places: []
+            places: [],
+            searchValue:''
         };
 
         this.handleDelete = this.handleDelete.bind(this);
@@ -48,6 +50,9 @@ class UserPlaces extends Component {
         return(
             <Row className="user-places-wrapper">
                 <Row className="places-search">
+                    <Col s={3}>
+                        <SearchPlace />
+                    </Col>
                     <Link to={`/register-place`} id="register-place">Add place</Link>
                 </Row>
                 <Row className="places-container">

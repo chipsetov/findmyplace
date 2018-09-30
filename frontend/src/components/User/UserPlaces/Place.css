@@ -10,6 +10,10 @@
     padding: 20px 10px;
 }
 
+.places-search .row {
+    float: left;
+}
+
 .places-search #register-place {
     display: block;
     float: left;
