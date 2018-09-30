@@ -1,7 +1,8 @@
 package ua.softserve.rv036.findmeplace.controller;
 
-import com.sun.jndi.toolkit.url.Uri;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,7 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.softserve.rv036.findmeplace.model.User;
@@ -23,11 +23,13 @@ import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
 import javax.validation.Valid;
 import java.net.URI;
 import java.time.Instant;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+    @Value("${basicFrontendURL}")
+    private String frontendURL;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -50,8 +52,6 @@ public class AuthController {
                         loginRequest.getPassword()
                 )
         );
-
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final String jwt = tokenProvider.generateToken(authentication);
@@ -61,8 +61,10 @@ public class AuthController {
         userRepository.save(user);
         Role role = user.getRole();
         Long id = user.getId();
+        boolean isActive = user.isActive();
+        String banStatus = String.valueOf(user.getBanStatus());
 
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, role, id));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, role, id, isActive, banStatus));
     }
 
     @PostMapping("/signup")
@@ -83,10 +85,7 @@ public class AuthController {
 
         userService.createUser(user);
 
-
-        URI location = URI.create(ServletUriComponentsBuilder
-                .fromCurrentContextPath().toString());
-        return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+        return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
     }
 
     @GetMapping("/checkUserAvailability")
@@ -104,12 +103,22 @@ public class AuthController {
         );
         user.setActive(true);
         user.setActivationCode(null);
+        userRepository.save(user);
 
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/users/{username}")
-                .buildAndExpand(user.getNickName()).toUri();
-        return ResponseEntity.created(location).body(new ApiResponse(true, "User confirmed email"));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create(frontendURL + "sign-in"));
+        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
+    @GetMapping("/resendEmail")
+    public ApiResponse resendEmail(@RequestParam(value = "usernameOrEmail") String usernameOrEmail) {
+        System.out.println(usernameOrEmail);
+        User user = userRepository.findByNickNameOrEmail
+                (usernameOrEmail, usernameOrEmail).get();
+
+        userService.sendEmailConfirmation(user);
+
+        return new ApiResponse(true, "New email confirmation has been send");
     }
+
+}

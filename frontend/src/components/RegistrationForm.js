@@ -45,11 +45,12 @@ class RegistrationForm extends Component {
                 email: this.state.fields["email"],
                 password: this.state.fields["password"]
             };
-            console.log(signupRequest);
+            this.props.history.push("/");
             signup(signupRequest)
                 .then(response => {
-                    window.Materialize.toast("Thank you! You're successfully registered. Please Login to continue!", 5000);
-                    this.props.history.push("/login");
+
+                    window.Materialize.toast("Thank you! You're successfully registered. Please confrim your email!", 5000);
+
                 }).catch(error => {
                 window.Materialize.toast("Ooops something wrong with our servers! Try again!", 5000);
 
@@ -141,21 +142,21 @@ class RegistrationForm extends Component {
         this.formIsValid = true;
 
 
-        if (!fields["username"]) {
+        if (fields["username"].trim().length===0) {
             this.formIsValid = false;
             errors["username"] = "*Please enter your username.";
         }
-        else if (fields["username"].length < USERNAME_MIN_LENGTH) {
+        else if (fields["username"].trim().length < USERNAME_MIN_LENGTH) {
             this.formIsValid = false;
-            errors["username"] = `Username is too short (Minimum ${USERNAME_MIN_LENGTH} characters needed.)`;
+            errors["username"] = `*Username is too short (Minimum ${USERNAME_MIN_LENGTH} characters needed.)`;
         } else if (fields["username"].length > USERNAME_MAX_LENGTH) {
             this.formIsValid = false;
-            errors["username"] = `Username is too long (Maximum ${USERNAME_MAX_LENGTH} characters allowed.)`;
+            errors["username"] = `*Username is too long (Maximum ${USERNAME_MAX_LENGTH} characters allowed.)`;
         }
 
 
 
-        if (!fields["email"]) {
+        if (fields["email"].trim().length===0) {
             this.formIsValid = false;
             errors["email"] = "*Please enter your email.";
         }
@@ -168,18 +169,18 @@ class RegistrationForm extends Component {
                 errors["email"] = "*Please enter valid e-mail.";
             }
         }
-        else if (fields["email"].length > EMAIL_MAX_LENGTH) {
-            errors["email"] = `Email is too long (Maximum ${EMAIL_MAX_LENGTH} characters allowed)`;
+        else if (fields["email"].trim().length > EMAIL_MAX_LENGTH) {
+            errors["email"] = `*Email is too long (Maximum ${EMAIL_MAX_LENGTH} characters allowed)`;
         }
 
 
-        if (!fields["password"]) {
+        if (fields["password"].trim().length===0) {
             this.formIsValid = false;
             errors["password"] = "*Please enter your password.";
         }
         else if (fields["password"].length < PASSWORD_MIN_LENGTH) {
             this.formIsValid = false;
-            errors["password"] = `Password is too short (Minimum ${PASSWORD_MIN_LENGTH} characters needed.)`;
+            errors["password"] = `*Password is too short (Minimum ${PASSWORD_MIN_LENGTH} characters needed.)`;
 
 
         } else if (fields["password"].length > PASSWORD_MAX_LENGTH) {
@@ -193,7 +194,7 @@ class RegistrationForm extends Component {
         }
         else if (fields["password"] !== fields["confirm_password"]) {
             this.formIsValid = false;
-            errors["confirm_password"] = "Password doesn't match";
+            errors["confirm_password"] = "*Password doesn't match";
         }
 
         if (this.formIsValid) {

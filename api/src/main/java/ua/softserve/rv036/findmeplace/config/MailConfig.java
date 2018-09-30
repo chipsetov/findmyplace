@@ -25,7 +25,13 @@ public class MailConfig {
     @Value("${spring.mail.protocol}")
     private String protocol;
 
-    @Value("${mail.debug}")
+    @Value("${spring.mail.properties.smtp.auth}")
+    private String auth;
+
+    @Value("${spring.mail.properties.smtp.starttls.enable}")
+    private String starttlsEnable;
+
+    @Value("${spring.mail.properties.debug}")
     private String debug;
 
     @Bean
@@ -41,7 +47,10 @@ public class MailConfig {
 
         properties.setProperty("mail.transport.protocol", protocol);
         properties.setProperty("mail.debug", debug);
+        properties.put("mail.smtp.auth", auth);
+        properties.put("mail.smtp.starttls.enable", starttlsEnable);
 
         return mailSender;
     }
+
 }

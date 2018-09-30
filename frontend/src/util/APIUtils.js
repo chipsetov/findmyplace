@@ -1,11 +1,11 @@
-import { API_BASE_URL, ACCESS_TOKEN, TOKEN_TYPE } from '../constants';
+import {API_BASE_URL, ACCESS_TOKEN, TOKEN_TYPE} from '../constants';
 
 export const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
     });
-    
-    if(localStorage.getItem(ACCESS_TOKEN)) {
+
+    if (localStorage.getItem(ACCESS_TOKEN)) {
         headers.append('Authorization', TOKEN_TYPE + " " + localStorage.getItem(ACCESS_TOKEN))
     }
 
@@ -13,14 +13,14 @@ export const request = (options) => {
     options = Object.assign({}, defaults, options);
 
     return fetch(options.url, options)
-    .then(response => 
-        response.json().then(json => {
-            if(!response.ok) {
-                return Promise.reject(json);
-            }
-            return json;
-        })
-    );
+        .then(response =>
+            response.json().then(json => {
+                if (!response.ok) {
+                    return Promise.reject(json);
+                }
+                return json;
+            })
+        );
 };
 
 export function login(loginRequest) {
@@ -38,6 +38,14 @@ export function signup(signupRequest) {
         body: JSON.stringify(signupRequest)
     });
 }
+
+export function resendEmail(usernameOrEmail) {
+    return request({
+        url: API_BASE_URL + "/auth/resendEmail?usernameOrEmail=" + usernameOrEmail,
+        method: 'GET',
+    });
+}
+
 export const getProfile = (nickname) => request({
     url: API_BASE_URL + `/users/nick/${nickname}`,
     method: 'GET'
@@ -89,7 +97,7 @@ export function checkUserAvailability(username, email) {
 
 
 export function getCurrentUser() {
-    if(!localStorage.getItem(ACCESS_TOKEN)) {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
         return Promise.reject("No access token set.");
     }
 

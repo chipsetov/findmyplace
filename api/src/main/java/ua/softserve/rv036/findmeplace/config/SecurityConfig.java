@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(HttpMethod.POST, "/map/**");
+        web.ignoring().antMatchers( "/auth/**");
     }
 
     @Override
@@ -88,8 +89,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js")
                     .permitAll()
                 .antMatchers("/auth/**")
-                    .permitAll()
-                .antMatchers("/user/checkUsernameAvailability", "/user/checkEmailAvailability")
                     .permitAll()
                 .antMatchers(HttpMethod.GET, "/places/**", "/map", "/users/**", "/placeByType")
                     .permitAll()
