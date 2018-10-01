@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Icon, Row, Button, Input, Col} from 'react-materialize';
+import {Button, Col, Icon, Input, Row} from 'react-materialize';
 import MapLayout from './MapLayout.js';
+import SearchPlace from './SearchPlace';
+import {filterPlace, searchPlace} from '../../util/APIUtils';
 import '../../styles/Map.css';
 
 
@@ -13,8 +15,16 @@ class MapForm extends Component {
             latitude: 50.6219427,
             longitude: 26.2493254,
             zoom: 15,
-            selectedOption: null
+            active: true,
+            parking: true,
+            restaurant: true,
+            hotel: true,
+            searchValue: ''
+
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -27,47 +37,92 @@ class MapForm extends Component {
                 })
     }
 
-    handleChange = (selectedOption) => {
-        this.setState({selectedOption});
-        console.log(`Option selected:`, selectedOption);
+
+    handleChange(event) {
+        if (event.target.name === "parking") {
+            this.setState({parking: event.target.checked});
+        }
+        if (event.target.name === "hotel") {
+            this.setState({hotel: event.target.checked});
+        }
+        if (event.target.name === "restaurant") {
+            this.setState({restaurant: event.target.checked});
+        }
+    }
+
+    handleSubmit() {
+        const filterRequest = {
+            parking: this.state.parking,
+            hotel: this.state.hotel,
+            restaurant: this.state.restaurant,
+        };
+        console.log(filterRequest);
+
+        filterPlace(filterRequest)
+            .then(result => {
+                this.setState({places: result});
+            })
+    }
+
+    updateData = (value) => {
+        this.setState({ searchValue: value })
+
+        const searchRequest = {
+            searchValue: value,
+        };
+
+        console.log(searchRequest);
+
+        searchPlace(searchRequest)
+            .then(result => {
+                this.setState({places: result});
+        })
     }
 
     render() {
-        const options = [
-            {value: 'RESTAURANT', label: 'Restaurant'},
-            {value: 'PARKING', label: 'Parking'},
-            {value: 'HOTEL', label: 'Hotel'}
-        ];
-        const {selectedOption} = this.state;
         return (
-
             <div className="container-fluid">
                 <div className="up-row">
                     <Row>
-                    <Col s={2}>
-                        <Input type="switch"/>
-                    </Col>
-                    <Col s={2} offset="s9">
+                        <Col s={2} id="check-row-filter">
                             <Input
-                                type="text"
-                                className="form-input"
-                                offset="true"
-                                label="Type the Place name..."
-                                validate
-                                onChange={e => this.handleChange("place_name", e.target.value)}
-                            />
-                    </Col>
-                    <Col s={1} >
-                        <Button waves='light'>Search<Icon right>search</Icon></Button>
-                    </Col>
+                                type='checkbox'
+                                name="parking"
+                                label='Parking'
+                                checked={this.state.active}
+                                onChange={this.handleChange}/>
+                        </Col>
+                        <Col s={2} id="check-row-filter">
+                            <Input
+                                type='checkbox'
+                                name='hotel'
+                                label='Hotel'
+                                checked={this.state.active}
+                                onChange={this.handleChange}/>
+                        </Col>
+                        <Col s={2} id="check-row-filter">
+                            <Input
+                                type='checkbox'
+                                name='restaurant'
+                                label='Restaurant'
+                                checked={this.state.active}
+                                onChange={this.handleChange}/>
+                        </Col>
+                        <Col s={1}>
+                            <Button waves='light' onClick={this.handleSubmit}>Use Filter</Button>
+                        </Col>
+                        <Col s={3} offset="s2">
+                            <SearchPlace updateData={this.updateData}/>
+                        </Col>
+
                     </Row>
                 </div>
-                    <Row>
-                        <MapLayout items={this.state.places}
-                                   latitude={this.state.latitude}
-                                   longitude={this.state.longitude}
-                                   zoom={this.state.zoom}/>
-                    </Row>
+                <Row>
+                    <MapLayout items={this.state.places}
+                               latitude={this.state.latitude}
+                               longitude={this.state.longitude}
+                               zoom={this.state.zoom}/>
+                </Row>
             </div>
         );
     }
@@ -76,30 +131,8 @@ class MapForm extends Component {
 
 export default MapForm
 
-/*<div class="row">
-                <div class="col s2">
-                    <div class="row valign-wrapper">
-                        <div class="col s10">
-                            <input
-                                id="place_name"
-                                type="text"
-                                placeholder="Type the Place name..."
-                                onChange={e => this.handleChange("place_name", e.target.value)}
-                            />
-                        </div>
-                        <div class="col s2">
-                            <i class="material-icons small">search</i>
-                        </div>
-                    </div>
-                    <div class="row" >
-                        <Select
-                            name="basic-multi-select"
-                            value={selectedOption}
-                            onChange={this.handleChange}
-                            isMulti={true}
-                            options={options}
-                        />
-                    </div>
+
+/*
                     {this.state.places.map(place => (
                         <div class="row" key={place.name} className="place-row">
                             <a href="/#/map" onClick={() => {

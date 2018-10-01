@@ -7,5 +7,7 @@ import ua.softserve.rv036.findmeplace.model.PlaceType;
 import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Long> {
-    List<Place> findByPlaceType(PlaceType placeType);
+    List<Place> findByPlaceTypeIn(List<PlaceType> placeTypes);
+
+    List<Place> findByNameIn(String searchValue);
 }
