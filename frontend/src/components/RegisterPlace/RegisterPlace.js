@@ -121,6 +121,8 @@ class RegisterPlace extends Component {
                     window.Materialize.toast("You are not the owner", 3000);
                 else window.Materialize.toast(error.message, 3000);
             });
+        } else {
+            window.Materialize.toast("Check the fields", 3000);
         }
     }
 
