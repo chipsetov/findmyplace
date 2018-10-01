@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import BasePage from "./BasePage";
 
-export default class Booking extends Component {
+export default class Booking extends BasePage {
     render() {
         return (
-            <h1>Booking component</h1>
+            <div ref="root">
+                <h1>Booking component</h1>
+            </div>
         );
     }
 }

@@ -1,15 +1,15 @@
 package ua.softserve.rv036.findmeplace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import ua.softserve.rv036.findmeplace.model.Place;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.User;
-import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
+import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
+import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 
 import javax.validation.Valid;
@@ -49,29 +49,50 @@ public class UserController {
     }
 
     @PostMapping("/users/update")
-    User updateUser(@Valid @RequestBody UpdateProfileRequest updateProfileRequest) {
-        final String oldNickNameOrEmail = updateProfileRequest.getOldNickName();
+    ResponseEntity updateUser(@Valid @RequestBody UpdateProfileRequest updateProfileRequest) {
+        final Long userId = updateProfileRequest.getUserId();
 
-        if (!userRepository.existsByNickNameOrEmail(oldNickNameOrEmail, oldNickNameOrEmail)) {
-            // TODO: error
+        Optional<User> optional = userRepository.findById(userId);
+        User user = optional.get();
+
+        if (user == null) {
+            ApiResponse response = new ApiResponse(false, "User by id " + userId + " doesn't exist!");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
 
-        final String nickName = updateProfileRequest.getNickName();
-        final String email = updateProfileRequest.getEmail();
         final String password = updateProfileRequest.getPassword();
 
-        User user = userRepository.findByNickNameOrEmail(oldNickNameOrEmail, oldNickNameOrEmail).get();
-
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            // TODO: error
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            ApiResponse response = new ApiResponse(false, "You have entered invalid password");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
 
+        final String firstName = updateProfileRequest.getFirstName();
+        final String lastName = updateProfileRequest.getLastName();
+        final String nickName = updateProfileRequest.getNickName();
+        final String email = updateProfileRequest.getEmail();
+        final String phone = updateProfileRequest.getPhone();
+
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
         user.setNickName(nickName);
         user.setEmail(email);
+        user.setPhone(phone);
+
+        final String newPassword = updateProfileRequest.getNewPassword();
+        final String confirmPassword = updateProfileRequest.getConfirmPassword();
+
+        if (newPassword.length() > 0) {
+            if (!password.equals(newPassword)) {
+                if (newPassword.equals(confirmPassword)) {
+                    user.setPassword(passwordEncoder.encode(newPassword));
+                }
+            }
+        }
 
         userRepository.save(user);
 
-        return user;
+        return ResponseEntity.ok(new ApiResponse(true, "Your profile was changed successfully"));
     }
 
 }
