@@ -10,8 +10,8 @@ export default class Logout extends Component {
         return (
             <div id="auth-sign-out" className={hidden}>
                 <NavItem href="" className="logout">
-                    <Dropdown trigger={<img src="img/avatar.png" alt=""/>}>
-                        <NavItem href='#/user'>Profile</NavItem>
+                    <Dropdown trigger={<img src="img/avatar.png" alt=""/>}>gi
+                        <NavItem href='#/user/profile'>Profile</NavItem>
                         <NavItem href='#/user/1/places'>Places</NavItem>
                         <NavItem href='#'>Booking</NavItem>
                         <NavItem href='#'>Favorite</NavItem>
