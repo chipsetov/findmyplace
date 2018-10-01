@@ -1,4 +1,4 @@
-package ua.softserve.rv036.findmeplace.FindMePlace.controller;
+package ua.softserve.rv036.findmeplace.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
