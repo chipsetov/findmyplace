@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import BasePage from "./BasePage";
 
-export default class Favorite extends Component {
+export default class Favorite extends BasePage {
     render() {
         return (
-            <h1>Favorite component</h1>
+            <div ref="root">
+                <h1>Favorite component</h1>
+            </div>
         );
     }
 }

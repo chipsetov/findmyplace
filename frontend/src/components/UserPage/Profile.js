@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { Row, Col, Input, Button } from 'react-materialize';
 
+import BasePage from "./BasePage";
 import {updateProfile} from "../../util/APIUtils";
 import {USER_ID} from "../../constants";
 
 import '../../styles/UserPage.css';
 
-export default class Profile extends Component {
+export default class Profile extends BasePage {
     constructor(props) {
         super(props);
 
         this.state = {
+            firstName: props.firstName,
+            lastName: props.lastName,
             userName: props.userName,
             email: props.email,
+            phone: props.phone,
             oldPassword: "",
             newPassword: "",
             confirmPassword: ""
@@ -21,8 +25,33 @@ export default class Profile extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div ref="root" className="container">
                 <div className="profile-editor">
+                    <Row className="user-page">
+                        <Col s={4} offset="s2">
+                            <p>first name:</p>
+                        </Col>
+                        <Col s={4}>
+                            <Input
+                                defaultValue={this.props.firstName}
+                                onChange={(e) => {
+                                    this.onChangeStateHandler('firstName', e.target.value)
+                                }}/>
+                        </Col>
+                    </Row>
+                    <Row className="user-page">
+                        <Col s={4} offset="s2">
+                            <p>last name:</p>
+                        </Col>
+                        <Col s={4}>
+                            <Input
+                                defaultValue={this.props.lastName}
+                                onChange={(e) => {
+                                    this.onChangeStateHandler('lastName', e.target.value)
+                                }}/>
+                        </Col>
+                    </Row>
+
                     <Row className="user-page">
                         <Col s={4} offset="s2">
                             <p>name:</p>
@@ -44,6 +73,17 @@ export default class Profile extends Component {
                             <Input defaultValue={this.props.email}
                                    onChange={ (e) => {
                                        this.onChangeStateHandler('email', e.target.value)} }/>
+                        </Col>
+                    </Row>
+
+                    <Row className="user-page">
+                        <Col s={4} offset="s2">
+                            <p>phone:</p>
+                        </Col>
+                        <Col s={4}>
+                            <Input defaultValue={this.props.phone}
+                                   onChange={ (e) => {
+                                       this.onChangeStateHandler('phone', e.target.value)} }/>
                         </Col>
                     </Row>
 
@@ -78,11 +118,8 @@ export default class Profile extends Component {
                     </Row>
 
                     <Row className="user-page">
-                        <Col s={2} offset="s4">
+                        <Col s={2} offset="s5">
                             <Button onClick={ this.onSaveChangesHandler.bind(this) }>Save</Button>
-                        </Col>
-                        <Col s={2}>
-                            <Button onClick={ this.onCancelChangesHandler.bind(this) }>Cancel</Button>
                         </Col>
                     </Row>
                 </div>
@@ -100,14 +137,32 @@ export default class Profile extends Component {
 
     onSaveChangesHandler() {
         const {
+            firstName,
+            lastName,
             userName,
             email,
+            phone,
             oldPassword,
             newPassword,
             confirmPassword } = this.state;
 
         if (!oldPassword.length) {
             this.error("You have to enter your password");
+            return;
+        }
+
+        if (!firstName.length) {
+            this.error("You have to enter valid firstName");
+            return;
+        }
+
+        if (!lastName.length) {
+            this.error("You have to enter valid lastName");
+            return;
+        }
+
+        if (!/^\d+$/.test(phone)) {
+            this.error("You have to enter valid phone");
             return;
         }
 
@@ -126,9 +181,12 @@ export default class Profile extends Component {
         const userId = localStorage.getItem(USER_ID);
 
         const profile = {
+            firstName: firstName,
+            lastName: lastName,
             userId: userId,
             nickName: userName,
             email: email,
+            phone: phone,
             password: oldPassword,
             newPassword: newPassword,
             confirmPassword: confirmPassword
@@ -136,9 +194,7 @@ export default class Profile extends Component {
 
         updateProfile(profile)
             .then(response => {
+                this.error(response.message);
             });
-    }
-
-    onCancelChangesHandler() {
     }
 }

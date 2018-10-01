@@ -67,18 +67,24 @@ public class UserController {
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
 
+        final String firstName = updateProfileRequest.getFirstName();
+        final String lastName = updateProfileRequest.getLastName();
         final String nickName = updateProfileRequest.getNickName();
         final String email = updateProfileRequest.getEmail();
+        final String phone = updateProfileRequest.getPhone();
 
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
         user.setNickName(nickName);
         user.setEmail(email);
+        user.setPhone(phone);
 
         final String newPassword = updateProfileRequest.getNewPassword();
         final String confirmPassword = updateProfileRequest.getConfirmPassword();
 
         if (newPassword.length() > 0) {
-            if (password != newPassword) {
-                if (newPassword == confirmPassword) {
+            if (!password.equals(newPassword)) {
+                if (newPassword.equals(confirmPassword)) {
                     user.setPassword(passwordEncoder.encode(newPassword));
                 }
             }
