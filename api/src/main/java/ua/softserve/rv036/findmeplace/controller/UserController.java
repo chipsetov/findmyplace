@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/delete-place/{id}")
-    public ResponseEntity<Void> deleteUserPlaceById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUserPlaceById(@PathVariable("id") Long id) {
         placeRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
