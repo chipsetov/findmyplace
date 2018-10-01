@@ -22,27 +22,27 @@ public class MailSender {
 
 
     public void send(String emailTo, String subject, String message) {
-//        try {
-//        MimeMessage mimeMessage = mailSender.createMimeMessage();
-//        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+        try {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+
+            mimeMessage.setContent(message, "text/html");
+            helper.setFrom(mailName);
+            helper.setTo(emailTo);
+            helper.setSubject(subject);
+            mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+
+//        SimpleMailMessage mailMessage = new SimpleMailMessage();
 //
-//            mimeMessage.setContent(message, "text/html");
-//            helper.setFrom(mailName);
-//            helper.setTo(emailTo);
-//            helper.setSubject(subject);
-//            mailSender.send(mimeMessage);
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//        }
-
-
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-
-        mailMessage.setFrom(mailName);
-        mailMessage.setTo(emailTo);
-        mailMessage.setSubject(subject);
-        mailMessage.setText(message);
-
-        mailSender.send(mailMessage);
+//        mailMessage.setFrom(mailName);
+//        mailMessage.setTo(emailTo);
+//        mailMessage.setSubject(subject);
+//        mailMessage.setText(message);
+//
+//        mailSender.send(mailMessage);
     }
 }

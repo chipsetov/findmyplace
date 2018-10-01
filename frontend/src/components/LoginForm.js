@@ -91,7 +91,7 @@ class LoginForm extends Component {
         return (
             <div className="form-wrapper">
                 <div className="app-form">
-
+                    <form onSubmit={this.handleSubmit}>
                     <div className={this.state.className} style={{color: "#cc0000"}}>
 
                         Your email address has not been verified.
@@ -107,7 +107,6 @@ class LoginForm extends Component {
                     <Row>
                         <Input
                             id="usernameOrEmail"
-                            type="email"
                             value={this.state.usernameOrEmail}
                             placeholder="EMAIL"
                             onChange={e => this.handleChange("usernameOrEmail", e.target.value)}
@@ -126,10 +125,10 @@ class LoginForm extends Component {
                     </Row>
                     <div className="confirm-row">
                         <Link className="forgot-password-link" to="/">Forgot password?</Link>
-                        <Button waves="light" id="sign-in" onClick={this.handleSubmit}>
-                            Sign In
-                        </Button>
+                        <Button waves="light" id="sign-in"  type="submit">Sign In</Button>
+
                     </div>
+                    </form>
                 </div>
             </div>
         );
