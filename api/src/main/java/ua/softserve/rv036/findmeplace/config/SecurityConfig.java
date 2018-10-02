@@ -59,12 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.POST, "/map/**");
-        web.ignoring().antMatchers( "/auth/**");
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors()
@@ -90,11 +84,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers("/auth/**")
                     .permitAll()
-                .antMatchers(HttpMethod.GET, "/places/**", "/map", "/users/**", "/placeByType")
+                .antMatchers(HttpMethod.GET, "/places/**", "/map", "/users/**", "/user/**","/placeByType")
                     .permitAll()
-                .antMatchers(HttpMethod.POST, "/map")
-                    .permitAll()
-                .antMatchers(HttpMethod.POST, "/places/**", "/map")
+                .antMatchers(HttpMethod.POST, "/places/**", "/map/**")
                     .permitAll()
                 .anyRequest()
                     .authenticated();

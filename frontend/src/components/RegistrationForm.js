@@ -121,7 +121,8 @@ class RegistrationForm extends Component {
                                 <div className="errorMsg">{this.state.errors.confirm_password}</div>
                             </Row>
                             <Row className="confirm-row">
-                                <Button id="sign-up" waves="light">Sign Up</Button>
+                                <Button id="sign-up" waves="light" type="submit">Sign Up</Button>
+
                             </Row>
                             <Row className="check-register">
                                 <span>Already registered?</span>

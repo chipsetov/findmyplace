@@ -3,6 +3,10 @@ package ua.softserve.rv036.findmeplace.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import ua.softserve.rv036.findmeplace.model.Place;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Place;
@@ -11,7 +15,6 @@ import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -33,13 +36,13 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/users/{username}")
-    Optional<User> getUserById(@PathVariable String username) {
-        return userRepository.findByNickName(username);
+    @GetMapping("/users/{id}")
+    Optional<User> getUserById(@PathVariable Long id) {
+        return userRepository.findById(id);
     }
 
-    @GetMapping("/users/{id}/places")
-    List<Place> getUserPlaces(@PathVariable Long id) {
+    @GetMapping("/user/{id}/places")
+    public List<Place> getUserPlaces(@PathVariable Long id) {
         return placeRepository.findAllByOwnerId(id);
     }
 
@@ -93,6 +96,12 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new ApiResponse(true, "Your profile was changed successfully"));
+    }
+
+    @DeleteMapping("/user/delete-place/{id}")
+    public ResponseEntity<Void> deleteUserPlaceById(@PathVariable("id") Long id) {
+        placeRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

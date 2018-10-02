@@ -5,7 +5,7 @@ class Review extends Component {
 
     render() {
         return(
-            <CardPanel className="card-panel-rvw blue-grey lighten-5">
+            <CardPanel className="card-panel-rvw blue lighten-5">
                 <Row className="center">
                     <Col s={1}>
                         <p>{this.props.ownerName}</p>
