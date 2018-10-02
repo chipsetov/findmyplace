@@ -36,9 +36,9 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/users/{username}")
-    Optional<User> getUserById(@PathVariable String username) {
-        return userRepository.findByNickName(username);
+    @GetMapping("/users/{id}")
+    Optional<User> getUserById(@PathVariable Long id) {
+        return userRepository.findById(id);
     }
 
     @GetMapping("/user/{id}/places")
