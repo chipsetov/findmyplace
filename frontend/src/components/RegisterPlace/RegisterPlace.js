@@ -3,6 +3,8 @@ import {Row, Input, Button} from 'react-materialize';
 import PutMarker from "./PutMarker";
 import {registerPlace} from '../../util/APIUtils';
 import {USER_ID} from '../../constants';
+import { Session } from "../../utils";
+import { Redirect } from 'react-router-dom';
 import "../../styles/RegisterPlace.css";
 
 
@@ -35,6 +37,8 @@ class RegisterPlace extends Component {
             error_closeTime: "",
             error_placeType: "",
             error_description: "",
+
+            redirect: !Session.isOwner()
         }
     };
 
@@ -49,25 +53,25 @@ class RegisterPlace extends Component {
         });
         this.isError = false;
 
-        if(this.state.placeName.trim().length == 0) {
+        if(this.state.placeName.trim().length === 0) {
             this.setState({
                 error_placeName: "Place name is required field",
             });
             this.isError = true;
         }
-        if(this.state.address.trim().length == 0) {
+        if(this.state.address.trim().length === 0) {
             this.setState({
                 error_address: "Address is required field",
             });
             this.isError = true;
         }
-        if(this.state.description.trim().length == 0) {
+        if(this.state.description.trim().length === 0) {
             this.setState({
                 error_description: "Description is required field",
             });
             this.isError = true;
         }
-        if(this.state.placeType.trim().length == 0) {
+        if(this.state.placeType.trim().length === 0) {
             this.setState({
                 error_placeType: "PlaceType is required field",
             });
@@ -113,8 +117,12 @@ class RegisterPlace extends Component {
 
                 }).catch(error => {
                 console.log(error);
-                window.Materialize.toast('Sorry! Something went wrong. Please try again!', 3000);
+                if(error.status === 403)
+                    window.Materialize.toast("You are not the owner", 3000);
+                else window.Materialize.toast(error.message, 3000);
             });
+        } else {
+            window.Materialize.toast("Check the fields", 3000);
         }
     }
 
@@ -131,12 +139,19 @@ class RegisterPlace extends Component {
             )
     }
 
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/map' />
+        }
+    }
+
     render() {
 
         const placeTypes = this.state.placeTypes;
 
         return(
             <div className="container form-container">
+                {this.renderRedirect()}
                 <Row>
                     <h1>Register place</h1>
                 </Row>

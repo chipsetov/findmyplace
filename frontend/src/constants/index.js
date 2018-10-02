@@ -4,7 +4,7 @@ export const TOKEN_TYPE = 'Bearer';
 export const USER_NAME = 'userName';
 export const ROLES = "roles";
 export const ROLE = "ROLE_UNAUTHORIZED";
-export const USER_ID = null;
+export const USER_ID = "userId";
 
 export const NAME_MIN_LENGTH = 4;
 export const NAME_MAX_LENGTH = 40;

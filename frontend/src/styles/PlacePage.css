@@ -2,11 +2,14 @@
 }
 
 .content-container {
-    width: 70%;
-    position: center;
-    margin-left: auto;
-    margin-right: auto;
-    color: white;
+    /*width: 70%;*/
+    /*position: center;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*color: white;*/
+    background: #ffffff;
+    border-radius: 3px;
+    padding: 30px;
 }
 
 h1 {
@@ -33,7 +36,6 @@ h1 {
 
 .card-panel-btn .col {
     width: 25%;
-    /*margin: auto;*/
 }
 
 .card-panel-btn .col:hover , .text :hover {

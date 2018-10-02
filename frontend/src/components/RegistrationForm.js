@@ -61,62 +61,64 @@ class RegistrationForm extends Component {
 
     render() {
         return (
-            <div className="app-form">
-                <form onSubmit={this.handleSubmit}>
-                    <h2>Sign Up</h2>
-                    <Row>
-                        <Input
-                            type="text"
-                            className="form-input"
-                            name="username"
-                            value={this.state.fields.username}
-                            placeholder="USER NAME"
-                            onChange={this.handleChange}
-                            s={12}
-                        />
-                        <div className="errorMsg">{this.state.errors.username}</div>
-                    </Row>
-                    <Row>
-                        <Input
-                            type="text"
-                            name="email"
-                            className="form-input"
-                            value={this.state.fields.emailid}
-                            onChange={this.handleChange}
-                            placeholder="EMAIL"
-                            s={12}
-                        />
-                        <div className="errorMsg">{this.state.errors.email}</div>
-                    </Row>
-                    <Row>
-                        <Input
-                            type="password"
-                            className="form-input"
-                            name="password"
-                            value={this.state.fields.password}
-                            placeholder="PASSWORD"
-                            onChange={this.handleChange}
-                            s={12}
-                        />
-                        <div className="errorMsg">{this.state.errors.password}</div>
-                    </Row>
-                    <Row>
-                        <Input
-                            type="password"
-                            className="form-input"
-                            name="confirm_password"
-                            value={this.state.fields.confirm_password}
-                            placeholder="CONFIRM PASSWORD"
-                            onChange={this.handleChange}
-                            s={12}
-                        />
-                        <div className="errorMsg">{this.state.errors.confirm_password}</div>
-                    </Row>
-                    <div className="confirm-row">
-                        <Button id="sign-up" waves="light">Sign Up</Button>
-                        <Row>Already registed? <Link to="/sign-in">Login now!</Link></Row>
-                    </div>
-                </form>
+            <div className="form-wrapper">
+                <div className="app-form">
+                    <form onSubmit={this.handleSubmit}>
+                        <h2>Sign Up</h2>
+                        <Row>
+                            <Input
+                                type="text"
+                                className="form-input"
+                                name="username"
+                                value={this.state.fields.username}
+                                placeholder="USER NAME"
+                                onChange={this.handleChange}
+                                s={12}
+                            />
+                            <div className="errorMsg">{this.state.errors.username}</div>
+                        </Row>
+                        <Row>
+                            <Input
+                                type="text"
+                                name="email"
+                                className="form-input"
+                                value={this.state.fields.emailid}
+                                onChange={this.handleChange}
+                                placeholder="EMAIL"
+                                s={12}
+                            />
+                            <div className="errorMsg">{this.state.errors.email}</div>
+                        </Row>
+                        <Row>
+                            <Input
+                                type="password"
+                                className="form-input"
+                                name="password"
+                                value={this.state.fields.password}
+                                placeholder="PASSWORD"
+                                onChange={this.handleChange}
+                                s={12}
+                            />
+                            <div className="errorMsg">{this.state.errors.password}</div>
+                        </Row>
+                        <Row>
+                            <Input
+                                type="password"
+                                className="form-input"
+                                name="confirm_password"
+                                value={this.state.fields.confirm_password}
+                                placeholder="CONFIRM PASSWORD"
+                                onChange={this.handleChange}
+                                s={12}
+                            />
+                            <div className="errorMsg">{this.state.errors.confirm_password}</div>
+                        </Row>
+                        <div className="confirm-row">
+                            <Button id="sign-up" waves="light">Sign Up</Button>
+                            <Row>Already registed? <Link to="/sign-in">Login now!</Link></Row>
+                        </div>
+                    </form>
+                </div>
             </div>
         );
     }

@@ -1,13 +1,13 @@
 package ua.softserve.rv036.findmeplace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Feedback;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
+import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
@@ -55,12 +55,14 @@ public class PlaceController {
 
     @PostMapping("/places/register")
     @RolesAllowed("ROLE_OWNER")
-    ResponseEntity<Place> registerPlace(@Valid @RequestBody Place place) {
+    ResponseEntity registerPlace(@Valid @RequestBody Place place) {
 
         if(placeRepository.existsByName(place.getName())) {
-            return new ResponseEntity("Place already exists", new HttpHeaders(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new ApiResponse(Boolean.FALSE, "Place is already exist"),
+                    HttpStatus.BAD_REQUEST);
         } else {
             place.setCountFreePlaces(0);
+            place.setRating(0.0);
             Place result = placeRepository.save(place);
 
             return new ResponseEntity(result, HttpStatus.CREATED);

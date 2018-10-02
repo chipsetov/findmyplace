@@ -1,4 +1,4 @@
-import {ACCESS_TOKEN} from "./constants";
+import {ACCESS_TOKEN, ROLE} from "./constants";
 
 export const emailValidation = email => /\S+@\S+\.\S+/.test(email);
 
@@ -21,6 +21,13 @@ export const Session = {
     logout: () => {
         localStorage.clear();
         window.dispatchEvent(new CustomEvent(LOGIN_CHANGED));
+    },
+
+    isOwner: () => {
+        const role = localStorage.getItem(ROLE);
+        if(role)
+            return role.includes("ROLE_OWNER");
+        else return false;
     }
 
 };

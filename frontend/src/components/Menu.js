@@ -34,7 +34,6 @@ class Menu extends Component {
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#place/1'>Place</NavItem>
                         <Logout isLoggedIn={isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
-                        <Logout isLoggedIn={isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
                         <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>
                             <Button waves="light">
                                 Sign Up
@@ -45,9 +44,6 @@ class Menu extends Component {
                             Sign In
                         </NavItem>
                         <NavItem href='#/map' id="search"><Icon>search</Icon></NavItem>
-                        <Dropdown trigger={<img src="img/avatar.png" alt=""/>}>
-                            <NavItem href='#users/1/places'>My places</NavItem>
-                        </Dropdown>
                     </Navbar>
                 </div>
             </div>

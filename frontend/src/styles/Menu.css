@@ -4,7 +4,6 @@
 }
 
 .menu-wrapper {
-    margin: 0 1% 40px;
     vertical-align: baseline;
 }
 
@@ -81,10 +80,6 @@
 
 .hidden {
     display: none !important;
-}
-
-.router {
-    /*min-height: 800px;*/
 }
 
 .place-page-mixin {

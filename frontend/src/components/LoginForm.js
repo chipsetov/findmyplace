@@ -54,35 +54,37 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <div className="app-form">
-                <h2>Sign In</h2>
-                <Row>
-                    <Input
-                        id="usernameOrEmail"
-                        type="email"
-                        className="form-input"
-                        value={this.state.usernameOrEmail}
-                        placeholder="EMAIL"
-                        onChange={e => this.handleChange("usernameOrEmail", e.target.value)}
-                        s={12}
-                    />
-                </Row>
-                <Row>
-                    <Input
-                        id="password"
-                        type="password"
-                        className="form-input"
-                        value={this.state.password}
-                        placeholder="PASSWORD"
-                        onChange={e => this.handleChange("password", e.target.value)}
-                        s={12}
-                    />
-                </Row>
-                <div className="confirm-row">
-                    <Link className="forgot-password-link" to="/">Forgot password?</Link>
-                    <Button waves="light" id="sign-in" onClick={this.handleSubmit}>
-                        Sign In
-                    </Button>
+            <div className="form-wrapper">
+                <div className="app-form">
+                    <h2>Sign In</h2>
+                    <Row>
+                        <Input
+                            id="usernameOrEmail"
+                            type="email"
+                            className="form-input"
+                            value={this.state.usernameOrEmail}
+                            placeholder="EMAIL"
+                            onChange={e => this.handleChange("usernameOrEmail", e.target.value)}
+                            s={12}
+                        />
+                    </Row>
+                    <Row>
+                        <Input
+                            id="password"
+                            type="password"
+                            className="form-input"
+                            value={this.state.password}
+                            placeholder="PASSWORD"
+                            onChange={e => this.handleChange("password", e.target.value)}
+                            s={12}
+                        />
+                    </Row>
+                    <div className="confirm-row">
+                        <Link className="forgot-password-link" to="/">Forgot password?</Link>
+                        <Button waves="light" id="sign-in" onClick={this.handleSubmit}>
+                            Sign In
+                        </Button>
+                    </div>
                 </div>
             </div>
         );
