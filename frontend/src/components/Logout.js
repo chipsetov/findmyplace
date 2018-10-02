@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavItem } from 'react-materialize';
+import {NavItem, Dropdown} from 'react-materialize';
 import "../styles/Logout.css";
 
 export default class Logout extends Component {
@@ -9,11 +9,16 @@ export default class Logout extends Component {
 
         return (
             <div id="auth-sign-out" className={hidden}>
-                <NavItem href="#/user" className="logout">
-                    <img src="img/avatar.png" alt=""/>
-                </NavItem>
-                <NavItem href='#/logout' onClick={this.onClickHandler.bind(this)}>
-                    <span>Sign out</span>
+                <NavItem href="" className="logout">
+                    <Dropdown trigger={<img src="img/avatar.png" alt=""/>}>
+                        <NavItem href='#/user/profile'>Profile</NavItem>
+                        <NavItem href='#/user/1/places'>Places</NavItem>
+                        <NavItem href='#'>Booking</NavItem>
+                        <NavItem href='#'>Favorite</NavItem>
+                        <NavItem href='#/logout' onClick={this.onClickHandler.bind(this)}>
+                            Sign out
+                        </NavItem>
+                    </Dropdown>
                 </NavItem>
             </div>
         );

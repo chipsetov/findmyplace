@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Map, Marker, Popup, TileLayer, Tooltip} from 'react-leaflet'
-import Place from "../../components/User/Place/Place";
+import Place from "../../components/User/UserPlaces/Place";
 import '../../styles/Map.css';
 
 

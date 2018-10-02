@@ -10,14 +10,15 @@ class LoginForm extends Component {
 
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-
         this.state = {
             role: '',
             usernameOrEmail: '',
             password: '',
-            className: "hidden",
-        }
+            className: 'hidden'
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(key, value) {
