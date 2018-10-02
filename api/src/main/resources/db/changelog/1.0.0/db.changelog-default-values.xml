@@ -19,6 +19,7 @@
             <column name="ban_status" value="NOT_BAN"/>
             <column name="registration_date" value="12.08.2018 12:00:01"/>
             <column name="last_update_date" value="07.09.2018 : 10:10:10"/>
+            <column name="is_active" value="TRUE"/>
         </insert>
         <insert tableName="users">
             <column name="first_name" value="John"/>
@@ -31,6 +32,7 @@
             <column name="ban_status" value="NOT_BAN"/>
             <column name="registration_date" value="12.06.2018 12:00:01"/>
             <column name="last_update_date" value="02.09.2018 : 10:10:10"/>
+            <column name="is_active" value="TRUE"/>
         </insert>
         <insert tableName="users">
             <column name="first_name" value="Sara"/>
@@ -43,6 +45,7 @@
             <column name="ban_status" value="NOT_BAN"/>
             <column name="registration_date" value="12.08.2012 12:00:01"/>
             <column name="last_update_date" value="01.06.2018 : 10:10:10"/>
+            <column name="is_active" value="TRUE"/>
         </insert>
         <insert tableName="users">
             <column name="first_name" value="Arnold"/>
@@ -55,6 +58,7 @@
             <column name="ban_status" value="NOT_BAN"/>
             <column name="registration_date" value="12.08.2018 12:00:01"/>
             <column name="last_update_date" value="07.09.2018 : 10:10:10"/>
+            <column name="is_active" value="TRUE"/>
         </insert>
     </changeSet>
 
