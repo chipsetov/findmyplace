@@ -1,9 +1,9 @@
-import { API_BASE_URL, POLL_LIST_SIZE, ACCESS_TOKEN, TOKEN_TYPE } from '../constants';
+import { API_BASE_URL, ACCESS_TOKEN, TOKEN_TYPE } from '../constants';
 
 export const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
-    })
+    });
     
     if(localStorage.getItem(ACCESS_TOKEN)) {
         headers.append('Authorization', TOKEN_TYPE + " " + localStorage.getItem(ACCESS_TOKEN))
@@ -39,6 +39,17 @@ export function signup(signupRequest) {
     });
 }
 
+export const getProfile = (nickname) => request({
+    url: API_BASE_URL + `/users/nick/${nickname}`,
+    method: 'GET'
+});
+
+export const updateProfile = profile => request({
+    url: API_BASE_URL + "/users/update",
+    method: 'POST',
+    body: JSON.stringify(profile)
+});
+
 export function filterPlace(filterRequest) {
     return request({
         url: API_BASE_URL + "/map/filter",
@@ -55,16 +66,31 @@ export function searchPlace(searchRequest) {
     });
 }
 
+export function showAllPlaces() {
+    return request({
+        url: API_BASE_URL + "/map/all",
+        method: 'POST',
+    });
+}
+
+export function registerPlace(registerPlaceRequest) {
+    return request({
+        url: API_BASE_URL + "/places/register",
+        method: 'POST',
+        body: JSON.stringify(registerPlaceRequest)
+    });
+}
+
 export function checkUsernameAvailability(username) {
     return request({
-        url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,
+        url: API_BASE_URL + "/auth/checkUsernameAvailability?username=" + username,
         method: 'GET'
     });
 }
 
 export function checkEmailAvailability(email) {
     return request({
-        url: API_BASE_URL + "/user/checkEmailAvailability?email=" + email,
+        url: API_BASE_URL + "/auth/checkEmailAvailability?email=" + email,
         method: 'GET'
     });
 }

@@ -1,6 +1,5 @@
 package ua.softserve.rv036.findmeplace.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,10 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.POST, "/map/filter", "/map/search");
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -92,9 +87,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers("/user/checkUsernameAvailability", "/user/checkEmailAvailability")
                     .permitAll()
-                .antMatchers(HttpMethod.GET, "/places/**", "/map", "/users", "/placeByType")
+                .antMatchers(HttpMethod.GET, "/places/**", "/map", "/users/**", "/placeByType")
                     .permitAll()
-                .antMatchers(HttpMethod.POST, "/map")
+                .antMatchers(HttpMethod.POST, "/places/**", "/map/**")
                     .permitAll()
                 .anyRequest()
                     .authenticated();

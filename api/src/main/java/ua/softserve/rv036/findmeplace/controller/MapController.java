@@ -25,8 +25,14 @@ public class MapController {
     List<Place> filteringPlaces(@RequestBody PlaceTypeObject placeTypeObject) {
         return placeRepository.findByPlaceTypeIn(placeTypeObject.getCurrnetPlaceTypes());
     }
+
     @PostMapping("/map/search")
     List<Place> searchPlaces(@RequestBody SearchObject searchObject) {
         return placeRepository.findByNameIn(searchObject.getSearchValue());
+    }
+
+    @PostMapping("/map/all")
+    List<Place> allPlaces() {
+        return placeRepository.findAll();
     }
 }

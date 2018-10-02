@@ -4,8 +4,8 @@
 }
 
 .logout a {
-    padding: 10px 20px !important;
+    padding: 30px 0px !important;
     display: flex !important;
-    align-items: center;
-    justify-content: center;
+    /*align-items: center;*/
+    /*justify-content: center;*/
 }

@@ -1,29 +1,33 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-@Table(name = "Feedbacks")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "feedbacks")
 public class Feedback {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User feedbackOwner;
+    @Column(name = "comment")
+    private String comment;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "place_id")
-    private Place place;
-
-    @NotNull
+    @Column(name = "mark")
     private Integer mark;
 
-    private String comment;
+    @Column(name = "owner_id")
+    private Long ownerId;
+
+    private String ownerNickName;
+
+    @Column(name = "place_id")
+    private Long placeId;
+
 }

@@ -1,5 +1,5 @@
 .menu-container {
-    background-color: rgba(0 ,0 ,0 ,0.3);
+    background-color: rgba(0 ,0 ,0 , 0.5);
     width: 100%;
 }
 
@@ -79,8 +79,12 @@
     line-height: 70px;
 }
 
+.hidden {
+    display: none !important;
+}
+
 .router {
-    min-height: 800px;
+    /*min-height: 800px;*/
 }
 
 .place-page-mixin {
@@ -89,6 +93,12 @@
     max-height: 90px;
 }
 
-.hidden {
-    display: none !important;
+.dropdown-button {
+    float: right;
+    margin-top: 30px;
 }
+
+.dropdown-content {
+    margin-top: 70px;
+}
+

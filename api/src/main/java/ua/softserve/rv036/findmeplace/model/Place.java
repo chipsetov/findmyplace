@@ -1,51 +1,67 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Time;
 
 @Data
 @Entity
-@Table(name = "Places")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "places")
 public class Place {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "count_free_places")
-    private Integer countFreePlaces;
-
-    @NotBlank
+    @NotBlank(message = "Name is required field")
+    @Size(min = 1, max = 255)
+    @Column(name = "name")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "Address is required field")
+    @Size(min = 1, max = 255)
+    @Column(name = "address")
     private String address;
 
-    @NotBlank
+    @Column(name = "rating")
+    private Double rating;
+
+    @NotBlank(message = "Description is required field")
+    @Size(min = 1, max = 255)
+    @Column(name = "description")
     private String description;
 
-    @NotNull
-    private Time open;
-
-    @NotNull
-    private Time close;
-
-    @NotNull
+    @Column(name = "latitude")
     private Double latitude;
 
-    @NotNull
+    @Column(name = "longitude")
     private Double longitude;
+
+    @NotNull(message = "Time is a required field")
+    @Column(name = "open")
+    private Time open;
+
+    @NotNull(message = "Time is a required field")
+    @Column(name = "close")
+    private Time close;
+
+    @Column(name = "count_free_places")
+    private int countFreePlaces;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "place_type")
     private PlaceType placeType;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner_id")
-    private User owner;
+    @Column(name = "owner_id")
+    private Long ownerId;
 
 }

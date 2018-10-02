@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Navbar, NavItem, Button, Icon } from 'react-materialize';
+import { Navbar, NavItem, Button, Icon, Dropdown } from 'react-materialize';
 import { withRouter } from 'react-router-dom';
 import Logout from './Logout';
 import '../styles/Menu.css';
+import "../styles/Logout.css";
 import {LOGIN_CHANGED, PAGE_CHANGED, Session} from "../utils";
 
 class Menu extends Component {
@@ -31,8 +32,8 @@ class Menu extends Component {
                     <Navbar brand="logo" className="menu" right>
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
-                        <NavItem href='#about'>About us</NavItem>
                         <NavItem href='#place/1'>Place</NavItem>
+                        <Logout isLoggedIn={isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
                         <Logout isLoggedIn={isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
                         <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>
                             <Button waves="light">
@@ -44,6 +45,9 @@ class Menu extends Component {
                             Sign In
                         </NavItem>
                         <NavItem href='#/map' id="search"><Icon>search</Icon></NavItem>
+                        <Dropdown trigger={<img src="img/avatar.png" alt=""/>}>
+                            <NavItem href='#users/1/places'>My places</NavItem>
+                        </Dropdown>
                     </Navbar>
                 </div>
             </div>

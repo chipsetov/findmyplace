@@ -5,13 +5,17 @@ import "../styles/Logout.css";
 export default class Logout extends Component {
 
     render() {
-        const className = "logout" + (this.props.isLoggedIn ? "" : " hidden");
+        const hidden = (this.props.isLoggedIn ? "" : " hidden");
 
         return (
-            <NavItem href='#/logout' id="auth-sign-out" className={className} onClick={this.onClickHandler.bind(this)}>
-                <img src="img/avatar.png" alt=""/>
-                <span>Sign out</span>
-            </NavItem>
+            <div id="auth-sign-out" className={hidden}>
+                <NavItem href="#/user" className="logout">
+                    <img src="img/avatar.png" alt=""/>
+                </NavItem>
+                <NavItem href='#/logout' onClick={this.onClickHandler.bind(this)}>
+                    <span>Sign out</span>
+                </NavItem>
+            </div>
         );
     }
 
