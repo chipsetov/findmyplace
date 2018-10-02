@@ -53,16 +53,42 @@ public class UserServiceImpl implements UserService {
     public void sendEmailConfirmation(User user) throws IOException {
 
         if (!StringUtils.isEmpty(user.getEmail())) {
-            String URL = backendURL + "auth/activate/" + user.getActivationCode()+"/";
+            String URL = backendURL + "auth/activate/" + user.getActivationCode() + "/";
 
-            String context  = new String(Files.readAllBytes(Paths.get("api/src/main/resources/email.html")));
-
+            String context = new String(Files.readAllBytes(Paths.get("api/src/main/resources/emailConfirmation.html")));
 
             String message = String.format(
-                                      context,
-                                       user.getNickName(), URL);
+                    context,
+                    user.getNickName(), URL);
             mailSender.send(user.getEmail(), "Activate your email!", message);
 
         }
+    }
+
+    public boolean sendRestoreEmail(User user) {
+
+        if (!StringUtils.isEmpty(user.getEmail())) {
+            String URL = backendURL + "auth/restore/" + user.getActivationCode() + "/";
+
+            String context = null;
+            try {
+                context = new String(Files.readAllBytes(Paths.get("api/src/main/resources/restorePassword.html")));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            String message = String.format(
+                    context,
+                    user.getNickName(), URL);
+            mailSender.send(user.getEmail(), "Restore your password!", message);
+        }
+        return true;
+    }
+
+    public void activateUser(User user) {
+        user.setActive(true);
+        user.setActivationCode(null);
+        userRepository.save(user);
     }
 }
