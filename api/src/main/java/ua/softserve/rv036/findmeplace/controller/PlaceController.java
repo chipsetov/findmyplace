@@ -6,10 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Feedback;
 import ua.softserve.rv036.findmeplace.model.Place;
+import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
+import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 
 import javax.annotation.security.RolesAllowed;
@@ -27,6 +29,8 @@ public class PlaceController {
     private FeedbackRepository feedbackRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private Place_ManagerRepository placeManagerRepository;
 
     @GetMapping("place/map")
     List<Place> getPlace() {
@@ -46,6 +50,11 @@ public class PlaceController {
     @GetMapping("/places/{id}/feedbacks")
     List<Feedback> feedbacksByPlaceId(@PathVariable Long id) {
         return feedbackRepository.findAllByPlaceId(id);
+    }
+
+    @GetMapping("/places/{id}/managers")
+    List<Place_Manager> managersByPlaceId(@PathVariable Long id) {
+        return placeManagerRepository.findAllByPlaceId(id);
     }
 
     @GetMapping("/places/types")
