@@ -20,7 +20,13 @@ public class Place_Manager {
     @Column(name = "user_id")
     private Long userId;
 
+    private String userNickName;
+
+    private String userEmail;
+
     @Column(name = "place_id")
     private Long placeId;
+
+    private String placeName;
 
 }
