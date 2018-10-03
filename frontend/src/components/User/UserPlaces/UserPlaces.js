@@ -1,24 +1,22 @@
 import React, {Component} from 'react';
-import {Col, Row} from "react-materialize";
+import {Row} from "react-materialize";
 import {deleteUserPlace} from "../../../util/APIUtils";
 import Place from "./Place";
 import {Link} from "react-router-dom";
-import SearchPlace from "../../Map/SearchPlace";
 
 class UserPlaces extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            places: [],
-            searchValue:''
+            places: []
         };
 
         this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
-        fetch("/user/" + this.props.match.params.id + "/places")
+        fetch(this.props.match.path)
             .then((response) => response.json())
             .then((result) => {
                 this.setState({
@@ -50,9 +48,6 @@ class UserPlaces extends Component {
         return(
             <Row className="user-places-wrapper">
                 <Row className="places-search">
-                    <Col s={3}>
-                        <SearchPlace />
-                    </Col>
                     <Link to={`/register-place`} id="register-place">Add place</Link>
                 </Row>
                 <Row className="places-container">

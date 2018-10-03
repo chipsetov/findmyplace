@@ -9,10 +9,12 @@ import UserPage from "./UserPage/UserPage";
 import RegisterPlace from "./RegisterPlace/RegisterPlace";
 import AppInfo from "./Home/AppInfo";
 import UserPlaces from "./User/UserPlaces/UserPlaces";
+import {Session} from "../utils";
 
 export default class Routes extends Component {
 
     render() {
+        const userId = Session.userId();
         const style = {
             minHeight: this.props.minHeight
         };
@@ -26,7 +28,7 @@ export default class Routes extends Component {
                 <Route path="/map" component={MapForm}/>
                 <Route path="/place/:placeId" component={PlacePage}/>
                 <Route path="/user/profile" component={UserPage}/>
-                <Route path="/user/:id/places" component={UserPlaces}/>
+                <Route path={`/user/${userId}/places`} component={UserPlaces}/>
                 <Route path="/register-place" component={RegisterPlace}/>
             </div>
         );
