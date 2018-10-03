@@ -3,14 +3,19 @@ import { Row } from 'react-materialize';
 import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
+import ManagersBlock from './ManagersBlock.js';
 import Info from './Info.js';
 import { PAGE_CHANGED } from "../../utils";
+import { Session } from "../../utils";
 
 class PlacePage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { place: {} } ;
+        this.state = {
+            place: {},
+            viewManager: Session.isOwner()
+        } ;
     }
 
     componentWillMount() {
@@ -34,6 +39,13 @@ class PlacePage extends Component {
             )
     }
 
+    viewManagers() {
+        if (this.state.viewManager) {
+            return (
+                <ManagersBlock placeId={this.props.match.params.placeId}/>
+        )}
+    }
+
     render() {
 
         const place = this.state.place;
@@ -51,6 +63,7 @@ class PlacePage extends Component {
                           freePlaces={place.countFreePlaces}
                           description={place.description}/>
                     <ReviewsBlock placeId={this.props.match.params.placeId}/>
+                    <ManagersBlock placeId={this.props.match.params.placeId}/>
                 </div>
             </div>
         );
