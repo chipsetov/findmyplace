@@ -123,19 +123,22 @@
         <insert tableName="feedbacks">
             <column name="comment" value="Very bad place"/>
             <column name="mark" value="2"/>
+            <column name="creation_date" value="07.09.2016 02:30:01"/>
             <column name="user_id" value="2"/>
             <column name="place_id" value="1"/>
         </insert>
         <insert tableName="feedbacks">
             <column name="comment" value="Nice place"/>
             <column name="mark" value="4"/>
-            <column name="user_id" value="3"/>
+            <column name="creation_date" value="05.28.2017 12:00:01"/>
+            <column name="user_id" value="1"/>
             <column name="place_id" value="2"/>
         </insert>
         <insert tableName="feedbacks">
             <column name="comment" value="I like it"/>
             <column name="mark" value="5"/>
-            <column name="user_id" value="4"/>
+            <column name="creation_date" value="11.04.2018 13:00:01"/>
+            <column name="user_id" value="1"/>
             <column name="place_id" value="3"/>
         </insert>
     </changeSet>
