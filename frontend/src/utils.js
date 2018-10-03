@@ -1,7 +1,5 @@
 import {ACCESS_TOKEN, ROLE, USER_ID} from "./constants";
 
-export const emailValidation = email => /\S+@\S+\.\S+/.test(email);
-
 export const LOGIN_CHANGED = 'login_changed';
 export const PAGE_CHANGED = 'page_changed';
 
@@ -30,10 +28,10 @@ export const Session = {
         else return false;
     },
 
-    hasRole: (role) => {
-        const userRole = localStorage.getItem(ROLE);
-        if(userRole)
-            return userRole.includes(role);
+    isAdmin: () => {
+        const role = localStorage.getItem(ROLE);
+        if(role)
+            return role.includes("ROLE_ADMIN");
         else return false;
     },
 

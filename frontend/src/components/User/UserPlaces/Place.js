@@ -4,17 +4,32 @@ import {Link} from "react-router-dom";
 import StarRatings from 'react-star-ratings';
 import AppModal from "../../Modal/AppModal";
 import './Place.css';
+import {Session} from "../../../utils";
 
 class Place extends Component {
 
     constructor(props) {
         super(props);
+
         this.handleDelete = this.handleDelete.bind(this);
+        this.viewModalWindow = this.viewModalWindow.bind(this);
     }
 
     handleDelete() {
         const id = this.props.id;
         this.props.handleDelete(id);
+    }
+
+    viewModalWindow() {
+        if(Session.isAdmin() || Session.isOwner()) {
+            return (
+                <AppModal action={"Delete"}
+                          message={"Are you sure you want to delete this place?"}
+                          handleSubmit={this.handleDelete}
+                />
+            )
+
+        }
     }
 
     render() {
@@ -45,10 +60,7 @@ class Place extends Component {
                         Free places: {this.props.countFreePlaces}
                     </Col>
                     <Col s={6} className="place-modal">
-                        <AppModal action={"Delete"}
-                                  message={"Are you sure you want to delete this place?"}
-                                  handleSubmit={this.handleDelete}
-                        />
+                        {this.viewModalWindow()}
                     </Col>
                 </Row>
             </Card>

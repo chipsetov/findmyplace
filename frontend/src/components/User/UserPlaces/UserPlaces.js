@@ -3,6 +3,8 @@ import {Row} from "react-materialize";
 import {deleteUserPlace} from "../../../util/APIUtils";
 import Place from "./Place";
 import {Link} from "react-router-dom";
+import {Session} from "../../../utils";
+import {Redirect} from 'react-router-dom';
 
 class UserPlaces extends Component {
 
@@ -13,6 +15,7 @@ class UserPlaces extends Component {
         };
 
         this.handleDelete = this.handleDelete.bind(this);
+        this.renderRedirect = this.renderRedirect.bind(this);
     }
 
     componentDidMount() {
@@ -23,7 +26,7 @@ class UserPlaces extends Component {
                     places: result
                 });
             })
-    }
+    };
 
     handleDelete(id) {
         deleteUserPlace(id)
@@ -40,13 +43,20 @@ class UserPlaces extends Component {
             }).catch((error) => {
                 console.error('error', error);
             });
-    }
+    };
+
+    renderRedirect = () => {
+        if (!Session.isAdmin() && !Session.isOwner()) {
+            return <Redirect to='/'/>
+        }
+    };
 
     render() {
         const places = this.state.places;
 
         return(
             <Row className="user-places-wrapper">
+                {this.renderRedirect()}
                 <Row className="places-search">
                     <Link to={`/register-place`} id="register-place">Add place</Link>
                 </Row>
@@ -68,7 +78,7 @@ class UserPlaces extends Component {
                 </Row>
             </Row>
         );
-    }
+    };
 
 }
 
