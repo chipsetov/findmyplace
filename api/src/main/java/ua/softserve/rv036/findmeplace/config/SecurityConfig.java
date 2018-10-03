@@ -88,6 +88,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers(HttpMethod.POST, "/places/**", "/map/**")
                     .permitAll()
+                .antMatchers(HttpMethod.POST, "/upload/**")
+                    .permitAll()
+                .antMatchers(HttpMethod.GET, "/download/**")
+                    .permitAll()
                 .anyRequest()
                     .authenticated();
 
