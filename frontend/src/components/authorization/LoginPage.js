@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import LoginForm from "./LoginForm";
-import { Session } from "../utils";
+import { Session } from "../../utils";
 
 class LoginPage extends Component {
 

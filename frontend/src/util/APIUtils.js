@@ -26,7 +26,7 @@ export const request = (options) => {
 export const deleteRequest = (options) => {
     const headers = new Headers();
 
-    if(localStorage.getItem(ACCESS_TOKEN)) {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
         headers.append('Authorization', TOKEN_TYPE + " " + localStorage.getItem(ACCESS_TOKEN))
     }
 
@@ -59,6 +59,22 @@ export function resendEmail(usernameOrEmail) {
     return request({
         url: API_BASE_URL + "/auth/resendEmail?usernameOrEmail=" + usernameOrEmail,
         method: 'GET',
+    });
+}
+
+export function forgotPassword(forgotRequest) {
+    return request({
+        url: API_BASE_URL + "/auth/forgotPassword",
+        method: 'POST',
+        body: JSON.stringify(forgotRequest)
+    });
+}
+
+export function restorePassword(restoreRequest) {
+    return request({
+        url: API_BASE_URL + "/auth/restore/"+this.props.match.params.token,
+        method: 'POST',
+        body: JSON.stringify(restoreRequest)
     });
 }
 

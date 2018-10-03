@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {Input, Button, Row} from 'react-materialize';
-import {signup, checkUserAvailability} from '../util/APIUtils';
+import {signup, checkUserAvailability} from '../../util/APIUtils';
 import {Link} from 'react-router-dom';
 import {
     USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
     EMAIL_MAX_LENGTH,
     PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
-} from '../constants';
+} from '../../constants/index';
 
 class RegistrationForm extends Component {
 

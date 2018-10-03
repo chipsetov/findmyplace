@@ -2,8 +2,8 @@ export const API_BASE_URL = 'http://localhost:8080';
 export const ACCESS_TOKEN = 'accessToken';
 export const TOKEN_TYPE = 'Bearer';
 export const USER_NAME = 'userName';
-export const ROLES = "roles";
 export const ROLE = "ROLE_UNAUTHORIZED";
+export const RESTORE_TOKEN = "";
 export const USER_ID = "userId";
 
 export const NAME_MIN_LENGTH = 4;

@@ -23,6 +23,9 @@ public class UserServiceImpl implements UserService {
     @Value("${basicBackendURL}")
     private String backendURL;
 
+    @Value("${basicFrontendURL}")
+    private String frontendURL;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -68,7 +71,7 @@ public class UserServiceImpl implements UserService {
     public boolean sendRestoreEmail(User user) {
 
         if (!StringUtils.isEmpty(user.getEmail())) {
-            String URL = backendURL + "auth/restore/" + user.getActivationCode() + "/";
+            String URL =  frontendURL+ "restore/" + user.getActivationCode();
 
             String context = null;
             try {
@@ -91,4 +94,11 @@ public class UserServiceImpl implements UserService {
         user.setActivationCode(null);
         userRepository.save(user);
     }
+
+    public void restoreUserPassword(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActivationCode(null);
+        userRepository.save(user);
+    }
+
 }

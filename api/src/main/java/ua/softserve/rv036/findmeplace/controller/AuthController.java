@@ -1,10 +1,12 @@
 package ua.softserve.rv036.findmeplace.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +21,7 @@ import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.JwtTokenProvider;
 import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
 
+import javax.swing.text.html.parser.Entity;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
@@ -99,7 +102,7 @@ public class AuthController {
     }
 
     @GetMapping("/activate/{code}")
-        public ResponseEntity<ApiResponse> activate(@PathVariable String code) {
+    public ResponseEntity<ApiResponse> activate(@PathVariable String code) {
         User user = userRepository.findByActivationCode(code).orElseThrow(() ->
                 new UsernameNotFoundException("User not found")
         );
@@ -107,11 +110,14 @@ public class AuthController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(frontendURL + "sign-in"));
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
-    @GetMapping("/restore")
-    public ResponseEntity<RestoreResponse> restorePassword(@RequestParam String email) {
+    @PostMapping("/forgotPassword")
+    public ResponseEntity<ApiResponse> restorePassword(@RequestBody JsonNode node) {
+        String email = node.get("email").asText();
+        System.out.println(email);
 
         User user = userRepository.findByEmail(email).orElseThrow(() ->
                 new UsernameNotFoundException("User not found")
@@ -120,30 +126,32 @@ public class AuthController {
         String restoreCode = UUID.randomUUID().toString();
         user.setActivationCode(restoreCode);
         userRepository.save(user);
+        userService.sendRestoreEmail(user);
 
-       boolean result = userService.sendRestoreEmail(user);
-        if (result)
-            return ResponseEntity.ok().body(new RestoreResponse(true, restoreCode));
-        else
-            return new ResponseEntity<>(new RestoreResponse(false, null), HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.ok().body(new ApiResponse(true, restoreCode));
 
     }
 
-    @GetMapping("/restore/{code}")
-    public ResponseEntity<ApiResponse> restorePasswordConfirmation(@PathVariable String code) {
+    @PostMapping("/restore/{code}")
+    public ResponseEntity<ApiResponse> restorePasswordConfirmation(
+            @RequestBody JsonNode node,
+            @PathVariable String code) {
+
+        String password = node.get("password").asText();
+
         User user = userRepository.findByActivationCode(code).orElseThrow(() ->
                 new UsernameNotFoundException("User not found")
         );
-        userService.activateUser(user);
+        user.setPassword(password);
+        userService.restoreUserPassword(user);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create(frontendURL + "restore"));
-        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+        return ResponseEntity.ok().body(new ApiResponse(true, "Password successfully changed"));
+
     }
 
     @GetMapping("/resendEmail")
     public ApiResponse resendEmail(@RequestParam(value = "usernameOrEmail") String usernameOrEmail) {
-        System.out.println(usernameOrEmail);
+
         User user = userRepository.findByNickNameOrEmail
                 (usernameOrEmail, usernameOrEmail).get();
 

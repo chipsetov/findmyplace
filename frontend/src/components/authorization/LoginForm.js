@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Button, Input, Row} from 'react-materialize';
 import {Link, withRouter} from 'react-router-dom';
-import '../styles/Form.css';
-import {ACCESS_TOKEN, ROLE, USER_ID} from '../constants';
-import {login, resendEmail} from '../util/APIUtils';
-import {Session} from "../utils";
+import '../../styles/Form.css';
+import {ACCESS_TOKEN, ROLE, USER_ID} from '../../constants';
+import {login, resendEmail} from '../../util/APIUtils';
+import {Session} from "../../utils";
 
 class LoginForm extends Component {
 
@@ -125,7 +125,7 @@ class LoginForm extends Component {
                         />
                     </Row>
                     <div className="confirm-row">
-                        <Link className="forgot-password-link" to="/">Forgot password?</Link>
+                        <Link className="forgot-password-link" to="/forgot-password">Forgot password?</Link>
                         <Button waves="light" id="sign-in"  type="submit">Sign In</Button>
 
                     </div>

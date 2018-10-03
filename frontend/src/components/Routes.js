@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Home from "./Home/Home.js";
 import PlacePage from "./PlacePage/index.js";
-import RegistrationForm from "./RegistrationForm";
-import LoginPage from "./LoginPage";
+import RegistrationForm from "./authorization/RegistrationForm";
+import LoginPage from "./authorization/LoginPage";
+import ForgotPasswordForm from "./authorization/ForgotPasswordForm";
+import RestorePasswordForm from "./authorization/RestorePasswordForm";
 import MapForm from "./Map/MapForm";
 import UserPage from "./UserPage/UserPage";
 import RegisterPlace from "./RegisterPlace/RegisterPlace";
@@ -28,6 +30,8 @@ export default class Routes extends Component {
                 <Route path="/user/profile" component={UserPage}/>
                 <Route path="/user/:id/places" component={UserPlaces}/>
                 <Route path="/register-place" component={RegisterPlace}/>
+                <Route path="/forgot-password" component={ForgotPasswordForm}/>
+                <Route path="/restore/:token" component={RestorePasswordForm}/>
             </div>
         );
     }
