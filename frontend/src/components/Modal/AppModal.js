@@ -36,6 +36,7 @@ class AppModal extends Component {
                     </Row>
                     <Row className="modal-btn">
                         <Button onClick={this.handleSubmit}>Yes</Button>
+                        <Button onClick={this.openAndCloseModal}>Cancel</Button>
                     </Row>
                 </Modal>
             </div>
