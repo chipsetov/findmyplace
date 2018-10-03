@@ -28,6 +28,20 @@ export const Session = {
         if(role)
             return role.includes("ROLE_OWNER");
         else return false;
+    },
+
+    isManager: () => {
+        const role = localStorage.getItem(ROLE);
+        if(role)
+            return role.includes("ROLE_MANAGER");
+        else return false;
+    },
+
+    isAdmin: () => {
+        const role = localStorage.getItem(ROLE);
+        if(role)
+            return role.includes("ROLE_ADMIN");
+        else return false;
     }
 
 };
