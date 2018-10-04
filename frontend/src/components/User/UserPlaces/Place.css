@@ -73,15 +73,3 @@
     padding: 0;
 }
 
-.places-container .card-content .additional-info .place-modal {
-    text-align: right;
-}
-
-.places-container .card-content .additional-info .place-modal button {
-    height: 32px;
-    line-height: 32px;
-    text-transform: none;
-    padding: 0 1.5rem;
-    background: #ff4d4d;
-}
-
