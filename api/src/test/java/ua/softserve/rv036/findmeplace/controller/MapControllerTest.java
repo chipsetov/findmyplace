@@ -1,10 +1,10 @@
 package ua.softserve.rv036.findmeplace.controller;
 
+import liquibase.Liquibase;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -12,13 +12,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import ua.softserve.rv036.findmeplace.model.Place;
-import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 import ua.softserve.rv036.findmeplace.utils.PlaceTypeObject;
 import ua.softserve.rv036.findmeplace.utils.SearchObject;
 import ua.softserve.rv036.findmeplace.utils.TestUtil;
 
-import java.sql.Time;
-import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 

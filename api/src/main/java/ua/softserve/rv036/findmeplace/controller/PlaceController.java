@@ -52,9 +52,17 @@ public class PlaceController {
         return feedbackRepository.findAllByPlaceId(id);
     }
 
+
     @GetMapping("/places/{id}/managers")
     List<Place_Manager> managersByPlaceId(@PathVariable Long id) {
         return placeManagerRepository.findAllByPlaceId(id);
+    }
+
+    @PostMapping("/places/delete-manager/{id}")
+    List<Place_Manager> deletePlaceManagerById(@PathVariable Long id) {
+        Long idPlace = placeManagerRepository.findById(id).get().getPlaceId();
+        placeManagerRepository.deleteById(id);
+        return placeManagerRepository.findAllByPlaceId(idPlace);
     }
 
     @GetMapping("/places/types")

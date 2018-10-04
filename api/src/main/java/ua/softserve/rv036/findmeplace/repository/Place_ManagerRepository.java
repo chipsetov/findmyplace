@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import ua.softserve.rv036.findmeplace.model.Place_Manager;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface Place_ManagerRepository extends JpaRepository<Place_Manager, Long> {
@@ -17,4 +18,7 @@ public interface Place_ManagerRepository extends JpaRepository<Place_Manager, Lo
             "join Place p on p.id = f.userId " +
             "where f.placeId = :id")
     List<Place_Manager> findAllByPlaceId(@Param("id") Long id);
+
+    Optional<Place_Manager> findById(Long id);
+
 }
