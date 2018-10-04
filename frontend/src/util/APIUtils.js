@@ -137,3 +137,10 @@ export function deleteUserPlace(id) {
     });
 }
 
+export function deletePlaceManager(id) {
+    return request({
+        url: API_BASE_URL + '/places/delete-manager/' + id,
+        method: 'POST'
+    });
+}
+

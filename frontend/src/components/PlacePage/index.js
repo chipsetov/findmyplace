@@ -5,8 +5,8 @@ import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
 import ManagersBlock from './ManagersBlock.js';
 import Info from './Info.js';
-import { PAGE_CHANGED } from "../../utils";
-import { Session } from "../../utils";
+import {PAGE_CHANGED, Session} from "../../utils";
+import {deletePlaceManager} from "../../util/APIUtils";
 
 class PlacePage extends Component {
 
@@ -42,7 +42,9 @@ class PlacePage extends Component {
     viewManagers() {
         if (this.state.viewManager) {
             return (
-                <ManagersBlock placeId={this.props.match.params.placeId}/>
+                <ManagersBlock
+                    placeId={this.props.match.params.placeId}
+                />
         )}
     }
 
@@ -63,7 +65,7 @@ class PlacePage extends Component {
                           freePlaces={place.countFreePlaces}
                           description={place.description}/>
                     <ReviewsBlock placeId={this.props.match.params.placeId}/>
-                    <ManagersBlock placeId={this.props.match.params.placeId}/>
+                    {this.viewManagers()}
                 </div>
             </div>
         );

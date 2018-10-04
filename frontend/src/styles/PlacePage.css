@@ -62,7 +62,7 @@ h1 {
     /*margin-bottom: 80px;*/
 }
 
-.reviews-container {
+.reviews-container, .managers-container {
     /*width: 100%;*/
     position: center;
     text-align: center;
@@ -73,6 +73,19 @@ h1 {
 
 .place-image {
     max-width: 100%;
+}
+
+.managers-container .btn {
+    font-size: 17px;
+    color: #edd9c0;
+    text-transform: none;
+    letter-spacing: 0px;
+    background-color: rgba(29, 33, 32, 0.56);
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 0px 7px;
+    float: right ;
 }
 
 /*.image-container {*/
