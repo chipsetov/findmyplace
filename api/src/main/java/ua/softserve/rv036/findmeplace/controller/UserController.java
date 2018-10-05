@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import ua.softserve.rv036.findmeplace.model.Place;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,8 @@ import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
+import ua.softserve.rv036.findmeplace.service.FileStorageService;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +33,9 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @GetMapping("/users")
     List<User> getAll() {
@@ -49,6 +55,17 @@ public class UserController {
     @GetMapping("/users/nick/{nickname}")
     Optional<User> getUserByNickName(@PathVariable String nickname) {
         return userRepository.findByNickName(nickname);
+    }
+
+    @PostMapping("/set-avatar")
+    public String uploadAvatar(@RequestParam("file") MultipartFile file) {
+
+        if(FileStorageService.isImage(file)) {
+            String link = fileStorageService.storeFile(file, "images");
+            return "Ok";
+        }
+
+        return "Not ok";
     }
 
     @PostMapping("/users/update")

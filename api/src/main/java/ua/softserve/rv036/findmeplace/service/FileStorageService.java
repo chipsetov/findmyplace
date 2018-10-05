@@ -1,7 +1,8 @@
 package ua.softserve.rv036.findmeplace.service;
 
+import net.sf.jmimemagic.Magic;
+import net.sf.jmimemagic.MagicMatch;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -40,9 +41,10 @@ public class FileStorageService {
                 .replaceAll("\\s+", "-")
                 .replaceAll("[^\\p{ASCII}]", "");
         fileName = UUID.randomUUID().toString() + fileName;
+        folder = folder.replaceAll("\\.+/", "");
 
         try {
-            Files.createDirectories(this.fileStorageLocation.resolve(folder));
+            Files.createDirectories(this.fileStorageLocation.resolve(folder).normalize());
         } catch (IOException e) {
             throw new FileStorageException("Can't create directory for upload file", e);
         }
@@ -81,6 +83,29 @@ public class FileStorageService {
         } catch (MalformedURLException e) {
             throw new FileNotFoundException("Can't read file: " + filePath, e);
         }
+    }
+
+    public static boolean isImage(MultipartFile file) {
+
+        String[] imageExtensions = {"jpg", "png", "gif"};
+        String extension = null;
+        Magic magic = new Magic();
+
+        try {
+            MagicMatch match = magic.getMagicMatch(file.getBytes());
+            extension = match.getExtension();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if(extension != null) {
+            for(String imageExtension : imageExtensions) {
+                if(extension.equals(imageExtension))
+                    return true;
+            }
+        }
+
+        return false;
     }
 
 }
