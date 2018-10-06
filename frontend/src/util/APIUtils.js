@@ -137,3 +137,9 @@ export function deleteUserPlace(id) {
     });
 }
 
+export const bookPlace = (bookRequest) => request({
+    url: API_BASE_URL + "/booking/place",
+    method: "POST",
+    body: JSON.stringify(bookRequest)
+});
+
