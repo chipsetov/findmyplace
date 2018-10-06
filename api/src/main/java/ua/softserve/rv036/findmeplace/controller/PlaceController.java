@@ -65,6 +65,13 @@ public class PlaceController {
         return placeManagerRepository.findAllByPlaceId(idPlace);
     }
 
+    @PostMapping("/places/{id}/add-manager/{value}")
+    List<Place_Manager> addPlaceManager(@PathVariable Long id, @PathVariable String value) {
+        Long idUser = userRepository.findByNickName(value).get().getId();
+        placeManagerRepository.save(new Place_Manager(idUser, id));
+        return placeManagerRepository.findAllByPlaceId(id);
+    }
+
     @GetMapping("/places/types")
     List<PlaceType> getAllTypes() {
         return Arrays.asList(PlaceType.values());

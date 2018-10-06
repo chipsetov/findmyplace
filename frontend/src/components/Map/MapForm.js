@@ -36,7 +36,6 @@ class MapForm extends Component {
                 })
     }
 
-
     handleChange(event) {
         const filterRequest = {
             parking: this.state.parking,
@@ -63,7 +62,6 @@ class MapForm extends Component {
             filterRequest.restaurant = event.target.checked;
         }
 
-
         filterPlace(filterRequest)
             .then(result => {
                 this.setState({places: result});
@@ -87,7 +85,6 @@ class MapForm extends Component {
                     longitude: result[0].longitude,
                     zoom: 18});
             })
-
     };
 
     showAll() {
@@ -108,7 +105,6 @@ class MapForm extends Component {
             currentLatitude: position.coords.latitude,
             currentLongitude: position.coords.longitude});
     });
-
 
     render() {
         return (
@@ -168,29 +164,6 @@ class MapForm extends Component {
             </div>
         );
     }
-
 }
 
 export default MapForm
-
-
-/*
-                    {this.state.places.map(place => (
-                        <div class="row" key={place.name} className="place-row">
-                            <a href="/#/map" onClick={() => {
-                                this.setState({latitude: place.latitude, longitude: place.longitude, zoom: 18})
-                            }}>{place.name}  </a>
-                            <h6>Free place: {place.countFreePlaces}</h6>
-                            <h6>
-                                <Link to={`/place/${place.id}`}>Place page</Link>
-                            </h6>
-                        </div>
-                    ))}
-                </div>
-                <div class="col s10">
-                    <MapLayout items={this.state.places}
-                               latitude={this.state.latitude}
-                               longitude={this.state.longitude}
-                               zoom={this.state.zoom}/>
-                </div>
-            </div>*/

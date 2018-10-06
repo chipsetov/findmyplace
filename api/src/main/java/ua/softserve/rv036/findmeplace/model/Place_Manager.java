@@ -8,10 +8,14 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "places_managers")
 public class Place_Manager {
+
+public Place_Manager(Long userId, Long placeId) {
+        this.userId = userId;
+        this.placeId = placeId;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

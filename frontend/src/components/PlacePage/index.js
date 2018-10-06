@@ -6,7 +6,6 @@ import ReviewsBlock from './ReviewsBlock.js';
 import ManagersBlock from './ManagersBlock.js';
 import Info from './Info.js';
 import {PAGE_CHANGED, Session} from "../../utils";
-import {deletePlaceManager} from "../../util/APIUtils";
 
 class PlacePage extends Component {
 

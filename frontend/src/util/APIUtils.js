@@ -144,3 +144,10 @@ export function deletePlaceManager(id) {
     });
 }
 
+export function addPlaceManager(id, value) {
+    return request({
+        url: API_BASE_URL + "/places/" + id + "/add-manager/" + value,
+        method: 'POST'
+    });
+}
+

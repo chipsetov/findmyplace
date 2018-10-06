@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
 import {Button, CardPanel, Col, Row, Icon} from 'react-materialize';
-import {deletePlaceManager} from "../../util/APIUtils";
+import SearchUsers from "./SearchUsers";
+import {addPlaceManager, deletePlaceManager, searchPlace} from "../../util/APIUtils";
 
-class ReviewsBlock extends Component {
+class ManagersBlock extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {managers: []};
+        this.state = {
+            managers: [],
+            viewAddManagers: false,
+            searchValue: ''};
+
+        this.viewAddManagers = this.viewAddManagers.bind(this);
     }
 
     componentDidMount() {
@@ -34,9 +40,38 @@ class ReviewsBlock extends Component {
         });
     }
 
+    updateData = (value) => {
+        const id = this.props.placeId;
+        console.log(value, id);
+
+
+        addPlaceManager(id, value)
+            .then(result => {
+                this.setState({
+                    managers: result,
+                    viewAddManagers: false
+                });
+            })
+
+
+    };
+
+    viewAddManagers() {
+            return (
+                <Row>
+                    <Col s={4} offset="s4">
+                        <p>Find user by nickname</p>
+                    </Col>
+                    <Col s={4}>
+                        <SearchUsers updateData={this.updateData}/>
+                    </Col>
+                </Row>
+            )}
+
     render() {
 
         const managers = this.state.managers;
+        console.log(this.state.viewAddManagers);
 
         return (
             <Row className="managers-container">
@@ -57,10 +92,13 @@ class ReviewsBlock extends Component {
                             </Col>
                         </Row>
                     ))}
+                        {
+                            (this.state.viewAddManagers) ? this.viewAddManagers() : ''
+                        }
                         <Row>
                             <Col s={1} offset="s11">
                                 <Button title="Add new manager for this place!" waves='light' onClick={() => {
-                                    this.props.updateData(this.state.value)
+                                    this.setState({viewAddManagers: true})
                                 }}><Icon>person_add</Icon></Button>
                             </Col>
                         </Row>
@@ -70,4 +108,4 @@ class ReviewsBlock extends Component {
     }
 }
 
-export default ReviewsBlock;
+export default ManagersBlock;
