@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
-import {Row, Col, Button} from 'react-materialize';
+import {Row, Col} from 'react-materialize';
 import StarRatings from "react-star-ratings";
 import Moment from 'react-moment';
 import "../../styles/Main.css";
 import './Review.css';
 import {Session} from "../../utils";
+import AppModal from "../Modal/AppModal";
 
 class Review extends Component {
 
     constructor(props) {
         super(props);
 
+        this.handleDelete = this.handleDelete.bind(this);
         this.viewDeleteButton = this.viewDeleteButton.bind(this);
     }
 
-    viewDeleteButton () {
-        if(Session.isAdmin() || Session.isOwner()) {
+    handleDelete() {
+        const id = this.props.id;
+        this.props.handleDelete(id);
+    }
+
+    viewDeleteButton() {
+        if(Session.isAdmin() || (Session.userId() == this.props.userId)) {
             return (
-                <Button className="btn-delete">Delete</Button>
+                <AppModal action={"Delete"}
+                          message={"Are you sure you want to delete this comment?"}
+                          handleSubmit={this.handleDelete}
+                />
             )
         }
     }

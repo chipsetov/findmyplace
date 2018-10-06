@@ -137,3 +137,10 @@ export function deleteUserPlace(id) {
     });
 }
 
+export function deleteUserFeedback(id) {
+    return deleteRequest({
+        url: API_BASE_URL + '/user/delete-feedback/' + id,
+        method: 'DELETE'
+    });
+}
+

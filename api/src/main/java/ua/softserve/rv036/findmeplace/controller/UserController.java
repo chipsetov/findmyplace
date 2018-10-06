@@ -13,6 +13,7 @@ import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
+import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import javax.validation.Valid;
@@ -27,6 +28,9 @@ public class UserController {
 
     @Autowired
     private PlaceRepository placeRepository;
+
+    @Autowired
+    private FeedbackRepository feedbackRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -101,6 +105,12 @@ public class UserController {
     @DeleteMapping("/user/delete-place/{id}")
     public ResponseEntity<Void> deleteUserPlaceById(@PathVariable("id") Long id) {
         placeRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/user/delete-feedback/{id}")
+    public ResponseEntity<Void> deleteUserFeedbackById(@PathVariable("id") Long id) {
+        feedbackRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
