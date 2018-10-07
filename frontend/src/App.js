@@ -1,34 +1,29 @@
 import React, {Component} from 'react';
-import {HashRouter} from 'react-router-dom';
-import Routes from './components/Routes';
+import {HashRouter, Route, Switch, withRouter} from 'react-router-dom';
 //import './App.css';
 import Menu from './components/Menu.js';
 import Footer from './components/Footer';
 
 
-import Login from './common/NotFound';
-import Signup from './common/NotFound';
+import NotFound from './common/NotFound';
 import Profile from './components/UserPage/Profile.js';
-import NotFound from "./common/NotFound";
 import PrivateRoute from './common/PrivateRoute';
-import {
-    Route,
-    withRouter,
-    Switch
-} from 'react-router-dom';
 import MapForm from "./components/Map/MapForm";
+import LoginForm from "./components/authorization/LoginForm";
+import RegistrationForm from "./components/authorization/RegistrationForm.js";
+import {ACCESS_TOKEN} from "./constants";
+import {getCurrentUser} from "./util/APIUtils";
+import LoadingIndicator from "./common/LoadingIndicator";
+import Routes from "./components/Routes";
 import Home from "./components/Home/Home";
 import AppInfo from "./components/Home/AppInfo";
-import LoginPage from "./components/authorization/LoginPage";
-import RegistrationForm from "./components/authorization/RegistrationForm";
+
 import PlacePage from "./components/PlacePage";
 import UserPage from "./components/UserPage/UserPage";
 import UserPlaces from "./components/User/UserPlaces/UserPlaces";
 import RegisterPlace from "./components/RegisterPlace/RegisterPlace";
 import ForgotPasswordForm from "./components/authorization/ForgotPasswordForm";
 import RestorePasswordForm from "./components/authorization/RestorePasswordForm";
-import {ACCESS_TOKEN, ROLE} from "./constants";
-import {getCurrentUser} from "./util/APIUtils";
 
 class App extends Component {
     constructor(props) {
@@ -41,48 +36,58 @@ class App extends Component {
             currentUser: null,
             isAuthenticated: false,
             isLoading: false
-        }
+        };
         this.handleLogout = this.handleLogout.bind(this);
         this.loadCurrentUser = this.loadCurrentUser.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
     }
 
+
     render() {
+        if (this.state.isLoading) {
+            return <LoadingIndicator/>
+        }
+        const style = {
+            minHeight: this.state.routerHeight
+        };
         return (
             <HashRouter>
                 <div ref={this.app} className="app">
-                    <Menu/>
-                    <Switch>
-                        <Route path="//" component={Home}/>
-                        <Route path="/app-info" component={AppInfo}/>
+                    <div style={style}>
 
-                        <Route path="/place/:placeId" component={PlacePage}/>
-                     //   <Route path="/user/profile" component={UserPage}/>
-                        <Route path="/user/:id/places" component={UserPlaces}/>
-                        <Route path="/register-place" component={RegisterPlace}/>
-                        <Route path="/forgot-password" component={ForgotPasswordForm}/>
-                        <Route path="/restore/:token" component={RestorePasswordForm}/>
+                        <Menu/>
 
-                        <Route path="/sign-in"
-                               render={(props) => <LoginPage onLogin={this.handleLogin} {...props} />}></Route>
+                        <Switch>
+                            <Route path="//" component={Home}/>
+                            <Route path="/app-info" component={AppInfo}/>
 
-                        <Route path="/sign-up" component={RegistrationForm}></Route>
+                            <Route path="/place/:placeId" component={PlacePage}/>
+                            <Route path="/user/profile" component={UserPage}/>
+                            <Route path="/user/:id/places" component={UserPlaces}/>
+                            <Route path="/register-place" component={RegisterPlace}/>
+                            <Route path="/forgot-password" component={ForgotPasswordForm}/>
+                            <Route path="/restore/:token" component={RestorePasswordForm}/>
 
-                        <Route path="/users/:username"
-                               render={(props) => <Profile isAuthenticated={this.state.isAuthenticated}
-                                                           currentUser={this.state.currentUser} {...props}  />}>
-                        </Route>
+                            <Route path="/sign-in"
+                                   render={(props) => <LoginForm onLogin={this.handleLogin} {...props} />}></Route>
 
-                        <PrivateRoute authenticated={this.state.isAuthenticated} path="/map" component={MapForm}
-                                      handleLogout={this.handleLogout}></PrivateRoute>
+                            <Route path="/sign-up" component={RegistrationForm}></Route>
 
-                        <Route component={NotFound}></Route>
+                            <Route path="/users/:username"
+                                   render={(props) => <Profile isAuthenticated={this.state.isAuthenticated}
+                                                               currentUser={this.state.currentUser} {...props}  />}>
+                            </Route>
+
+                            <PrivateRoute authenticated={this.state.isAuthenticated} path="/map" component={MapForm}
+                                          handleLogout={this.handleLogout}></PrivateRoute>
+                            <Route path="*" component={NotFound}></Route>
+                            {/*<Routes minHeight={this.state.routerHeight}/>*/}
 
 
-                        {/*<Routes minHeight={this.state.routerHeight}/>*/}
+                        </Switch>
 
-                    </Switch>
-                    <Footer/>
+                        <Footer/>
+                    </div>
                 </div>
             </HashRouter>
         );
@@ -94,6 +99,7 @@ class App extends Component {
         });
         getCurrentUser()
             .then(response => {
+
                 this.setState({
                     currentUser: response,
                     isAuthenticated: true,
@@ -109,7 +115,6 @@ class App extends Component {
     handleLogout(redirectTo = "/", description = "You're successfully logged out.") {
         localStorage.removeItem(ACCESS_TOKEN);
 
-        console.log("here!");
         this.setState({
             currentUser: null,
             isAuthenticated: false
@@ -121,21 +126,21 @@ class App extends Component {
     }
 
     handleLogin() {
-        //  window.Materialize.toast('Welcome as: ' + localStorage.getItem(ROLE), 7000);
-        console.log("inside");
-        
+
         this.loadCurrentUser();
+        console.log(this.state.currentUser);
         window.Materialize.toast('You\'re successfully logged in.', 7000);
-        this.props.history.push("/");
+        this.props.history.push("#/map");
     }
 
+
     componentDidMount() {
-        this.resize();
+        this.loadCurrentUser();
+      //  this.resize();
         window.addEventListener('resize', this.onResizeHandler.bind(this));
     }
 
     componentWillUnmount() {
-        this.loadCurrentUser();
         window.removeEventListener('resize', this.onResizeHandler.bind(this));
     }
 
@@ -164,4 +169,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withRouter(App);

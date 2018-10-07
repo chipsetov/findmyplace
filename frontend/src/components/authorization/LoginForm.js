@@ -16,7 +16,7 @@ class LoginForm extends Component {
             password: '',
             className: 'hidden'
         };
-
+        this.onLogin=this.props.onLogin;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -45,19 +45,21 @@ class LoginForm extends Component {
 
             login(loginRequest)
                 .then(response => {
+                    console.log(response);
 
                     if (!response.active) {
                         this.setState({className: ""});
 
                     } else {
-                        localStorage.setItem(ROLE, JSON.stringify(response.role));
-                        localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                        localStorage.setItem(USER_ID, response.userId);
 
-                        Session.login(response.accessToken);
+                        //localStorage.setItem(ROLE, JSON.stringify(response.role));
+                       localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+                       // localStorage.setItem(USER_ID, response.userId);
 
-                       // this.props.history.push("/map");
-                        window.Materialize.toast('Welcome as: ' + localStorage.getItem(ROLE), 7000);
+                       // Session.login(response.accessToken);
+                        this.props.onLogin();
+
+
                     }
 
                 }).catch(error => {
@@ -137,4 +139,4 @@ class LoginForm extends Component {
 
 }
 
-export default withRouter(LoginForm);
+export default LoginForm;

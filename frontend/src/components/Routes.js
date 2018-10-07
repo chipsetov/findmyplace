@@ -21,17 +21,17 @@ export default class Routes extends Component {
 
         return (
             <div id="router" style={style}>
-                {/*<Route path="//" component={Home}/>*/}
-                {/*<Route path="/app-info" component={AppInfo}/>*/}
-                {/*<Route path="/sign-in" component={LoginPage}/>*/}
-                {/*<Route path="/sign-up" component={RegistrationForm}/>*/}
-                {/*<Route path="/map" component={MapForm}/>*/}
-                {/*<Route path="/place/:placeId" component={PlacePage}/>*/}
-                {/*<Route path="/user/profile" component={UserPage}/>*/}
-                {/*<Route path="/user/:id/places" component={UserPlaces}/>*/}
-                {/*<Route path="/register-place" component={RegisterPlace}/>*/}
-                {/*<Route path="/forgot-password" component={ForgotPasswordForm}/>*/}
-                {/*<Route path="/restore/:token" component={RestorePasswordForm}/>*/}
+                <Route path="//" component={Home}/>
+                <Route path="/app-info" component={AppInfo}/>
+                <Route path="/sign-in" component={LoginPage}/>
+                <Route path="/sign-up" component={RegistrationForm}/>
+                <Route path="/map" component={MapForm}/>
+                <Route path="/place/:placeId" component={PlacePage}/>
+                <Route path="/user/profile" component={UserPage}/>
+                <Route path="/user/:id/places" component={UserPlaces}/>
+                <Route path="/register-place" component={RegisterPlace}/>
+                <Route path="/forgot-password" component={ForgotPasswordForm}/>
+                <Route path="/restore/:token" component={RestorePasswordForm}/>
             </div>
         );
     }
