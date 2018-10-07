@@ -2,10 +2,7 @@ package ua.softserve.rv036.findmeplace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Booking;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
@@ -23,6 +20,13 @@ public class BookingController {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @GetMapping("/{userId}")
+    public ResponseEntity getBookings(@PathVariable Long userId) {
+        System.out.println("USER_ID: " + userId);
+        System.out.println(bookingRepository.findAllByUserId(userId));
+        return ResponseEntity.ok().body(new ApiResponse(true, "Your bookings"));
+    }
 
     @PostMapping("/place")
     public ResponseEntity bookPlace(@RequestBody BookingRequest bookingRequest) {

@@ -27,4 +27,11 @@ public class Booking {
         this.placeId = placeId;
         this.status = BookingStatus.OPEN;
     }
+
+    public Booking(Long id, Long userId, Long placeId, BookingStatus status) {
+        this.id = id;
+        this.userId = userId;
+        this.placeId = placeId;
+        this.status = status;
+    }
 }

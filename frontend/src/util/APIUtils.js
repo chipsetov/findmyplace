@@ -16,7 +16,7 @@ export const request = (options) => {
         .then(response =>
             response.json().then(json => {
                 if (!response.ok) {
-                    // return Promise.reject(json);
+                    return Promise.reject(json);
                 }
                 return json;
             })
@@ -141,5 +141,10 @@ export const bookPlace = (bookRequest) => request({
     url: API_BASE_URL + "/booking/place",
     method: "POST",
     body: JSON.stringify(bookRequest)
+});
+
+export const getBookings = (userId) => request({
+    url: API_BASE_URL + `/booking/${userId}`,
+    method: "GET"
 });
 
