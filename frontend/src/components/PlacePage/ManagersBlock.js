@@ -48,6 +48,7 @@ class ManagersBlock extends Component {
             .then(result => {
                 console.log(result);
                 this.setState({
+                    managers: result,
                     viewAddManagers: false
                 })
                 window["Materialize"].toast(result.message, 3000);
