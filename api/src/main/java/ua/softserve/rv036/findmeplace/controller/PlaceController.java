@@ -66,10 +66,15 @@ public class PlaceController {
     }
 
     @PostMapping("/places/{id}/add-manager/{value}")
-    List<Place_Manager> addPlaceManager(@PathVariable Long id, @PathVariable String value) {
+    ResponseEntity addPlaceManager(@Valid @PathVariable Long id, @Valid @PathVariable String value) {
         Long idUser = userRepository.findByNickName(value).get().getId();
-        placeManagerRepository.save(new Place_Manager(idUser, id));
-        return placeManagerRepository.findAllByPlaceId(id);
+        if (placeManagerRepository.existsByUserIdAndPlaceId(idUser, id)){
+            return new ResponseEntity(new ApiResponse(false, "This manager already add to this place"),
+                    HttpStatus.BAD_REQUEST);
+        } else {
+            Place_Manager result = placeManagerRepository.save(new Place_Manager(idUser, id));
+            return new ResponseEntity(placeManagerRepository.findAllByPlaceId(id), HttpStatus.CREATED);
+        }
     }
 
     @GetMapping("/places/types")
@@ -80,7 +85,6 @@ public class PlaceController {
     @PostMapping("/places/register")
     @RolesAllowed("ROLE_OWNER")
     ResponseEntity registerPlace(@Valid @RequestBody Place place) {
-
         if(placeRepository.existsByName(place.getName())) {
             return new ResponseEntity(new ApiResponse(Boolean.FALSE, "Place is already exist"),
                     HttpStatus.BAD_REQUEST);

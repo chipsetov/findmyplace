@@ -21,4 +21,6 @@ public interface Place_ManagerRepository extends JpaRepository<Place_Manager, Lo
 
     Optional<Place_Manager> findById(Long id);
 
+    Boolean existsByUserIdAndPlaceId(Long userId, Long placeId);
+
 }
