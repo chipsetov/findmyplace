@@ -7,7 +7,7 @@ import Booking from "./Booking";
 import Favorite from "./Favorite";
 import {Session} from "../../utils";
 
-import {getUserProfile} from "../../util/APIUtils";
+import {getBookings, getUserProfile, cancelBooking} from "../../util/APIUtils";
 import { USER_ID } from "../../constants";
 
 import '../../styles/UserPage.css';
@@ -24,7 +24,8 @@ class UserPage extends Component {
             phone: "",
             oldPassword: "",
             newPassword: "",
-            confirmPassword: ""
+            confirmPassword: "",
+            bookings: []
         }
     }
 
@@ -35,10 +36,11 @@ class UserPage extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <div className="container-fluid">
                 <Tabs className="tab-menu">
-                    <Tab title="Profile" className="tab-menu-item" active>
+                    <Tab title="Profile" className="tab-menu-item">
                         <Profile
                             firstName={this.state.firstName}
                             lastName={this.state.lastName}
@@ -47,11 +49,22 @@ class UserPage extends Component {
                             email={this.state.email}
                         />
                     </Tab>
-                    <Tab title="Booking" className="tab-menu-item"><Booking/></Tab>
+                    <Tab title="Booking" className="tab-menu-item" active>
+                        <Booking
+                            bookings={this.state.bookings}
+                            cancelBooking={this.cancelBooking.bind(this)}
+                        />
+                    </Tab>
                     <Tab title="Favorite" className="tab-menu-item"><Favorite/></Tab>
                 </Tabs>
             </div>
         );
+    }
+
+    cancelBooking(bookingId) {
+        cancelBooking(bookingId)
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
     }
 
     updateTabStyle() {
@@ -74,13 +87,30 @@ class UserPage extends Component {
 
         getUserProfile(userId)
             .then((response) => {
-                this.setState({
-                    firstName: response['firstName'],
-                    lastName: response['lastName'],
-                    userName: response['nickName'],
-                    email: response['email'],
-                    phone: response['phone']
-                });
+                // this.setState({
+                //     firstName: response['firstName'],
+                //     lastName: response['lastName'],
+                //     userName: response['nickName'],
+                //     email: response['email'],
+                //     phone: response['phone']
+                // });
+
+                getBookings(userId)
+                    .then(response => {
+                        // this.setState({
+                        //     bookings: response
+                        // })
+
+                        this.setState({
+                            firstName: response['firstName'],
+                            lastName: response['lastName'],
+                            userName: response['nickName'],
+                            email: response['email'],
+                            phone: response['phone'],
+                            bookings: response
+                        });
+                    })
+                    .catch(error => console.log(error));
             });
     }
 }

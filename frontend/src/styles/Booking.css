@@ -1,0 +1,10 @@
+.booking-item-wrapper {
+    background-color: #ffffff;
+    padding: 5px;
+    margin: 5px 0px;
+}
+
+.booking-item-title-wrapper {
+    text-align: center;
+    font-weight: bold;
+}

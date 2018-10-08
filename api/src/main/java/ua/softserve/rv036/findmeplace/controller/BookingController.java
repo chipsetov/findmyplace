@@ -10,6 +10,7 @@ import ua.softserve.rv036.findmeplace.payload.BookingRequest;
 import ua.softserve.rv036.findmeplace.repository.BookingRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -22,10 +23,27 @@ public class BookingController {
     private BookingRepository bookingRepository;
 
     @GetMapping("/{userId}")
-    public ResponseEntity getBookings(@PathVariable Long userId) {
-        System.out.println("USER_ID: " + userId);
-        System.out.println(bookingRepository.findAllByUserId(userId));
-        return ResponseEntity.ok().body(new ApiResponse(true, "Your bookings"));
+    public List<Booking> getBookings(@PathVariable Long userId) {
+        return bookingRepository.findAllByUserId(userId);
+    }
+
+    @DeleteMapping("/{bookingId}/delete")
+    public ResponseEntity deleteBooking(@PathVariable Long bookingId) {
+        System.out.println("Delete by id: " + bookingId);
+        Optional<Booking> opt = bookingRepository.findById(bookingId);
+        Booking booking = opt.orElse(null);
+
+        if (booking == null) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Booking doesn't exist"));
+        }
+
+        if (booking.isClosed()) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Booking already closed"));
+        }
+
+        bookingRepository.deleteById(bookingId);
+
+        return ResponseEntity.ok().body(new ApiResponse(true, "You have deleted this booking"));
     }
 
     @PostMapping("/place")

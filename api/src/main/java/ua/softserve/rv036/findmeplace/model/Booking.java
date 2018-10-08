@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "bookings")
+@Table(name = "booking")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,18 +20,25 @@ public class Booking {
     private Long userId;
 
     @Column(name = "status")
-    private BookingStatus status;
+    private int status;
+
+    private String placeName;
 
     public Booking(Long userId, Long placeId) {
         this.userId = userId;
         this.placeId = placeId;
-        this.status = BookingStatus.OPEN;
+        this.status = 0;
     }
 
-    public Booking(Long id, Long userId, Long placeId, BookingStatus status) {
+    public Booking(Long id, Long userId, Long placeId, int status, String placeName) {
         this.id = id;
         this.userId = userId;
         this.placeId = placeId;
         this.status = status;
+        this.placeName = placeName;
+    }
+
+    public boolean isClosed() {
+        return this.status == 2;
     }
 }

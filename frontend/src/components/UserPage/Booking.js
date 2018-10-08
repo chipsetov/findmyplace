@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
+import BookingItem from "./BookingItem";
 import BasePage from "./BasePage";
-import {getBookings} from "../../util/APIUtils";
-import {USER_ID} from "../../constants";
 
 export default class Booking extends BasePage {
     render() {
         return (
             <div ref="root">
-                <h1>Booking component</h1>
+                <div className="container">
+                    {
+                        this.props.bookings.map((item, i) => {
+                            console.log(item);
+
+                            return (
+                                <BookingItem key={i} booking={item} cancelBooking={this.props.cancelBooking.bind(this)}/>
+                            );
+                        })
+                    }
+                </div>
             </div>
         );
-    }
-
-    componentDidMount() {
-        const userId = localStorage.getItem(USER_ID);
-
-        getBookings(userId)
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
     }
 }

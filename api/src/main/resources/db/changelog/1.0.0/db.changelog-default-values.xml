@@ -139,4 +139,23 @@
             <column name="place_id" value="3"/>
         </insert>
     </changeSet>
+
+    <!-- Feedback -->
+    <changeSet id="4" author="rv036">
+        <insert tableName="booking">
+            <column name="user_id" value="1"/>
+            <column name="place_id" value="1"/>
+            <column name="status" value="0"/>
+        </insert>
+        <insert tableName="booking">
+            <column name="user_id" value="1"/>
+            <column name="place_id" value="2"/>
+            <column name="status" value="0"/>
+        </insert>
+        <insert tableName="booking">
+            <column name="user_id" value="1"/>
+            <column name="place_id" value="2"/>
+            <column name="status" value="0"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

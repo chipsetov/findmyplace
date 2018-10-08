@@ -148,3 +148,8 @@ export const getBookings = (userId) => request({
     method: "GET"
 });
 
+export const cancelBooking = (bookingId) => request({
+    url: API_BASE_URL + `/booking/${bookingId}/delete`,
+    method: "DELETE"
+});
+
