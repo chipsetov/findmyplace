@@ -51,45 +51,27 @@ class App extends Component {
             minHeight: this.state.routerHeight
         };
         return (
+
+
             <HashRouter>
+
                 <div ref={this.app} className="app">
-                    <div style={style}>
+
 
                         <Menu/>
+                         <Routes
+                         authenticated={this.state.isAuthenticated}
 
-                        <Switch>
-                            <Route path="//" component={Home}/>
-                            <Route path="/app-info" component={AppInfo}/>
+                          handleLogout={this.handleLogout}
+                         minHeight={this.state.routerHeight}/>
 
-                            <Route path="/place/:placeId" component={PlacePage}/>
-                            <Route path="/user/profile" component={UserPage}/>
-                            <Route path="/user/:id/places" component={UserPlaces}/>
-                            <Route path="/register-place" component={RegisterPlace}/>
-                            <Route path="/forgot-password" component={ForgotPasswordForm}/>
-                            <Route path="/restore/:token" component={RestorePasswordForm}/>
-
-                            <Route path="/sign-in"
-                                   render={(props) => <LoginForm onLogin={this.handleLogin} {...props} />}></Route>
-
-                            <Route path="/sign-up" component={RegistrationForm}></Route>
-
-                            <Route path="/users/:username"
-                                   render={(props) => <Profile isAuthenticated={this.state.isAuthenticated}
-                                                               currentUser={this.state.currentUser} {...props}  />}>
-                            </Route>
-
-                            <PrivateRoute authenticated={this.state.isAuthenticated} path="/map" component={MapForm}
-                                          handleLogout={this.handleLogout}></PrivateRoute>
-                            <Route path="*" component={NotFound}></Route>
-                            {/*<Routes minHeight={this.state.routerHeight}/>*/}
-
-
-                        </Switch>
 
                         <Footer/>
-                    </div>
+
                 </div>
             </HashRouter>
+
+
         );
     }
 
@@ -136,7 +118,7 @@ class App extends Component {
 
     componentDidMount() {
         this.loadCurrentUser();
-      //  this.resize();
+        this.resize();
         window.addEventListener('resize', this.onResizeHandler.bind(this));
     }
 
