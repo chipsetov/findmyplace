@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Button, Input, Row} from 'react-materialize';
-import {Link, withRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import '../../styles/Form.css';
-import {ACCESS_TOKEN, ROLE, USER_ID} from '../../constants';
+import {ACCESS_TOKEN} from '../../constants';
 import {login, resendEmail} from '../../util/APIUtils';
-import {Session} from "../../utils";
+import LoadingIndicator from "../../common/LoadingIndicator";
 
 class LoginForm extends Component {
 
@@ -14,9 +14,10 @@ class LoginForm extends Component {
             role: '',
             usernameOrEmail: '',
             password: '',
-            className: 'hidden'
+            className: 'hidden',
+            isLoading: false
         };
-        this.onLogin=this.props.onLogin;
+        this.onLogin = this.props.onLogin;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -53,10 +54,10 @@ class LoginForm extends Component {
                     } else {
 
                         //localStorage.setItem(ROLE, JSON.stringify(response.role));
-                       localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                       // localStorage.setItem(USER_ID, response.userId);
+                        localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+                        // localStorage.setItem(USER_ID, response.userId);
 
-                       // Session.login(response.accessToken);
+                        // Session.login(response.accessToken);
                         this.props.onLogin();
 
 
@@ -74,8 +75,20 @@ class LoginForm extends Component {
     }
 
     getNewEmailValidation() {
+        this.setState({
+            isLoading: true
+        });
 
-        resendEmail(this.state.usernameOrEmail).catch(error => {
+
+
+        resendEmail(this.state.usernameOrEmail).
+        then(response => {
+            this.setState({
+                isLoading: false
+            });
+            window.Materialize.toast('The new message has been sent to your email!', 3000);
+
+        }).catch(error => {
             if (error.status === 401) {
                 window.Materialize.toast('Your Username or Password is incorrect. Please try again!', 3000);
             } else {
@@ -87,50 +100,51 @@ class LoginForm extends Component {
             usernameOrEmail: '',
             password: '',
         });
-        window.Materialize.toast('The new message has been sent to your email!', 3000);
+
     }
 
     render() {
+        if (this.state.isLoading) {
+            return <LoadingIndicator/>
+        }
         return (
             <div className="form-wrapper">
                 <div className="app-form">
                     <form onSubmit={this.handleSubmit}>
-                    <div className={this.state.className} style={{color: "#cc0000"}}>
+                        <div className={this.state.className} style={{color: "#cc0000", textAlign: "center", fontSize: "22px"}}>
 
-                        Your email address has not been verified.
+                            Your email address has not been verified.<br />
+                           <a href="../#/sign-in" onClick={() => this.getNewEmailValidation()}>
+                                Click here for a new confirmation message!</a>
 
-                        <p><a href="../#/sign-in"
-                              onClick={() => this.getNewEmailValidation()}>
-                            Click here for a new confirmation    message!</a></p>
+                        </div>
 
-                    </div>
+                        <h3>Sign In</h3>
+                        <div className="errorMsg">{this.state.error}</div>
+                        <Row>
+                            <Input
+                                id="usernameOrEmail"
+                                value={this.state.usernameOrEmail}
+                                placeholder="USERNAME or EMAIL"
+                                onChange={e => this.handleChange("usernameOrEmail", e.target.value)}
+                                s={12}
+                            />
+                        </Row>
+                        <Row>
+                            <Input
+                                id="password"
+                                type="password"
+                                value={this.state.password}
+                                placeholder="PASSWORD"
+                                onChange={e => this.handleChange("password", e.target.value)}
+                                s={12}
+                            />
+                        </Row>
+                        <div className="confirm-row">
+                            <Link className="forgot-password-link" to="/forgot-password">Forgot password?</Link>
+                            <Button waves="light" id="sign-in" type="submit">Sign In</Button>
 
-                    <h2>Sign In</h2>
-                    <div className="errorMsg">{this.state.error}</div>
-                    <Row>
-                        <Input
-                            id="usernameOrEmail"
-                            value={this.state.usernameOrEmail}
-                            placeholder="EMAIL"
-                            onChange={e => this.handleChange("usernameOrEmail", e.target.value)}
-                            s={12}
-                        />
-                    </Row>
-                    <Row>
-                        <Input
-                            id="password"
-                            type="password"
-                            value={this.state.password}
-                            placeholder="PASSWORD"
-                            onChange={e => this.handleChange("password", e.target.value)}
-                            s={12}
-                        />
-                    </Row>
-                    <div className="confirm-row">
-                        <Link className="forgot-password-link" to="/forgot-password">Forgot password?</Link>
-                        <Button waves="light" id="sign-in"  type="submit">Sign In</Button>
-
-                    </div>
+                        </div>
                     </form>
                 </div>
             </div>

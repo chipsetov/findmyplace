@@ -2,17 +2,29 @@ import React from 'react';
 import OverlayLoader from 'react-loading-indicator-overlay/lib/OverlayLoader'
 
 export default function LoadingIndicator() {
-        return (
-        <OverlayLoader
-            color={'red'}
-            loader="ScaleLoader" // check below for more loaders
-            text="Loading... Please wait!"
-            active={true}
-            backgroundColor={'black'} // default is black
-            opacity=".4" // default is .9
-        >
 
-            ... your component(s)
-        </OverlayLoader>
+
+    const style = {
+        position: "absolute",
+        top: "40%",
+        left: "25%",
+
+        width: "50%",
+        fontSize: "35px",
+    };
+
+    return (
+        <div style={style}>
+            <OverlayLoader
+                color={'red'}
+                size={25}
+                loader="ScaleLoader"
+                text="Loading... Please wait!"
+                active={true}
+                backgroundColor={'red'}
+                opacity=".9"
+            >
+            </OverlayLoader>
+        </div>
     );
 }

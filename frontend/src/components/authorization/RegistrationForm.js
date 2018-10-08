@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
-import {Input, Button, Row} from 'react-materialize';
-import {signup, checkUserAvailability} from '../../util/APIUtils';
+import {Button, Input, Row} from 'react-materialize';
+import {checkUserAvailability, signup} from '../../util/APIUtils';
 import {Link} from 'react-router-dom';
 import {
-    USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
     EMAIL_MAX_LENGTH,
-    PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
+    PASSWORD_MAX_LENGTH,
+    PASSWORD_MIN_LENGTH,
+    USERNAME_MAX_LENGTH,
+    USERNAME_MIN_LENGTH
 } from '../../constants/index';
+import LoadingIndicator from "../../common/LoadingIndicator";
 
 class RegistrationForm extends Component {
 
@@ -14,13 +17,13 @@ class RegistrationForm extends Component {
         super(props);
         this.state = {
             fields: {
-            username : "",
-            email : "",
-            password : "",
-            confirm_password : "",
+                username: "",
+                email: "",
+                password: "",
+                confirm_password: "",
             },
-            errors: {
-            }
+            errors: {},
+            isLoading: false
         };
         this.formIsValid = true;
         this.handleChange = this.handleChange.bind(this);
@@ -36,20 +39,25 @@ class RegistrationForm extends Component {
         });
     }
 
-   async handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
-       await this.validateForm();
+        await this.validateForm();
         if (this.formIsValid) {
             const signupRequest = {
                 nickName: this.state.fields["username"],
                 email: this.state.fields["email"],
                 password: this.state.fields["password"]
             };
-            this.props.history.push("/");
+            this.setState({
+                isLoading: true
+            });
             signup(signupRequest)
                 .then(response => {
-
                     window.Materialize.toast("Thank you! You're successfully registered. Please confrim your email!", 5000);
+                    this.setState({
+                        isLoading: false
+                    });
+                    this.props.history.push("/");
 
                 }).catch(error => {
                 window.Materialize.toast("Ooops something wrong with our servers! Try again!", 5000);
@@ -66,84 +74,89 @@ class RegistrationForm extends Component {
         }
     }
 
-     render() {
-            return (
-                <div className="form-wrapper">
-                    <div className="app-form">
-                        <form onSubmit={this.handleSubmit}>
-                            <h2>Sign Up</h2>
-                            <Row>
-                                <Input
-                                    id="username"
-                                    type="text"
-                                    name="username"
-                                    value={this.state.fields.username}
-                                    placeholder="USER NAME"
-                                    onChange={this.handleChange}
-                                    s={12}
-                                />
-                                <div className="errorMsg">{this.state.errors.username}</div>
-                            </Row>
-                            <Row>
-                                <Input
-                                    id="email"
-                                    type="text"
-                                    name="email"
-                                    value={this.state.fields.email}
-                                    onChange={this.handleChange}
-                                    placeholder="EMAIL"
-                                    s={12}
-                                />
-                                <div className="errorMsg">{this.state.errors.email}</div>
-                            </Row>
-                            <Row>
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    value={this.state.fields.password}
-                                    placeholder="PASSWORD"
-                                    onChange={this.handleChange}
-                                    s={12}
-                                />
-                                <div className="errorMsg">{this.state.errors.password}</div>
-                            </Row>
-                            <Row>
-                                <Input
-                                    id="confirm_password"
-                                    type="password"
-                                    name="confirm_password"
-                                    value={this.state.fields.confirm_password}
-                                    placeholder="CONFIRM PASSWORD"
-                                    onChange={this.handleChange}
-                                    s={12}
-                                />
-                                <div className="errorMsg">{this.state.errors.confirm_password}</div>
-                            </Row>
-                            <Row className="confirm-row">
-                                <Button id="sign-up" waves="light" type="submit">Sign Up</Button>
+    render() {
 
-                            </Row>
-                            <Row className="check-register">
-                                <span>Already registered?</span>
-                                <Link to="/sign-in">Login now!</Link>
-                            </Row>
-                        </form>
-                    </div>
-                </div>
-            );
+        if (this.state.isLoading) {
+            return <LoadingIndicator/>
         }
+
+        return (
+            <div className="form-wrapper">
+                <div className="app-form">
+                    <form onSubmit={this.handleSubmit}>
+                        <h2>Sign Up</h2>
+                        <Row>
+                            <Input
+                                id="username"
+                                type="text"
+                                name="username"
+                                value={this.state.fields.username}
+                                placeholder="USER NAME"
+                                onChange={this.handleChange}
+                                s={12}
+                            />
+                            <div className="errorMsg">{this.state.errors.username}</div>
+                        </Row>
+                        <Row>
+                            <Input
+                                id="email"
+                                type="text"
+                                name="email"
+                                value={this.state.fields.email}
+                                onChange={this.handleChange}
+                                placeholder="EMAIL"
+                                s={12}
+                            />
+                            <div className="errorMsg">{this.state.errors.email}</div>
+                        </Row>
+                        <Row>
+                            <Input
+                                id="password"
+                                type="password"
+                                name="password"
+                                value={this.state.fields.password}
+                                placeholder="PASSWORD"
+                                onChange={this.handleChange}
+                                s={12}
+                            />
+                            <div className="errorMsg">{this.state.errors.password}</div>
+                        </Row>
+                        <Row>
+                            <Input
+                                id="confirm_password"
+                                type="password"
+                                name="confirm_password"
+                                value={this.state.fields.confirm_password}
+                                placeholder="CONFIRM PASSWORD"
+                                onChange={this.handleChange}
+                                s={12}
+                            />
+                            <div className="errorMsg">{this.state.errors.confirm_password}</div>
+                        </Row>
+                        <Row className="confirm-row">
+                            <Button id="sign-up" waves="light" type="submit">Sign Up</Button>
+
+                        </Row>
+                        <Row className="check-register">
+                            <span>Already registered?</span>
+                            <Link to="/sign-in">Login now!</Link>
+                        </Row>
+                    </form>
+                </div>
+            </div>
+        );
+    }
 
     // Validation Function
 
-  async validateForm() {
+    async validateForm() {
 
         let fields = this.state.fields;
         let errors = {};
         this.formIsValid = true;
 
 
-        if (fields["username"].trim().length===0) {
+        if (fields["username"].trim().length === 0) {
             this.formIsValid = false;
             errors["username"] = "*Please enter your username.";
         }
@@ -156,8 +169,7 @@ class RegistrationForm extends Component {
         }
 
 
-
-        if (fields["email"].trim().length===0) {
+        if (fields["email"].trim().length === 0) {
             this.formIsValid = false;
             errors["email"] = "*Please enter your email.";
         }
@@ -175,7 +187,7 @@ class RegistrationForm extends Component {
         }
 
 
-        if (fields["password"].trim().length===0) {
+        if (fields["password"].trim().length === 0) {
             this.formIsValid = false;
             errors["password"] = "*Please enter your password.";
         }
@@ -199,23 +211,23 @@ class RegistrationForm extends Component {
         }
 
         if (this.formIsValid) {
-                await  checkUserAvailability(fields["username"],fields["email"])
-                        .then(response => {
-                            if (!response.isNickNameAvailable) {
-                                this.formIsValid = false;
-                                errors["username"] = `This username is already taken`;
-                            }
-                            if (!response.isEmailAvailable) {
-                               this.formIsValid = false;
-                               errors["email"] = "This Email is already registered";
-       }
+            await checkUserAvailability(fields["username"], fields["email"])
+                .then(response => {
+                    if (!response.isNickNameAvailable) {
+                        this.formIsValid = false;
+                        errors["username"] = `This username is already taken`;
+                    }
+                    if (!response.isEmailAvailable) {
+                        this.formIsValid = false;
+                        errors["email"] = "This Email is already registered";
+                    }
 
-                        }).catch(error => {
+                }).catch(error => {
 
-                        window.Materialize.toast('Sorry! Something went wrong. Please try again!', 5000);
+                    window.Materialize.toast('Sorry! Something went wrong. Please try again!', 5000);
 
-                    });
-                }
+                });
+        }
 
         this.setState({
             errors: errors

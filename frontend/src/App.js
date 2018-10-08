@@ -1,29 +1,12 @@
 import React, {Component} from 'react';
-import {HashRouter, Route, Switch, withRouter} from 'react-router-dom';
+import {HashRouter, withRouter} from 'react-router-dom';
 //import './App.css';
 import Menu from './components/Menu.js';
 import Footer from './components/Footer';
-
-
-import NotFound from './common/NotFound';
-import Profile from './components/UserPage/Profile.js';
-import PrivateRoute from './common/PrivateRoute';
-import MapForm from "./components/Map/MapForm";
-import LoginForm from "./components/authorization/LoginForm";
-import RegistrationForm from "./components/authorization/RegistrationForm.js";
 import {ACCESS_TOKEN} from "./constants";
 import {getCurrentUser} from "./util/APIUtils";
 import LoadingIndicator from "./common/LoadingIndicator";
 import Routes from "./components/Routes";
-import Home from "./components/Home/Home";
-import AppInfo from "./components/Home/AppInfo";
-
-import PlacePage from "./components/PlacePage";
-import UserPage from "./components/UserPage/UserPage";
-import UserPlaces from "./components/User/UserPlaces/UserPlaces";
-import RegisterPlace from "./components/RegisterPlace/RegisterPlace";
-import ForgotPasswordForm from "./components/authorization/ForgotPasswordForm";
-import RestorePasswordForm from "./components/authorization/RestorePasswordForm";
 
 class App extends Component {
     constructor(props) {
@@ -58,15 +41,14 @@ class App extends Component {
                 <div ref={this.app} className="app">
 
 
-                        <Menu/>
-                         <Routes
-                         authenticated={this.state.isAuthenticated}
-
-                          handleLogout={this.handleLogout}
-                         minHeight={this.state.routerHeight}/>
-
-
-                        <Footer/>
+                    <Menu/>
+                    <Routes
+                        isAuthenticated={this.state.isAuthenticated}
+                        handleLogout={this.handleLogout}
+                        handleLogin={this.handleLogin}
+                        minHeight={this.state.routerHeight}
+                        currentUser={this.state.currentUser}/>
+                    <Footer/>
 
                 </div>
             </HashRouter>
@@ -81,7 +63,6 @@ class App extends Component {
         });
         getCurrentUser()
             .then(response => {
-
                 this.setState({
                     currentUser: response,
                     isAuthenticated: true,
