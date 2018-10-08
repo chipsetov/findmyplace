@@ -67,7 +67,7 @@ public class FileStorageService {
             throw new FileStorageException("Can't store file: " + fileName + ". Try again", e);
         }
 
-        return Paths.get(folder, fileName).normalize().toString();
+        return Paths.get("download/", folder, fileName).normalize().toString();
     }
 
     public Resource downloadFile(String filePath) {

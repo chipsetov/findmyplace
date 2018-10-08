@@ -22,13 +22,6 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
-
-    @PostMapping("/upload")
-    public String fileUpload(@RequestParam("file") MultipartFile file) {
-        String link = fileStorageService.storeFile(file, "images");
-        return link;
-    }
-
     @GetMapping("/download/**")
     public ResponseEntity<Resource> fileDownload(HttpServletRequest request) {
 

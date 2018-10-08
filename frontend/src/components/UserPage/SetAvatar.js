@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Row, Input, Button } from 'react-materialize';
 import AvatarEditor from 'react-avatar-editor';
-import {setUserAvatar} from '../../util/APIUtils';
+import {getAvatar, setUserAvatar} from '../../util/APIUtils';
 
 
 class SetAvatar extends Component {
@@ -12,7 +12,18 @@ class SetAvatar extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             file: "../img/place.jpg"
-        }
+        };
+    }
+
+    componentDidMount() {
+        getAvatar()
+            .then(response => {
+                if(response) {
+                    this.setState({
+                        file: response
+                    })
+                }
+            })
     }
 
     handleChange(key, value) {
@@ -21,22 +32,35 @@ class SetAvatar extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.file);
 
-        const setAvatarRequest = {
-            file: this.state.file
-        };
+        const image = this.editor.getImageScaledToCanvas();
+        const dataURL = image.toDataURL();
+        const file = this.toBlobFile(dataURL);
 
-        setUserAvatar(this.state.file)
+        setUserAvatar(file)
             .then(response => {
-                window.Materialize.toast(response.message, 7000);
+                console.log(response);
             })
     }
+
+    toBlobFile(dataURL) {
+        const blobBin = atob(dataURL.split(',')[1]);
+        const array = [];
+        for(let i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i));
+        }
+        const file = new Blob([new Uint8Array(array)], {type: 'image/png'});
+
+        return file;
+    }
+
+    setEditorRef = (editor) => this.editor = editor;
 
     render() {
         return (
             <div>
                 <AvatarEditor
+                    ref={this.setEditorRef}
                     image={this.state.file}
                     width={300}
                     height={300}

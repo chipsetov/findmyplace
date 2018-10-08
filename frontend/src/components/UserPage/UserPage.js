@@ -11,6 +11,7 @@ import {getUserProfile} from "../../util/APIUtils";
 import { USER_ID } from "../../constants";
 
 import '../../styles/UserPage.css';
+import SetAvatar from "./SetAvatar";
 
 class UserPage extends Component {
     constructor(props) {
@@ -39,6 +40,7 @@ class UserPage extends Component {
             <div className="container-fluid">
                 <Tabs className="tab-menu">
                     <Tab title="Profile" className="tab-menu-item" active>
+                        <SetAvatar/>
                         <Profile
                             firstName={this.state.firstName}
                             lastName={this.state.lastName}

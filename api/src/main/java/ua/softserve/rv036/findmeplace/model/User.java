@@ -60,4 +60,6 @@ public class User extends DateAudit {
     @Column(name = "activationCode")
     private String activationCode;
 
+    @Column(name = "avatar_url")
+    private String avatarUrl;
 }

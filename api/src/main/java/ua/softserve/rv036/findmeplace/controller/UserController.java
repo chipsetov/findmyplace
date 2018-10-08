@@ -3,6 +3,8 @@ package ua.softserve.rv036.findmeplace.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +18,10 @@ import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
+import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 import ua.softserve.rv036.findmeplace.service.FileStorageService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -58,14 +62,33 @@ public class UserController {
     }
 
     @PostMapping("/set-avatar")
-    public String uploadAvatar(@RequestParam("file") MultipartFile file) {
+    @RolesAllowed({"ROLE_USER", "ROLE_OWNER", "ROLE_MANAGER", "ROLE_ADMIN"})
+    public ResponseEntity uploadAvatar(@RequestParam("file") MultipartFile file) {
+
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Optional<User> optional = userRepository.findById(userPrincipal.getId());
+        User user = optional.get();
 
         if(FileStorageService.isImage(file)) {
-            String link = fileStorageService.storeFile(file, "images");
-            return "Ok";
+            String link = fileStorageService.storeFile(file, "users/" + user.getId());
+            user.setAvatarUrl(link);
+            userRepository.save(user);
+            return new ResponseEntity(new ApiResponse(true, "Avatar changed"), HttpStatus.OK);
         }
 
-        return "Not ok";
+        return new ResponseEntity(new ApiResponse(false, "Avatar not changed"), HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("get-avatar")
+    @RolesAllowed({"ROLE_USER", "ROLE_OWNER", "ROLE_MANAGER", "ROLE_ADMIN"})
+    public Optional<String> getAvatar() {
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Optional<User> optional = userRepository.findById(userPrincipal.getId());
+        User user = optional.get();
+
+        return Optional.ofNullable(user.getAvatarUrl());
     }
 
     @PostMapping("/users/update")
