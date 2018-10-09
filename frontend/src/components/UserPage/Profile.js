@@ -6,6 +6,7 @@ import {updateProfile} from "../../util/APIUtils";
 import {USER_ID} from "../../constants";
 
 import '../../styles/UserPage.css';
+import SetAvatar from "./SetAvatar";
 
 export default class Profile extends BasePage {
     constructor(props) {
@@ -27,6 +28,11 @@ export default class Profile extends BasePage {
         return (
             <div ref="root" className="container">
                 <div className="profile-editor">
+                    <Row>
+                        <Col offset="s4">
+                            <SetAvatar handleAvatarUpdated={this.props.handleAvatarUpdated}/>
+                        </Col>
+                    </Row>
                     <Row className="user-page">
                         <Col s={4} offset="s2">
                             <p>first name:</p>

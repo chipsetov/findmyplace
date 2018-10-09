@@ -38,16 +38,16 @@ class UserPage extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <SetAvatar
-                    handleAvatarUpdated={this.props.handleAvatarUpdated}/>
                 <Tabs className="tab-menu">
                     <Tab title="Profile" className="tab-menu-item" active>
+
                         <Profile
                             firstName={this.state.firstName}
                             lastName={this.state.lastName}
                             userName={this.state.userName}
                             phone={this.state.phone}
                             email={this.state.email}
+                            handleAvatarUpdated={this.props.handleAvatarUpdated}
                         />
                     </Tab>
                     <Tab title="Booking" className="tab-menu-item"><Booking/></Tab>
