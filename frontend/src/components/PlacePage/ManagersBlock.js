@@ -51,8 +51,10 @@ class ManagersBlock extends Component {
                     managers: result,
                     viewAddManagers: false
                 })
-                window["Materialize"].toast(result.message, 3000);
-            })
+                window["Materialize"].toast("You add manager " + value + "  to this place", 3000);
+            }).catch((error) => {
+            window["Materialize"].toast(error.message, 3000);
+        })
     };
 
     viewAddManagers() {
