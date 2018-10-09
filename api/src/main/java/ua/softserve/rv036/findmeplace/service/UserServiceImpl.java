@@ -6,14 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ua.softserve.rv036.findmeplace.model.Place;
+import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.model.enums.BanStatus;
 import ua.softserve.rv036.findmeplace.model.enums.Role;
+import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
+import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -28,6 +34,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PlaceRepository placeRepository;
+
+    @Autowired
+    private Place_ManagerRepository placeManagerRepository;
 
     @Autowired
     private MailSender mailSender;
@@ -48,6 +60,21 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return true;
+    }
+
+    @Override
+    public List<User> getAllManagersByOwnerRole(Long ownerId) {
+        List<Long> idPlacesList = placeRepository.findAllByOwnerId(ownerId)
+                .stream()
+                .map(Place::getId)
+                .collect(Collectors.toList());
+
+        List<Long> idUsersList = placeManagerRepository.findAllByPlaceIdIn(idPlacesList)
+                .stream()
+                .map(Place_Manager::getUserId)
+                .collect(Collectors.toList());
+
+        return userRepository.findAllByIdIn(idUsersList);
     }
 
     public void sendEmailConfirmation(User user) throws IOException {

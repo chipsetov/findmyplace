@@ -15,6 +15,8 @@ import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
+import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +29,9 @@ public class UserController {
 
     @Autowired
     private PlaceRepository placeRepository;
+
+    @Autowired
+    private UserServiceImpl userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -44,6 +49,11 @@ public class UserController {
     @GetMapping("/user/{id}/places")
     public List<Place> getUserPlaces(@PathVariable Long id) {
         return placeRepository.findAllByOwnerId(id);
+    }
+
+    @GetMapping("/user/{id}/managers")
+    public List<User> getUserManagers(@PathVariable Long id) {
+        return userService.getAllManagersByOwnerRole(id);
     }
 
     @GetMapping("/users/nick/{nickname}")
