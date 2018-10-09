@@ -56,6 +56,7 @@ class LoginForm extends Component {
 
                         Session.login(response.accessToken);
 
+                        this.props.handleAvatarUpdated();
                         this.props.history.push("/map");
                         window.Materialize.toast('Welcome as: ' + localStorage.getItem(ROLE), 7000);
                     }

@@ -33,7 +33,10 @@ class Menu extends Component {
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#place/1'>Place</NavItem>
-                        <Logout isLoggedIn={isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
+                        <Logout
+                            userAvatar={this.props.userAvatar}
+                            isLoggedIn={isLoggedIn}
+                            logout={this.onLogoutHandler.bind(this)}/>
                         <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>
                             <Button waves="light">
                                 Sign Up

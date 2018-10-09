@@ -8,22 +8,22 @@ class SetAvatar extends Component {
 
     constructor(props) {
         super(props);
-
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            file: "../img/place.jpg"
+            avatar: ""
         };
+
     }
 
     componentDidMount() {
-        getAvatar()
-            .then(response => {
-                if(response) {
-                    this.setState({
-                        file: response
-                    })
-                }
-            })
+        // getAvatar()
+        //     .then(response => {
+        //         if(response) {
+        //             this.setState({
+        //                 avatar: response
+        //             })
+        //         }
+        //     })
     }
 
     handleChange(key, value) {
@@ -39,8 +39,11 @@ class SetAvatar extends Component {
 
         setUserAvatar(file)
             .then(response => {
-                console.log(response);
-            })
+                if(response.ok) {
+                    window.Materialize.toast("Avatar changed", 3000);
+                    this.props.handleAvatarUpdated();
+                }
+            });
     }
 
     toBlobFile(dataURL) {
@@ -61,16 +64,16 @@ class SetAvatar extends Component {
             <div>
                 <AvatarEditor
                     ref={this.setEditorRef}
-                    image={this.state.file}
+                    image={this.state.avatar}
                     width={300}
                     height={300}
-                    color={[255, 255, 255, 0.6]} // RGBA
+                    color={[255, 255, 255, 0.6]}
                 />
                 <Row>
                     <Input
                         type="file"
                         label="Choose file"
-                        onChange={e => this.handleChange("file", e.target.files[0])}
+                        onChange={e => this.handleChange("avatar", e.target.files[0])}
                     />
                 </Row>
                 <Row>
