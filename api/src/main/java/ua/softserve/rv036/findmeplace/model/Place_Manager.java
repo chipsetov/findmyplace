@@ -2,7 +2,6 @@ package ua.softserve.rv036.findmeplace.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -12,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "places_managers")
 public class Place_Manager {
 
-public Place_Manager(Long userId, Long placeId) {
+    public Place_Manager(Long userId, Long placeId) {
         this.userId = userId;
         this.placeId = placeId;
     }

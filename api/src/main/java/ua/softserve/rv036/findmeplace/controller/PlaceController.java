@@ -3,11 +3,14 @@ package ua.softserve.rv036.findmeplace.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Feedback;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.Place_Manager;
+import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
+import ua.softserve.rv036.findmeplace.model.enums.Role;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
@@ -54,26 +57,34 @@ public class PlaceController {
 
 
     @GetMapping("/places/{id}/managers")
-    List<Place_Manager> managersByPlaceId(@PathVariable Long id) {
+    List<Place_Manager> managersByPlaceId(@PathVariable("id") Long id) {
         return placeManagerRepository.findAllByPlaceId(id);
     }
 
     @PostMapping("/places/delete-manager/{id}")
-    List<Place_Manager> deletePlaceManagerById(@PathVariable Long id) {
+    ResponseEntity deletePlaceManagerById(@PathVariable Long id) {
         Long idPlace = placeManagerRepository.findById(id).get().getPlaceId();
         placeManagerRepository.deleteById(id);
-        return placeManagerRepository.findAllByPlaceId(idPlace);
+        return new ResponseEntity(placeManagerRepository.findAllByPlaceId(idPlace), HttpStatus.OK);
     }
 
     @PostMapping("/places/{id}/add-manager/{value}")
     ResponseEntity addPlaceManager(@Valid @PathVariable Long id, @Valid @PathVariable String value) {
-        Long idUser = userRepository.findByNickName(value).get().getId();
-        if (placeManagerRepository.existsByUserIdAndPlaceId(idUser, id)){
-            return new ResponseEntity(new ApiResponse(false, "This manager already add to this place"),
+        try {
+            User user = userRepository.findByNickName(value)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            Long idUser = user.getId();
+            if (placeManagerRepository.existsByUserIdAndPlaceId(idUser, id)) {
+                return new ResponseEntity(new ApiResponse(false, "This manager already add to this place"),
+                        HttpStatus.BAD_REQUEST);
+            } else {
+                Place_Manager result = placeManagerRepository.save(new Place_Manager(idUser, id));
+                user.setRole(Role.ROLE_MANAGER);
+                return new ResponseEntity(placeManagerRepository.findAllByPlaceId(id), HttpStatus.CREATED);
+            }
+        }catch (UsernameNotFoundException e){
+            return new ResponseEntity(new ApiResponse(false, e.getMessage()),
                     HttpStatus.BAD_REQUEST);
-        } else {
-            Place_Manager result = placeManagerRepository.save(new Place_Manager(idUser, id));
-            return new ResponseEntity(placeManagerRepository.findAllByPlaceId(id), HttpStatus.CREATED);
         }
     }
 
@@ -85,7 +96,7 @@ public class PlaceController {
     @PostMapping("/places/register")
     @RolesAllowed("ROLE_OWNER")
     ResponseEntity registerPlace(@Valid @RequestBody Place place) {
-        if(placeRepository.existsByName(place.getName())) {
+        if (placeRepository.existsByName(place.getName())) {
             return new ResponseEntity(new ApiResponse(Boolean.FALSE, "Place is already exist"),
                     HttpStatus.BAD_REQUEST);
         } else {
