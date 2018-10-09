@@ -1,6 +1,5 @@
 package ua.softserve.rv036.findmeplace.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,20 +8,20 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import ua.softserve.rv036.findmeplace.model.Place;
-import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
+import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.utils.TestUtil;
 
-import java.sql.Time;
-import java.time.LocalTime;
+import java.util.Collections;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -36,8 +35,14 @@ public class PlaceControllerTest {
     @MockBean
     private PlaceController placeController;
 
+    private Place_Manager place_manager;
+
+    private List<Place_Manager> place_managerList;
+
     @Before
     public void setUp() throws Exception {
+        place_manager = TestUtil.createPlaceManager();
+        place_managerList = Collections.singletonList(place_manager);
     }
 
     @Test
@@ -56,6 +61,16 @@ public class PlaceControllerTest {
         mvc.perform(post("/places/register")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(placeQuery))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void managersByPlaceId() throws Exception {
+
+        given(placeController.managersByPlaceId(place_manager.getPlaceId())).willReturn(place_managerList);
+
+        mvc.perform(get("/places/{id}/managers", 1L)
+                .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }
