@@ -119,7 +119,7 @@ class LoginForm extends Component {
 
                         </div>
 
-                        <h3>Sign In</h3>
+                        <h2>Sign In</h2>
                         <div className="errorMsg">{this.state.error}</div>
                         <Row>
                             <Input

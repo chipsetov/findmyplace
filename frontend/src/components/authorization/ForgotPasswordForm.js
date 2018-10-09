@@ -91,7 +91,7 @@ class ForgotPasswordForm extends Component {
                             <div className="errorMsg">{this.state.error}</div>
                         </Row>
                         <div className="confirm-row">
-                            <Button waves="light" type="submit"></Button>
+                            <Button waves="light" type="submit">Send</Button>
 
                         </div>
                     </form>

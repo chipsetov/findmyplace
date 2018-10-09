@@ -105,7 +105,7 @@ class RestorePasswordForm extends Component {
                                 value={this.state.confirm_password}
                                 placeholder="CONFIRM PASSWORD"
                                 onChange={e => this.handleChange("confirm_password", e.target.value)}
-                                s={12} rontend
+                                s={12}
 
                             />
                         </Row>

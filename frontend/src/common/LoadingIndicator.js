@@ -11,12 +11,13 @@ export default function LoadingIndicator() {
 
         width: "50%",
         fontSize: "35px",
+        fontStyle: "italic",
     };
 
     return (
         <div style={style}>
             <OverlayLoader
-                color={'red'}
+                color={'#CD5C5C'}
                 size={25}
                 loader="ScaleLoader"
                 text="Loading... Please wait!"
