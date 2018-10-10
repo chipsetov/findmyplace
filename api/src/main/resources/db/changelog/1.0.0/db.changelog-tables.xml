@@ -118,6 +118,10 @@
             <column name="owner_id" type="int">
                 <constraints nullable="true" foreignKeyName="fk_owner_id" references="users(id)"/>
             </column>
+
+            <column name="is_approved" type="boolean">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

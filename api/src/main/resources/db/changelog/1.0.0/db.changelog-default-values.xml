@@ -76,6 +76,7 @@
             <column name="count_free_places" value="5"/>
             <column name="place_type" value="CAFE"/>
             <column name="owner_id" value="1"/>
+            <column name="is_approved" value="TRUE"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="Манхетен"/>
@@ -89,6 +90,7 @@
             <column name="count_free_places" value="10"/>
             <column name="place_type" value="HOTEL"/>
             <column name="owner_id" value="1"/>
+            <column name="is_approved" value="TRUE"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="Стоянка МИР"/>
@@ -102,6 +104,7 @@
             <column name="count_free_places" value="7"/>
             <column name="place_type" value="PARKING"/>
             <column name="owner_id" value="1"/>
+            <column name="is_approved" value="TRUE"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="МакДональдз"/>
@@ -115,6 +118,7 @@
             <column name="count_free_places" value="20"/>
             <column name="place_type" value="RESTAURANT"/>
             <column name="owner_id" value="1"/>
+            <column name="is_approved" value="TRUE"/>
         </insert>
     </changeSet>
 
