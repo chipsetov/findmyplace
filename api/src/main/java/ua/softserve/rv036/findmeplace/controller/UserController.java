@@ -20,6 +20,7 @@ import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.CurrentUser;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/user/me")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @RolesAllowed({"ROLE_USER", "ROLE_MANAGER", "ROLE_OWNER", "ROLE_ADMIN"})
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
         UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getAuthority().getAuthority());
         return userSummary;

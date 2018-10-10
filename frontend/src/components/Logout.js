@@ -25,7 +25,7 @@ export default class Logout extends Component {
     }
 
     onClickHandler() {
-        this.props.logout();
+        this.props.handleLogout();
     }
 
 }

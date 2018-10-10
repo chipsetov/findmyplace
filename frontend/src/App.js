@@ -41,7 +41,10 @@ class App extends Component {
                 <div ref={this.app} className="app">
 
 
-                    <Menu/>
+                    <Menu
+                        isAuthenticated={this.state.isAuthenticated}
+                        handleLogout={this.handleLogout}
+                    />
                     <Routes
                         isAuthenticated={this.state.isAuthenticated}
                         handleLogout={this.handleLogout}
@@ -84,7 +87,7 @@ class App extends Component {
         });
 
         this.props.history.push(redirectTo);
-        window.Materialize.toast(description, 3000);
+        window.Materialize.toast(description, 7000);
 
     }
 
