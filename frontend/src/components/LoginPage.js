@@ -13,7 +13,7 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <LoginForm />
+            <LoginForm handleAvatarUpdated={this.props.handleAvatarUpdated}/>
         );
     }
 

@@ -59,6 +59,10 @@
             <column name="activation_code" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
+
+            <column name="avatar_url" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
             <addUniqueConstraint columnNames="email, nick_name" constraintName="user_unique"
                               tableName="users"/>

@@ -21,11 +21,19 @@ export default class Routes extends Component {
             <div id="router" style={style}>
                 <Route path="//" component={Home}/>
                 <Route path="/app-info" component={AppInfo}/>
-                <Route path="/sign-in" component={LoginPage}/>
+                <Route path="/sign-in"
+                       render={(routeProps) => <LoginPage {...routeProps}
+                                                          handleAvatarUpdated={this.props.handleAvatarUpdated}/>
+                       }
+                />
                 <Route path="/sign-up" component={RegistrationForm}/>
                 <Route path="/map" component={MapForm}/>
                 <Route path="/place/:placeId" component={PlacePage}/>
-                <Route path="/user/profile" component={UserPage}/>
+                <Route path="/user/profile"
+                       render={(routeProps) => <UserPage {...routeProps}
+                                                         handleAvatarUpdated={this.props.handleAvatarUpdated}/>
+                       }
+                />
                 <Route path="/user/:id/places" component={UserPlaces}/>
                 <Route path="/register-place" component={RegisterPlace}/>
             </div>

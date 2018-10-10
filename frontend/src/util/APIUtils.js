@@ -39,6 +39,34 @@ export const deleteRequest = (options) => {
         }).catch(error => error);
 };
 
+export const uploadFileRequest = (options) => {
+    const headers = new Headers();
+
+    if(localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', TOKEN_TYPE + " " + localStorage.getItem(ACCESS_TOKEN));
+    }
+
+    const defaults = {headers: headers};
+
+    options = Object.assign({}, defaults, options);
+
+    return fetch(options.url, options)
+        .then(response => {
+                return response;
+        })
+};
+
+export function setUserAvatar(avatarImage) {
+    const formData = new FormData();
+    formData.append('file', avatarImage, 'a.png');
+    return uploadFileRequest({
+        url: API_BASE_URL + '/set-avatar',
+        method: 'POST',
+        body: formData
+    });
+}
+
+
 export function login(loginRequest) {
     return request({
         url: API_BASE_URL + "/auth/signin",
@@ -71,6 +99,11 @@ export const updateProfile = profile => request({
     url: API_BASE_URL + "/users/update",
     method: 'POST',
     body: JSON.stringify(profile)
+});
+
+export const getAvatar = () => request({
+    url: API_BASE_URL + '/get-avatar',
+    method: 'GET'
 });
 
 export function filterPlace(filterRequest) {

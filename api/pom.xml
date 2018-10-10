@@ -88,6 +88,11 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>4.3.9.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.jmimemagic</groupId>
+			<artifactId>jmimemagic</artifactId>
+			<version>0.1.5</version>
+		</dependency>
 
 	</dependencies>
 

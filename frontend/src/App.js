@@ -4,32 +4,50 @@ import Routes from './components/Routes';
 //import './App.css';
 import Menu from './components/Menu.js';
 import Footer from './components/Footer';
+import {getAvatar} from "./util/APIUtils";
+import {Session} from "./utils";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.app = React.createRef();
-
         this.state = {
-            routerHeight: 0
-        }
+            routerHeight: 0,
+            userAvatar: "img/avatar.png",
+        };
     }
 
     render() {
         return (
             <HashRouter>
                 <div ref={this.app} className="app">
-                    <Menu />
-                    <Routes minHeight={this.state.routerHeight}/>
+                    <Menu userAvatar={this.state.userAvatar}/>
+                    <Routes
+                        handleAvatarUpdated={this.handleAvatarUpdated.bind(this)}
+                        minHeight={this.state.routerHeight}/>
                     <Footer />
                 </div>
             </HashRouter>
         );
     }
 
+    handleAvatarUpdated() {
+        if(Session.isLoggedIn()) {
+            getAvatar()
+                .then(response => {
+                    if(response) {
+                        this.setState({
+                            userAvatar: response
+                        });
+                    }
+                });
+        }
+    }
+
     componentDidMount() {
         this.resize();
+        this.handleAvatarUpdated();
         window.addEventListener('resize', this.onResizeHandler.bind(this));
     }
 
