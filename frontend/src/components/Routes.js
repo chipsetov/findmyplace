@@ -10,6 +10,7 @@ import RegisterPlace from "./RegisterPlace/RegisterPlace";
 import AppInfo from "./Home/AppInfo";
 import UserPlaces from "./User/UserPlaces/UserPlaces";
 import {Session} from "../utils";
+import AdminPage from "./Admin/AdminPage";
 
 export default class Routes extends Component {
 
@@ -30,6 +31,7 @@ export default class Routes extends Component {
                 <Route path="/user/profile" component={UserPage}/>
                 <Route path={`/user/${userId}/places`} component={UserPlaces}/>
                 <Route path="/register-place" component={RegisterPlace}/>
+                <Route path="/admin-page" component={AdminPage}/>
             </div>
         );
     }
