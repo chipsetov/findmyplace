@@ -18,7 +18,7 @@ public class FeedbackService {
     public boolean saveFeedback(@Valid @RequestBody FeedbackRequest request){
 
         Feedback feedback = new Feedback(
-                request.getComment(), request.getMark(), request.getUserId(), request.getPlaceId());
+                request.getComment(),  request.getUserId(), request.getPlaceId());
         feedbackRepository.save(feedback);
         return true;
 

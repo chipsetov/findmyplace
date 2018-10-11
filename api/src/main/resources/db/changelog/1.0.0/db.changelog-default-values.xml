@@ -139,4 +139,23 @@
             <column name="place_id" value="1"/>
         </insert>
     </changeSet>
+
+    <!-- Marks -->
+    <changeSet id="4" author="rv036">
+        <insert tableName="mark">
+            <column name="mark" value="2"/>
+            <column name="user_id" value="2"/>
+            <column name="place_id" value="1"/>
+        </insert>
+        <insert tableName="mark">
+            <column name="mark" value="4"/>
+            <column name="user_id" value="3"/>
+            <column name="place_id" value="1"/>
+        </insert>
+        <insert tableName="mark">
+            <column name="mark" value="5"/>
+            <column name="user_id" value="4"/>
+            <column name="place_id" value="1"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

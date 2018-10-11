@@ -13,31 +13,31 @@
             </column>
 
             <column name="first_name" type="varchar(255)">
-                <constraints nullable = "true"/>
+                <constraints nullable="true"/>
             </column>
 
             <column name="last_name" type="varchar(255)">
-                <constraints nullable = "true"/>
+                <constraints nullable="true"/>
             </column>
 
             <column name="phone" type="varchar(255)">
-                <constraints nullable = "true"/>
+                <constraints nullable="true"/>
             </column>
 
             <column name="email" type="varchar(255)">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="nick_name" type="varchar(255)">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="password" type="varchar(255)">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="role" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="true"/>
             </column>
 
             <column name="ban_status" type="varchar(255)">
@@ -60,8 +60,8 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-            <addUniqueConstraint columnNames="email, nick_name" constraintName="user_unique"
-                              tableName="users"/>
+        <addUniqueConstraint columnNames="email, nick_name" constraintName="user_unique"
+                             tableName="users"/>
     </changeSet>
 
     <!-- Places -->
@@ -72,35 +72,35 @@
             </column>
 
             <column name="name" type="varchar(255)">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="address" type="varchar(255)">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="rating" type="decimal">
-                <constraints nullable = "true"/>
+                <constraints nullable="true"/>
             </column>
 
             <column name="description" type="varchar(255)">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="latitude" type="decimal">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="longitude" type="decimal">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="open" type="time">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="close" type="time">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="count_free_places" type="int">
@@ -125,11 +125,11 @@
             </column>
 
             <column name="comment" type="varchar(255)">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="mark" type="int">
-                <constraints nullable = "false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="user_id" type="int">
@@ -141,6 +141,29 @@
                 <constraints nullable="false" foreignKeyName="fk_place_id" references="places(id)"
                              deleteCascade="true"/>
             </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Marks -->
+    <changeSet id="4" author="rv036">
+        <createTable tableName="mark">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="mark" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="user_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)"
+                             deleteCascade="true"/>
+            </column>
+            <column name="place_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_place_id" references="places(id)"
+                             deleteCascade="true"/>
+            </column>
+
         </createTable>
     </changeSet>
 </databaseChangeLog>

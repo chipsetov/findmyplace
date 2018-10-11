@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 
-    @Query("select new ua.softserve.rv036.findmeplace.model.Feedback(f.id, f.comment, f.mark, f.userId, f.placeId)" +
+    @Query("select new ua.softserve.rv036.findmeplace.model.Feedback(f.id, f.comment, f.userId, f.placeId)" +
     "from Feedback f, User u where f.userId = u.id and f.placeId = :id")
     List<Feedback> findAllByPlaceId(@Param("id") Long id);
 
