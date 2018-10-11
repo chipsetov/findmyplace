@@ -73,25 +73,25 @@ public class UserServiceImpl implements UserService {
         Long userId = updateProfileRequest.getUserId();
         Optional<User> optional = userRepository.findById(userId);
 
-        if (optional.isPresent()) {
-            User user = optional.get();
-            String firstName = updateProfileRequest.getFirstName();
-            String lastName = updateProfileRequest.getLastName();
-            String nickName = updateProfileRequest.getNickName();
-            String email = updateProfileRequest.getEmail();
-
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setNickName(nickName);
-            user.setEmail(email);
-
-            userRepository.save(user);
-
-            return ResponseEntity.ok(new ApiResponse(true, "Your profile was changed successfully"));
+        if (!optional.isPresent()) {
+            ApiResponse response = new ApiResponse(false, "User by id " + userId + " doesn't exist!");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
 
-        ApiResponse response = new ApiResponse(false, "User by id " + userId + " doesn't exist!");
-        return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        User user = optional.get();
+        String firstName = updateProfileRequest.getFirstName();
+        String lastName = updateProfileRequest.getLastName();
+        String nickName = updateProfileRequest.getNickName();
+        String email = updateProfileRequest.getEmail();
+
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setNickName(nickName);
+        user.setEmail(email);
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new ApiResponse(true, "Your profile was changed successfully"));
     }
 
     @Override
@@ -99,24 +99,25 @@ public class UserServiceImpl implements UserService {
         Long userId = updateProfileRequest.getUserId();
         Optional<User> optional = userRepository.findById(userId);
 
-        if (optional.isPresent()) {
-            User user = optional.get();
-            String password = updateProfileRequest.getPassword();
-            String newPassword = updateProfileRequest.getNewPassword();
-
-            if (!passwordEncoder.matches(password, user.getPassword())) {
-                ApiResponse response = new ApiResponse(false, "You have entered invalid password");
-                return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
-            }
-
-            user.setPassword(passwordEncoder.encode(newPassword));
-            userRepository.save(user);
-
-            return ResponseEntity.ok(new ApiResponse(true, "Your password was changed successfully"));
+        if (!optional.isPresent()) {
+            ApiResponse response = new ApiResponse(false, "User by id " + userId + " doesn't exist!");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
 
-        ApiResponse response = new ApiResponse(false, "User by id " + userId + " doesn't exist!");
-        return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        User user = optional.get();
+        String password = updateProfileRequest.getPassword();
+        String newPassword = updateProfileRequest.getNewPassword();
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            ApiResponse response = new ApiResponse(false, "You have entered invalid password");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new ApiResponse(true, "Your password was changed successfully"));
     }
 
 }
