@@ -7,9 +7,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Feedback;
 import ua.softserve.rv036.findmeplace.model.Place;
+import ua.softserve.rv036.findmeplace.model.PlaceReject;
 import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
+import ua.softserve.rv036.findmeplace.repository.PlaceRejectRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
@@ -29,6 +31,8 @@ public class PlaceController {
     private FeedbackRepository feedbackRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PlaceRejectRepository placeRejectRepository;
 
     @GetMapping("place/map")
     List<Place> getPlace() {
@@ -81,10 +85,27 @@ public class PlaceController {
             place.setRating(0.0);
             place.setOwnerId(userPrincipal.getId());
             place.setApproved(false);
+            place.setRejected(false);
             Place result = placeRepository.save(place);
 
             return new ResponseEntity(result, HttpStatus.CREATED);
         }
+    }
+
+    @PostMapping("/places/reject")
+    @RolesAllowed("ROLE_ADMIN")
+    ResponseEntity rejectPlace(@Valid @RequestBody PlaceReject placeReject) {
+        Optional<Place> optionalPlace = placeRepository.findById(placeReject.getPlaceId());
+
+        if(!optionalPlace.isPresent()) {
+            ApiResponse response = new ApiResponse(false, "Place with id " + placeReject.getPlaceId() + " doesn't exist!");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+        Place place = optionalPlace.get();
+        place.setRejected(true);
+        placeRejectRepository.save(placeReject);
+
+        return new ResponseEntity(new ApiResponse(true, "Place successful rejected"), HttpStatus.OK);
     }
 
 }

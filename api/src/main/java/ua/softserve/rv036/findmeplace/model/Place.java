@@ -66,4 +66,7 @@ public class Place {
 
     @Column(name = "is_approved")
     private boolean approved;
+
+    @Column(name = "is_rejected")
+    private boolean rejected;
 }

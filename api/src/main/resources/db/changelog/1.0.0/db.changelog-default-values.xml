@@ -77,6 +77,7 @@
             <column name="place_type" value="CAFE"/>
             <column name="owner_id" value="1"/>
             <column name="is_approved" value="TRUE"/>
+            <column name="is_rejected" value="FALSE"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="Манхетен"/>
@@ -91,6 +92,7 @@
             <column name="place_type" value="HOTEL"/>
             <column name="owner_id" value="1"/>
             <column name="is_approved" value="TRUE"/>
+            <column name="is_rejected" value="FALSE"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="Стоянка МИР"/>
@@ -105,6 +107,7 @@
             <column name="place_type" value="PARKING"/>
             <column name="owner_id" value="1"/>
             <column name="is_approved" value="TRUE"/>
+            <column name="is_rejected" value="FALSE"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="МакДональдз"/>
@@ -119,6 +122,7 @@
             <column name="place_type" value="RESTAURANT"/>
             <column name="owner_id" value="1"/>
             <column name="is_approved" value="TRUE"/>
+            <column name="is_rejected" value="FALSE"/>
         </insert>
     </changeSet>
 

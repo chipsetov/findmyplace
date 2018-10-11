@@ -12,25 +12,25 @@ import java.util.Optional;
 
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Long> {
-    @Query("SELECT p FROM Place p WHERE p.approved = true")
+    @Query("SELECT p FROM Place p WHERE p.approved = true and p.rejected = false")
     List<Place> findAll();
 
-    @Query("SELECT p FROM Place p WHERE p.approved = true")
+    @Query("SELECT p FROM Place p WHERE p.approved = true and p.rejected = false")
     List<Place> findByPlaceType(PlaceType placeType);
 
-    @Query("select p from Place p where p.approved = true")
+    @Query("select p from Place p where p.approved = true and p.rejected = false")
     List<Place> findByPlaceTypeIn(List<PlaceType> placeTypes);
 
-    @Query("select p from Place p where p.approved = true")
+    @Query("select p from Place p where p.approved = true and p.rejected = false")
     List<Place> findByNameIn(String searchValue);
 
-    @Query("select p from Place p where p.approved = true")
-    List<Place> findAllByOwnerId(Long id);
+    @Query("select p from Place p where p.approved = true and p.rejected = false and p.ownerId = :id")
+    List<Place> findAllByOwnerId(@Param("id") Long id);
 
-    @Query("select p from Place p where p.approved = false")
+    @Query("select p from Place p where p.approved = false and p.rejected = false")
     List<Place> findAllNotApproved();
 
-    @Query("select p from Place p where p.approved = false and p.id = :id")
+    @Query("select p from Place p where p.approved = false and p.rejected = false and p.id = :id")
     Optional<Place> findNotApprovedById(@Param("id") Long id);
 
     Boolean existsByName(String name);
