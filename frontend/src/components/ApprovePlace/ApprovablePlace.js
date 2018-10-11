@@ -2,12 +2,23 @@ import React, {Component} from "react";
 import {Card, CardTitle, Col, Row, Button} from "react-materialize";
 import {Link} from "react-router-dom";
 import RejectModal from "./RejectModal";
+import {approvePlace} from "../../util/APIUtils";
 
 class ApprovablePlace extends Component {
 
     constructor(props) {
         super(props);
     }
+
+    handleApprove = () => {
+        approvePlace(this.props.placeId)
+            .then(response => {
+                if(response.ok) {
+                    window.Materialize.toast("Place approved", 1500);
+                }
+                else window.Materialize.toast(response.message, 1500);
+            });
+    };
 
     render() {
         return(
@@ -26,7 +37,7 @@ class ApprovablePlace extends Component {
 
                 <Row>
                     <Col s={6}>
-                        <Button waves="light">Approve</Button>
+                        <Button waves="light" onClick={this.handleApprove}>Approve</Button>
                     </Col>
                     <Col s={6}>
                         <RejectModal

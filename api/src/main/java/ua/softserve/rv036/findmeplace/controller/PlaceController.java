@@ -98,14 +98,54 @@ public class PlaceController {
         Optional<Place> optionalPlace = placeRepository.findById(placeReject.getPlaceId());
 
         if(!optionalPlace.isPresent()) {
-            ApiResponse response = new ApiResponse(false, "Place with id " + placeReject.getPlaceId() + " doesn't exist!");
+            ApiResponse response = new ApiResponse(false,
+                    "Place with id " + placeReject.getPlaceId() + " doesn't exist!");
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
         Place place = optionalPlace.get();
+
+        if(place.isApproved()) {
+            ApiResponse response = new ApiResponse(false,
+                    "Place with id " + placeReject.getPlaceId() + " already approved!");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if(place.isRejected()) {
+            ApiResponse response = new ApiResponse(false,
+                    "Place with id " + placeReject.getPlaceId() + " already rejected!");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
         place.setRejected(true);
+        placeRepository.save(place);
         placeRejectRepository.save(placeReject);
 
         return new ResponseEntity(new ApiResponse(true, "Place successful rejected"), HttpStatus.OK);
+    }
+
+    @PutMapping("/places/approve/{id}")
+    @RolesAllowed("ROLE_ADMIN")
+    ResponseEntity approvePlace(@PathVariable Long id) {
+        Optional<Place> optionalPlace = placeRepository.findById(id);
+
+        if(!optionalPlace.isPresent()) {
+            ApiResponse response = new ApiResponse(false,
+                    "Place doesn't exist!");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+
+        Place place = optionalPlace.get();
+
+        if(place.isApproved()) {
+            ApiResponse response = new ApiResponse(false,
+                    "Place with id " + place.getId() + " already approved!");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+
+        place.setRejected(false);
+        place.setApproved(true);
+
+        placeRepository.save(place);
+        return new ResponseEntity(new ApiResponse(true, "Place successful approved"), HttpStatus.OK);
     }
 
 }

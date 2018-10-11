@@ -29,12 +29,12 @@ class ApprovablePlaces extends Component {
 
         return(
             <Row className="user-places-wrapper">
-                <Row className="places-search">
-                    <Col s={3}>
-                        <SearchPlace />
-                    </Col>
-                    <Link to={`/register-place`} id="register-place">Add place</Link>
-                </Row>
+                {/*<Row className="places-search">*/}
+                    {/*<Col s={3}>*/}
+                        {/*<SearchPlace />*/}
+                    {/*</Col>*/}
+                    {/*<Link to={`/register-place`} id="register-place">Add place</Link>*/}
+                {/*</Row>*/}
                 <Row className="places-container">
                     {
                         places.map((item) => (

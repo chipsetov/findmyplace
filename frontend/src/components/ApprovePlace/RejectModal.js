@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Input, Col, Button, Row} from "react-materialize";
 import Modal from 'react-responsive-modal';
+import {rejectPlace} from "../../util/APIUtils";
 
 class RejectModal extends Component {
     constructor(props) {
@@ -30,13 +31,18 @@ class RejectModal extends Component {
     }
 
     handleSubmit() {
-        //TODO: send reject data to server
         const data = {
             placeId: this.props.placeId,
             rejectMessage: this.state.rejectMessage,
         };
-        console.log(data);
-        window.Materialize.toast("Place rejected", 1500);
+
+        rejectPlace(data)
+            .then(response => {
+                if(response.ok) {
+                    window.Materialize.toast("Place rejected", 1500);
+                }
+                else window.Materialize.toast(response.message, 1500);
+            });
         this.handleClose();
     };
 
