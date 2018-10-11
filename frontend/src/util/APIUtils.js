@@ -75,6 +75,13 @@ export function login(loginRequest) {
     });
 }
 
+export function getApprovePlaces(loginRequest) {
+    return request({
+        url: API_BASE_URL + "/places/not-approved",
+        method: 'GET',
+    });
+}
+
 export function signup(signupRequest) {
     return request({
         url: API_BASE_URL + "/auth/signup",

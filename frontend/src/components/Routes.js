@@ -9,6 +9,7 @@ import UserPage from "./UserPage/UserPage";
 import RegisterPlace from "./RegisterPlace/RegisterPlace";
 import AppInfo from "./Home/AppInfo";
 import UserPlaces from "./User/UserPlaces/UserPlaces";
+import ApprovablePlaces from "./ApprovePlace/ApprovablePlaces"
 
 export default class Routes extends Component {
 
@@ -36,6 +37,7 @@ export default class Routes extends Component {
                 />
                 <Route path="/user/:id/places" component={UserPlaces}/>
                 <Route path="/register-place" component={RegisterPlace}/>
+                <Route path="/approve-places" component={ApprovablePlaces}/>
             </div>
         );
     }

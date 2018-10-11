@@ -2,7 +2,6 @@ import React, { Component, createRef } from 'react';
 import {Row, Input, Button} from 'react-materialize';
 import PutMarker from "./PutMarker";
 import {registerPlace} from '../../util/APIUtils';
-import {USER_ID} from '../../constants';
 import { Session } from "../../utils";
 import { Redirect } from 'react-router-dom';
 import "../../styles/RegisterPlace.css";
@@ -27,7 +26,6 @@ class RegisterPlace extends Component {
 
             latitude: 50.6219427,
             longitude: 26.2493254,
-            ownerId: localStorage.getItem(USER_ID),
 
             placeTypes: [],
 
@@ -105,7 +103,6 @@ class RegisterPlace extends Component {
                 description: this.state.description,
                 longitude: this.state.longitude,
                 latitude: this.state.latitude,
-                ownerId: this.state.ownerId,
             };
             console.log(JSON.stringify(registerPlaceRequest));
 
@@ -131,7 +128,6 @@ class RegisterPlace extends Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result);
                     this.setState({
                         placeTypes: result
                     });
