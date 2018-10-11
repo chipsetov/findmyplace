@@ -64,4 +64,12 @@ public class Place {
     @Column(name = "owner_id")
     private Long ownerId;
 
+    public void incrementFreePlaces() {
+        countFreePlaces++;
+    }
+
+    public void decrementFreePlaces() {
+        countFreePlaces--;
+    }
+
 }

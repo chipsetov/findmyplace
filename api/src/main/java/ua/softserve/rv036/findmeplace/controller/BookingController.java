@@ -2,13 +2,17 @@ package ua.softserve.rv036.findmeplace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Booking;
 import ua.softserve.rv036.findmeplace.model.Place;
+import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.BookingRequest;
 import ua.softserve.rv036.findmeplace.repository.BookingRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
+import ua.softserve.rv036.findmeplace.repository.UserRepository;
+import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +22,9 @@ import java.util.Optional;
 public class BookingController {
     @Autowired
     private PlaceRepository placeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private BookingRepository bookingRepository;
@@ -48,6 +55,16 @@ public class BookingController {
 
     @PostMapping("/place")
     public ResponseEntity bookPlace(@RequestBody BookingRequest bookingRequest) {
+        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        final String userName = principal.getUsername();
+
+        User user = userRepository.findByNickName(userName).orElse(null);
+
+        if (user == null) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "User does't exist"));
+        }
+
         final Long placeId = bookingRequest.getPlaceId();
         final Optional<Place> opt = placeRepository.findById(placeId);
         final Place place = opt.orElse(null);
@@ -62,8 +79,12 @@ public class BookingController {
             return ResponseEntity.ok().body(new ApiResponse(true, "It hasn't free places"));
         }
 
-        final Long userId = bookingRequest.getUserId();
-        final Booking booking = new Booking(userId, placeId);
+        place.decrementFreePlaces();
+        placeRepository.save(place);
+
+        final Long userId = user.getId();
+        final String bookingTime = bookingRequest.getBookingTime();
+        final Booking booking = new Booking(userId, placeId, bookingTime);
 
         bookingRepository.save(booking);
 

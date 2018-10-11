@@ -145,16 +145,19 @@
         <insert tableName="booking">
             <column name="user_id" value="1"/>
             <column name="place_id" value="1"/>
+            <column name="booking_time" value="10:00:00"/>
             <column name="status" value="0"/>
         </insert>
         <insert tableName="booking">
             <column name="user_id" value="1"/>
             <column name="place_id" value="2"/>
+            <column name="booking_time" value="12:00:00"/>
             <column name="status" value="0"/>
         </insert>
         <insert tableName="booking">
             <column name="user_id" value="1"/>
-            <column name="place_id" value="2"/>
+            <column name="place_id" value="3"/>
+            <column name="booking_time" value="13:30:00"/>
             <column name="status" value="0"/>
         </insert>
     </changeSet>

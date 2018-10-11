@@ -4,7 +4,10 @@ import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
 import Info from './Info.js';
-import { PAGE_CHANGED } from "../../utils";
+import {checkBookingTime, PAGE_CHANGED} from "../../utils";
+import { bookPlace } from "../../util/APIUtils";
+
+const toast = window["Materialize"].toast;
 
 class PlacePage extends Component {
 
@@ -45,7 +48,7 @@ class PlacePage extends Component {
                     <h2>{place.address}</h2>
                 </Row>
                 <div className="container content-container">
-                    <ButtonsBlock placeId={place.id}/>
+                    <ButtonsBlock onBookCompleteHandler={ this.onBookCompleteHandler.bind(this) } placeId={place.id}/>
                     <Info openTime={place.open}
                           closeTime={place.close}
                           freePlaces={place.countFreePlaces}
@@ -63,6 +66,23 @@ class PlacePage extends Component {
                 name: "place-page"
             }
         }));
+    }
+
+    onBookCompleteHandler(time) {
+        const result = checkBookingTime(time, this.state.place);
+
+        if (result.success) {
+            bookPlace({
+                placeId: this.state.place.id,
+                bookingTime: time
+            }).then((response) => {
+                console.log(response);
+            });
+            return;
+        }
+
+        toast(`You can book this place from ${result.open} to ${result.close}`, 3000);
+
     }
 }
 

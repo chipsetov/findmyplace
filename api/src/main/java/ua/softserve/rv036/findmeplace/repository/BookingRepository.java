@@ -8,7 +8,7 @@ import ua.softserve.rv036.findmeplace.model.Booking;
 import java.util.List;
 
 public interface BookingRepository extends CrudRepository<Booking, Long> {
-    @Query("select new Booking(b.id, b.userId, b.placeId, b.status, p.name) " +
+    @Query("select new Booking(b.id, b.userId, b.placeId, b.bookingTime, b.status, p.name) " +
             "from Booking b, Place p where b.placeId = p.id and b.userId = :userId")
     List<Booking> findAllByUserId(@Param("userId") Long userId);
 }

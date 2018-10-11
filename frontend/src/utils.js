@@ -31,3 +31,16 @@ export const Session = {
     }
 
 };
+
+export const checkBookingTime = (time, place) => {
+    const openHour = parseInt(place.open.split(":")[0]);
+    const closeHour = parseInt(place.close.split(":")[0]);
+    const userHour = parseInt(time.split(":")[0]);
+    const success = openHour <= userHour && userHour <= closeHour - 3;
+
+    return {
+        success: success,
+        open: openHour,
+        close: closeHour - 3
+    };
+};
