@@ -128,10 +128,6 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="mark" type="int">
-                <constraints nullable="false"/>
-            </column>
-
             <column name="user_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)"
                              deleteCascade="true"/>

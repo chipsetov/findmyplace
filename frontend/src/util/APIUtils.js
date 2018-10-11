@@ -16,7 +16,7 @@ export const request = (options) => {
         .then(response =>
             response.json().then(json => {
                 if (!response.ok) {
-                     return Promise.reject(json);
+                    return Promise.reject(json);
                 }
                 return json;
             })
@@ -72,7 +72,7 @@ export function forgotPassword(forgotRequest) {
 
 export function restorePassword(restoreRequest) {
     return request({
-        url: API_BASE_URL + "/auth/restore/"+this.props.match.params.token,
+        url: API_BASE_URL + "/auth/restore/" + this.props.match.params.token,
         method: 'POST',
         body: JSON.stringify(restoreRequest)
     });
@@ -153,3 +153,18 @@ export function deleteUserPlace(id) {
     });
 }
 
+export function addComment(commentRequest) {
+    return request({
+        url: API_BASE_URL + "/places/feedback",
+        method: 'POST',
+        body: JSON.stringify(commentRequest)
+    });
+}
+
+export function addMark(markRequest) {
+    return request({
+        url: API_BASE_URL + "/places/mark",
+        method: 'POST',
+        body: JSON.stringify(markRequest)
+    });
+}

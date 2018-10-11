@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.*;
 
 @Data
-public class FeedbackRequest {
+public class CommentRequest {
 
     @NotBlank
     private String comment;
@@ -16,5 +16,4 @@ public class FeedbackRequest {
     @NotBlank
     private Long placeId;
 
-    private Integer mark;
 }

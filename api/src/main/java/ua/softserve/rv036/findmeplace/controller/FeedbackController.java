@@ -8,7 +8,7 @@ import ua.softserve.rv036.findmeplace.exception.BadRequestException;
 import ua.softserve.rv036.findmeplace.model.Feedback;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
-import ua.softserve.rv036.findmeplace.payload.FeedbackRequest;
+import ua.softserve.rv036.findmeplace.payload.CommentRequest;
 import ua.softserve.rv036.findmeplace.payload.MarkRequest;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
@@ -16,6 +16,8 @@ import ua.softserve.rv036.findmeplace.service.FeedbackService;
 import ua.softserve.rv036.findmeplace.service.MarkService;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -35,13 +37,15 @@ public class FeedbackController {
 
     @GetMapping("/places/{id}/feedbacks")
     List<Feedback> feedbacksByPlaceId(@PathVariable Long id) {
-        return feedbackRepository.findAllByPlaceId(id);
+        List<Feedback> feedbacks = feedbackRepository.findAllByPlaceId(id);
+        feedbacks.sort(Comparator.comparing(Feedback::getId).reversed());
+        return feedbacks;
     }
 
     @PostMapping("/places/feedback")
     @Valid
-    public ResponseEntity<?> saveFeedback(@RequestBody FeedbackRequest feedbackRequest) {
-        feedbackService.saveFeedback(feedbackRequest);
+    public ResponseEntity<?> saveFeedback(@RequestBody CommentRequest commentRequest) {
+        feedbackService.saveFeedback(commentRequest);
         return ResponseEntity.ok().body(new ApiResponse(true, "Feedback added successfully"));
     }
 
@@ -51,9 +55,9 @@ public class FeedbackController {
         markService.saveMark(markRequest);
 
         Place place = placeRepository.findById(markRequest.getPlaceId())
-                .orElseThrow(() ->new BadRequestException("No pace with such id"));
+                .orElseThrow(() -> new BadRequestException("No pace with such id"));
         Double rating = place.getRating();
 
-       return new ResponseEntity<>(rating, HttpStatus.OK);
+        return new ResponseEntity<>(rating, HttpStatus.OK);
     }
 }

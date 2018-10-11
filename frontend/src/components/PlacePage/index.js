@@ -1,16 +1,19 @@
-import React, { Component } from 'react';
-import { Row } from 'react-materialize';
+import React, {Component} from 'react';
+import {Row} from 'react-materialize';
 import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
-import ReviewsBlock from './ReviewsBlock.js';
+import CommentsBlock from './CommentsBlock.js';
 import Info from './Info.js';
-import { PAGE_CHANGED } from "../../utils";
+import {PAGE_CHANGED} from "../../utils";
 
 class PlacePage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { place: {} } ;
+        this.state = {
+            place: {},
+            userId: this.props.currentUser == null ? "" : this.props.currentUser.id
+        };
     }
 
     componentWillMount() {
@@ -35,10 +38,12 @@ class PlacePage extends Component {
     }
 
     render() {
+        console.log(this.state);
 
         const place = this.state.place;
 
         return (
+
             <div className="place-page">
                 <Row className="place-header">
                     <h2>{place.name}</h2>
@@ -50,7 +55,9 @@ class PlacePage extends Component {
                           closeTime={place.close}
                           freePlaces={place.countFreePlaces}
                           description={place.description}/>
-                    <ReviewsBlock placeId={this.props.match.params.placeId}/>
+                    <CommentsBlock userId={this.state.userId}
+                                   placeId={this.props.match.params.placeId}
+                                   isAuthenticated={this.props.isAuthenticated}/>
                 </div>
             </div>
         );
@@ -58,6 +65,7 @@ class PlacePage extends Component {
 
     componentWillUnmount() {
         window.dispatchEvent(new CustomEvent(PAGE_CHANGED, {
+
             detail: {
                 show: false,
                 name: "place-page"

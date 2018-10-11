@@ -30,7 +30,7 @@ export default class Routes extends Component {
                     <Route path="//" component={Home}/>
                     <Route path="/app-info" component={AppInfo}/>
                     <Route path="/sign-up" component={RegistrationForm}/>
-                    <Route path="/place/:placeId" component={PlacePage}/>
+                    {/*<Route path="/place/:placeId" component={PlacePage}/>*/}
                     <Route path="/user/profile" component={UserPage}/>
                     <Route path="/user/:id/places" component={UserPlaces}/>
                     <Route path="/register-place" component={RegisterPlace}/>
@@ -45,6 +45,13 @@ export default class Routes extends Component {
                     <Route path="/sign-in"
                            render={(props) => <LoginForm onLogin={this.props.handleLogin} {...props} />}></Route>
 
+
+                    <Route path="/place/:placeId"
+                           render={(props) => <PlacePage
+                               handleLogout={this.props.handleLogout}
+                               currentUser={this.props.currentUser}
+                               isAuthenticated={this.props.isAuthenticated}
+                               {...props} />}/>
                     {/*<Route path="/users/:username"*/}
                     {/*render={(props) => <Profile isAuthenticated={this.props.isAuthenticated}*/}
                     {/*currentUser={this.props.currentUser} {...props}  />}>*/}

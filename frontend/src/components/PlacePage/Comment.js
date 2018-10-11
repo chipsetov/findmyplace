@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Row, Col, CardPanel} from 'react-materialize';
 
-class Review extends Component {
+class Comment extends Component {
 
     render() {
         return(
@@ -15,7 +15,7 @@ class Review extends Component {
                         <p>{this.props.comment}</p>
                     </Col>
                     <Col s={1}>
-                        <h1>{this.props.mark}</h1>
+                        <h1>{this.props.id}</h1>
                     </Col>
                 </Row>
             </CardPanel>
@@ -24,4 +24,4 @@ class Review extends Component {
 
 }
 
-export default Review;
+export default Comment;

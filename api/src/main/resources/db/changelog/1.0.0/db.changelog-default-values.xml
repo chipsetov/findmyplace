@@ -122,19 +122,16 @@
     <changeSet id="3" author="rv036">
         <insert tableName="feedbacks">
             <column name="comment" value="Very bad place"/>
-            <column name="mark" value="2"/>
             <column name="user_id" value="2"/>
             <column name="place_id" value="1"/>
         </insert>
         <insert tableName="feedbacks">
             <column name="comment" value="Nice place"/>
-            <column name="mark" value="4"/>
             <column name="user_id" value="3"/>
             <column name="place_id" value="1"/>
         </insert>
         <insert tableName="feedbacks">
             <column name="comment" value="I like it"/>
-            <column name="mark" value="5"/>
             <column name="user_id" value="4"/>
             <column name="place_id" value="1"/>
         </insert>
