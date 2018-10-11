@@ -3,11 +3,12 @@ package ua.softserve.rv036.findmeplace.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Data
 @Entity
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "feedbacks")
 public class Feedback {
@@ -25,9 +26,14 @@ public class Feedback {
     @Column(name = "user_id")
     private Long userId;
 
-    private String userName;
-
     @Column(name = "place_id")
     private Long placeId;
+
+    public Feedback(String comment, Integer mark, Long userId, Long placeId) {
+        this.comment = comment;
+        this.mark = mark;
+        this.userId = userId;
+        this.placeId = placeId;
+    }
 
 }

@@ -1,7 +1,6 @@
 package ua.softserve.rv036.findmeplace.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.TextNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -19,9 +18,8 @@ import ua.softserve.rv036.findmeplace.model.enums.Role;
 import ua.softserve.rv036.findmeplace.payload.*;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.JwtTokenProvider;
-import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
+import ua.softserve.rv036.findmeplace.service.UserService;
 
-import javax.swing.text.html.parser.Entity;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
@@ -42,7 +40,7 @@ public class AuthController {
     private UserRepository userRepository;
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
     private JwtTokenProvider tokenProvider;

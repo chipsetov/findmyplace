@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.softserve.rv036.findmeplace.model.Feedback;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
@@ -23,10 +22,7 @@ public class PlaceController {
 
     @Autowired
     private PlaceRepository placeRepository;
-    @Autowired
-    private FeedbackRepository feedbackRepository;
-    @Autowired
-    private UserRepository userRepository;
+
 
     @GetMapping("place/map")
     List<Place> getPlace() {
@@ -43,10 +39,6 @@ public class PlaceController {
         return placeRepository.findById(id);
     }
 
-    @GetMapping("/places/{id}/feedbacks")
-    List<Feedback> feedbacksByPlaceId(@PathVariable Long id) {
-        return feedbackRepository.findAllByPlaceId(id);
-    }
 
     @GetMapping("/places/types")
     List<PlaceType> getAllTypes() {
