@@ -17,6 +17,33 @@ class Place extends Component {
         this.props.handleDelete(id);
     }
 
+    renderForApproved() {
+        if(this.props.isApprove) {
+            return(
+                <Row className="place-rating">
+                    <StarRatings
+                        rating={this.props.rating}
+                        starRatedColor="#ff8d15"
+                        starDimension="20px"
+                        starSpacing="5px"
+                    />
+                </Row>
+            )
+        } else if(this.props.isRejected) {
+            return(
+                <Row>
+                    <h5>Status: <span style={{color: 'red'}}>rejected</span></h5>
+                </Row>
+            )
+        } else {
+            return(
+                <Row>
+                    <h5>Status: <span style={{color: 'orange'}}>wait for approve</span></h5>
+                </Row>
+            )
+        }
+    }
+
     render() {
         return(
             <Card className='small' header={<CardTitle image='img/place.jpg'/>} >
@@ -24,14 +51,7 @@ class Place extends Component {
                     <Row className="place-type">
                         <span>{this.props.placeType}</span>
                     </Row>
-                    <Row className="place-rating">
-                        <StarRatings
-                            rating={this.props.rating}
-                            starRatedColor="#ff8d15"
-                            starDimension="20px"
-                            starSpacing="5px"
-                        />
-                    </Row>
+                    {this.renderForApproved()}
                     <Row className="place-name">
                         <Link to={`/place/${this.props.id}`}>{this.props.name}</Link>
                     </Row>

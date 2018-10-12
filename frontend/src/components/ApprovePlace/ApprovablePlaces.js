@@ -24,6 +24,13 @@ class ApprovablePlaces extends Component {
             })
     }
 
+    handleUpdate = () => {
+        // this.setState = {
+        //     places: [],
+        // }
+        //this.forceUpdate();
+    };
+
     render() {
         const places = this.state.places;
 
@@ -43,6 +50,7 @@ class ApprovablePlaces extends Component {
                                        name={item.name}
                                        placeType={item.placeType.name}
                                        description={item.description}
+                                       handleUpdate={this.handleUpdate}
                                 />
                             )
                         )

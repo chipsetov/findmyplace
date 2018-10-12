@@ -1,6 +1,7 @@
 package ua.softserve.rv036.findmeplace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -69,6 +70,14 @@ public class PlaceController {
     @RolesAllowed("ROLE_ADMIN")
     Optional<Place> getNotApprovedPlaceById(@PathVariable Long id) {
         return placeRepository.findNotApprovedById(id);
+    }
+
+    @GetMapping("/places/my-places")
+    @RolesAllowed("ROLE_OWNER")
+    List<Place> getAllMyPlaces() {
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return placeRepository.findAllAndRejectedByOwnerId(userPrincipal.getId());
     }
 
     @PostMapping("/places/register")

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Col, Row} from "react-materialize";
-import {deleteUserPlace} from "../../../util/APIUtils";
+import {deleteUserPlace, getAllMyPlaces} from "../../../util/APIUtils";
 import Place from "./Place";
 import {Link} from "react-router-dom";
 import SearchPlace from "../../Map/SearchPlace";
@@ -18,11 +18,11 @@ class UserPlaces extends Component {
     }
 
     componentDidMount() {
-        fetch("/user/" + this.props.match.params.id + "/places")
-            .then((response) => response.json())
-            .then((result) => {
+        getAllMyPlaces()
+            .then((response) => {
+                console.log(response);
                 this.setState({
-                    places: result
+                    places: response
                 });
             })
     }
@@ -65,6 +65,8 @@ class UserPlaces extends Component {
                                        description={item.description}
                                        rating={item.rating}
                                        countFreePlaces={item.countFreePlaces}
+                                       isApprove={item.approved}
+                                       isRejected={item.rejected}
                                        handleDelete={this.handleDelete}
                                 />
                             )

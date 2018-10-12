@@ -38,8 +38,9 @@ class RejectModal extends Component {
 
         rejectPlace(data)
             .then(response => {
-                if(response.ok) {
+                if(response.success) {
                     window.Materialize.toast("Place rejected", 1500);
+                    this.props.handleUpdate();
                 }
                 else window.Materialize.toast(response.message, 1500);
             });

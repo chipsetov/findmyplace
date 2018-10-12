@@ -75,11 +75,18 @@ export function login(loginRequest) {
     });
 }
 
-export function getApprovePlaces(loginRequest) {
+export function getApprovePlaces() {
     return request({
         url: API_BASE_URL + "/places/not-approved",
         method: 'GET',
     });
+}
+
+export function getAllMyPlaces() {
+    return request({
+        url: API_BASE_URL + "/places/my-places",
+        method: 'GET',
+    })
 }
 
 export function rejectPlace(rejectPlaceRequest) {

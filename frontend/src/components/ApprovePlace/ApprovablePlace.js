@@ -13,8 +13,9 @@ class ApprovablePlace extends Component {
     handleApprove = () => {
         approvePlace(this.props.placeId)
             .then(response => {
-                if(response.ok) {
+                if(response.success) {
                     window.Materialize.toast("Place approved", 1500);
+                    this.props.handleUpdate();
                 }
                 else window.Materialize.toast(response.message, 1500);
             });
@@ -41,6 +42,7 @@ class ApprovablePlace extends Component {
                     </Col>
                     <Col s={6}>
                         <RejectModal
+                            handleUpdate = {this.props.handleUpdate}
                             placeId={this.props.placeId}
                             header="Write the reason of reject"
                         />
