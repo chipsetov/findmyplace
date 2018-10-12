@@ -68,6 +68,15 @@ public class PlaceController {
         return new ResponseEntity(placeManagerRepository.findAllByPlaceId(idPlace), HttpStatus.OK);
     }
 
+    @PostMapping("/places/{placeId}/delete-manager/{managerId}")
+    ResponseEntity deletePlaceManagerByPlace(@PathVariable Long placeId, @PathVariable Long managerId) {
+
+        Optional<Place_Manager> allByUserId = placeManagerRepository.findByUserIdAndPlaceId(managerId, placeId);
+        System.out.println(allByUserId.toString());
+        placeManagerRepository.delete(allByUserId.get());
+        return new ResponseEntity(placeManagerRepository.findAllByUserId(managerId), HttpStatus.OK);
+    }
+
     @PostMapping("/places/{id}/add-manager/{value}")
     ResponseEntity addPlaceManager(@Valid @PathVariable Long id, @Valid @PathVariable String value) {
         try {

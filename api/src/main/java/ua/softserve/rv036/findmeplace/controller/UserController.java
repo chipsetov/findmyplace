@@ -4,21 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import ua.softserve.rv036.findmeplace.model.Place;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import ua.softserve.rv036.findmeplace.model.Place;
+import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
+import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
-import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 import ua.softserve.rv036.findmeplace.service.FileStorageService;
+import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
+
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
@@ -32,6 +32,9 @@ public class UserController {
 
     @Autowired
     private PlaceRepository placeRepository;
+
+    @Autowired
+    private Place_ManagerRepository placeManagerRepository;
 
     @Autowired
     private UserServiceImpl userService;
@@ -57,9 +60,26 @@ public class UserController {
         return placeRepository.findAllByOwnerId(id);
     }
 
+    @GetMapping("/manager/{id}/places")
+    public List<Place_Manager> getManagerPlaces(@PathVariable Long id) {
+        return placeManagerRepository.findAllByUserId(id);
+    }
+
     @GetMapping("/user/{id}/managers")
     public List<User> getUserManagers(@PathVariable Long id) {
         return userService.getAllManagersByOwnerRole(id);
+    }
+
+    @PostMapping("/user/{ownerId}/delete-manager/{managerId}")
+    ResponseEntity deleteManagers(@PathVariable Long ownerId, @PathVariable Long managerId){
+
+        List<Place_Manager> allByUserId = placeManagerRepository.findAllByUserId(managerId);
+
+        placeManagerRepository.deleteAll(allByUserId);
+
+        List<User> result = userService.getAllManagersByOwnerRole(ownerId);
+
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     @GetMapping("/users/nick/{nickname}")

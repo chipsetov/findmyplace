@@ -1,6 +1,5 @@
 package ua.softserve.rv036.findmeplace.service;
 
-import com.sun.jndi.toolkit.url.Uri;
 import liquibase.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +17,6 @@ import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
