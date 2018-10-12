@@ -1,0 +1,15 @@
+.btn-delete {
+    display: block;
+    float: right;
+    height: 32px;
+    line-height: 32px;
+    text-transform: none;
+    padding: 0 1.5rem;
+}
+
+.btn-delete,
+.btn-delete:hover,
+.btn-delete:focus {
+    background: #ff4d4d;
+}
+

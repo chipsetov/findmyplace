@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Row} from 'react-materialize';
 import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
-import CommentsBlock from './CommentsBlock.js';
+import ReviewBlock from './ReviewsBlock';
 import Info from './Info.js';
 import {PAGE_CHANGED} from "../../utils";
+import StarRatings from "react-star-ratings";
 
 class PlacePage extends Component {
 
@@ -12,7 +13,6 @@ class PlacePage extends Component {
         super(props);
         this.state = {
             place: {},
-            userId: this.props.currentUser == null ? "" : this.props.currentUser.id
         };
     }
 
@@ -49,15 +49,21 @@ class PlacePage extends Component {
                     <h2>{place.name}</h2>
                     <h2>{place.address}</h2>
                 </Row>
+                <StarRatings
+                   // rating={this.props.mark}
+                    starRatedColor="#ff8d15"
+                    starDimension="18px"
+                    starSpacing="5px"
+                />
                 <div className="container content-container">
                     <ButtonsBlock/>
                     <Info openTime={place.open}
                           closeTime={place.close}
                           freePlaces={place.countFreePlaces}
                           description={place.description}/>
-                    <CommentsBlock userId={this.state.userId}
-                                   placeId={this.props.match.params.placeId}
-                                   isAuthenticated={this.props.isAuthenticated}/>
+                    <ReviewBlock currentUser={this.props.currentUser}
+                                 placeId={this.props.match.params.placeId}
+                                 isAuthenticated={this.props.isAuthenticated}/>
                 </div>
             </div>
         );

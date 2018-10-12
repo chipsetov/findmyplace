@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavItem, Button, Icon} from 'react-materialize';
 import { withRouter } from 'react-router-dom';
-import Logout from './Logout';
+import Logout from './authorization/Logout';
 import '../styles/Menu.css';
 import "../styles/Logout.css";
 import {PAGE_CHANGED} from "../utils";
@@ -19,9 +19,7 @@ class Menu extends Component {
         window.addEventListener(PAGE_CHANGED, this.onPageChangedHandler.bind(this));
     }
 
-    onLogoutHandler() {
-       this.props.handleLogout();
-    }
+
 
     render() {
         const isLoggedIn = this.props.isAuthenticated;
@@ -33,7 +31,7 @@ class Menu extends Component {
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#place/1'>Place</NavItem>
-                        <Logout isLoggedIn={isLoggedIn} handleLogout={this.onLogoutHandler.bind(this)}/>
+                        <Logout isLoggedIn={isLoggedIn} handleLogout={this.props.handleLogout}/>
                         <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>
                             <Button waves="light">
                                 Sign Up

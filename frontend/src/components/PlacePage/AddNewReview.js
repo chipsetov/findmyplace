@@ -7,7 +7,7 @@ import {addComment} from '../../util/APIUtils';
 import LoadingIndicator from "../../common/LoadingIndicator";
 
 
-class NewComment extends Component {
+class NewReview extends Component {
 
     constructor(props) {
         super(props);
@@ -99,4 +99,4 @@ class NewComment extends Component {
 
 }
 
-export default NewComment;
+export default NewReview;

@@ -88,7 +88,7 @@
             <column name="close" value="23:59:00"/>
             <column name="count_free_places" value="10"/>
             <column name="place_type" value="HOTEL"/>
-            <column name="owner_id" value="1"/>
+            <column name="owner_id" value="2"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="Стоянка МИР"/>
@@ -101,7 +101,7 @@
             <column name="close" value="23:00:00"/>
             <column name="count_free_places" value="7"/>
             <column name="place_type" value="PARKING"/>
-            <column name="owner_id" value="1"/>
+            <column name="owner_id" value="3"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="МакДональдз"/>
@@ -114,7 +114,7 @@
             <column name="close" value="23:00:00"/>
             <column name="count_free_places" value="20"/>
             <column name="place_type" value="RESTAURANT"/>
-            <column name="owner_id" value="1"/>
+            <column name="owner_id" value="3"/>
         </insert>
     </changeSet>
 
@@ -122,16 +122,19 @@
     <changeSet id="3" author="rv036">
         <insert tableName="feedbacks">
             <column name="comment" value="Very bad place"/>
+            <column name="creation_date" value="07.09.2016 02:30:01"/>
             <column name="user_id" value="2"/>
             <column name="place_id" value="1"/>
         </insert>
         <insert tableName="feedbacks">
             <column name="comment" value="Nice place"/>
-            <column name="user_id" value="3"/>
+            <column name="creation_date" value="05.28.2017 12:00:01"/>
+            <column name="user_id" value="1"/>
             <column name="place_id" value="1"/>
         </insert>
         <insert tableName="feedbacks">
             <column name="comment" value="I like it"/>
+            <column name="creation_date" value="11.04.2018 13:00:01"/>
             <column name="user_id" value="4"/>
             <column name="place_id" value="1"/>
         </insert>
@@ -151,6 +154,8 @@
         </insert>
         <insert tableName="mark">
             <column name="mark" value="5"/>
+            <column name="user_id" value="1"/>
+            <column name="place_id" value="3"/>
             <column name="user_id" value="4"/>
             <column name="place_id" value="1"/>
         </insert>
