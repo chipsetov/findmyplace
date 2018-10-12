@@ -15,10 +15,6 @@ class AdminProfile extends Component {
             email: props.email,
             oldPassword: "",
             newPassword: "",
-            errors: {
-                emptyField: 'This field cannot be empty',
-                email: 'Email is invalid'
-            }
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -40,6 +36,27 @@ class AdminProfile extends Component {
         const userName = this.state.userName;
         const email = this.state.email;
 
+        if (!firstName.length) {
+            this.message("Please enter your first name");
+            return;
+        }
+
+        if (!lastName.length) {
+            this.message("Please enter your last name");
+            return;
+        }
+
+        if (!userName.length) {
+            this.message("Please enter your username");
+            return;
+        }
+
+        const pattern = new RegExp((/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i));
+        if (!pattern.test(email)) {
+            this.message("Please enter valid e-mail");
+            return;
+        }
+
         const userId = localStorage.getItem(USER_ID);
         const profile = {
             userId: userId,
@@ -58,6 +75,13 @@ class AdminProfile extends Component {
     updatePassword() {
         const oldPassword = this.state.oldPassword;
         const newPassword = this.state.newPassword;
+
+        if (newPassword.length) {
+            if (!oldPassword.length) {
+                this.message("You have to enter your old password");
+                return;
+            }
+        }
 
         const userId = localStorage.getItem(USER_ID);
         const password = {
