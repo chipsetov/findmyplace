@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Input, Row} from 'react-materialize';
 import {Link} from 'react-router-dom';
-import '../../styles/Form.css';
+import './Review.css';
 import {ACCESS_TOKEN} from '../../constants';
 import {addComment} from '../../util/APIUtils';
 import LoadingIndicator from "../../common/LoadingIndicator";
@@ -14,7 +14,11 @@ class NewReview extends Component {
         this.state = {
             comment: "",
             isLoading: false,
-            error: ""
+            error: "",
+            role: this.props.currentUser == null ? "" : this.props.currentUser.role,
+            userId: this.props.currentUser == null ? "" : this.props.currentUser.id,
+            userName: this.props.currentUser == null ? "" : this.props.currentUser.username,
+
         };
         this.onLogin = this.props.onLogin;
         this.handleChange = this.handleChange.bind(this);
@@ -36,10 +40,9 @@ class NewReview extends Component {
         else {
 
 
-
             const commentRequest = {
                 comment: this.state.comment,
-                userId: this.props.userId,
+                userId: this.state.userId,
                 placeId: this.props.placeId,
             };
 
@@ -47,8 +50,9 @@ class NewReview extends Component {
                 .then(response => {
                     this.props.newComment({
                         comment: this.state.comment,
-                        userId: this.props.userId,
-                        placeId: this.props.placeId
+                        userId: this.state.userId,
+                        placeId: this.props.placeId,
+                        userName: this.state.userName,
                     });
                     this.setState({
                         comment: ''
@@ -72,27 +76,23 @@ class NewReview extends Component {
             return <LoadingIndicator/>
         }
         return (
-            <div className="form-wrapper">
-                <div className="app-form">
-                    <form onSubmit={this.handleSubmit}>
-                        <Row>
-                            <Input
-                                id="comment"
-                                type="text"
-                                value={this.state.comment}
-                                placeholder="What's on your mind..."
-                                onChange={e => this.handleChange("comment", e.target.value)}
-                                s={12}
-                            />
-                            <div className="errorMsg">{this.state.error}</div>
-                        </Row>
 
-                        <div className="confirm-row">
-                            <Button waves="light" id="sign-in" type="submit">Add comment</Button>
+            <div className="comment">
+                <form onSubmit={this.handleSubmit}>
+                    <Row>
 
-                        </div>
-                    </form>
-                </div>
+                        <Input
+                            // type="text"
+                            value={this.state.comment}
+                            placeholder="What's on your mind..."
+                            onChange={e => this.handleChange("comment", e.target.value)}
+                            s={12}
+                        />
+                        <div className="errorMsg">{this.state.error}</div>
+                            <Button className="add_comment"  type="submit">Add comment</Button>
+                    </Row>
+
+                </form>
             </div>
         );
     }

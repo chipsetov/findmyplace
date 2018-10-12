@@ -124,7 +124,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="comment" type="varchar(255)">
+            <column name="comment" type="varchar">
                 <constraints nullable="false"/>
             </column>
 

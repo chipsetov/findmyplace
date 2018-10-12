@@ -1,13 +1,18 @@
 .review-container img {
     border-radius: 50%;
+
+}
+
+.review-container .img-block {
+    padding-top: 2rem;
 }
 
 .review-container {
     margin: 0 !important;
     padding: 1rem;
     border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,.1);
-    }
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
+}
 
 .review-author span {
     font-weight: 700;
@@ -37,4 +42,32 @@
 .review-creation-date {
     font-size: 14px;
     color: #dcdcdc;
+    position: relative;
+    left: 10px;
+    top: 10px;
+}
+
+.review-text {
+    position: relative;
+    left: 20px;
+}
+
+.text {
+    word-break: normal;
+    text-align: left;
+    right: 20%;
+}
+
+.comment {
+    width: 95%;
+    padding-left: 5%;
+}
+
+.add_comment {
+    display: block;
+    float: right;
+    height: 32px;
+    line-height: 32px;
+    text-transform: none;
+    padding: 0 1.5rem;
 }

@@ -11,8 +11,6 @@ class ReviewsBlock extends Component {
         super(props);
         this.state = {
             authenticated: this.props.isAuthenticated,
-            role: this.props.currentUser == null ? "" : this.props.currentUser.role,
-            basicUserId: this.props.currentUser == null ? "" : this.props.currentUser.id,
             reviews: []
         };
         this.addNewComment = this.addNewComment.bind(this);
@@ -68,7 +66,7 @@ class ReviewsBlock extends Component {
                 <div className={this.state.authenticated ? "" : "hidden"}>
                     <NewReview
                         newComment={this.addNewComment}
-                        userId={this.state.basicUserId}
+                        currentUser={this.props.currentUser}
                         placeId={this.props.placeId}/>
                 </div>
                 {reviews.map(item => (
@@ -80,8 +78,7 @@ class ReviewsBlock extends Component {
                             creationDate={item.creationDate}
                             avatar="./favicon.ico"
                             handleDelete={this.handleDelete}
-                            role={this.state.role}
-                            basicUserId={this.state.basicUserId}
+                            currentUser={this.props.currentUser}
                     />
                 ))
                 }

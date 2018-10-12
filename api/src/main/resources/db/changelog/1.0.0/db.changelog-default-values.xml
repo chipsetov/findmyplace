@@ -134,7 +134,7 @@
         </insert>
         <insert tableName="feedbacks">
             <column name="comment" value="I like it"/>
-            <column name="creation_date" value="11.04.2018 13:00:01"/>
+            <column name="creation_date" value="10.04.2018 13:00:01"/>
             <column name="user_id" value="4"/>
             <column name="place_id" value="1"/>
         </insert>
