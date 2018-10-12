@@ -169,11 +169,31 @@ export function deleteUserPlace(id) {
         method: 'DELETE'
     });
 }
+export function deleteManagers(ownerId, managerId) {
+    return request({
+        url: API_BASE_URL + "/user/" + ownerId + "/delete-manager/" + managerId,
+        method: 'POST'
+    });
+}
 
 export function deletePlaceManager(id) {
     return request({
         url: API_BASE_URL + '/places/delete-manager/' + id,
         method: 'POST'
+    });
+}
+
+export function deleteManagerByPlace(placeId, managerId) {
+    return request({
+        url: API_BASE_URL + "/places/" + placeId + "/delete-manager/" + managerId,
+        method: 'POST'
+    });
+}
+
+export function getCurrentPlaces(managerId) {
+    return request({
+        url: API_BASE_URL + "/manager/" + managerId + "/places",
+        method: 'GET'
     });
 }
 
