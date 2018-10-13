@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @GetMapping("/manager/{id}/places")
-    public List<Place_Manager> getManagerPlaces(@PathVariable Long id) {
+    public List<Place_Manager> getManagerPlaces(@PathVariable("id") Long id) {
         return placeManagerRepository.findAllByUserId(id);
     }
 
