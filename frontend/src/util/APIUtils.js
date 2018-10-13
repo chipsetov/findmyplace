@@ -203,4 +203,12 @@ export function addPlaceManager(id, value) {
         method: 'POST'
     });
 }
+export function changeCountFreePlaces(id, count) {
+    return request({
+        url: API_BASE_URL + "/places/" + id + "/free-places/" + count,
+        method: 'POST'
+    });
+}
+
+
 

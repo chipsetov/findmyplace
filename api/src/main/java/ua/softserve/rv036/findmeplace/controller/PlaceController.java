@@ -28,10 +28,13 @@ public class PlaceController {
 
     @Autowired
     private PlaceRepository placeRepository;
+
     @Autowired
     private FeedbackRepository feedbackRepository;
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private Place_ManagerRepository placeManagerRepository;
 
@@ -66,6 +69,20 @@ public class PlaceController {
         Long idPlace = placeManagerRepository.findById(id).get().getPlaceId();
         placeManagerRepository.deleteById(id);
         return new ResponseEntity(placeManagerRepository.findAllByPlaceId(idPlace), HttpStatus.OK);
+    }
+
+    @PostMapping("/places/{id}/free-places/{count}")
+    ResponseEntity setCountFreePlaces(@PathVariable Long id, @PathVariable Integer count) {
+       Place place = placeRepository.findById(id).orElseThrow(
+                () -> new UsernameNotFoundException("Place not found"));
+
+       int countFreePlaces = place.getCountFreePlaces();
+
+       place.setCountFreePlaces(countFreePlaces + count);
+
+       placeRepository.save(place);
+
+       return new ResponseEntity(placeRepository.findById(id), HttpStatus.OK);
     }
 
     @PostMapping("/places/{placeId}/delete-manager/{managerId}")

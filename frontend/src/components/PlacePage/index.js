@@ -6,6 +6,7 @@ import ReviewsBlock from './ReviewsBlock.js';
 import ManagersBlock from './ManagersBlock.js';
 import Info from './Info.js';
 import {PAGE_CHANGED, Session} from "../../utils";
+import {changeCountFreePlaces} from "../../util/APIUtils";
 
 class PlacePage extends Component {
 
@@ -47,6 +48,18 @@ class PlacePage extends Component {
         )}
     }
 
+    countChange = (count) => {
+            console.log(this.state.place);
+            changeCountFreePlaces(this.props.match.params.placeId, count)
+                .then((result) => {
+                    this.setState({
+                        place: result
+                    });
+                }).catch((error) => {
+                    console.error('error', error);
+                });
+        }
+
     render() {
 
         const place = this.state.place;
@@ -62,7 +75,8 @@ class PlacePage extends Component {
                     <Info openTime={place.open}
                           closeTime={place.close}
                           freePlaces={place.countFreePlaces}
-                          description={place.description}/>
+                          description={place.description}
+                          countChange={this.countChange}/>
                     <ReviewsBlock placeId={this.props.match.params.placeId}/>
                     {this.viewManagers()}
                 </div>
