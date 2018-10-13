@@ -73,4 +73,10 @@ public class PlaceControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void setCountFreePlacesTest() throws Exception {
+        mvc.perform(post("/places/{id}/free-places/{count}", 1L, 1))
+                .andExpect(status().isOk());
+    }
 }

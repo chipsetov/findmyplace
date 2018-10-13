@@ -72,7 +72,7 @@ public class PlaceController {
     }
 
     @PostMapping("/places/{id}/free-places/{count}")
-    ResponseEntity setCountFreePlaces(@PathVariable Long id, @PathVariable Integer count) {
+    ResponseEntity setCountFreePlaces(@PathVariable("id") Long id, @PathVariable("count") Integer count) {
        Place place = placeRepository.findById(id).orElseThrow(
                 () -> new UsernameNotFoundException("Place not found"));
 
