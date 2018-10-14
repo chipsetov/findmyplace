@@ -23,20 +23,14 @@ class AdminMenu extends Component {
                     </Row>
                     <Row>
                         <Link to="/">
-                            <img src="img/admin/dashboard.png" alt="dashboard"/>
-                            Dashboard
+                            <img src="img/admin/users.png" alt="users"/>
+                            Users
                         </Link>
                     </Row>
                     <Row>
                         <Link to="/">
                             <img src="img/admin/place.png" alt="place"/>
                             Places
-                        </Link>
-                    </Row>
-                    <Row>
-                        <Link to="/">
-                            <img src="img/admin/users.png" alt="users"/>
-                            Users
                         </Link>
                     </Row>
                 </Row>

@@ -128,4 +128,10 @@ public class UserController {
        return userServiceImpl.updateUserPassword(updateProfileRequest);
     }
 
+    @DeleteMapping("/user/delete/{id}")
+    public ResponseEntity deleteUser(@PathVariable("id") Long id) {
+        userRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

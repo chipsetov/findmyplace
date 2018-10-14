@@ -23,6 +23,12 @@ public class UserControllerTest {
     private UserController userController;
 
     @Test
+    public void deleteUserById() throws Exception {
+        mvc.perform(delete("/user/delete/{id}", 1L))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void deleteUserPlaceById() throws Exception {
         mvc.perform(delete("/user/delete-place/{id}", 1L))
                 .andExpect(status().isOk());

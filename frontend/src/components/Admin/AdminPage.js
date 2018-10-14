@@ -6,6 +6,7 @@ import AdminMenu from "./AdminMenu";
 import AdminProfile from "./AdminProfile";
 import {withRouter} from "react-router-dom";
 import './AdminPage.css';
+import UsersList from "./Users/UsersList";
 
 class AdminPage extends Component {
 
@@ -41,6 +42,16 @@ class AdminPage extends Component {
 
     }
 
+    /*<Tabs className="tab-menu">
+        <Tab className="tab-menu-item" active>
+            <AdminProfile firstName={this.state.firstName}
+                          lastName={this.state.lastName}
+                          email={this.state.email}
+                          userName={this.state.userName}
+            />
+        </Tab>
+   </Tabs>*/
+
     render() {
         return (
             <div className="admin-page-wrapper">
@@ -52,15 +63,7 @@ class AdminPage extends Component {
                         />
                     </Col>
                     <Col s={10} className="admin-view-features">
-                        <Tabs className="tab-menu">
-                            <Tab className="tab-menu-item" active>
-                                <AdminProfile firstName={this.state.firstName}
-                                              lastName={this.state.lastName}
-                                              email={this.state.email}
-                                              userName={this.state.userName}
-                                />
-                            </Tab>
-                        </Tabs>
+                        <UsersList/>
                     </Col>
                 </Row>
             </div>

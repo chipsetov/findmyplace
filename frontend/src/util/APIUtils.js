@@ -144,6 +144,13 @@ export function deleteUserFeedback(id) {
     });
 }
 
+export function deleteUser(id) {
+    return deleteRequest({
+        url: API_BASE_URL + '/user/delete/' + id,
+        method: 'DELETE'
+    });
+}
+
 export const updateUserProfile = profile => request({
     url: API_BASE_URL + "/user/update-profile",
     method: 'POST',
