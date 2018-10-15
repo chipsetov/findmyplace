@@ -83,31 +83,17 @@ class UserPage extends Component {
     componentDidMount() {
         this.updateTabStyle();
 
-        const userId = localStorage.getItem(USER_ID);
-
-        getUserProfile(userId)
-            .then((response) => {
-                // this.setState({
-                //     firstName: response['firstName'],
-                //     lastName: response['lastName'],
-                //     userName: response['nickName'],
-                //     email: response['email'],
-                //     phone: response['phone']
-                // });
-
-                getBookings(userId)
-                    .then(response => {
-                        // this.setState({
-                        //     bookings: response
-                        // })
-
+        getUserProfile()
+            .then((user) => {
+                getBookings()
+                    .then(bookings => {
                         this.setState({
-                            firstName: response['firstName'],
-                            lastName: response['lastName'],
-                            userName: response['nickName'],
-                            email: response['email'],
-                            phone: response['phone'],
-                            bookings: response
+                            firstName: user['firstName'],
+                            lastName: user['lastName'],
+                            userName: user['username'],
+                            email: user['email'],
+                            phone: user['phone'],
+                            bookings: bookings
                         });
                     })
                     .catch(error => console.log(error));

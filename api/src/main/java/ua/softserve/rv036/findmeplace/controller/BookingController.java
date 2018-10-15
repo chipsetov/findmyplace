@@ -29,8 +29,12 @@ public class BookingController {
     @Autowired
     private BookingRepository bookingRepository;
 
-    @GetMapping("/{userId}")
-    public List<Booking> getBookings(@PathVariable Long userId) {
+    @GetMapping("/me")
+    public List<Booking> getBookings() {
+        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        final Long userId = principal.getId();
+
         return bookingRepository.findAllByUserId(userId);
     }
 

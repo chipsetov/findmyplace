@@ -45,12 +45,12 @@ public class BookingControllerTest {
 
     @Test
     public void getBookings() throws Exception {
-        given(bookingController.getBookings(1L)).willReturn(bookings);
+        given(bookingController.getBookings()).willReturn(bookings);
 
-        mvc.perform(get("/booking/1")
+        mvc.perform(get("/booking/me")
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name", is(booking.getPlaceName())));
+                .andExpect(jsonPath("$[0].placeName", is(booking.getPlaceName())));
     }
 }

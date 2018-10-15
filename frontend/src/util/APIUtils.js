@@ -123,9 +123,9 @@ export function getCurrentUser() {
     });
 }
 
-export function getUserProfile(username) {
+export function getUserProfile() {
     return request({
-        url: API_BASE_URL + "/users/" + username,
+        url: API_BASE_URL + "/user/me",
         method: 'GET'
     });
 }
@@ -143,8 +143,8 @@ export const bookPlace = (bookRequest) => request({
     body: JSON.stringify(bookRequest)
 });
 
-export const getBookings = (userId) => request({
-    url: API_BASE_URL + `/booking/${userId}`,
+export const getBookings = () => request({
+    url: API_BASE_URL + `/booking/me`,
     method: "GET"
 });
 

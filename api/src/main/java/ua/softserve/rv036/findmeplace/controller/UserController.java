@@ -3,18 +3,19 @@ package ua.softserve.rv036.findmeplace.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import ua.softserve.rv036.findmeplace.model.Place;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
+import ua.softserve.rv036.findmeplace.payload.UserSummary;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
+import ua.softserve.rv036.findmeplace.security.CurrentUser;
+import ua.softserve.rv036.findmeplace.security.UserPrincipal;
+
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,17 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @GetMapping("/user/me")
+    @RolesAllowed({"ROLE_USER", "ROLE_MANAGER", "ROLE_OWNER", "ROLE_ADMIN"})
+    public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getAuthority().getAuthority());
+        userSummary.setFirstName(currentUser.getFirstName());
+        userSummary.setLastName(currentUser.getLastName());
+        userSummary.setEmail(currentUser.getEmail());
+        userSummary.setPhone(currentUser.getPhone());
+        return userSummary;
+    }
 
     @GetMapping("/users")
     List<User> getAll() {
