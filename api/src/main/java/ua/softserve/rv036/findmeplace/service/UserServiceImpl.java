@@ -65,4 +65,12 @@ public class UserServiceImpl implements UserService {
 
         }
     }
+
+    public void sendBookingConfirmation(User user) throws IOException {
+        if (!StringUtils.isEmpty(user.getEmail())) {
+            String message = "Your booking was approved!";
+
+            mailSender.send(user.getEmail(), "Your booking was approved!", message);
+        }
+    }
 }
