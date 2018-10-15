@@ -3,7 +3,7 @@ import {Row, Table} from 'react-materialize';
 import {deleteUser} from "../../../util/APIUtils";
 import {Session} from "../../../utils";
 import User from "./User";
-import FilterUsers from "./Filter/FilterUsers";
+import UsersFilter from "./Filter/UsersFilter";
 import './UsersList.css';
 
 class UsersList extends Component {
@@ -68,7 +68,7 @@ class UsersList extends Component {
                     <h5>Users</h5>
                 </Row>
                 <Row className="filter">
-                    <FilterUsers users={this.state.users}
+                    <UsersFilter users={this.state.users}
                                  filteredUsers={this.state.filteredUsers}
                                  handleUpdate = {this.handleUpdate}
                     />

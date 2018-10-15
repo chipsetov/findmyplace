@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Col, Input, Row} from "react-materialize";
-import './FilterUsers.css'
+import './UsersFilter.css'
 
-class FilterUsers extends Component {
+class UsersFilter extends Component {
 
     constructor(props) {
         super(props);
@@ -84,4 +84,4 @@ class FilterUsers extends Component {
 
 }
 
-export default FilterUsers;
+export default UsersFilter;

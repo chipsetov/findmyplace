@@ -1,0 +1,8 @@
+.places-wrapper .title {
+    padding: 0 1rem;
+    margin-bottom: 30px;
+}
+
+.places-wrapper .places-filter, .places-wrapper .filter-wrapper {
+    margin-bottom: 0;
+}
