@@ -29,13 +29,13 @@ class AppModal extends Component {
 
         return (
             <div>
-                <Button onClick={this.openAndCloseModal}>{this.props.action}</Button>
+                <Button className={this.props.buttonStyle} onClick={this.openAndCloseModal}>{this.props.action}</Button>
                 <Modal open={open} onClose={this.openAndCloseModal} center>
                     <Row className="modal-msg">
                         <p>{this.props.message}</p>
                     </Row>
                     <Row className="modal-btn">
-                        <Button onClick={this.handleSubmit}>Yes</Button>
+                        <Button className={this.props.buttonSubmitStyle} onClick={this.handleSubmit}>Yes</Button>
                     </Row>
                 </Modal>
             </div>

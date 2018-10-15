@@ -4,7 +4,25 @@
     margin: 5px 0px;
 }
 
+.booking-item-wrapper .row {
+    margin: 0px;
+}
+
+.booking-item-wrapper .col {
+    padding: 0px;
+}
+
+.booking-item-wrapper p {
+    margin: 5px;
+}
+
 .booking-item-title-wrapper {
     text-align: center;
     font-weight: bold;
+}
+
+.place-img-wrapper {
+    width: 100px;
+    height: 100px;
+    padding-right: 10px;
 }

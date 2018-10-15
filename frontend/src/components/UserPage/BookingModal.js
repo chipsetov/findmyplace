@@ -48,7 +48,7 @@ class BookingModal extends Component {
                         onChange={e => this.onChangeTimeHandler("time", e.target.value)}
                     />
                     <Row className="modal-btn">
-                        <Button onClick={this.onBookCompleteHandler}>Yes</Button>
+                        <Button className="grey darken-4" onClick={this.onBookCompleteHandler}>Yes</Button>
                     </Row>
                 </Modal>
             </div>
