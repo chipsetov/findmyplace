@@ -3,17 +3,21 @@ import {Row, Table} from 'react-materialize';
 import {deleteUser} from "../../../util/APIUtils";
 import {Session} from "../../../utils";
 import User from "./User";
+import FilterUsers from "./Filter/FilterUsers";
 import './UsersList.css';
 
 class UsersList extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
-            users: []
+            users: [],
+            filteredUsers: []
         };
 
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     componentDidMount() {
@@ -25,7 +29,8 @@ class UsersList extends Component {
                 });
 
                 this.setState({
-                    users: users
+                    users: users,
+                    filteredUsers: users
                 });
             })
     };
@@ -33,12 +38,13 @@ class UsersList extends Component {
     handleDelete(id) {
         deleteUser(id)
             .then((data) => {
-                let users = this.state.users.filter((user) => {
+                let users = this.state.filteredUsers.filter((user) => {
                     return id !== user.id;
                 });
 
                 this.setState({
-                    users: users
+                    users: users,
+                    filteredUsers: users
                 });
 
                 window["Materialize"].toast("User deleted", 3000);
@@ -47,13 +53,25 @@ class UsersList extends Component {
         });
     };
 
+    handleUpdate = (users) => {
+        this.setState({
+            filteredUsers: users
+        });
+    };
+
     render() {
-        const users = this.state.users;
+        const users = this.state.filteredUsers;
 
         return (
             <div className="users-list-wrapper">
                 <Row className="title">
                     <h5>Users</h5>
+                </Row>
+                <Row className="filter">
+                    <FilterUsers users={this.state.users}
+                                 filteredUsers={this.state.filteredUsers}
+                                 handleUpdate = {this.handleUpdate}
+                    />
                 </Row>
                 <Row className="users-list-table">
                     <Table>

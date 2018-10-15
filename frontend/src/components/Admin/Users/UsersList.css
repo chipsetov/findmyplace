@@ -1,5 +1,6 @@
 .users-list-wrapper .title {
-    margin-bottom: 0;
+    padding: 0 1rem;
+    margin-bottom: 30px;
 }
 
 .users-list-table {
