@@ -40,7 +40,7 @@ export default class Routes extends Component {
                     <Route path="/user/:id/places" component={UserPlaces}/>
                     <Route path="/register-place" component={RegisterPlace}/>
                     <Route path="/forgot-password" component={ForgotPasswordForm}/>
-                    <Route path="/restore/:token" component={RestorePasswordForm}/>
+                    <Route path="/restore/:token(\b.{8}-.{4}-.{4}-.{4}-.{12}\b)" component={RestorePasswordForm}/>
                     <Route path="/admin-page" component={AdminPage}/>
                     <Route path="/test" component={LoadingIndicator}/>
 

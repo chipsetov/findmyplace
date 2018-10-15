@@ -84,14 +84,14 @@ class PlacePage extends Component {
                         starHoverColor="yellow"
                         starDimension="40px"
                         starSpacing="10px"
-                        changeRating={this.changeRating}
                     />
 
                 </Row>
 
 
                 <div className="container content-container">
-                    <ButtonsBlock/>
+                    <ButtonsBlock rating={this.state.rating}
+                                  changeRating={this.changeRating}/>
                     <Info openTime={place.open}
                           closeTime={place.close}
                           freePlaces={place.countFreePlaces}
@@ -114,4 +114,5 @@ class PlacePage extends Component {
         }));
     }
 }
+
 export default PlacePage;

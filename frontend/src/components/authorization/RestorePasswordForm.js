@@ -43,25 +43,28 @@ class RestorePasswordForm extends Component {
 
             restorePassword(restoreRequest, this.props.match.params.token)
                 .then(response => {
-                    this.setState({
-                        isLoading: false
-                    });
 
-                        window.Materialize.toast('Password has been successfully changed!', 3000);
-                        this.setState({
-                            password: '',
-                            confirm_password: '',
-                            restoreToken: '',
-                            errors: {}
-                        });
+                    window.Materialize.toast('Password has been successfully changed!', 3000);
+                    this.setState({
+                        password: '',
+                        confirm_password: '',
+                        restoreToken: '',
+                        errors: {}
+                    });
 
 
                 }).catch(error => {
-
-                    window.Materialize.toast('Sorry! Something went wrong. Please try again!', 3000);
+                if (error.status === 401) {
+                    window.Materialize.toast('You have already changed your password!', 3000);
+                }
+                else{
+                    window.Materialize.toast('Sorry! Something went wrong. Please try again later!', 3000);}
+                this.setState({
+                    isLoading: false
+                });
 
             });
-
+            this.props.history.push("/");
         }
     }
 

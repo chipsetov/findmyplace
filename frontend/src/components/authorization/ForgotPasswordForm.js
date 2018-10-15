@@ -52,22 +52,19 @@ class ForgotPasswordForm extends Component {
                         isLoading: false
                     });
 
-                    if (!response.success) {
-                        window.Materialize.toast('User with such email doesn\'t exist', 3000);
-                        this.setState({
-                            email: "",
-                        });
-
-                    } else {
-                        window.Materialize.toast('Email confirmation has been send to your email', 3000);
-                        this.setState({
-                            email: "",
-                        });
-                        this.props.history.push("/");
-                    }
+                    window.Materialize.toast('Email confirmation has been send to your email', 3000);
+                    this.setState({
+                        email: "",
+                    });
+                    this.props.history.push("/");
 
                 }).catch(error => {
-                window.Materialize.toast('Sorry! Something went wrong. Please try again!', 3000);
+                if (error.status === 401) {
+                    window.Materialize.toast('User with such email doesn\'t exist', 3000);
+
+                } else {
+                    window.Materialize.toast("Something wrong! Try again later!", 3000);
+                }
             });
         }
 
@@ -83,9 +80,7 @@ class ForgotPasswordForm extends Component {
                 <div className="app-form">
                     <form onSubmit={this.handleSubmit}>
                         <h2>Restore your password</h2>
-
                         <Row>
-
                             <Input
                                 id="usernameOrEmail"
                                 value={this.state.email}
@@ -93,15 +88,12 @@ class ForgotPasswordForm extends Component {
                                 onChange={e => this.handleChange("email", e.target.value)}
                                 s={12}
                             />
-
                         </Row>
-
                         <Row>
                             <div className="errorMsg">{this.state.error}</div>
                         </Row>
                         <div className="confirm-row">
                             <Button waves="light" type="submit">Send</Button>
-
                         </div>
                     </form>
                 </div>

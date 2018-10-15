@@ -1,9 +1,25 @@
 import React, {Component} from 'react';
-import {Icon, Row, Col, CardPanel} from 'react-materialize';
+import {CardPanel, Col, Icon, Row} from 'react-materialize';
 import {Link} from 'react-router-dom';
 import '../../styles/PlacePage.css';
+import MarkModal from "../Modal/MarkModal";
 
 class ButtonsBlock extends Component {
+    constructor(props) {
+        super(props);
+        this.action = this.action.bind(this);
+
+    }
+
+    action() {
+        console.log("123")
+        return (
+            <MarkModal rating={this.props.rating}
+                       changeRating={this.props.changeRating}
+                       message={"Rate this place"}
+            />
+        )
+    }
 
     render() {
         return (
@@ -27,12 +43,7 @@ class ButtonsBlock extends Component {
                             <p className="text">Book Now</p>
                         </Col>
                     </Link>
-                    <Link to="/">
-                        <Col>
-                            <Icon className="black-text" large>star</Icon>
-                            <p className="text">Rate Us</p>
-                        </Col>
-                    </Link>
+                    {this.action()}
                 </Row>
             </CardPanel>
         );

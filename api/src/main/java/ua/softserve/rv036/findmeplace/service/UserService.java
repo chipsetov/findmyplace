@@ -61,7 +61,7 @@ public class UserService {
     public void sendEmailConfirmation(User user) throws IOException {
 
         if (!StringUtils.isEmpty(user.getEmail())) {
-            String URL = backendURL + "auth/activate/" + user.getActivationCode() + "/";
+            String URL = backendURL + "auth/activate/" + user.getActivationCode() ;
 
             String context = new String(Files.readAllBytes(Paths.get("api/src/main/resources/emailConfirmation.html")));
 
