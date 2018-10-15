@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Col, Row, Input, Button} from 'react-materialize';
-import {USER_ID} from "../../constants";
-import {updateUserPassword, updateUserProfile} from "../../util/APIUtils";
+import {USER_ID} from "../../../constants/index";
+import {updateUserPassword, updateUserProfile} from "../../../util/APIUtils";
 
 class AdminProfile extends Component {
 

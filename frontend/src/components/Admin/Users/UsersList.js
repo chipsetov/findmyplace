@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Row, Table} from 'react-materialize';
-import {Redirect} from "react-router-dom";
 import {deleteUser} from "../../../util/APIUtils";
 import {Session} from "../../../utils";
 import User from "./User";
@@ -15,7 +14,6 @@ class UsersList extends Component {
         };
 
         this.handleDelete = this.handleDelete.bind(this);
-        this.renderRedirect = this.renderRedirect.bind(this);
     }
 
     componentDidMount() {
@@ -49,13 +47,9 @@ class UsersList extends Component {
         });
     };
 
-    renderRedirect = () => {
-        if (!Session.isAdmin()) {
-            return <Redirect to='/'/>
-        }
-    };
-
     render() {
+        const users = this.state.users;
+
         return (
             <div className="users-list-wrapper">
                 <Row className="title">
@@ -75,7 +69,7 @@ class UsersList extends Component {
 
                         <tbody>
                             {
-                                this.state.users.map((item) => (
+                                users.map((item) => (
                                         <User  id={item.id}
                                                key={item.id}
                                                fistName={item.fistName}
