@@ -76,24 +76,22 @@ public class UserService {
     public boolean sendRestoreEmail(User user) {
 
         if (!StringUtils.isEmpty(user.getEmail())) {
-            String URL =  frontendURL+ "restore/" + user.getActivationCode();
+            String URL = frontendURL + "restore/" + user.getActivationCode();
 
             String context = null;
             try {
-                context = new String(Files.readAllBytes(Paths.get("api/src/main/resources/restorePassword.html")));
+                context = new String(Files.readAllBytes(Paths.get("api/src/main/resources/passwordRestore.html")));
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
             }
 
             String message = String.format(
-                    context,
-                    user.getNickName(), URL);
+                    context, URL);
             mailSender.send(user.getEmail(), "Restore your password!", message);
         }
         return true;
     }
-
 
 
     public void activateUser(User user) {
@@ -157,7 +155,6 @@ public class UserService {
 
         return ResponseEntity.ok(new ApiResponse(true, "Your password was changed successfully"));
     }
-
 
 
 }

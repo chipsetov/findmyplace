@@ -52,18 +52,18 @@
     left: 20px;
 }
 
-.text {
+.comment_text {
     word-break: normal;
     text-align: left;
     right: 20%;
 }
 
-.comment {
+.comment_block {
     width: 95%;
     padding-left: 5%;
 }
 
-.add_comment {
+.add_comment_btn {
     display: block;
     float: right;
     height: 32px;

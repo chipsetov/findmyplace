@@ -51,6 +51,7 @@ class ReviewsBlock extends Component {
                 });
 
                 window["Materialize"].toast("Feedback deleted", 3000);
+                console.log(reviews);
             }).catch((error) => {
             console.error('error', error);
         });

@@ -77,19 +77,20 @@ class NewReview extends Component {
         }
         return (
 
-            <div className="comment">
+            <div className="comment_block">
                 <form onSubmit={this.handleSubmit}>
                     <Row>
 
                         <Input
-                            // type="text"
+                            type="text"
+                            autocomplete="off"
                             value={this.state.comment}
                             placeholder="What's on your mind..."
                             onChange={e => this.handleChange("comment", e.target.value)}
                             s={12}
                         />
                         <div className="errorMsg">{this.state.error}</div>
-                            <Button className="add_comment"  type="submit">Add comment</Button>
+                            <Button className="add_comment_btn"  type="submit">Add comment</Button>
                     </Row>
 
                 </form>

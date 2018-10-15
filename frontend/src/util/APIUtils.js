@@ -70,9 +70,9 @@ export function forgotPassword(forgotRequest) {
     });
 }
 
-export function restorePassword(restoreRequest) {
+export function restorePassword(restoreRequest, param) {
     return request({
-        url: API_BASE_URL + "/auth/restore/" + this.props.match.params.token,
+        url: API_BASE_URL + "/auth/restore/" + param,
         method: 'POST',
         body: JSON.stringify(restoreRequest)
     });

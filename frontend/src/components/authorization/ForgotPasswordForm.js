@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Button, Col, Input, Row} from 'react-materialize';
 import {Link, withRouter} from 'react-router-dom';
 import '../../styles/Form.css';
-import {ACCESS_TOKEN, ROLE, USER_ID, RESTORE_TOKEN} from '../../constants';
 import {forgotPassword} from '../../util/APIUtils';
+import LoadingIndicator from "../../common/LoadingIndicator";
 
 
 class ForgotPasswordForm extends Component {
@@ -12,7 +12,8 @@ class ForgotPasswordForm extends Component {
         super(props);
         this.state = {
             email: '',
-            error: ""
+            error: "",
+            isLoading: false
 
         };
 
@@ -38,12 +39,18 @@ class ForgotPasswordForm extends Component {
 
 
         else {
+            this.setState({
+                isLoading: true
+            });
             const forgotRequest = {
                 email: this.state.email,
             };
 
             forgotPassword(forgotRequest)
                 .then(response => {
+                    this.setState({
+                        isLoading: false
+                    });
 
                     if (!response.success) {
                         window.Materialize.toast('User with such email doesn\'t exist', 3000);
@@ -52,8 +59,7 @@ class ForgotPasswordForm extends Component {
                         });
 
                     } else {
-                        localStorage.setItem(RESTORE_TOKEN, response.message);
-                        window.Materialize.toast('Email confirmation has been send to yor email', 3000);
+                        window.Materialize.toast('Email confirmation has been send to your email', 3000);
                         this.setState({
                             email: "",
                         });
@@ -69,6 +75,9 @@ class ForgotPasswordForm extends Component {
 
 
     render() {
+        if (this.state.isLoading) {
+            return <LoadingIndicator/>
+        }
         return (
             <div className="form-wrapper">
                 <div className="app-form">

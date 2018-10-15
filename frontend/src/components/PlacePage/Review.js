@@ -47,7 +47,7 @@ class Review extends Component {
                         <span>{this.props.userName}</span>
                     </Row>
                     <Row className="review-text">
-                        <span className="text">{this.props.comment} </span>
+                        <span className="comment_text">{this.props.comment} </span>
                     </Row>
                     <Row className="review-creation-date">
                         <Moment format="DD MMM YYYY HH:mm">

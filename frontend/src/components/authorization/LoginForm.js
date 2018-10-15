@@ -53,14 +53,8 @@ class LoginForm extends Component {
 
                     } else {
 
-                        //localStorage.setItem(ROLE, JSON.stringify(response.role));
                         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                        // localStorage.setItem(USER_ID, response.userId);
-
-                        // Session.login(response.accessToken);
                         this.props.onLogin();
-
-
                     }
 
                 }).catch(error => {
@@ -80,9 +74,7 @@ class LoginForm extends Component {
         });
 
 
-
-        resendEmail(this.state.usernameOrEmail).
-        then(response => {
+        resendEmail(this.state.usernameOrEmail).then(response => {
             this.setState({
                 isLoading: false
             });
@@ -111,10 +103,11 @@ class LoginForm extends Component {
             <div className="form-wrapper">
                 <div className="app-form">
                     <form onSubmit={this.handleSubmit}>
-                        <div className={this.state.className} style={{color: "#cc0000", textAlign: "center", fontSize: "22px"}}>
+                        <div className={this.state.className}
+                             style={{color: "#cc0000", textAlign: "center", fontSize: "22px"}}>
 
-                            Your email address has not been verified.<br />
-                           <a href="../#/sign-in" onClick={() => this.getNewEmailValidation()}>
+                            Your email address has not been verified.<br/>
+                            <a href="../#/sign-in" onClick={() => this.getNewEmailValidation()}>
                                 Click here for a new confirmation message!</a>
 
                         </div>

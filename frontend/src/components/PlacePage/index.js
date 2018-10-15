@@ -6,6 +6,7 @@ import ReviewBlock from './ReviewsBlock';
 import Info from './Info.js';
 import {PAGE_CHANGED} from "../../utils";
 import StarRatings from "react-star-ratings";
+import {addMark} from '../../util/APIUtils';
 
 class PlacePage extends Component {
 
@@ -13,7 +14,10 @@ class PlacePage extends Component {
         super(props);
         this.state = {
             place: {},
+            rating: 0,
+
         };
+        this.changeRating = this.changeRating.bind(this);
     }
 
     componentWillMount() {
@@ -31,30 +35,61 @@ class PlacePage extends Component {
             .then(
                 (result) => {
                     this.setState({
-                        place: result
+                        place: result,
+                        rating: result.rating
                     });
                 }
             )
     }
 
+    changeRating(newRating) {
+        const markRequest = {
+            mark: newRating,
+            userId: this.props.currentUser.id,
+            placeId: this.state.place.id
+        };
+
+        addMark(markRequest)
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    rating: response,
+                });
+            }).catch(error => {
+            if (error.status === 401) {
+                this.props.handleLogout();
+                window.Materialize.toast('You are not logged in!', 1000);
+            } else {
+                window.Materialize.toast('Sorry! Something went wrong. Please try again!', 1000);
+            }
+        });
+
+
+    }
+
     render() {
-        console.log(this.state);
 
         const place = this.state.place;
 
         return (
 
+
             <div className="place-page">
                 <Row className="place-header">
                     <h2>{place.name}</h2>
                     <h2>{place.address}</h2>
+                    <StarRatings
+                        rating={this.state.rating}
+                        starRatedColor="#ff8d15"
+                        starHoverColor="yellow"
+                        starDimension="40px"
+                        starSpacing="10px"
+                        changeRating={this.changeRating}
+                    />
+
                 </Row>
-                <StarRatings
-                   // rating={this.props.mark}
-                    starRatedColor="#ff8d15"
-                    starDimension="18px"
-                    starSpacing="5px"
-                />
+
+
                 <div className="container content-container">
                     <ButtonsBlock/>
                     <Info openTime={place.open}
@@ -79,5 +114,4 @@ class PlacePage extends Component {
         }));
     }
 }
-
 export default PlacePage;

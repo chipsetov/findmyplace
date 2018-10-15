@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {Button, Input, Row} from 'react-materialize';
 import {withRouter} from 'react-router-dom';
 import '../../styles/Form.css';
-import {API_BASE_URL, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH} from '../../constants';
+import {ACCESS_TOKEN, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH} from '../../constants';
+import {login, restorePassword} from '../../util/APIUtils';
+import LoadingIndicator from "../../common/LoadingIndicator";
 
 
 class RestorePasswordForm extends Component {
@@ -13,7 +15,8 @@ class RestorePasswordForm extends Component {
             password: '',
             confirm_password: '',
             restoreToken: '',
-            errors: {}
+            errors: {},
+            isLoading: false
 
         };
 
@@ -30,56 +33,43 @@ class RestorePasswordForm extends Component {
         event.preventDefault();
 
         if (this.validateForm()) {
-
+            this.setState({
+                isLoading: true
+            });
             const restoreRequest = {
                 password: this.state.password,
             };
 
 
-            //  restorePassword(restoreRequest)
-            //     .then(response => {
-            const headers = new Headers({
-                'Content-Type': 'application/json',
+            restorePassword(restoreRequest, this.props.match.params.token)
+                .then(response => {
+                    this.setState({
+                        isLoading: false
+                    });
+
+                        window.Materialize.toast('Password has been successfully changed!', 3000);
+                        this.setState({
+                            password: '',
+                            confirm_password: '',
+                            restoreToken: '',
+                            errors: {}
+                        });
+
+
+                }).catch(error => {
+
+                    window.Materialize.toast('Sorry! Something went wrong. Please try again!', 3000);
+
             });
-
-
-            let options = {
-                url: API_BASE_URL + "/auth/restore/" + this.props.match.params.token,
-                method: 'POST',
-                body: JSON.stringify(restoreRequest)
-            };
-
-            const defaults = {headers: headers};
-            options = Object.assign({}, defaults, options);
-
-
-            return fetch(options.url, options)
-                .then(response =>
-                    response.json()
-                        .then(json => {
-                            if (!response.ok) {
-                                // return Promise.reject(json);
-                            }
-                            console.log(json);
-                            this.props.history.push("/");
-                        })
-                );
-
-            // window.Materialize.toast('Password has been successfully changed!', 3000);
-            this.setState({
-                password: '',
-                confirm_password: '',
-                restoreToken: '',
-                errors: {}
-            });
-
-
 
         }
     }
 
 
     render() {
+        if (this.state.isLoading) {
+            return <LoadingIndicator/>
+        }
         return (
             <div className="form-wrapper">
                 <div className="app-form">
