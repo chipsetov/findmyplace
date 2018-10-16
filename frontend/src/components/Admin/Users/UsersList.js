@@ -32,6 +32,7 @@ class UsersList extends Component {
                     users: users,
                     filteredUsers: users
                 });
+
             })
     };
 

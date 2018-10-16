@@ -8,7 +8,6 @@ class UsersFilter extends Component {
         super(props);
 
         this.state = {
-            users: this.props.users,
             roles: [{"name":"Admin"}, {"name":"User"}, {"name":"Owner"}, {"name":"Manager"}],
             banStatuses: [{"name":"Banned"}, {"name":"Not Banned"}],
             selectedRole: "None",
@@ -28,7 +27,7 @@ class UsersFilter extends Component {
     }
 
     handleFilter() {
-        let users = this.state.users.filter((user) => {
+        let users = this.props.users.filter((user) => {
             if ((this.state.selectedRole === "None") &&
                             (this.state.selectedBanStatus === "None")) {
                 return user;

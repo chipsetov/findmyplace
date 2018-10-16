@@ -89,7 +89,7 @@ class AdminPage extends Component {
                                 <img src="img/admin/admin-avatar.png" alt="avatar"/>
                             </Row>
                             <Row className="admin-name">
-                                {this.props.firstName} {this.props.lastName}
+                                {this.state.firstName} {this.state.lastName}
                             </Row>
                             <Row className="admin-menu-items">
                                 <Row>
