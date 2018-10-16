@@ -20,7 +20,7 @@ class Places extends Component {
     }
 
     componentDidMount() {
-        fetch("/map")
+        fetch("place/map")
             .then((response) => response.json())
             .then((result) => {
                 this.setState({

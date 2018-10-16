@@ -7,8 +7,7 @@ class PlacesFilter extends Component {
         super(props);
 
         this.state = {
-            places: this.props.places,
-            placeTypes: [{"name":"Hotel"}, {"name":"Parking"}, {"name":"Cafe"}],
+            placeTypes: [],
             selectedPlaceType: "None",
         };
 
@@ -32,7 +31,7 @@ class PlacesFilter extends Component {
     }
 
     handleFilter() {
-        let places = this.state.places.filter((place) => {
+        let places = this.props.places.filter((place) => {
             if ((this.state.selectedPlaceType === "None")) {
                 return place;
             } else {

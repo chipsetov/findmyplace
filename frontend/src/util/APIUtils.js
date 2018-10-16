@@ -267,3 +267,29 @@ export const updateUserPassword = password => request({
     body: JSON.stringify(password)
 });
 
+export function deleteUserFeedback(id) {
+    return deleteRequest({
+        url: API_BASE_URL + '/user/delete-feedback/' + id,
+        method: 'DELETE'
+    });
+}
+
+export function deleteUser(id) {
+    return deleteRequest({
+        url: API_BASE_URL + '/user/delete/' + id,
+        method: 'DELETE'
+    });
+}
+
+export const updateUserProfile = profile => request({
+    url: API_BASE_URL + "/user/update-profile",
+    method: 'POST',
+    body: JSON.stringify(profile)
+});
+
+export const updateUserPassword = password => request({
+    url: API_BASE_URL + "/user/update-password",
+    method: 'POST',
+    body: JSON.stringify(password)
+});
+
