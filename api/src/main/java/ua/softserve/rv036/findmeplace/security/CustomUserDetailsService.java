@@ -26,6 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 );
 
         return UserPrincipal.create(user);
+
     }
 
     // This method is used by JWTAuthenticationFilter
@@ -36,5 +37,5 @@ public class CustomUserDetailsService implements UserDetailsService {
         );
 
         return UserPrincipal.create(user);
-    }
+            }
 }

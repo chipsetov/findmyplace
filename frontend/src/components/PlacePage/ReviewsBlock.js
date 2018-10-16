@@ -30,8 +30,8 @@ class ReviewsBlock extends Component {
             <Row className="reviews-container">
                 <h1>Reviews</h1>
                 { reviews.map(item => (
-                    <Review key={item.feedbackOwner.nickName}
-                            ownerName={item.feedbackOwner.nickName}
+                    <Review key={item.ownerNickName}
+                            ownerName={item.ownerNickName}
                             avatar="./favicon.ico"
                             comment={item.comment}
                             mark={item.mark}/>

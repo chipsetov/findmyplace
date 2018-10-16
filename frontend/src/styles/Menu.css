@@ -1,10 +1,9 @@
 .menu-container {
-    background-color: rgba(0 ,0 ,0 ,0.3);
+    background-color: rgba(0 ,0 ,0 , 0.5);
     width: 100%;
 }
 
 .menu-wrapper {
-    margin: 0 1% 40px;
     vertical-align: baseline;
 }
 
@@ -49,7 +48,8 @@
     color: #fff;
 }
 
-.menu-wrapper .menu li a:hover, .menu-wrapper .menu #auth-sign-up button:hover {
+.menu-wrapper .menu li a:hover,
+.menu-wrapper .menu #auth-sign-up button:hover {
     color: #e23c52;
 }
 
@@ -62,7 +62,7 @@
 
 .menu-wrapper .menu #auth-sign-up button {
     text-transform: none;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     background-color: #1d2120;
     border-radius: 4px;
 }
@@ -79,8 +79,8 @@
     line-height: 70px;
 }
 
-.router {
-    min-height: 800px;
+.hidden {
+    display: none !important;
 }
 
 .place-page-mixin {
@@ -89,6 +89,23 @@
     max-height: 90px;
 }
 
-.hidden {
-    display: none !important;
+.dropdown-button {
+    float: right;
+}
+
+.dropdown-content {
+    margin-top: 40px;
+    min-width: 130px;
+    background-color: #1d2120;
+}
+
+.dropdown-content li a {
+    text-align: center;
+    padding: 5px 20px !important;
+    line-height: 40px !important;
+    border-radius: 4px;
+}
+
+.dropdown-content li:hover {
+    background-color: transparent;
 }

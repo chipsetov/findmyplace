@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Navbar, NavItem, Button, Icon } from 'react-materialize';
+import { Navbar, NavItem, Button, Icon} from 'react-materialize';
 import { withRouter } from 'react-router-dom';
 import Logout from './Logout';
 import '../styles/Menu.css';
+import "../styles/Logout.css";
 import {LOGIN_CHANGED, PAGE_CHANGED, Session} from "../utils";
 
 class Menu extends Component {
@@ -31,7 +32,6 @@ class Menu extends Component {
                     <Navbar brand="logo" className="menu" right>
                         <NavItem href='#/'>Home</NavItem>
                         <NavItem href='#/map'>Map</NavItem>
-                        <NavItem href='#about'>About us</NavItem>
                         <NavItem href='#place/1'>Place</NavItem>
                         <Logout isLoggedIn={isLoggedIn} logout={this.onLogoutHandler.bind(this)}/>
                         <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>

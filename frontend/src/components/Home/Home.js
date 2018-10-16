@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router-dom";
-import Animation from './Animation.js';
-import AppInfo from "./AppInfo";
+import {Link, withRouter} from "react-router-dom";
+import './Home.css';
+import {Row} from "react-materialize";
 
 class Home extends Component {
 
     render() {
-        const greeting = "Speed up the search and booking of places with our service";
-
-        return (
+         return (
              <div className="container-fluid">
-                 <Animation text={greeting}/>
-                 <AppInfo/>
+                 <Row className="greeting">
+                     <p>Speed up the search and booking of places with our service</p>
+                     <Link to={`app-info`} id="learn-more">Learn more</Link>
+                 </Row>
              </div>
         );
     }

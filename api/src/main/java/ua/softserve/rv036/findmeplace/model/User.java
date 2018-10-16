@@ -1,72 +1,63 @@
 package ua.softserve.rv036.findmeplace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.UpdateTimestamp;
 import ua.softserve.rv036.findmeplace.model.audit.DateAudit;
+import ua.softserve.rv036.findmeplace.model.enums.BanStatus;
+import ua.softserve.rv036.findmeplace.model.enums.Role;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
-import java.util.Collection;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "Users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"nick_name"}),
-        @UniqueConstraint(columnNames = {"email"})
-})
+@Table(name = "users")
 public class User extends DateAudit {
 
+    public User(@NotBlank @Email String email, @NotBlank String nickName, @NotBlank String password) {
+        this.email = email;
+        this.nickName = nickName;
+        this.password = password;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Column(name = "f_name")
+    @Column(name = "first_name")
     private String firstName;
 
-    @NotBlank
-    @Column(name = "l_name")
+    @Column(name = "last_name")
     private String lastName;
 
-    @NotBlank
+    @Column(name = "phone")
     private String phone;
 
-    @NaturalId
-    @NotBlank
-   // @Email
+    @Column(name = "email")
     private String email;
 
     @NotBlank
     @Column(name = "nick_name")
     private String nickName;
 
-    @NotBlank
+    @Column(name = "password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "status")
+    @Column(name = "ban_status")
+    @Enumerated(EnumType.STRING)
     private BanStatus banStatus;
 
+    @Column(name = "is_active")
+    private boolean isActive;
 
-    public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank @Email String email, @NotBlank String nickName, @NotBlank String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.nickName = nickName;
-        this.password = password;
-    }
+    @JsonIgnore
+    @Column(name = "activationCode")
+    private String activationCode;
+
 }

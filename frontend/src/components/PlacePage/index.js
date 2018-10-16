@@ -44,7 +44,7 @@ class PlacePage extends Component {
                     <h2>{place.name}</h2>
                     <h2>{place.address}</h2>
                 </Row>
-                <div className="content-container">
+                <div className="container content-container">
                     <ButtonsBlock/>
                     <Info openTime={place.open}
                           closeTime={place.close}
