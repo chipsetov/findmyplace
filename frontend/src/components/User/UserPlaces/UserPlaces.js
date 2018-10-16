@@ -1,31 +1,32 @@
 import React, {Component} from 'react';
-import {Col, Row} from "react-materialize";
-import {deleteUserPlace} from "../../../util/APIUtils";
+import {deleteUserPlace, getAllMyPlaces} from "../../../util/APIUtils";
+import {Row} from "react-materialize";
 import Place from "./Place";
 import {Link} from "react-router-dom";
-import SearchPlace from "../../Map/SearchPlace";
+import {Session} from "../../../utils";
+import {Redirect} from 'react-router-dom';
 
 class UserPlaces extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            places: [],
-            searchValue:''
+            places: []
         };
 
         this.handleDelete = this.handleDelete.bind(this);
+        this.renderRedirect = this.renderRedirect.bind(this);
     }
 
     componentDidMount() {
-        fetch("/user/" + this.props.match.params.id + "/places")
-            .then((response) => response.json())
-            .then((result) => {
+        getAllMyPlaces()
+            .then((response) => {
+                console.log(response);
                 this.setState({
-                    places: result
+                    places: response
                 });
             })
-    }
+    };
 
     handleDelete(id) {
         deleteUserPlace(id)
@@ -42,17 +43,21 @@ class UserPlaces extends Component {
             }).catch((error) => {
                 console.error('error', error);
             });
-    }
+    };
+
+    renderRedirect = () => {
+        if (!Session.isAdmin() && !Session.isOwner()) {
+            return <Redirect to='/'/>
+        }
+    };
 
     render() {
         const places = this.state.places;
 
         return(
             <Row className="user-places-wrapper">
+                {this.renderRedirect()}
                 <Row className="places-search">
-                    <Col s={3}>
-                        <SearchPlace />
-                    </Col>
                     <Link to={`/register-place`} id="register-place">Add place</Link>
                 </Row>
                 <Row className="places-container">
@@ -65,6 +70,8 @@ class UserPlaces extends Component {
                                        description={item.description}
                                        rating={item.rating}
                                        countFreePlaces={item.countFreePlaces}
+                                       isApprove={item.approved}
+                                       isRejected={item.rejected}
                                        handleDelete={this.handleDelete}
                                 />
                             )
@@ -73,7 +80,7 @@ class UserPlaces extends Component {
                 </Row>
             </Row>
         );
-    }
+    };
 
 }
 

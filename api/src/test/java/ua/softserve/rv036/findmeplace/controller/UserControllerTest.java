@@ -25,6 +25,12 @@ public class UserControllerTest {
     private UserController userController;
 
     @Test
+    public void deleteUserById() throws Exception {
+        mvc.perform(delete("/user/delete/{id}", 1L))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void deleteUserPlaceById() throws Exception {
         mvc.perform(delete("/user/delete-place/{id}", 1L))
                 .andExpect(status().isOk());
@@ -33,6 +39,12 @@ public class UserControllerTest {
     @Test
     public void getManagerPlacesTest() throws Exception {
         mvc.perform(get("/manager/{id}/places", 1L))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteUserFeedbackById() throws Exception {
+        mvc.perform(delete("/user/delete-feedback/{id}", 1L))
                 .andExpect(status().isOk());
     }
 

@@ -1,0 +1,35 @@
+.review-container img {
+    border-radius: 50%;
+}
+
+.review-container {
+    margin: 0 !important;
+    padding: 1rem;
+    border-radius: 3px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+
+.review-author span {
+    font-weight: 700;
+}
+
+.review-author span,
+.review-text span,
+.review-creation-date span,
+.review-creation-date time {
+    display: block;
+}
+
+.review-author span,
+.review-author .star-ratings,
+.review-text span,
+.review-creation-date span,
+.review-creation-date time {
+    float: left;
+    margin: 0 .75rem;
+}
+
+.review-creation-date {
+    font-size: 14px;
+    color: #dcdcdc;
+}

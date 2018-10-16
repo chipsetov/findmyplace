@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Row} from "react-materialize";
 import {deleteManagers} from "../../../util/APIUtils";
 import Manager from "./Manager";
+import {Session} from "../../../utils";
 
 class UserManagers extends Component {
 
@@ -16,7 +17,8 @@ class UserManagers extends Component {
     }
 
     componentDidMount() {
-        fetch("/user/" + this.props.match.params.id + "/managers")
+    const userId = Session.userId();
+        fetch("/user/" + userId + "/managers")
             .then((response) => response.json())
             .then((result) => {
                 this.setState({

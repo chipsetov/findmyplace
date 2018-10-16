@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Row} from 'react-materialize';
 import Modal from 'react-responsive-modal';
+import "../../styles/Main.css";
 import './AppModal.css';
 
 class AppModal extends Component {
@@ -29,13 +30,14 @@ class AppModal extends Component {
 
         return (
             <div>
-                <Button onClick={this.openAndCloseModal}>{this.props.action}</Button>
+                <Button className="btn-delete" onClick={this.openAndCloseModal}>{this.props.action}</Button>
                 <Modal open={open} onClose={this.openAndCloseModal} center>
                     <Row className="modal-msg">
                         <p>{this.props.message}</p>
                     </Row>
                     <Row className="modal-btn">
                         <Button onClick={this.handleSubmit}>Yes</Button>
+                        <Button onClick={this.openAndCloseModal}>Cancel</Button>
                     </Row>
                 </Modal>
             </div>

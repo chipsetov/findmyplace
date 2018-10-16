@@ -1,24 +1,64 @@
 import React, { Component } from 'react';
-import {Row, Col, CardPanel} from 'react-materialize';
+import {Row, Col} from 'react-materialize';
+import StarRatings from "react-star-ratings";
+import Moment from 'react-moment';
+import "../../styles/Main.css";
+import './Review.css';
+import {Session} from "../../utils";
+import AppModal from "../Modal/AppModal";
 
 class Review extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.handleDelete = this.handleDelete.bind(this);
+        this.viewDeleteButton = this.viewDeleteButton.bind(this);
+    }
+
+    handleDelete() {
+        const id = this.props.id;
+        this.props.handleDelete(id);
+    }
+
+    viewDeleteButton() {
+        if(Session.isAdmin() || (Session.userId() == this.props.userId)) {
+            return (
+                <AppModal action={"Delete"}
+                          message={"Are you sure you want to delete this comment?"}
+                          handleSubmit={this.handleDelete}
+                />
+            )
+        }
+    }
+
     render() {
         return(
-            <CardPanel className="card-panel-rvw blue lighten-5">
-                <Row className="center">
-                    <Col s={1}>
-                        <p>{this.props.ownerName}</p>
-                        <img src={this.props.avatar}/>
-                    </Col>
-                    <Col s={10}>
-                        <p>{this.props.comment}</p>
-                    </Col>
-                    <Col s={1}>
-                        <h1>{this.props.mark}</h1>
-                    </Col>
-                </Row>
-            </CardPanel>
+            <Row className="review-container">
+                <Col s={1}>
+                    <img src={this.props.avatar}/>
+                </Col>
+                <Col s={11}>
+                    <Row className="review-author">
+                        <span>{this.props.userName}</span>
+                        <StarRatings
+                            rating={this.props.mark}
+                            starRatedColor="#ff8d15"
+                            starDimension="18px"
+                            starSpacing="5px"
+                        />
+                    </Row>
+                    <Row className="review-text">
+                        <span>{this.props.comment}</span>
+                    </Row>
+                    <Row className="review-creation-date">
+                        <Moment format="DD MMM YYYY HH:mm">
+                            {this.props.creationDate}
+                        </Moment>
+                        {this.viewDeleteButton()}
+                    </Row>
+                </Col>
+            </Row>
         );
     }
 

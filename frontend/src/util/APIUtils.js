@@ -15,9 +15,9 @@ export const request = (options) => {
     return fetch(options.url, options)
         .then(response =>
             response.json().then(json => {
-                if (!response.ok) {
-                    return Promise.reject(json);
-                }
+                // if (!response.ok) {
+                //     return Promise.reject(json);
+                // }
                 return json;
             })
         );
@@ -75,6 +75,29 @@ export function login(loginRequest) {
     });
 }
 
+export function getApprovePlaces() {
+    return request({
+        url: API_BASE_URL + "/places/not-approved",
+        method: 'GET',
+    });
+}
+
+export function getAllMyPlaces() {
+    return request({
+        url: API_BASE_URL + "/places/my-places",
+        method: 'GET',
+    })
+}
+
+export function rejectPlace(rejectPlaceRequest) {
+    return request({
+        url: API_BASE_URL + "/places/reject",
+        method: 'POST',
+        body: JSON.stringify(rejectPlaceRequest)
+    })
+
+}
+
 export function signup(signupRequest) {
     return request({
         url: API_BASE_URL + "/auth/signup",
@@ -93,6 +116,12 @@ export function resendEmail(usernameOrEmail) {
 export const getProfile = (nickname) => request({
     url: API_BASE_URL + `/users/nick/${nickname}`,
     method: 'GET'
+});
+
+
+export const approvePlace = (id) => request({
+    url: API_BASE_URL + `/places/approve/${id}`,
+    method: 'PUT'
 });
 
 export const updateProfile = profile => request({
@@ -211,4 +240,30 @@ export function changeCountFreePlaces(id, count) {
 }
 
 
+
+export function deleteUserFeedback(id) {
+    return deleteRequest({
+        url: API_BASE_URL + '/user/delete-feedback/' + id,
+        method: 'DELETE'
+    });
+}
+
+export function deleteUser(id) {
+    return deleteRequest({
+        url: API_BASE_URL + '/user/delete/' + id,
+        method: 'DELETE'
+    });
+}
+
+export const updateUserProfile = profile => request({
+    url: API_BASE_URL + "/user/update-profile",
+    method: 'POST',
+    body: JSON.stringify(profile)
+});
+
+export const updateUserPassword = password => request({
+    url: API_BASE_URL + "/user/update-password",
+    method: 'POST',
+    body: JSON.stringify(password)
+});
 

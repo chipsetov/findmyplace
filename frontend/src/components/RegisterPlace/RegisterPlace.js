@@ -2,10 +2,10 @@ import React, { Component, createRef } from 'react';
 import {Row, Input, Button} from 'react-materialize';
 import PutMarker from "./PutMarker";
 import {registerPlace} from '../../util/APIUtils';
-import {USER_ID} from '../../constants';
 import { Session } from "../../utils";
 import { Redirect } from 'react-router-dom';
 import "../../styles/RegisterPlace.css";
+import '../../styles/Form.css';
 
 
 class RegisterPlace extends Component {
@@ -27,7 +27,6 @@ class RegisterPlace extends Component {
 
             latitude: 50.6219427,
             longitude: 26.2493254,
-            ownerId: localStorage.getItem(USER_ID),
 
             placeTypes: [],
 
@@ -105,7 +104,6 @@ class RegisterPlace extends Component {
                 description: this.state.description,
                 longitude: this.state.longitude,
                 latitude: this.state.latitude,
-                ownerId: this.state.ownerId,
             };
             console.log(JSON.stringify(registerPlaceRequest));
 
@@ -131,7 +129,6 @@ class RegisterPlace extends Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result);
                     this.setState({
                         placeTypes: result
                     });
@@ -153,7 +150,7 @@ class RegisterPlace extends Component {
             <div className="container form-container">
                 {this.renderRedirect()}
                 <Row>
-                    <h1>Register place</h1>
+                    <h1>Register Place</h1>
                 </Row>
                 <Row>
                     <Input
@@ -164,7 +161,7 @@ class RegisterPlace extends Component {
                         validate
                         required
                         s={12}
-                        label="Place name"
+                        placeholder="PLACE NAME"
                         onChange={e => this.handleChange("placeName", e.target.value)}/>
                 </Row>
                 <Row>
@@ -176,13 +173,13 @@ class RegisterPlace extends Component {
                         error={this.state.error_address}
                         validate
                         required
-                        label="Address"
+                        placeholder="ADDRESS"
                         onChange={e => this.handleChange("address", e.target.value)}/>
                     <Input
                         type="time"
                         validate
                         required
-                        label="Open time"
+                        label="OPEN TIME"
                         defaultValue="00:00"
                         options = {{twelvehour: false}}
                         onChange={e => this.handleChange("openTime", e.target.value)}
@@ -191,7 +188,7 @@ class RegisterPlace extends Component {
                         type="time"
                         validate
                         required
-                        label="Close time"
+                        label="CLOSE TIME"
                         defaultValue="00:00"
                         options = {{twelvehour: false}}
                         onChange={e => this.handleChange("closeTime", e.target.value)}
@@ -204,7 +201,7 @@ class RegisterPlace extends Component {
                         validate
                         required
                         error={this.state.error_placeType}
-                        label="Place type"
+                        label="PLACE TYPE"
                         onChange={e => this.handleChange("placeType", e.target.value)}>
                                 <option></option>
                             {
@@ -217,14 +214,14 @@ class RegisterPlace extends Component {
                 </Row>
                 <Row>
                     <Input
-                        id="description"
+                        //id="description"
                         type="textarea"
                         validate
                         required
                         error={this.state.error_description}
                         value={this.state.description}
                         s={12}
-                        label="Description"
+                        placeholder="DESCRIPTION"
                         onChange={e => this.handleChange("description", e.target.value)}/>
                 </Row>
                 <Row>

@@ -118,6 +118,14 @@
             <column name="owner_id" type="int">
                 <constraints nullable="true" foreignKeyName="fk_owner_id" references="users(id)"/>
             </column>
+
+            <column name="is_approved" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_rejected" type="boolean">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -136,9 +144,31 @@
                 <constraints nullable = "false"/>
             </column>
 
+            <column name="creation_date" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+
             <column name="user_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)"
                              deleteCascade="true"/>
+            </column>
+
+            <column name="place_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_place_id" references="places(id)"
+                             deleteCascade="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- PlaceRejects -->
+    <changeSet id="4" author="rv036">
+        <createTable tableName="place_rejects">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="reject_message" type="varchar(255)">
+                <constraints nullable = "false"/>
             </column>
 
             <column name="place_id" type="int">

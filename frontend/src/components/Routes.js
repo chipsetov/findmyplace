@@ -10,10 +10,14 @@ import RegisterPlace from "./RegisterPlace/RegisterPlace";
 import AppInfo from "./Home/AppInfo";
 import UserPlaces from "./User/UserPlaces/UserPlaces";
 import UserManagers from "./User/UserManagers/UserManagers";
+import {Session} from "../utils";
+import AdminPage from "./Admin/AdminPage";
+import ApprovablePlaces from "./ApprovePlace/ApprovablePlaces"
 
 export default class Routes extends Component {
 
     render() {
+        const userId = Session.userId();
         const style = {
             minHeight: this.props.minHeight
         };
@@ -35,9 +39,10 @@ export default class Routes extends Component {
                                                          handleAvatarUpdated={this.props.handleAvatarUpdated}/>
                        }
                 />
-                <Route path="/user/:id/places" component={UserPlaces}/>
-                <Route path="/user/:id/managers" component={UserManagers}/>
+                <Route path={`/user/${userId}/places`} component={UserPlaces}/>
+                <Route path={`/user/${userId}/managers`} component={UserManagers}/>
                 <Route path="/register-place" component={RegisterPlace}/>
+                <Route path="/admin-page" component={AdminPage}/>
             </div>
         );
     }
