@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {Dropdown, NavItem} from 'react-materialize';
 import "../../styles/Logout.css";
-import {Session} from "../../utils";
+import {withRouter} from "react-router-dom";
 
-export default class Logout extends Component {
+class Logout extends Component {
 
     constructor(props) {
         super(props);
-
-        this.viewPlaces = this.viewPlaces.bind(this);
+        this.state = {
+            user: this.props.currentUser === null ? "" : this.props.currentUser
+        }
     }
 
 
@@ -24,39 +25,27 @@ export default class Logout extends Component {
     }
 
     baseDropdown() {
-        const hidden = (this.props.isLoggedIn ? "" : " hidden");
         return (
-            <div id="auth-sign-out" className={hidden}>
-                <div className="logout">
-                    <Dropdown trigger={<img src={this.props.userAvatar} alt=""/>}>
-                        <NavItem href='#/user/profile'>Profile</NavItem>
-                        {this.viewPlaces()}
-                        {this.viewManagers()}
-                        <NavItem href='#'>Booking</NavItem>
-                        <NavItem href='#'>Favorite</NavItem>
-                        <NavItem href='#/logout' onClick={this.props.handleLogout}>
-                            Sign out
-                        </NavItem>
-                    </Dropdown>
-                </div>
-            </div>
+            <Dropdown trigger={<img src={this.props.userAvatar} alt=""/>}>
+                <NavItem href='#/user/profile'>Profile</NavItem>
+                {this.ownerView()}
+                <NavItem href='#'>Booking</NavItem>
+                <NavItem href='#'>Favorite</NavItem>
+                <NavItem onClick={this.props.handleLogout}>
+                    Sign out
+                </NavItem>
+            </Dropdown>
         )
     };
 
-    viewPlaces = () => {
-        if (Session.isOwner()) {
-            const userId = Session.userId();
+    ownerView = () => {
+        if (this.state.user.role === "ROLE_OWNER") {
+            const userId = this.state.user.id;
             return (
-                <NavItem href={`#/user/${userId}/places`}>Places</NavItem>
-            )
-        }
-    };
-
-    viewManagers = () => {
-        if (Session.isOwner()) {
-            const userId = Session.userId();
-            return (
-                <NavItem href={`#/user/${userId}/managers`}>Managers</NavItem>
+                <div>
+                    <NavItem href={`#/user/${userId}/places`}>Places</NavItem>
+                    <NavItem href={`#/user/${userId}/managers`}>Managers</NavItem>
+                </div>
             )
         }
     };
@@ -66,11 +55,12 @@ export default class Logout extends Component {
 
         return (
             <div id="auth-sign-out" className={hidden}>
-                <NavItem href="" className="logout">
-                    {Session.isAdmin() ? this.adminDropdown() : this.baseDropdown()}
-                </NavItem>
+                <div className="logout">
+                    {this.state.user.role === "ROLE_ADMIN" ? this.adminDropdown() : this.baseDropdown()}
+                </div>
             </div>
         );
     }
 
 }
+export default withRouter(Logout);

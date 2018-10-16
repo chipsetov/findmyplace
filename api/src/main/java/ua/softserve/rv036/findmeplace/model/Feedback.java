@@ -33,6 +33,9 @@ public class Feedback {
     @Transient
     private String userName;
 
+    @Transient
+    private String avatarUrl;
+
     @Column(name = "place_id")
     private Long placeId;
 

@@ -1,5 +1,6 @@
 .review-container img {
     border-radius: 50%;
+    height: 90px;
 
 }
 
@@ -41,7 +42,7 @@
 
 .review-creation-date {
     font-size: 14px;
-    color: #dcdcdc;
+    color: #7c807b;
     position: relative;
     left: 10px;
     top: 10px;

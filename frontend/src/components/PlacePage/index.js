@@ -8,7 +8,7 @@ import ReviewBlock from './ReviewsBlock';
 import Info from './Info.js';
 import {changeCountFreePlaces} from "../../util/APIUtils";
 import {checkBookingTime, PAGE_CHANGED, Session} from "../../utils";
-import { bookPlace } from "../../util/APIUtils";
+import {bookPlace} from "../../util/APIUtils";
 import StarRatings from "react-star-ratings";
 import {addMark} from '../../util/APIUtils';
 
@@ -28,7 +28,7 @@ class PlacePage extends Component {
         this.state = {
             place: {},
             viewManager: Session.isOwner()
-        } ;
+        };
     }
 
     componentWillMount() {
@@ -84,20 +84,21 @@ class PlacePage extends Component {
                 <ManagersBlock
                     placeId={this.props.match.params.placeId}
                 />
-        )}
+            )
+        }
     }
 
     countChange = (count) => {
-            console.log(this.state.place);
-            changeCountFreePlaces(this.props.match.params.placeId, count)
-                .then((result) => {
-                    this.setState({
-                        place: result
-                    });
-                }).catch((error) => {
-                    console.error('error', error);
+        console.log(this.state.place);
+        changeCountFreePlaces(this.props.match.params.placeId, count)
+            .then((result) => {
+                this.setState({
+                    place: result
                 });
-        }
+            }).catch((error) => {
+            console.error('error', error);
+        });
+    }
 
     render() {
 
@@ -120,11 +121,11 @@ class PlacePage extends Component {
 
 
                 <div className="container content-container">
-                    <ButtonsBlock onBookCompleteHandler={ this.onBookCompleteHandler.bind(this) }
-                    placeId={place.id}
-                    rating={this.state.rating}
-                    changeRating={this.changeRating}
-                    isAuthenticated={this.props.isAuthenticated}
+                    <ButtonsBlock onBookCompleteHandler={this.onBookCompleteHandler.bind(this)}
+                                  placeId={place.id}
+                                  rating={this.state.rating}
+                                  changeRating={this.changeRating}
+                                  isAuthenticated={this.props.isAuthenticated}
                     />
                     <Info openTime={place.open}
                           closeTime={place.close}
@@ -132,9 +133,8 @@ class PlacePage extends Component {
                           description={place.description}
                           countChange={this.countChange}/>
                     <ReviewsBlock placeId={this.props.match.params.placeId}
-                    currentUser={this.props.currentUser}
-                    placeId={this.props.match.params.placeId}
-                    isAuthenticated={this.props.isAuthenticated}
+                                  currentUser={this.props.currentUser}
+                                  isAuthenticated={this.props.isAuthenticated}
                     />
                     {this.viewManagers()}
                 </div>

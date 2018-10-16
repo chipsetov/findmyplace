@@ -31,6 +31,7 @@ class Menu extends Component {
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#place/1'>Place</NavItem>
                         <Logout
+                            currentUser={this.props.currentUser}
                             isLoggedIn={isLoggedIn}
                             handleLogout={this.props.handleLogout}
                             userAvatar={this.props.userAvatar}
@@ -56,13 +57,6 @@ class Menu extends Component {
         window.removeEventListener(PAGE_CHANGED, this.onPageChangedHandler.bind(this));
     }
 
-    onLoginChangedHandler() {
-        this.forceUpdate();
-
-        // if (Session.isLoggedIn()) {
-        //     this.props.history.push('/');
-        // }
-    }
 
     onPageChangedHandler(e) {
         const detail = e.detail;
@@ -75,4 +69,4 @@ class Menu extends Component {
 
 }
 
-export default withRouter(Menu);
+export default Menu;

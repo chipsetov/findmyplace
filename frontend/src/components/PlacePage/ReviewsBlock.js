@@ -77,7 +77,7 @@ class ReviewsBlock extends Component {
                             userName={item.userName}
                             comment={item.comment}
                             creationDate={item.creationDate}
-                            avatar="./favicon.ico"
+                            avatar={item.avatarUrl === null ? "./favicon.ico" : item.avatarUrl}
                             handleDelete={this.handleDelete}
                             currentUser={this.props.currentUser}
                     />

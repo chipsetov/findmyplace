@@ -46,7 +46,6 @@ export default class Routes extends Component {
                     <Route path="/forgot-password" component={ForgotPasswordForm}/>
                     <Route path="/restore/:token(\b.{8}-.{4}-.{4}-.{4}-.{12}\b)" component={RestorePasswordForm}/>
                     <Route path="/admin-page" component={AdminPage}/>
-                    <Route path="/test" component={LoadingIndicator}/>
 
                     <PrivateRoute authenticated={this.props.isAuthenticated} path="/map" component={MapForm}
                                   handleLogout={this.props.handleLogout}>

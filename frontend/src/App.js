@@ -41,6 +41,7 @@ class App extends Component {
 
 
                     <Menu
+                        currentUser={this.state.currentUser}
                         isAuthenticated={this.state.isAuthenticated}
                         handleLogout={this.handleLogout}
                         userAvatar={this.state.userAvatar}
@@ -77,7 +78,7 @@ class App extends Component {
         });
     }
 
-    handleLogout(redirectTo = "/", description = "You're successfully logged out.") {
+    handleLogout(redirectTo = "#/", description = "You're successfully logged out.") {
         localStorage.removeItem(ACCESS_TOKEN);
 
         this.setState({
@@ -97,7 +98,7 @@ class App extends Component {
 
 
     handleAvatarUpdated() {
-        if (Session.isLoggedIn()) {
+        if (this.state.isAuthenticated) {
             getAvatar()
                 .then(response => {
                     if (response) {
@@ -114,7 +115,9 @@ class App extends Component {
         this.resize();
         this.handleAvatarUpdated();
         window.addEventListener('resize', this.onResizeHandler.bind(this));
+
     }
+
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.onResizeHandler.bind(this));

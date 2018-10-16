@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 
-    @Query("select new Feedback(f.id, f.comment, f.creationDate, f.userId, u.nickName, f.placeId)" +
+    @Query("select new Feedback(f.id, f.comment, f.creationDate, f.userId, u.nickName, u.avatarUrl, f.placeId)" +
             "from Feedback f, User u " +
             "where f.userId = u.id and f.placeId = :id")
     List<Feedback> findAllByPlaceId(@Param("id") Long id);

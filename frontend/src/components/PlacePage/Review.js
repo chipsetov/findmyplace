@@ -30,6 +30,7 @@ class Review extends Component {
             return (
                 <AppModal action={"Delete"}
                           message={"Are you sure you want to delete this comment?"}
+                          buttonStyle="btn-delete"
                           handleSubmit={this.handleDelete}
                 />
             )

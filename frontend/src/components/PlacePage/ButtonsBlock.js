@@ -13,12 +13,11 @@ class ButtonsBlock extends Component {
     }
 
     action() {
-                return (
+        return (
             <MarkModal rating={this.props.rating}
                        changeRating={this.props.changeRating}
                        message={"Rate this place"}
-                       isAuthenticated={this.props.isAuthenticated}
-            />
+                       isAuthenticated={this.props.isAuthenticated}/>
         )
     }
 
@@ -38,8 +37,8 @@ class ButtonsBlock extends Component {
                             <p className="text">Call Now</p>
                         </Col>
                     </Link>
-                    <BookingModal onBookCompleteHandler={ this.props.onBookCompleteHandler }/>
-                   {this.action()}
+                    <BookingModal onBookCompleteHandler={this.props.onBookCompleteHandler}/>
+                    {this.action()}
                 </Row>
             </CardPanel>
         );

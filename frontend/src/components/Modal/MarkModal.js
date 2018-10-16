@@ -25,10 +25,10 @@ class MarkModal extends Component {
     }
 
     openAndCloseModal() {
-        if(this.props.isAuthenticated)
-    this.setState({open: !this.state.open});
+        if (this.props.isAuthenticated)
+            this.setState({open: !this.state.open});
         else
-    window.Materialize.toast('You\'re not logged in.', 1000);
+            window.Materialize.toast('You\'re not logged in.', 1000);
 
     };
 
@@ -63,7 +63,6 @@ class MarkModal extends Component {
                     /></Row>
 
                     <Row className="modal-btn">
-
                         <Button onClick={this.openAndCloseModal}>Cancel</Button>
                     </Row>
                 </Modal>
