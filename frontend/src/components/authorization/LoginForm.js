@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Input, Row} from 'react-materialize';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import '../../styles/Form.css';
 import {ACCESS_TOKEN} from '../../constants';
 import {login, resendEmail} from '../../util/APIUtils';
@@ -54,7 +54,11 @@ class LoginForm extends Component {
                     } else {
 
                         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+                        const { from } = this.props.location.state || { from: { pathname: '/' } };
                         this.props.onLogin();
+                        this.props.history.push(from);
+
+
                     }
 
                 }).catch(error => {

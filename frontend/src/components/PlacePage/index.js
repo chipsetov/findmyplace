@@ -72,8 +72,6 @@ class PlacePage extends Component {
         const place = this.state.place;
 
         return (
-
-
             <div className="place-page">
                 <Row className="place-header">
                     <h2>{place.name}</h2>
@@ -91,7 +89,8 @@ class PlacePage extends Component {
 
                 <div className="container content-container">
                     <ButtonsBlock rating={this.state.rating}
-                                  changeRating={this.changeRating}/>
+                                  changeRating={this.changeRating}
+                                  isAuthenticated={this.props.isAuthenticated}/>
                     <Info openTime={place.open}
                           closeTime={place.close}
                           freePlaces={place.countFreePlaces}

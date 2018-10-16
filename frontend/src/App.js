@@ -87,17 +87,14 @@ class App extends Component {
         });
 
         this.props.history.push(redirectTo);
-        window.Materialize.toast(description, 7000);
+        window.Materialize.toast(description, 1000);
 
     }
 
     handleLogin() {
-
         this.loadCurrentUser();
-        console.log(this.state.currentUser);
-        window.Materialize.toast('You\'re successfully logged in.', 7000);
-        this.props.history.push("#/map");
-    }
+        window.Materialize.toast('You\'re successfully logged in.', 1000);
+       }
 
 
     componentDidMount() {

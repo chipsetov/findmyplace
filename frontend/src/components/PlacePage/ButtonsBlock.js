@@ -12,11 +12,11 @@ class ButtonsBlock extends Component {
     }
 
     action() {
-        console.log("123")
-        return (
+                return (
             <MarkModal rating={this.props.rating}
                        changeRating={this.props.changeRating}
                        message={"Rate this place"}
+                       isAuthenticated={this.props.isAuthenticated}
             />
         )
     }

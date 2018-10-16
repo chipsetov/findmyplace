@@ -25,7 +25,11 @@ class MarkModal extends Component {
     }
 
     openAndCloseModal() {
-        this.setState({open: !this.state.open});
+        if(this.props.isAuthenticated)
+    this.setState({open: !this.state.open});
+        else
+    window.Materialize.toast('You\'re not logged in.', 1000);
+
     };
 
     changeRating(newRating) {
@@ -35,7 +39,6 @@ class MarkModal extends Component {
 
     render() {
         const {open} = this.state;
-        console.log(this.props.rating);
 
         return (
             <div>
