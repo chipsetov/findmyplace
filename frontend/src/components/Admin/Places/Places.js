@@ -28,7 +28,6 @@ class Places extends Component {
                     filteredPlaces: result
                 });
             })
-            console.log("hi", this.state)
     };
 
     handleDelete(id) {

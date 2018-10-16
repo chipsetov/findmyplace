@@ -25,7 +25,7 @@ class UsersList extends Component {
             .then((response) => response.json())
             .then((result) => {
                 let users = result.filter((user) => {
-                    return user.id !== Session.userId();
+                    return user.id != Session.userId();
                 });
 
                 this.setState({
