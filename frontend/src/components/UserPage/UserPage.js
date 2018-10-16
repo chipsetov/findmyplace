@@ -65,7 +65,17 @@ class UserPage extends Component {
 
     cancelBooking(bookingId) {
         cancelBooking(bookingId)
-            .then(response => console.log(response))
+            .then(response => {
+                console.log(response);
+
+                getBookings()
+                    .then(bookings => {
+                        this.setState({
+                            bookings: bookings
+                        });
+                    })
+                    .catch(error => console.log(error));
+            })
             .catch(error => console.log(error));
     }
 
