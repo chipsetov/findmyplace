@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import ua.softserve.rv036.findmeplace.model.Feedback;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.User;
@@ -57,10 +56,7 @@ public class PlaceController {
         return placeRepository.findById(id);
     }
 
-    @GetMapping("/places/{id}/feedbacks")
-    List<Feedback> feedbacksByPlaceId(@PathVariable Long id) {
-        return feedbackRepository.findAllByPlaceId(id);
-    }
+
 
 
     @GetMapping("/places/{id}/managers")

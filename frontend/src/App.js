@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import { HashRouter } from 'react-router-dom';
-import Routes from './components/Routes';
+import React, {Component} from 'react';
+import {HashRouter, withRouter} from 'react-router-dom';
 //import './App.css';
 import Menu from './components/Menu.js';
 import Footer from './components/Footer';
 import {getAvatar} from "./util/APIUtils";
 import {Session} from "./utils";
+import {ACCESS_TOKEN} from "./constants";
+import {getCurrentUser} from "./util/APIUtils";
+import LoadingIndicator from "./common/LoadingIndicator";
+import Routes from "./components/Routes";
 
 class App extends Component {
     constructor(props) {
@@ -15,22 +18,86 @@ class App extends Component {
         this.state = {
             routerHeight: 0,
             userAvatar: "img/avatar.png",
+            routerHeight: 0,
+            currentUser: null,
+            isAuthenticated: false,
+            isLoading: false
         };
+        this.handleLogout = this.handleLogout.bind(this);
+        this.loadCurrentUser = this.loadCurrentUser.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
     render() {
+        if (this.state.isLoading) {
+            return <LoadingIndicator/>
+        }
+        const style = {
+            minHeight: this.state.routerHeight
+        };
         return (
+
+
             <HashRouter>
+
                 <div ref={this.app} className="app">
-                    <Menu userAvatar={this.state.userAvatar}/>
+
+
+                    <Menu
+                        isAuthenticated={this.state.isAuthenticated}
+                        handleLogout={this.handleLogout}
+                        userAvatar={this.state.userAvatar}
+                    />
                     <Routes
-                        handleAvatarUpdated={this.handleAvatarUpdated.bind(this)}
-                        minHeight={this.state.routerHeight}/>
-                    <Footer />
+                        isAuthenticated={this.state.isAuthenticated}
+                        handleLogout={this.handleLogout}
+                        handleLogin={this.handleLogin}
+                        minHeight={this.state.routerHeight}
+                        currentUser={this.state.currentUser}
+                        handleAvatarUpdated={this.handleAvatarUpdated.bind(this)}/>
+                    <Footer/>
+
                 </div>
             </HashRouter>
         );
     }
+
+    loadCurrentUser() {
+        this.setState({
+            isLoading: true
+        });
+        getCurrentUser()
+            .then(response => {
+                this.setState({
+                    currentUser: response,
+                    isAuthenticated: true,
+                    isLoading: false
+                });
+            }).catch(error => {
+            this.setState({
+                isLoading: false
+            });
+        });
+    }
+
+    handleLogout(redirectTo = "/", description = "You're successfully logged out.") {
+        localStorage.removeItem(ACCESS_TOKEN);
+
+        this.setState({
+            currentUser: null,
+            isAuthenticated: false
+        });
+
+        this.props.history.push(redirectTo);
+        window.Materialize.toast(description, 1000);
+
+    }
+
+    handleLogin() {
+        this.loadCurrentUser();
+        window.Materialize.toast('You\'re successfully logged in.', 1000);
+       }
+
 
     handleAvatarUpdated() {
         if(Session.isLoggedIn()) {
@@ -46,6 +113,7 @@ class App extends Component {
     }
 
     componentDidMount() {
+        this.loadCurrentUser();
         this.resize();
         this.handleAvatarUpdated();
         window.addEventListener('resize', this.onResizeHandler.bind(this));
@@ -80,4 +148,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withRouter(App);

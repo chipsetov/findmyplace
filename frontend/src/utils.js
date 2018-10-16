@@ -13,12 +13,12 @@ export const Session = {
 
     login: (token) => {
         localStorage.setItem(ACCESS_TOKEN, token);
-        window.dispatchEvent(new CustomEvent(LOGIN_CHANGED));
+        // window.dispatchEvent(new CustomEvent(LOGIN_CHANGED));
     },
 
     logout: () => {
         localStorage.clear();
-        window.dispatchEvent(new CustomEvent(LOGIN_CHANGED));
+     //   window.dispatchEvent(new CustomEvent(LOGIN_CHANGED));
     },
 
     isOwner: () => {

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Row, Col, Input, Button } from 'react-materialize';
+import React, {Component} from 'react';
+import {Row, Col, Input, Button} from 'react-materialize';
 
 import BasePage from "./BasePage";
 import {updateProfile} from "../../util/APIUtils";
@@ -77,8 +77,9 @@ export default class Profile extends BasePage {
                         </Col>
                         <Col s={4}>
                             <Input defaultValue={this.props.email}
-                                   onChange={ (e) => {
-                                       this.onChangeStateHandler('email', e.target.value)} }/>
+                                   onChange={(e) => {
+                                       this.onChangeStateHandler('email', e.target.value)
+                                   }}/>
                         </Col>
                     </Row>
 
@@ -88,8 +89,9 @@ export default class Profile extends BasePage {
                         </Col>
                         <Col s={4}>
                             <Input defaultValue={this.props.phone}
-                                   onChange={ (e) => {
-                                       this.onChangeStateHandler('phone', e.target.value)} }/>
+                                   onChange={(e) => {
+                                       this.onChangeStateHandler('phone', e.target.value)
+                                   }}/>
                         </Col>
                     </Row>
 
@@ -99,7 +101,9 @@ export default class Profile extends BasePage {
                         </Col>
                         <Col s={4}>
                             <Input type="password"
-                                   onChange={ (e) => { this.onChangeStateHandler('oldPassword', e.target.value)} }/>
+                                   onChange={(e) => {
+                                       this.onChangeStateHandler('oldPassword', e.target.value)
+                                   }}/>
                         </Col>
                     </Row>
 
@@ -109,7 +113,9 @@ export default class Profile extends BasePage {
                         </Col>
                         <Col s={4}>
                             <Input type="password"
-                                   onChange={ (e) => { this.onChangeStateHandler('newPassword', e.target.value)} }/>
+                                   onChange={(e) => {
+                                       this.onChangeStateHandler('newPassword', e.target.value)
+                                   }}/>
                         </Col>
                     </Row>
 
@@ -119,13 +125,15 @@ export default class Profile extends BasePage {
                         </Col>
                         <Col s={4}>
                             <Input type="password"
-                                   onChange={ (e) => { this.onChangeStateHandler('confirmPassword', e.target.value)} }/>
+                                   onChange={(e) => {
+                                       this.onChangeStateHandler('confirmPassword', e.target.value)
+                                   }}/>
                         </Col>
                     </Row>
 
                     <Row className="user-page">
                         <Col s={2} offset="s5">
-                            <Button onClick={ this.onSaveChangesHandler.bind(this) }>Save</Button>
+                            <Button onClick={this.onSaveChangesHandler.bind(this)}>Save</Button>
                         </Col>
                     </Row>
                 </div>
@@ -150,7 +158,8 @@ export default class Profile extends BasePage {
             phone,
             oldPassword,
             newPassword,
-            confirmPassword } = this.state;
+            confirmPassword
+        } = this.state;
 
         if (!oldPassword.length) {
             this.error("You have to enter your password");

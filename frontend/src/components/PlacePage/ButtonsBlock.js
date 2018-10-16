@@ -1,10 +1,26 @@
 import React, {Component} from 'react';
-import {Icon, Row, Col, CardPanel} from 'react-materialize';
+import {CardPanel, Col, Icon, Row} from 'react-materialize';
 import {Link} from 'react-router-dom';
 import '../../styles/PlacePage.css';
 import BookingModal from "../UserPage/BookingModal";
+import MarkModal from "../Modal/MarkModal";
 
 class ButtonsBlock extends Component {
+    constructor(props) {
+        super(props);
+        this.action = this.action.bind(this);
+
+    }
+
+    action() {
+                return (
+            <MarkModal rating={this.props.rating}
+                       changeRating={this.props.changeRating}
+                       message={"Rate this place"}
+                       isAuthenticated={this.props.isAuthenticated}
+            />
+        )
+    }
 
     render() {
         return (
@@ -23,12 +39,7 @@ class ButtonsBlock extends Component {
                         </Col>
                     </Link>
                     <BookingModal onBookCompleteHandler={ this.props.onBookCompleteHandler }/>
-                    <Link to="/">
-                        <Col>
-                            <Icon className="black-text" large>star</Icon>
-                            <p className="text">Rate Us</p>
-                        </Col>
-                    </Link>
+                   {this.action()}
                 </Row>
             </CardPanel>
         );

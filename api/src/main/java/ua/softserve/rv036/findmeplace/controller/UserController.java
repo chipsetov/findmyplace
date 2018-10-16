@@ -12,20 +12,15 @@ import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
-import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.payload.UserSummary;
+import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
-import ua.softserve.rv036.findmeplace.security.UserPrincipal;
-import ua.softserve.rv036.findmeplace.service.FileStorageService;
-import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
-
-import javax.annotation.security.RolesAllowed;
-import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
-
 import ua.softserve.rv036.findmeplace.security.CurrentUser;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
+import ua.softserve.rv036.findmeplace.service.FileStorageService;
+import ua.softserve.rv036.findmeplace.service.UserService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
@@ -39,7 +34,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    private UserService userService;
 
     @Autowired
     private PlaceRepository placeRepository;
@@ -68,6 +63,13 @@ public class UserController {
         return userSummary;
     }
 
+//    @GetMapping("/user/me")
+//    @RolesAllowed({"ROLE_USER", "ROLE_MANAGER", "ROLE_OWNER", "ROLE_ADMIN"})
+//    public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+//        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getAuthority().getAuthority());
+//        return userSummary;
+//    }
+
     @GetMapping("/users")
     List<User> getAll() {
         return userRepository.findAll();
@@ -90,7 +92,7 @@ public class UserController {
 
     @GetMapping("/user/{id}/managers")
     public List<User> getUserManagers(@PathVariable Long id) {
-        return userServiceImpl.getAllManagersByOwnerRole(id);
+        return userService.getAllManagersByOwnerRole(id);
     }
 
     @PostMapping("/user/{ownerId}/delete-manager/{managerId}")
@@ -100,7 +102,7 @@ public class UserController {
 
         placeManagerRepository.deleteAll(allByUserId);
 
-        List<User> result = userServiceImpl.getAllManagersByOwnerRole(ownerId);
+        List<User> result = userService.getAllManagersByOwnerRole(ownerId);
 
         return new ResponseEntity(result, HttpStatus.OK);
     }
@@ -201,12 +203,12 @@ public class UserController {
 
     @PostMapping("/user/update-profile")
     ResponseEntity updateUserProfile(@RequestBody UpdateProfileRequest updateProfileRequest) {
-        return userServiceImpl.updateUserProfile(updateProfileRequest);
+        return userService.updateUserProfile(updateProfileRequest);
     }
 
     @PostMapping("/user/update-password")
     ResponseEntity updateUserPassword(@RequestBody UpdateProfileRequest updateProfileRequest) {
-       return userServiceImpl.updateUserPassword(updateProfileRequest);
+       return userService.updateUserPassword(updateProfileRequest);
     }
 
     @DeleteMapping("/user/delete/{id}")

@@ -1,20 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {NavItem, Dropdown, Col} from 'react-materialize';
-import "../styles/Logout.css";
-import {Session} from "../utils";
+import "../../styles/Logout.css";
+import {Session} from "../../utils";
 
 export default class Logout extends Component {
 
     constructor(props) {
         super(props);
 
-        this.onClickHandler = this.onClickHandler.bind(this);
         this.viewPlaces = this.viewPlaces.bind(this);
     }
 
-    onClickHandler() {
-        this.props.logout();
-    }
 
     adminDropdown() {
         return (
@@ -25,20 +21,25 @@ export default class Logout extends Component {
                 </NavItem>
             </Dropdown>
         )
-    };
+}
 
     baseDropdown() {
+     const hidden = (this.props.isLoggedIn ? "" : " hidden");
         return (
+        <div id="auth-sign-out" className={hidden}>
+                        <div  className="logout">
             <Dropdown trigger={<img src={this.props.userAvatar} alt=""/>}>
                 <NavItem href='#/user/profile'>Profile</NavItem>
                 {this.viewPlaces()}
                 {this.viewManagers()}
                 <NavItem href='#'>Booking</NavItem>
                 <NavItem href='#'>Favorite</NavItem>
-                <NavItem href='#/logout' onClick={this.onClickHandler}>
-                    Sign out
+                <NavItem href='#/logout' onClick={this.props.handleLogout}>
+                         Sign out
                 </NavItem>
             </Dropdown>
+              </div>
+                        </div>
         )
     };
 

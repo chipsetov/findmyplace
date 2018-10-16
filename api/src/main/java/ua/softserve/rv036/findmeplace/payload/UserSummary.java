@@ -18,3 +18,6 @@ public class UserSummary {
         this.role = role;
     }
 }
+
+
+

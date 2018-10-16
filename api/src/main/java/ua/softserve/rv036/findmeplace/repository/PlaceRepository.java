@@ -24,8 +24,12 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     @Query("select p from Place p where p.approved = true and p.rejected = false")
     List<Place> findByNameIn(String searchValue);
 
-    @Query("select p from Place p where p.approved = true and p.rejected = false and p.ownerId = :id")
-    List<Place> findAllByOwnerId(@Param("id") Long id);
+    List<Place> findAllByOwnerId(Long id);
+
+    Optional<Place> findById(Long id);
+
+   // @Query("select p from Place p where p.approved = true and p.rejected = false and p.ownerId = :id")
+    //List<Place> findAllByOwnerId(@Param("id") Long id);
 
     @Query("select p from Place p where p.ownerId = :id")
     List<Place> findAllAndRejectedByOwnerId(@Param("id") Long id);

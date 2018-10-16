@@ -26,7 +26,7 @@ export const request = (options) => {
 export const deleteRequest = (options) => {
     const headers = new Headers();
 
-    if(localStorage.getItem(ACCESS_TOKEN)) {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
         headers.append('Authorization', TOKEN_TYPE + " " + localStorage.getItem(ACCESS_TOKEN))
     }
 
@@ -110,6 +110,22 @@ export function resendEmail(usernameOrEmail) {
     return request({
         url: API_BASE_URL + "/auth/resendEmail?usernameOrEmail=" + usernameOrEmail,
         method: 'GET',
+    });
+}
+
+export function forgotPassword(forgotRequest) {
+    return request({
+        url: API_BASE_URL + "/auth/forgotPassword",
+        method: 'POST',
+        body: JSON.stringify(forgotRequest)
+    });
+}
+
+export function restorePassword(restoreRequest, param) {
+    return request({
+        url: API_BASE_URL + "/auth/restore/" + param,
+        method: 'POST',
+        body: JSON.stringify(restoreRequest)
     });
 }
 
@@ -267,6 +283,21 @@ export const updateUserPassword = password => request({
     body: JSON.stringify(password)
 });
 
+export function addComment(commentRequest) {
+    return request({
+        url: API_BASE_URL + "/places/feedback",
+        method: 'POST',
+        body: JSON.stringify(commentRequest)
+    });
+}
+
+export function addMark(markRequest) {
+    return request({
+        url: API_BASE_URL + "/places/mark",
+        method: 'POST',
+        body: JSON.stringify(markRequest)
+    });
+}
 export const bookPlace = (bookRequest) => request({
     url: API_BASE_URL + "/booking/place",
     method: "POST",

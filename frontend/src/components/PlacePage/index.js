@@ -1,20 +1,30 @@
-import React, { Component } from 'react';
-import { Row } from 'react-materialize';
+import React, {Component} from 'react';
+import {Row} from 'react-materialize';
 import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
 import ManagersBlock from './ManagersBlock.js';
+import ReviewBlock from './ReviewsBlock';
 import Info from './Info.js';
 import {changeCountFreePlaces} from "../../util/APIUtils";
 import {checkBookingTime, PAGE_CHANGED, Session} from "../../utils";
 import { bookPlace } from "../../util/APIUtils";
+import StarRatings from "react-star-ratings";
+import {addMark} from '../../util/APIUtils';
 
 const toast = window["Materialize"].toast;
+
 
 class PlacePage extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            place: {},
+            rating: 0,
+
+        };
+        this.changeRating = this.changeRating.bind(this);
         this.state = {
             place: {},
             viewManager: Session.isOwner()
@@ -36,10 +46,36 @@ class PlacePage extends Component {
             .then(
                 (result) => {
                     this.setState({
-                        place: result
+                        place: result,
+                        rating: result.rating
                     });
                 }
             )
+    }
+
+    changeRating(newRating) {
+        const markRequest = {
+            mark: newRating,
+            userId: this.props.currentUser.id,
+            placeId: this.state.place.id
+        };
+
+        addMark(markRequest)
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    rating: response,
+                });
+            }).catch(error => {
+            if (error.status === 401) {
+                this.props.handleLogout();
+                window.Materialize.toast('You are not logged in!', 1000);
+            } else {
+                window.Materialize.toast('Sorry! Something went wrong. Please try again!', 1000);
+            }
+        });
+
+
     }
 
     viewManagers() {
@@ -72,15 +108,34 @@ class PlacePage extends Component {
                 <Row className="place-header">
                     <h2>{place.name}</h2>
                     <h2>{place.address}</h2>
+                    <StarRatings
+                        rating={this.state.rating}
+                        starRatedColor="#ff8d15"
+                        starHoverColor="yellow"
+                        starDimension="40px"
+                        starSpacing="10px"
+                    />
+
                 </Row>
+
+
                 <div className="container content-container">
-                    <ButtonsBlock onBookCompleteHandler={ this.onBookCompleteHandler.bind(this) } placeId={place.id}/>
+                    <ButtonsBlock onBookCompleteHandler={ this.onBookCompleteHandler.bind(this) }
+                    placeId={place.id}
+                    rating={this.state.rating}
+                    changeRating={this.changeRating}
+                    isAuthenticated={this.props.isAuthenticated}
+                    />
                     <Info openTime={place.open}
                           closeTime={place.close}
                           freePlaces={place.countFreePlaces}
                           description={place.description}
                           countChange={this.countChange}/>
-                    <ReviewsBlock placeId={this.props.match.params.placeId}/>
+                    <ReviewsBlock placeId={this.props.match.params.placeId}
+                    currentUser={this.props.currentUser}
+                    placeId={this.props.match.params.placeId}
+                    isAuthenticated={this.props.isAuthenticated}
+                    />
                     {this.viewManagers()}
                 </div>
             </div>
@@ -89,6 +144,7 @@ class PlacePage extends Component {
 
     componentWillUnmount() {
         window.dispatchEvent(new CustomEvent(PAGE_CHANGED, {
+
             detail: {
                 show: false,
                 name: "place-page"
