@@ -26,7 +26,7 @@ export default class Logout extends Component {
 
         return (
             <div id="auth-sign-out" className={hidden}>
-                <NavItem href="" className="logout">
+                <div  className="logout">
                     <Dropdown trigger={<img src="img/avatar.png" alt=""/>}>
                         <NavItem href='#/user/profile'>Profile</NavItem>
                         {this.viewPlaces()}
@@ -36,7 +36,7 @@ export default class Logout extends Component {
                             Sign out
                         </NavItem>
                     </Dropdown>
-                </NavItem>
+                </div>
             </div>
         );
     }

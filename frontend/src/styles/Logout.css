@@ -1,6 +1,7 @@
 .logout img {
-    margin: 0 20px;
+    margin: 40% 20px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .logout a {
