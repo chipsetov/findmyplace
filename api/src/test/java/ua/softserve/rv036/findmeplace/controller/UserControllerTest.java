@@ -8,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import ua.softserve.rv036.findmeplace.controller.UserController;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,8 +23,20 @@ public class UserControllerTest {
     private UserController userController;
 
     @Test
+    public void deleteUserById() throws Exception {
+        mvc.perform(delete("/user/delete/{id}", 1L))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void deleteUserPlaceById() throws Exception {
         mvc.perform(delete("/user/delete-place/{id}", 1L))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteUserFeedbackById() throws Exception {
+        mvc.perform(delete("/user/delete-feedback/{id}", 1L))
                 .andExpect(status().isOk());
     }
 

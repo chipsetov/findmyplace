@@ -1,29 +1,31 @@
 import React, {Component} from 'react';
-import {deleteUserPlace, getAllMyPlaces} from "../../../util/APIUtils";
+import {deleteUserPlace} from "../../../util/APIUtils";
 import {Row} from "react-materialize";
-import Place from "./Place";
-import {Link} from "react-router-dom";
-import {Session} from "../../../utils";
-import {Redirect} from 'react-router-dom';
+import Place from "../../User/UserPlaces/Place";
+import PlacesFilter from "./Filter/PlacesFilter";
+import './Places.css';
 
-class UserPlaces extends Component {
+class Places extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
-            places: []
+            places: [],
+            filteredPlaces: []
         };
 
         this.handleDelete = this.handleDelete.bind(this);
-        this.renderRedirect = this.renderRedirect.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     componentDidMount() {
-        getAllMyPlaces()
-            .then((response) => {
-                console.log(response);
+        fetch("/map")
+            .then((response) => response.json())
+            .then((result) => {
                 this.setState({
-                    places: response
+                    places: result,
+                    filteredPlaces: result
                 });
             })
     };
@@ -36,29 +38,35 @@ class UserPlaces extends Component {
                 });
 
                 this.setState({
-                    places: places
+                    places: places,
+                    filteredPlaces: places
                 });
 
                 window["Materialize"].toast("Place deleted", 3000);
             }).catch((error) => {
-                console.error('error', error);
-            });
+            console.error('error', error);
+        });
     };
 
-    renderRedirect = () => {
-        if (!Session.isAdmin() && !Session.isOwner()) {
-            return <Redirect to='/'/>
-        }
+    handleUpdate = (places) => {
+        this.setState({
+            filteredPlaces: places
+        });
     };
 
     render() {
-        const places = this.state.places;
+        const places = this.state.filteredPlaces;
 
         return(
-            <Row className="user-places-wrapper">
-                {this.renderRedirect()}
-                <Row className="places-search">
-                    <Link to={`/register-place`} id="register-place">Add place</Link>
+            <Row className="places-wrapper">
+                <Row className="title">
+                    <h5>Places</h5>
+                </Row>
+                <Row className="places-filter">
+                    <PlacesFilter   places={this.state.places}
+                                    filteredPlaces={this.state.filteredPlaces}
+                                    handleUpdate={this.handleUpdate}
+                    />
                 </Row>
                 <Row className="places-container">
                     {
@@ -80,8 +88,8 @@ class UserPlaces extends Component {
                 </Row>
             </Row>
         );
-    };
+    }
 
 }
 
-export default UserPlaces;
+export default Places;

@@ -12,16 +12,18 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.softserve.rv036.findmeplace.model.Place;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
+import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 import ua.softserve.rv036.findmeplace.service.FileStorageService;
 
 import javax.annotation.security.RolesAllowed;
+import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +35,13 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
+    private UserServiceImpl userServiceImpl;
+
+    @Autowired
     private PlaceRepository placeRepository;
+
+    @Autowired
+    private FeedbackRepository feedbackRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -139,8 +147,30 @@ public class UserController {
     }
 
     @DeleteMapping("/user/delete-place/{id}")
-    public ResponseEntity<Void> deleteUserPlaceById(@PathVariable("id") Long id) {
+    public ResponseEntity deleteUserPlaceById(@PathVariable("id") Long id) {
         placeRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/user/delete-feedback/{id}")
+    public ResponseEntity deleteUserFeedbackById(@PathVariable("id") Long id) {
+        feedbackRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/user/update-profile")
+    ResponseEntity updateUserProfile(@RequestBody UpdateProfileRequest updateProfileRequest) {
+        return userServiceImpl.updateUserProfile(updateProfileRequest);
+    }
+
+    @PostMapping("/user/update-password")
+    ResponseEntity updateUserPassword(@RequestBody UpdateProfileRequest updateProfileRequest) {
+       return userServiceImpl.updateUserPassword(updateProfileRequest);
+    }
+
+    @DeleteMapping("/user/delete/{id}")
+    public ResponseEntity deleteUser(@PathVariable("id") Long id) {
+        userRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
