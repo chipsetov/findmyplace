@@ -13,6 +13,7 @@ import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
+import ua.softserve.rv036.findmeplace.payload.UserSummary;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
@@ -23,6 +24,10 @@ import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
 import javax.annotation.security.RolesAllowed;
 import ua.softserve.rv036.findmeplace.service.UserServiceImpl;
 
+import ua.softserve.rv036.findmeplace.security.CurrentUser;
+import ua.softserve.rv036.findmeplace.security.UserPrincipal;
+
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -48,8 +53,20 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @Autowired
     private FileStorageService fileStorageService;
+
+    @GetMapping("/user/me")
+    @RolesAllowed({"ROLE_USER", "ROLE_MANAGER", "ROLE_OWNER", "ROLE_ADMIN"})
+    public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getAuthority().getAuthority());
+        userSummary.setFirstName(currentUser.getFirstName());
+        userSummary.setLastName(currentUser.getLastName());
+        userSummary.setEmail(currentUser.getEmail());
+        userSummary.setPhone(currentUser.getPhone());
+        return userSummary;
+    }
 
     @GetMapping("/users")
     List<User> getAll() {

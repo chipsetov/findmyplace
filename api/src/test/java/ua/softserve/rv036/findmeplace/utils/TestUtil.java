@@ -1,6 +1,7 @@
 package ua.softserve.rv036.findmeplace.utils;
 
 import org.springframework.http.MediaType;
+import ua.softserve.rv036.findmeplace.model.Booking;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
@@ -33,5 +34,9 @@ public class TestUtil {
     public static Place_Manager createPlaceManager() {
         Place_Manager place_manager = new Place_Manager(1L, 1L);
         return place_manager;
+    }
+
+    public static Booking createBooking() {
+        return new Booking(1L, 1L, 1L, "10:00", 1, "Челентано");
     }
 }

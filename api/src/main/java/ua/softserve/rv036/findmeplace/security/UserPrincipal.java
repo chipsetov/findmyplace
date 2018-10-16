@@ -21,6 +21,8 @@ public class UserPrincipal implements UserDetails {
 
     private String nickName;
 
+    private String phone;
+
     @JsonIgnore
     private String email;
 
@@ -29,7 +31,7 @@ public class UserPrincipal implements UserDetails {
 
     private  GrantedAuthority authority;
 
-    public UserPrincipal(Long id, String firstName, String lastName, String nickName, String email, String password,  GrantedAuthority authority) {
+    public UserPrincipal(Long id, String firstName, String lastName, String nickName, String email, String password,  GrantedAuthority authority, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,6 +39,7 @@ public class UserPrincipal implements UserDetails {
         this.email = email;
         this.password = password;
         this.authority = authority;
+        this.phone = phone;
     }
 
     public static UserPrincipal create(User user) {
@@ -53,7 +56,8 @@ public class UserPrincipal implements UserDetails {
                 user.getNickName(),
                 user.getEmail(),
                 user.getPassword(),
-                authority
+                authority,
+                user.getPhone()
         );
     }
 

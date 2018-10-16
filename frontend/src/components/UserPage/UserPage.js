@@ -7,7 +7,7 @@ import Booking from "./Booking";
 import Favorite from "./Favorite";
 import {Session} from "../../utils";
 
-import {getUserProfile} from "../../util/APIUtils";
+import {getBookings, getUserProfile, cancelBooking} from "../../util/APIUtils";
 import { USER_ID } from "../../constants";
 
 import '../../styles/UserPage.css';
@@ -25,7 +25,8 @@ class UserPage extends Component {
             phone: "",
             oldPassword: "",
             newPassword: "",
-            confirmPassword: ""
+            confirmPassword: "",
+            bookings: []
         }
     }
 
@@ -36,11 +37,11 @@ class UserPage extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <div className="container-fluid">
                 <Tabs className="tab-menu">
-                    <Tab title="Profile" className="tab-menu-item" active>
-
+                    <Tab title="Profile" className="tab-menu-item">
                         <Profile
                             firstName={this.state.firstName}
                             lastName={this.state.lastName}
@@ -50,11 +51,22 @@ class UserPage extends Component {
                             handleAvatarUpdated={this.props.handleAvatarUpdated}
                         />
                     </Tab>
-                    <Tab title="Booking" className="tab-menu-item"><Booking/></Tab>
+                    <Tab title="Booking" className="tab-menu-item" active>
+                        <Booking
+                            bookings={this.state.bookings}
+                            cancelBooking={this.cancelBooking.bind(this)}
+                        />
+                    </Tab>
                     <Tab title="Favorite" className="tab-menu-item"><Favorite/></Tab>
                 </Tabs>
             </div>
         );
+    }
+
+    cancelBooking(bookingId) {
+        cancelBooking(bookingId)
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
     }
 
     updateTabStyle() {
@@ -73,17 +85,20 @@ class UserPage extends Component {
     componentDidMount() {
         this.updateTabStyle();
 
-        const userId = localStorage.getItem(USER_ID);
-
-        getUserProfile(userId)
-            .then((response) => {
-                this.setState({
-                    firstName: response['firstName'],
-                    lastName: response['lastName'],
-                    userName: response['nickName'],
-                    email: response['email'],
-                    phone: response['phone']
-                });
+        getUserProfile()
+            .then((user) => {
+                getBookings()
+                    .then(bookings => {
+                        this.setState({
+                            firstName: user['firstName'],
+                            lastName: user['lastName'],
+                            userName: user['username'],
+                            email: user['email'],
+                            phone: user['phone'],
+                            bookings: bookings
+                        });
+                    })
+                    .catch(error => console.log(error));
             });
     }
 }

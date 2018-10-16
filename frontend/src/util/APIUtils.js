@@ -15,9 +15,9 @@ export const request = (options) => {
     return fetch(options.url, options)
         .then(response =>
             response.json().then(json => {
-                // if (!response.ok) {
-                //     return Promise.reject(json);
-                // }
+                 if (!response.ok) {
+                     return Promise.reject(json);
+                 }
                 return json;
             })
         );
@@ -185,9 +185,9 @@ export function getCurrentUser() {
     });
 }
 
-export function getUserProfile(username) {
+export function getUserProfile() {
     return request({
-        url: API_BASE_URL + "/users/" + username,
+        url: API_BASE_URL + "/user/me",
         method: 'GET'
     });
 }
@@ -267,29 +267,19 @@ export const updateUserPassword = password => request({
     body: JSON.stringify(password)
 });
 
-export function deleteUserFeedback(id) {
-    return deleteRequest({
-        url: API_BASE_URL + '/user/delete-feedback/' + id,
-        method: 'DELETE'
-    });
-}
-
-export function deleteUser(id) {
-    return deleteRequest({
-        url: API_BASE_URL + '/user/delete/' + id,
-        method: 'DELETE'
-    });
-}
-
-export const updateUserProfile = profile => request({
-    url: API_BASE_URL + "/user/update-profile",
-    method: 'POST',
-    body: JSON.stringify(profile)
+export const bookPlace = (bookRequest) => request({
+    url: API_BASE_URL + "/booking/place",
+    method: "POST",
+    body: JSON.stringify(bookRequest)
 });
 
-export const updateUserPassword = password => request({
-    url: API_BASE_URL + "/user/update-password",
-    method: 'POST',
-    body: JSON.stringify(password)
+export const getBookings = () => request({
+    url: API_BASE_URL + `/booking/me`,
+    method: "GET"
+});
+
+export const cancelBooking = (bookingId) => request({
+    url: API_BASE_URL + `/booking/${bookingId}/delete`,
+    method: "DELETE"
 });
 

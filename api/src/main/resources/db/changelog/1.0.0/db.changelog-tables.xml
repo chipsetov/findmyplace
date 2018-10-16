@@ -177,4 +177,29 @@
             </column>
         </createTable>
     </changeSet>
+
+    <!--bookings-->
+    <changeSet id="5" author="rv036">
+        <createTable tableName="booking">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="user_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_owner_id" references="users(id)" deleteCascade="true"/>
+            </column>
+
+            <column name="place_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_place_id" references="places(id)" deleteCascade="true"/>
+            </column>
+
+            <column name="booking_time" type="varchar(255)">
+                <constraints nullable = "false"/>
+            </column>
+
+            <column name="status" type="int">
+                <constraints nullable = "false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
