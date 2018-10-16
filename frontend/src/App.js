@@ -3,10 +3,9 @@ import {HashRouter, withRouter} from 'react-router-dom';
 //import './App.css';
 import Menu from './components/Menu.js';
 import Footer from './components/Footer';
-import {getAvatar} from "./util/APIUtils";
+import {getAvatar, getCurrentUser} from "./util/APIUtils";
 import {Session} from "./utils";
 import {ACCESS_TOKEN} from "./constants";
-import {getCurrentUser} from "./util/APIUtils";
 import LoadingIndicator from "./common/LoadingIndicator";
 import Routes from "./components/Routes";
 
@@ -18,7 +17,6 @@ class App extends Component {
         this.state = {
             routerHeight: 0,
             userAvatar: "img/avatar.png",
-            routerHeight: 0,
             currentUser: null,
             isAuthenticated: false,
             isLoading: false
@@ -26,6 +24,7 @@ class App extends Component {
         this.handleLogout = this.handleLogout.bind(this);
         this.loadCurrentUser = this.loadCurrentUser.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
+        this.handleAvatarUpdated = this.handleAvatarUpdated.bind(this);
     }
 
     render() {
@@ -36,8 +35,6 @@ class App extends Component {
             minHeight: this.state.routerHeight
         };
         return (
-
-
             <HashRouter>
 
                 <div ref={this.app} className="app">
@@ -54,7 +51,7 @@ class App extends Component {
                         handleLogin={this.handleLogin}
                         minHeight={this.state.routerHeight}
                         currentUser={this.state.currentUser}
-                        handleAvatarUpdated={this.handleAvatarUpdated.bind(this)}/>
+                        handleAvatarUpdated={this.handleAvatarUpdated}/>
                     <Footer/>
 
                 </div>
@@ -96,14 +93,14 @@ class App extends Component {
     handleLogin() {
         this.loadCurrentUser();
         window.Materialize.toast('You\'re successfully logged in.', 1000);
-       }
+    }
 
 
     handleAvatarUpdated() {
-        if(Session.isLoggedIn()) {
+        if (Session.isLoggedIn()) {
             getAvatar()
                 .then(response => {
-                    if(response) {
+                    if (response) {
                         this.setState({
                             userAvatar: response
                         });

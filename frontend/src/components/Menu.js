@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Navbar, NavItem, Button, Icon} from 'react-materialize';
-import { withRouter } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Button, Icon, Navbar, NavItem} from 'react-materialize';
+import {withRouter} from 'react-router-dom';
 import Logout from './authorization/Logout';
 import '../styles/Menu.css';
 import "../styles/Logout.css";
@@ -20,7 +20,6 @@ class Menu extends Component {
     }
 
 
-
     render() {
         const isLoggedIn = this.props.isAuthenticated;
 
@@ -32,9 +31,9 @@ class Menu extends Component {
                         <NavItem href='#/map'>Map</NavItem>
                         <NavItem href='#place/1'>Place</NavItem>
                         <Logout
-                        isLoggedIn={isLoggedIn}
-                        handleLogout={this.props.handleLogout}
-                        userAvatar={this.props.userAvatar}
+                            isLoggedIn={isLoggedIn}
+                            handleLogout={this.props.handleLogout}
+                            userAvatar={this.props.userAvatar}
                         />
                         <NavItem href='#/sign-up' id="auth-sign-up" className={isLoggedIn ? "hidden" : ""}>
                             <Button waves="light">
@@ -45,7 +44,7 @@ class Menu extends Component {
                         <NavItem href='#/sign-in' id="auth-sign-in" className={isLoggedIn ? "hidden" : ""}>
                             Sign In
                         </NavItem>
-                       <NavItem href='#/map' id="search"><Icon>search</Icon></NavItem>
+                        <NavItem href='#/map' id="search"><Icon>search</Icon></NavItem>
                     </Navbar>
                 </div>
             </div>

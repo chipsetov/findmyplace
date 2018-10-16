@@ -14,7 +14,6 @@ import UserPlaces from "./User/UserPlaces/UserPlaces";
 import UserManagers from "./User/UserManagers/UserManagers";
 import {Session} from "../utils";
 import AdminPage from "./Admin/AdminPage";
-import ApprovablePlaces from "./ApprovePlace/ApprovablePlaces"
 
 import NotFound from "../common/NotFound.js";
 
@@ -38,8 +37,10 @@ export default class Routes extends Component {
                     <Route path="/sign-up" component={RegistrationForm}/>
                     {/*<Route path="/place/:placeId" component={PlacePage}/>*/}
                     <Route path={`/user/${userId}/places`} component={UserPlaces}/>
-                   <Route path="/user/profile"
-                         render={(routeProps) => <UserPage {...routeProps}/>}></Route>
+                    <Route path="/user/profile"
+                           render={(routeProps) => <UserPage
+                               handleAvatarUpdated={this.props.handleAvatarUpdated}
+                               {...routeProps}/>}/>
                     <Route path="/user/:id/places" component={UserPlaces}/>
                     <Route path="/register-place" component={RegisterPlace}/>
                     <Route path="/forgot-password" component={ForgotPasswordForm}/>
@@ -53,11 +54,11 @@ export default class Routes extends Component {
 
                     <Route path="/sign-in"
                            render={(props) => <LoginForm onLogin={this.props.handleLogin}
-                              handleAvatarUpdated={this.props.handleAvatarUpdated}
-                              {...props} />}></Route>
+                                                         handleAvatarUpdated={this.props.handleAvatarUpdated}
+                                                         {...props} />}/>
 
-               <Route path={`/user/${userId}/places`} component={UserPlaces}/>
-                <Route path={`/user/${userId}/managers`} component={UserManagers}/>
+                    <Route path={`/user/${userId}/places`} component={UserPlaces}/>
+                    <Route path={`/user/${userId}/managers`} component={UserManagers}/>
                     <Route path="/place/:placeId"
                            render={(props) => <PlacePage
                                handleLogout={this.props.handleLogout}

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Input, Row} from 'react-materialize';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import '../../styles/Form.css';
-import {ACCESS_TOKEN} from '../../constants';
+import {ACCESS_TOKEN, ROLE, USER_ID} from '../../constants';
 import {login, resendEmail} from '../../util/APIUtils';
 import LoadingIndicator from "../../common/LoadingIndicator";
 
@@ -54,10 +54,12 @@ class LoginForm extends Component {
                     } else {
 
                         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                        const { from } = this.props.location.state || { from: { pathname: '/' } };
+                        localStorage.setItem(ROLE, JSON.stringify(response.role));
+                        localStorage.setItem(USER_ID, response.userId);
+                        const {from} = this.props.location.state || {from: {pathname: '/'}};
                         this.props.onLogin();
+                        this.props.handleAvatarUpdated();
                         this.props.history.push(from);
-
 
                     }
 
