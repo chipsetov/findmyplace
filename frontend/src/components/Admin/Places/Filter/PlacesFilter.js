@@ -51,7 +51,7 @@ class PlacesFilter extends Component {
                     <Input  type='select'
                             label="Place Type"
                             onChange={e => this.handleChange("selectedPlaceType", e.target.value)}>
-                            <option key="None" value="None">None</option>
+                            <option key="None" value="None">All</option>
                             {
                                 places.map((place) => (
                                     <option key={place.name} value={place.name}>{place.name}</option>

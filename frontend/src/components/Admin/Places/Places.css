@@ -3,6 +3,11 @@
     margin-bottom: 30px;
 }
 
+.user-places-wrapper h5 {
+    padding-top: 20px;
+    margin: 0;
+}
+
 .places-wrapper .places-filter, .places-wrapper .filter-wrapper {
     margin-bottom: 0;
 }

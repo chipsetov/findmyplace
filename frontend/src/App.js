@@ -83,7 +83,8 @@ class App extends Component {
 
         this.setState({
             currentUser: null,
-            isAuthenticated: false
+            isAuthenticated: false,
+            userAvatar: "img/avatar.png",
         });
 
         this.props.history.push(redirectTo);
@@ -98,7 +99,6 @@ class App extends Component {
 
 
     handleAvatarUpdated() {
-        if (this.state.isAuthenticated) {
             getAvatar()
                 .then(response => {
                     if (response) {
@@ -107,7 +107,6 @@ class App extends Component {
                         });
                     }
                 });
-        }
     }
 
     componentDidMount() {

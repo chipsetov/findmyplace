@@ -33,6 +33,8 @@ export default class MapLayout extends Component {
                                        description={place.description}
                                        rating={place.rating}
                                        countFreePlaces={place.countFreePlaces}
+                                       isApprove={place.approved}
+                                       isRejected={place.rejected}
                                 />
                             </Popup>
                         </Marker>

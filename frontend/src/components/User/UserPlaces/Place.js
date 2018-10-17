@@ -21,7 +21,7 @@ class Place extends Component {
     }
 
     viewModalWindow() {
-        if(Session.isAdmin() || Session.isOwner()) {
+        if(Session.isAdmin() || (Session.isOwner() && Session.userId() == this.props.ownerId)) {
             return (
                 <AppModal action={"Delete"}
                           message={"Are you sure you want to delete this place?"}

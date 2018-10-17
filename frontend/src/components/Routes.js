@@ -47,10 +47,7 @@ export default class Routes extends Component {
                     <Route path="/restore/:token(\b.{8}-.{4}-.{4}-.{4}-.{12}\b)" component={RestorePasswordForm}/>
                     <Route path="/admin-page" component={AdminPage}/>
 
-                    <PrivateRoute authenticated={this.props.isAuthenticated} path="/map" component={MapForm}
-                                  handleLogout={this.props.handleLogout}>
-                    </PrivateRoute>
-
+                    <Route path="/map" component={MapForm}/>
                     <Route path="/sign-in"
                            render={(props) => <LoginForm onLogin={this.props.handleLogin}
                                                          handleAvatarUpdated={this.props.handleAvatarUpdated}

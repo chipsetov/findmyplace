@@ -59,9 +59,6 @@ class Places extends Component {
 
         return(
             <Row className="places-wrapper">
-                <Row className="title">
-                    <h5>Places</h5>
-                </Row>
                 <Row className="places-filter">
                     <PlacesFilter   places={this.state.places}
                                     filteredPlaces={this.state.filteredPlaces}
@@ -80,6 +77,7 @@ class Places extends Component {
                                        countFreePlaces={item.countFreePlaces}
                                        isApprove={item.approved}
                                        isRejected={item.rejected}
+                                       ownerId={item.ownerId}
                                        handleDelete={this.handleDelete}
                                 />
                             )

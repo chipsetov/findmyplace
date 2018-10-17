@@ -2,16 +2,18 @@ import React, {Component} from 'react';
 import {deleteUserPlace, getAllMyPlaces} from "../../../util/APIUtils";
 import {Row} from "react-materialize";
 import Place from "./Place";
-import {Link} from "react-router-dom";
 import {Session} from "../../../utils";
-import {Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import PlacesFilter from "../../Admin/Places/Filter/PlacesFilter";
+import '../../Admin/Places/Places.css';
 
 class UserPlaces extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            places: []
+            places: [],
+            filteredPlaces: []
         };
 
         this.handleDelete = this.handleDelete.bind(this);
@@ -23,7 +25,8 @@ class UserPlaces extends Component {
             .then((response) => {
                 console.log(response);
                 this.setState({
-                    places: response
+                    places: response,
+                    filteredPlaces: response,
                 });
             })
     };
@@ -36,7 +39,8 @@ class UserPlaces extends Component {
                 });
 
                 this.setState({
-                    places: places
+                    places: places,
+                    filteredPlaces: places
                 });
 
                 window["Materialize"].toast("Place deleted", 3000);
@@ -51,12 +55,27 @@ class UserPlaces extends Component {
         }
     };
 
+    handleUpdate = (places) => {
+        this.setState({
+            filteredPlaces: places
+        });
+    };
+
     render() {
-        const places = this.state.places;
+        const places = this.state.filteredPlaces;
 
         return(
-            <Row className="user-places-wrapper">
+            <Row className="user-places-wrapper places-wrapper">
                 {this.renderRedirect()}
+                <Row className="title">
+                    <h5>Places</h5>
+                </Row>
+                <Row className="places-filter">
+                    <PlacesFilter   places={this.state.places}
+                                    filteredPlaces={this.state.filteredPlaces}
+                                    handleUpdate={this.handleUpdate}
+                    />
+                </Row>
                 <Row className="places-search">
                     <Link to={`/register-place`} id="register-place">Add place</Link>
                 </Row>
@@ -72,6 +91,7 @@ class UserPlaces extends Component {
                                        countFreePlaces={item.countFreePlaces}
                                        isApprove={item.approved}
                                        isRejected={item.rejected}
+                                       ownerId={item.ownerId}
                                        handleDelete={this.handleDelete}
                                 />
                             )
