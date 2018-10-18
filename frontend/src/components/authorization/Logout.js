@@ -50,13 +50,29 @@ class Logout extends Component {
         }
     };
 
+
+    managerView() {
+        return (
+            <Dropdown trigger={<img src={this.props.userAvatar} alt=""/>}>
+                <NavItem href='#/manager-page'>Places</NavItem>
+                <NavItem href='#/logout' onClick={this.props.handleLogout}>
+                    Sign out
+                </NavItem>
+            </Dropdown>
+        )
+    }
+
     render() {
         const hidden = (this.props.isLoggedIn ? "" : " hidden");
+        const role = this.state.user.role;
 
         return (
             <div id="auth-sign-out" className={hidden}>
                 <div className="logout">
-                    {this.state.user.role === "ROLE_ADMIN" ? this.adminDropdown() : this.baseDropdown()}
+                    {
+                        role === "ROLE_ADMIN" ? this.adminDropdown() :
+                            role === "ROLE_MANAGER" ? this.managerView() : this.baseDropdown()
+                    }
                 </div>
             </div>
         );

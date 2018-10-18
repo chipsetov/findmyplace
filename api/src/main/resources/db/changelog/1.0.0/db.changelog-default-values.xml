@@ -173,7 +173,7 @@
             <column name="user_id" value="1"/>
             <column name="place_id" value="1"/>
             <column name="booking_time" value="10:00"/>
-            <column name="status" value="0"/>
+            <column name="status" value="1"/>
         </insert>
         <insert tableName="booking">
             <column name="user_id" value="1"/>

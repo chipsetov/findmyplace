@@ -1,21 +1,25 @@
 package ua.softserve.rv036.findmeplace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ua.softserve.rv036.findmeplace.model.Booking;
 import ua.softserve.rv036.findmeplace.model.Place;
+import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.BookingRequest;
 import ua.softserve.rv036.findmeplace.repository.BookingRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
+import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/booking")
@@ -28,6 +32,9 @@ public class BookingController {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private Place_ManagerRepository placeManagerRepository;
 
     @GetMapping("/me")
     public List<Booking> getBookings() {
@@ -93,5 +100,19 @@ public class BookingController {
         bookingRepository.save(booking);
 
         return ResponseEntity.ok().body(new ApiResponse(true, "You have booked this place"));
+    }
+
+    @GetMapping("/manager/{managerId}/bookings")
+    public ResponseEntity getManagerBookings(@PathVariable Long managerId) {
+        try {
+            List<Place_Manager> placeManagers = placeManagerRepository.findAllByUserId(managerId);
+            List<Long> placeIds = placeManagers.stream().map(Place_Manager::getPlaceId).collect(Collectors.toList());
+            List<Booking> bookings = bookingRepository.findByPlaceIdIn(placeIds);
+
+            return ResponseEntity.ok().body(bookings);
+        } catch (Error e) {
+            return new ResponseEntity(new ApiResponse(false, e.getMessage()),
+                    HttpStatus.BAD_REQUEST);
+        }
     }
 }

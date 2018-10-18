@@ -14,6 +14,7 @@ import UserPlaces from "./User/UserPlaces/UserPlaces";
 import UserManagers from "./User/UserManagers/UserManagers";
 import {Session} from "../utils";
 import AdminPage from "./Admin/AdminPage";
+import ManagerPage from "./Manager/ManagerPage";
 
 import NotFound from "../common/NotFound.js";
 
@@ -55,6 +56,7 @@ export default class Routes extends Component {
 
                     <Route path={`/user/${userId}/places`} component={UserPlaces}/>
                     <Route path={`/user/${userId}/managers`} component={UserManagers}/>
+                    <Route path={`/manager-page`} render={(props) => <ManagerPage userId={userId} {...props} />}/>
                     <Route path="/place/:placeId"
                            render={(props) => <PlacePage
                                handleLogout={this.props.handleLogout}
