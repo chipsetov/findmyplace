@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.User;
@@ -19,6 +20,7 @@ import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
+import ua.softserve.rv036.findmeplace.service.FileStorageService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
@@ -40,6 +42,9 @@ public class PlaceController {
 
     @Autowired
     private Place_ManagerRepository placeManagerRepository;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @GetMapping("place/map")
     List<Place> getPlace() {
@@ -214,6 +219,30 @@ public class PlaceController {
 
         placeRepository.save(place);
         return new ResponseEntity(new ApiResponse(true, "Place successful approved"), HttpStatus.OK);
+    }
+
+    @PostMapping("/places/upload-images/{placeId}")
+    @RolesAllowed({"ROLE_OWNER"})
+    public ResponseEntity uploadPlaceImages(@RequestParam("file") MultipartFile[] files, @PathVariable Long placeId) {
+
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Optional<Place> optional = placeRepository.findById(placeId);
+        Place place = optional.get();
+
+        if(place.getOwnerId() != userPrincipal.getId()) {
+            return new ResponseEntity(new ApiResponse(false, "Access denied"), HttpStatus.BAD_REQUEST);
+        }
+
+        for (MultipartFile file : files) {
+            if(FileStorageService.isImage(file)) {
+                String link = fileStorageService.storeFile(file, "places/" + place.getId());
+                //user.setAvatarUrl(link);
+                //userRepository.save(user);
+            }
+        }
+
+        return new ResponseEntity(new ApiResponse(true, "Images successful saved"), HttpStatus.BAD_REQUEST);
     }
 
 }
