@@ -8,8 +8,21 @@ class Info extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            manageFreePlaces: (Session.isManager() || Session.isOwner())
+            manageFreePlaces: (Session.isManager() || Session.isOwner()),
+            accessUser: false
         };
+    }
+
+    componentDidMount() {
+        console.log("PLACE_ID = " + this.props.placeId);
+        const userId = Session.userId();
+        fetch("/places/" + this.props.placeId + "/access-user/" + userId)
+            .then((response) => response.json())
+            .then((result) => {
+                this.setState({
+                    accessUser: result
+                });
+            })
     }
 
     viewButton() {
@@ -38,6 +51,9 @@ class Info extends Component {
 
 
     render() {
+        console.log("accessUser = " + this.state.accessUser);
+        console.log("managerFreePlaces = " + this.state.manageFreePlaces);
+        console.log("show? = " + this.state.manageFreePlaces && this.state.accessUser);
         return (
             <div>
                 <Row>
@@ -50,7 +66,7 @@ class Info extends Component {
                     <Col s={6}>
                         <p>Open time: {this.props.openTime}</p>
                         <p>Close time: {this.props.closeTime}</p>
-                        {(this.state.manageFreePlaces) ? this.viewButton() : <p>Free places: {this.props.freePlaces}</p>}
+                        {(this.state.manageFreePlaces && this.state.accessUser) ? this.viewButton() : <p>Free places: {this.props.freePlaces}</p>}
                         <p>{this.props.description}</p>
                     </Col>
                 </Row>

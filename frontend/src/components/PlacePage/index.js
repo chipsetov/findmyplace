@@ -62,7 +62,6 @@ class PlacePage extends Component {
 
         addMark(markRequest)
             .then(response => {
-                console.log(response);
                 this.setState({
                     rating: response,
                 });
@@ -89,7 +88,6 @@ class PlacePage extends Component {
     }
 
     countChange = (count) => {
-        console.log(this.state.place);
         changeCountFreePlaces(this.props.match.params.placeId, count)
             .then((result) => {
                 this.setState({
@@ -129,6 +127,7 @@ class PlacePage extends Component {
                     />
                     <Info openTime={place.open}
                           closeTime={place.close}
+                          placeId={this.props.match.params.placeId}
                           freePlaces={place.countFreePlaces}
                           description={place.description}
                           countChange={this.countChange}/>

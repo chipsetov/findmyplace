@@ -28,7 +28,7 @@ public interface Place_ManagerRepository extends JpaRepository<Place_Manager, Lo
             "join User u on u.id = f.userId " +
             "join Place p on p.id = f.placeId " +
             "where f.userId = :id")
-    List<Place_Manager> findAllByUserId(Long id);
+    List<Place_Manager> findAllByUserId(@Param("id") Long id);
 
     Optional<Place_Manager> findByUserIdAndPlaceId(Long userId, Long placeId);
 
