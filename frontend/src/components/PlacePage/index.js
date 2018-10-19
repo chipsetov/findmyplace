@@ -4,7 +4,6 @@ import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
 import ManagersBlock from './ManagersBlock.js';
-import ReviewBlock from './ReviewsBlock';
 import Info from './Info.js';
 import {changeCountFreePlaces} from "../../util/APIUtils";
 import {checkBookingTime, PAGE_CHANGED, Session} from "../../utils";
@@ -78,7 +77,7 @@ class PlacePage extends Component {
     }
 
     viewManagers() {
-        if (this.state.viewManager) {
+        if (this.state.viewManager && (Session.userId() == this.state.place.ownerId)) {
             return (
                 <ManagersBlock
                     placeId={this.props.match.params.placeId}

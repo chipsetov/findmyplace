@@ -3,6 +3,7 @@ import {Button, Card, CardTitle, Col, Row} from 'react-materialize';
 import AppModal from "../../Modal/AppModal";
 import './Manager.css';
 import {addPlaceManager, deleteManagerByPlace, deletePlaceManager, getCurrentPlaces} from "../../../util/APIUtils";
+import {Session} from "../../../utils";
 
 class Manager extends Component {
 
@@ -36,7 +37,9 @@ class Manager extends Component {
     }
 
     viewPlace() {
-        getCurrentPlaces(this.props.id)
+        const userId = Session.userId();
+        console.log("USER_ID = " + userId);
+        getCurrentPlaces(this.props.id, userId)
             .then(result => {
                 this.setState({
                     places: result,
