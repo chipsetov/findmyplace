@@ -31,7 +31,7 @@ class AppModal extends Component {
         return (
             <div>
                 <Button className={this.props.buttonStyle} onClick={this.openAndCloseModal}>{this.props.action}</Button>
-                <Modal open={open} onClose={this.openAndCloseModal} center>
+                <Modal open={open} blockScroll={false} onClose={this.openAndCloseModal} center>
                     <Row className="modal-msg">
                         <p>{this.props.message}</p>
                     </Row>
