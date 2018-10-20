@@ -30,9 +30,14 @@ public interface Place_ManagerRepository extends JpaRepository<Place_Manager, Lo
             "where f.userId = :id")
     List<Place_Manager> findAllByUserId(@Param("id") Long id);
 
-    Optional<Place_Manager> findByUserIdAndPlaceId(Long userId, Long placeId);
+    @Query("select new Place_Manager(f.id, f.userId, u.nickName, u.email, f.placeId, p.name) " +
+            "from Place_Manager f " +
+            "join User u on u.id = f.userId " +
+            "join Place p on p.id = f.placeId " +
+            "where f.userId = :id and f.placeId in :idList")
+    List<Place_Manager> findAllByUserIdAndPlaceIdIn(@Param("id") Long id,@Param("idList") List<Long> idList);
 
-    List<Place_Manager> findAllByUserIdAndAndPlaceId(Long userId, Long placeId);
+    Optional<Place_Manager> findByUserIdAndPlaceId(Long userId, Long placeId);
 
     Boolean existsByUserIdAndPlaceId(Long userId, Long placeId);
 

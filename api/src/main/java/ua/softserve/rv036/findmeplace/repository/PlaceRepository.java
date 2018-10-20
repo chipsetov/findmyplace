@@ -26,6 +26,8 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 
     List<Place> findAllByOwnerId(Long id);
 
+    Boolean existsByIdAndOwnerId(Long id, Long ownerId);
+
     Optional<Place> findById(Long id);
 
    // @Query("select p from Place p where p.approved = true and p.rejected = false and p.ownerId = :id")

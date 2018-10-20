@@ -20,6 +20,7 @@ import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.CurrentUser;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 import ua.softserve.rv036.findmeplace.service.FileStorageService;
+import ua.softserve.rv036.findmeplace.service.Place_ManagerService;
 import ua.softserve.rv036.findmeplace.service.UserService;
 
 import javax.annotation.security.RolesAllowed;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private Place_ManagerService placeManagerService;
 
     @Autowired
     private PlaceRepository placeRepository;
@@ -85,9 +89,10 @@ public class UserController {
         return placeRepository.findAllByOwnerId(id);
     }
 
-    @GetMapping("/manager/{id}/places")
-    public List<Place_Manager> getManagerPlaces(@PathVariable("id") Long id) {
-        return placeManagerRepository.findAllByUserId(id);
+    @GetMapping("/manager/{managerId}/places-by-owner/{ownerId}")
+    public List<Place_Manager> getManagerPlaces(@PathVariable("managerId") Long managerId, @PathVariable Long ownerId) {
+
+        return placeManagerService.getAllPlacesByManagerAndOwner(managerId, ownerId);
     }
 
     @GetMapping("/user/{id}/managers")
@@ -98,7 +103,7 @@ public class UserController {
     @PostMapping("/user/{ownerId}/delete-manager/{managerId}")
     ResponseEntity deleteManagers(@PathVariable Long ownerId, @PathVariable Long managerId){
 
-        List<Place_Manager> allByUserId = placeManagerRepository.findAllByUserId(managerId);
+        List<Place_Manager> allByUserId = placeManagerService.getAllPlacesByManagerAndOwner(managerId, ownerId);
 
         placeManagerRepository.deleteAll(allByUserId);
 

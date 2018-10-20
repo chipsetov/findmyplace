@@ -235,9 +235,9 @@ export function deleteManagerByPlace(placeId, managerId) {
     });
 }
 
-export function getCurrentPlaces(managerId) {
+export function getCurrentPlaces(managerId, ownerId) {
     return request({
-        url: API_BASE_URL + "/manager/" + managerId + "/places",
+        url: API_BASE_URL + "/manager/" + managerId + "/places-by-owner/" + ownerId,
         method: 'GET'
     });
 }

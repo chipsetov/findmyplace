@@ -28,7 +28,7 @@ class UserManagers extends Component {
     }
 
     handleDelete(id) {
-        const ownerId = this.props.match.params.id;
+        const ownerId =  Session.userId();;
         const managerId = id;
         deleteManagers(ownerId, managerId)
             .then((result) => {
