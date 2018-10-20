@@ -55,10 +55,10 @@ class Manager extends Component {
                 {this.state.places.map((item) => (
                     <Row key={item.id}>
                         <Col s={4} offset="s4">
-                            <p>{item.placeName}</p>
+                            <p className="text-darken-2">{item.placeName}</p>
                         </Col>
                         <Col s={4}>
-                            <Button waves='light' onClick={() => {
+                            <Button className="btn-delete" waves='light' onClick={() => {
                                 this.handleFired(item.placeId, item.userId);
                             }}>Fire</Button>
                         </Col>
@@ -87,7 +87,7 @@ class Manager extends Component {
                 </Row>
                 <Row className="additional-info">
                     <Col s={6} className="place-modal">
-                        <Button waves='light' onClick={() => {
+                        <Button className="black" waves='light' onClick={() => {
                             this.viewPlace()
                         }}>
                             Places
@@ -97,6 +97,7 @@ class Manager extends Component {
                         <AppModal action={"Delete"}
                                   message={"Are you sure you want to delete this manager from all places?"}
                                   handleSubmit={this.handleDelete}
+                                  buttonStyle="btn-delete"
                         />
                     </Col>
                 </Row>

@@ -29,7 +29,7 @@ class Info extends Component {
         return (
             <Row className="managers-container">
                 <Col>
-                    <Button waves='light' onClick={() => {
+                    <Button className="black" waves='light' onClick={() => {
                         this.props.countChange(-1)
                     }}>
                         <Icon>remove</Icon>
@@ -39,7 +39,7 @@ class Info extends Component {
                     <p>Free places: {this.props.freePlaces}</p>
                 </Col>
                 <Col>
-                    <Button waves='light' onClick={() => {
+                    <Button className="black" waves='light' onClick={() => {
                         this.props.countChange(1)
                     }}>
                         <Icon>add</Icon>
