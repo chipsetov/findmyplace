@@ -147,7 +147,7 @@ class RegisterPlace extends Component {
         const placeTypes = this.state.placeTypes;
 
         return(
-            <div className="container form-container">
+            <div className="container form-container register-form">
                 {this.renderRedirect()}
                 <Row>
                     <h1>Register Place</h1>
@@ -156,6 +156,7 @@ class RegisterPlace extends Component {
                     <Input
                         id="placeName"
                         type="text"
+                        label=" "
                         value={this.state.placeName}
                         error={this.state.error_placeName}
                         validate
@@ -168,6 +169,7 @@ class RegisterPlace extends Component {
                     <Input
                         id="address"
                         type="text"
+                        label=" "
                         value={this.state.address}
                         s={12}
                         error={this.state.error_address}
@@ -200,6 +202,7 @@ class RegisterPlace extends Component {
                         type='select'
                         validate
                         required
+                        label=" "
                         error={this.state.error_placeType}
                         label="PLACE TYPE"
                         onChange={e => this.handleChange("placeType", e.target.value)}>
@@ -219,6 +222,7 @@ class RegisterPlace extends Component {
                         type="textarea"
                         validate
                         required
+                        label=" "
                         error={this.state.error_description}
                         value={this.state.description}
                         s={12}

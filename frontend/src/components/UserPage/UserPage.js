@@ -1,14 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Profile from "./Profile";
 import UserBookings from "./Booking";
-import {
-    approveBooking,
-    cancelBooking,
-    getBookings,
-    getManagerBookings,
-    getUserProfile,
-    rejectBooking
-} from "../../util/APIUtils";
+import {cancelBooking, getBookings, getUserProfile} from "../../util/APIUtils";
 import {Link, withRouter} from "react-router-dom";
 import {Col, Row, Tab, Tabs} from "react-materialize";
 
@@ -66,9 +59,10 @@ export class UserPage extends Component {
                             <Tabs className="tab-menu">
                                 <Tab className="tab-menu-item" active>
                                     <Profile firstName={this.state.firstName}
-                                                    lastName={this.state.lastName}
-                                                    email={this.state.email}
-                                                    userName={this.state.userName}
+                                             lastName={this.state.lastName}
+                                             email={this.state.email}
+                                             userName={this.state.userName}
+                                             handleAvatarUpdated={this.props.handleAvatarUpdated}
                                     />
                                 </Tab>
                             </Tabs>

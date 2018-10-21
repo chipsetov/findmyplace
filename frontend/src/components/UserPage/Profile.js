@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Col, Row, Input, Button} from 'react-materialize';
 import {USER_ID} from "../../constants/index";
 import {updateUserPassword, updateUserProfile} from "../../util/APIUtils";
+import SetAvatar from "./SetAvatar";
 
 class Profile extends Component {
 
@@ -107,99 +108,106 @@ class Profile extends Component {
     render() {
         return (
             <div className="admin-profile-wrapper">
-                <div className="admin-update-profile">
-                    <Row className="admin-update">
-                        <img src="img/admin/update.png" alt="update"/>
-                        Update Profile
-                    </Row>
-                    <Row className="admin-profile-field">
-                        <Col s={2} className="field-name">
-                            <p>First Name:</p>
-                        </Col>
-                        <Col s={3}>
-                            <Input defaultValue={this.props.firstName}
-                                   onChange={e => this.handleChange("firstName", e.target.value)}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className="admin-profile-field">
-                        <Col s={2} className="field-name">
-                            <p>Last Name:</p>
-                        </Col>
-                        <Col s={3}>
-                            <Input defaultValue={this.props.lastName}
-                                   onChange={e => this.handleChange("lastName", e.target.value)}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className="admin-profile-field">
-                        <Col s={2} className="field-name">
-                            <p>Username:</p>
-                        </Col>
-                        <Col s={3}>
-                            <Input defaultValue={this.props.userName}
-                                   onChange={e => this.handleChange("userName", e.target.value)}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className="admin-profile-field">
-                        <Col s={2} className="field-name">
-                            <p>Email:</p>
-                        </Col>
-                        <Col s={3}>
-                            <Input defaultValue={this.props.email}
-                                   onChange={e => this.handleChange("email", e.target.value)}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className="admin-profile-btn">
-                        <Col s={3}>
-                            <Button onClick={this.updateProfile}>Save</Button>
-                        </Col>
-                    </Row>
-                </div>
+                <Row>
+                    <Col s={6} className="admin-update-profile">
+                        <Row className="admin-update">
+                            <img src="img/admin/update.png" alt="update"/>
+                            Update Profile
+                        </Row>
+                        <Row className="admin-profile-field">
+                            <Col s={4}>
+                                <p>First Name:</p>
+                            </Col>
+                            <Col s={8}>
+                                <Input defaultValue={this.props.firstName}
+                                       onChange={e => this.handleChange("firstName", e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="admin-profile-field">
+                            <Col s={4}>
+                                <p>Last Name:</p>
+                            </Col>
+                            <Col s={8}>
+                                <Input defaultValue={this.props.lastName}
+                                       onChange={e => this.handleChange("lastName", e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="admin-profile-field">
+                            <Col s={4}>
+                                <p>Username:</p>
+                            </Col>
+                            <Col s={8}>
+                                <Input defaultValue={this.props.userName}
+                                       onChange={e => this.handleChange("userName", e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="admin-profile-field">
+                            <Col s={4}>
+                                <p>Email:</p>
+                            </Col>
+                            <Col s={8}>
+                                <Input defaultValue={this.props.email}
+                                       onChange={e => this.handleChange("email", e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="admin-profile-btn">
+                            <Col s={6}>
+                                <Button onClick={this.updateProfile}>Save</Button>
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col s={6}>
+                        <SetAvatar handleAvatarUpdated={this.props.handleAvatarUpdated}/>
+                    </Col>
+                </Row>
 
-                <div className="admin-update-password">
-                    <Row className="admin-update">
-                        <img src="img/admin/update.png" alt="update"/>
-                        Update Password
-                    </Row>
-                    <Row className="admin-profile-field">
-                        <Col s={2} className="field-name">
-                            <p>Old Password:</p>
-                        </Col>
-                        <Col s={3}>
-                            <Input type="password"
-                                   onChange={e => this.handleChange("oldPassword", e.target.value)}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className="admin-profile-field">
-                        <Col s={2} className="field-name">
-                            <p>New password:</p>
-                        </Col>
-                        <Col s={3}>
-                            <Input type="password"
-                                   onChange={e => this.handleChange("newPassword", e.target.value)}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className="admin-profile-field">
-                        <Col s={2} className="field-name">
-                            <p>Confirm new password:</p>
-                        </Col>
-                        <Col s={3}>
-                            <Input type="password"
-                                   onChange={e => this.handleChange("confirmPassword", e.target.value)}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className="admin-profile-btn">
-                        <Col s={3}>
-                            <Button onClick={this.updatePassword}>Save</Button>
-                        </Col>
-                    </Row>
-                </div>
+                <Row className="admin-update-password">
+                    <Col s={12}>
+                        <Row className="admin-update">
+                            <img src="img/admin/update.png" alt="update"/>
+                            Update Password
+                        </Row>
+                        <Row className="admin-profile-field">
+                            <Col s={2} className="field-name">
+                                <p>Old Password:</p>
+                            </Col>
+                            <Col s={3}>
+                                <Input type="password"
+                                       onChange={e => this.handleChange("oldPassword", e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="admin-profile-field">
+                            <Col s={2} className="field-name">
+                                <p>New password:</p>
+                            </Col>
+                            <Col s={3}>
+                                <Input type="password"
+                                       onChange={e => this.handleChange("newPassword", e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="admin-profile-field">
+                            <Col s={2} className="field-name">
+                                <p>Confirm new password:</p>
+                            </Col>
+                            <Col s={3}>
+                                <Input type="password"
+                                       onChange={e => this.handleChange("confirmPassword", e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="admin-profile-btn">
+                            <Col s={3}>
+                                <Button onClick={this.updatePassword}>Save</Button>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
             </div>
         );
     }

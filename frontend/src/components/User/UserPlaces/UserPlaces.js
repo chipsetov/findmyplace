@@ -61,7 +61,7 @@ class UserPlaces extends Component {
         });
     };
 
-    renderFilter = () => {
+    renderTop = () => {
         if(this.state.places.length === 0) {
             return(
                 <Row>
@@ -70,12 +70,17 @@ class UserPlaces extends Component {
             )
         } else {
             return(
-                <Row className="places-filter">
-                    <PlacesFilter   places={this.state.places}
-                                    filteredPlaces={this.state.filteredPlaces}
-                                    handleUpdate={this.handleUpdate}
-                    />
-                </Row>
+                <React.Fragment>
+                    <Row className="title">
+                        <h5>Places</h5>
+                    </Row>
+                    <Row className="places-filter">
+                        <PlacesFilter   places={this.state.places}
+                                        filteredPlaces={this.state.filteredPlaces}
+                                        handleUpdate={this.handleUpdate}
+                        />
+                    </Row>
+                </React.Fragment>
             )
         }
     };
@@ -85,11 +90,9 @@ class UserPlaces extends Component {
 
         return(
             <Row className="user-places-wrapper places-wrapper">
+                <Row className="title"></Row>
                 {this.renderRedirect()}
-                <Row className="title">
-                    <h5>Places</h5>
-                </Row>
-                {this.renderFilter()}
+                {this.renderTop()}
                 <Row className="places-search">
                     <Link to={`/register-place`} id="register-place">Add place</Link>
                 </Row>
