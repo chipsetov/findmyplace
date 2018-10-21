@@ -64,6 +64,9 @@ class MapForm extends Component {
 
         filterPlace(filterRequest)
             .then(result => {
+                result = result.filter((place) => {
+                   return place.approved === true;
+                });
                 this.setState({places: result});
             })
     }

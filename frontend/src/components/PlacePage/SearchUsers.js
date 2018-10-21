@@ -72,7 +72,7 @@ export default class SearchUsers extends Component {
 
         return (
             <Row>
-                <Col s={10} className="check-row-search">
+                <Col s={10} className="check-row-search" id="place-page">
                     <Autosuggest
                         suggestions={suggestions}
                         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -83,7 +83,7 @@ export default class SearchUsers extends Component {
                     />
                 </Col>
                 <Col s={2}>
-                    <Button waves='light' onClick={() => {
+                    <Button className="black" waves='light' onClick={() => {
                         this.props.updateData(this.state.value)
                     }}><Icon>check</Icon></Button>
                 </Col>

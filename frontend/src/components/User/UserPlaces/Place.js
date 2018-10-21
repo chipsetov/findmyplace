@@ -25,6 +25,7 @@ class Place extends Component {
             return (
                 <AppModal action={"Delete"}
                           message={"Are you sure you want to delete this place?"}
+                          buttonStyle="btn-delete"
                           handleSubmit={this.handleDelete}
                 />
             )
