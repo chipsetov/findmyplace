@@ -62,4 +62,5 @@
 
 .check-row-search .react-autosuggest__suggestion--highlighted {
     background-color: rgba(4, 1, 4, 0.73);
+    color: white;
 }
