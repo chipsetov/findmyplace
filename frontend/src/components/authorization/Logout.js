@@ -55,7 +55,7 @@ class Logout extends Component {
     managerView() {
         return (
             <Dropdown trigger={<img src={this.props.userAvatar} alt=""/>}>
-                <NavItem href='#/manager-page'>Places</NavItem>
+                <NavItem href='#/manager-page'>Dashboard</NavItem>
                 <NavItem href='#/logout' onClick={this.props.handleLogout}>
                     Sign out
                 </NavItem>
