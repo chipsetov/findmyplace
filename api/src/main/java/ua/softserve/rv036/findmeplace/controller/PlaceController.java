@@ -148,7 +148,7 @@ public class PlaceController {
     }
 
     @PostMapping("/places/register")
-    @RolesAllowed("ROLE_OWNER")
+    @RolesAllowed({"ROLE_OWNER", "ROLE_USER"})
     ResponseEntity registerPlace(@Valid @RequestBody Place place) {
 
         if(placeRepository.existsByName(place.getName())) {
@@ -156,6 +156,12 @@ public class PlaceController {
                     HttpStatus.BAD_REQUEST);
         } else {
             UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            User user = userRepository.findById(userPrincipal.getId()).get();
+            if(user.getRole() == Role.ROLE_USER) {
+                user.setRole(Role.ROLE_OWNER);
+                userRepository.save(user);
+            }
 
             place.setCountFreePlaces(0);
             place.setRating(0.0);
