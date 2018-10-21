@@ -75,7 +75,7 @@
             <column name="close" value="23:00:00"/>
             <column name="count_free_places" value="5"/>
             <column name="place_type" value="CAFE"/>
-            <column name="owner_id" value="1"/>
+            <column name="owner_id" value="3"/>
             <column name="is_approved" value="TRUE"/>
             <column name="is_rejected" value="FALSE"/>
         </insert>
@@ -90,7 +90,7 @@
             <column name="close" value="23:59:00"/>
             <column name="count_free_places" value="10"/>
             <column name="place_type" value="HOTEL"/>
-            <column name="owner_id" value="2"/>
+            <column name="owner_id" value="3"/>
             <column name="is_approved" value="TRUE"/>
             <column name="is_rejected" value="FALSE"/>
         </insert>

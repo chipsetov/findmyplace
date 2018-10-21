@@ -50,7 +50,7 @@ class UserPlaces extends Component {
     };
 
     renderRedirect = () => {
-        if (!Session.isAdmin() && !Session.isOwner()) {
+        if (!Session.isLoggedIn()) {
             return <Redirect to='/'/>
         }
     };
@@ -59,6 +59,25 @@ class UserPlaces extends Component {
         this.setState({
             filteredPlaces: places
         });
+    };
+
+    renderFilter = () => {
+        if(this.state.places.length === 0) {
+            return(
+                <Row>
+                    <h3>You are not the owner. To become an owner, register at least one place.</h3>
+                </Row>
+            )
+        } else {
+            return(
+                <Row className="places-filter">
+                    <PlacesFilter   places={this.state.places}
+                                    filteredPlaces={this.state.filteredPlaces}
+                                    handleUpdate={this.handleUpdate}
+                    />
+                </Row>
+            )
+        }
     };
 
     render() {
@@ -70,12 +89,7 @@ class UserPlaces extends Component {
                 <Row className="title">
                     <h5>Places</h5>
                 </Row>
-                <Row className="places-filter">
-                    <PlacesFilter   places={this.state.places}
-                                    filteredPlaces={this.state.filteredPlaces}
-                                    handleUpdate={this.handleUpdate}
-                    />
-                </Row>
+                {this.renderFilter()}
                 <Row className="places-search">
                     <Link to={`/register-place`} id="register-place">Add place</Link>
                 </Row>

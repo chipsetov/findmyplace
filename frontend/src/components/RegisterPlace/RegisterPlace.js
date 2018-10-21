@@ -37,7 +37,7 @@ class RegisterPlace extends Component {
             error_placeType: "",
             error_description: "",
 
-            redirect: !Session.isOwner()
+            redirect: !Session.isLoggedIn()
         }
     };
 
@@ -140,7 +140,7 @@ class RegisterPlace extends Component {
         if (this.state.redirect) {
             return <Redirect to='/map' />
         }
-    }
+    };
 
     render() {
 
@@ -203,11 +203,12 @@ class RegisterPlace extends Component {
                         error={this.state.error_placeType}
                         label="PLACE TYPE"
                         onChange={e => this.handleChange("placeType", e.target.value)}>
-                                <option></option>
+                                <option className="red" style={{zIndex: 100}}></option>
                             {
                                 placeTypes.map(type => (
                                 <option key={type.name}
                                         value={type.value}
+                                        style={{zIndex: 100}}
                                 >{type.name}</option>
                             ))}
                     </Input>

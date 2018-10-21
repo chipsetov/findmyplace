@@ -25,9 +25,11 @@ class Logout extends Component {
     }
 
     baseDropdown() {
+        const userId = this.state.user.id;
         return (
             <Dropdown trigger={<img src={this.props.userAvatar} alt=""/>}>
                 <NavItem href='#/user/profile'>Profile</NavItem>
+                <NavItem href={`#/user/${userId}/places`}>Places</NavItem>
                 {this.ownerView()}
                 <NavItem href='#'>Booking</NavItem>
                 <NavItem href='#'>Favorite</NavItem>
@@ -43,7 +45,6 @@ class Logout extends Component {
             const userId = this.state.user.id;
             return (
                 <div>
-                    <NavItem href={`#/user/${userId}/places`}>Places</NavItem>
                     <NavItem href={`#/user/${userId}/managers`}>Managers</NavItem>
                 </div>
             )
