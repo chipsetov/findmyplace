@@ -31,8 +31,8 @@ class Logout extends Component {
                 <NavItem href='#/user/profile'>Profile</NavItem>
                 <NavItem href={`#/user/${userId}/places`}>Places</NavItem>
                 {this.ownerView()}
-                <NavItem href='#'>Booking</NavItem>
-                <NavItem href='#'>Favorite</NavItem>
+                {/*<NavItem href='#'>Booking</NavItem>*/}
+                {/*<NavItem href='#'>Favorite</NavItem>*/}
                 <NavItem onClick={this.props.handleLogout}>
                     Sign out
                 </NavItem>
