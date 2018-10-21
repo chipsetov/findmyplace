@@ -25,12 +25,21 @@ class ApprovablePlaces extends Component {
         this.componentDidMount();
     };
 
+    renderTitle = () => {
+        if(this.state.places.length === 0) {
+            return(
+                <h3>There are no places to approve</h3>
+            )
+        }
+    };
+
     render() {
         const places = this.state.places;
 
         return(
             <Row className="user-places-wrapper">
                 <Row className="places-container">
+                    {this.renderTitle()}
                     {
                         places.map((item) => (
                                 <ApprovablePlace placeId={item.id}

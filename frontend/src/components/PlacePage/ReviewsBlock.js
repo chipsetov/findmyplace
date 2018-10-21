@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Review from "./Review";
 import {Row} from 'react-materialize';
 import './Review.css';
-import {deleteUserFeedback} from "../../util/APIUtils";
+import {deleteUserFeedback, getAvatar} from "../../util/APIUtils";
 import NewReview from "./AddNewReview";
 
 class ReviewsBlock extends Component {
@@ -11,7 +11,8 @@ class ReviewsBlock extends Component {
         super(props);
         this.state = {
             authenticated: this.props.isAuthenticated,
-            reviews: []
+            reviews: [],
+            avatarUrl: "",
         };
         this.addNewComment = this.addNewComment.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -28,7 +29,16 @@ class ReviewsBlock extends Component {
                     });
 
                 }
-            )
+            );
+
+        getAvatar()
+            .then(response => {
+                if(response) {
+                    this.setState({
+                        avatarUrl: response
+                    })
+                }
+            })
     }
 
     addNewComment(reviev) {
@@ -37,6 +47,7 @@ class ReviewsBlock extends Component {
         this.setState(pervState => ({
             reviews: [reviev, ...pervState.reviews]
         }));
+        //this.componentDidMount();
     }
 
     handleDelete(id) {
@@ -68,7 +79,8 @@ class ReviewsBlock extends Component {
                     <NewReview
                         newComment={this.addNewComment}
                         currentUser={this.props.currentUser}
-                        placeId={this.props.placeId}/>
+                        placeId={this.props.placeId}
+                        avatarUrl={this.state.avatarUrl}/>
                 </div>
                 {reviews.map(item => (
                     <Review id={item.id}

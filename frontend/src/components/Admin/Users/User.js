@@ -20,7 +20,7 @@ class User extends Component {
         return (
             <tr>
                 <td className="user">
-                    <img src="img/admin/user-avatar.png" alt="user"/>
+                    <img src={this.props.userAvatar} alt="user"/>
                     <Link to="/user/profile" className="user-name">
                         {this.props.fistName} {this.props.lastName}
                     </Link>
@@ -42,6 +42,7 @@ class User extends Component {
                 <td className="user-email">{this.props.email}</td>
                 <td className="delete-user">
                     <AppModal action={"Delete"}
+                              buttonStyle="btn-delete"
                               message={"Are you sure you want to delete this user?"}
                               handleSubmit={this.handleDelete}
                     />

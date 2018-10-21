@@ -27,7 +27,6 @@ class UsersList extends Component {
                 let users = result.filter((user) => {
                     return user.id != Session.userId();
                 });
-
                 this.setState({
                     users: users,
                     filteredUsers: users
@@ -91,6 +90,7 @@ class UsersList extends Component {
                                 users.map((item) => (
                                         <User  id={item.id}
                                                key={item.id}
+                                               userAvatar={item.avatarUrl === null ? "img/admin/user-avatar.png" : item.avatarUrl}
                                                fistName={item.fistName}
                                                lastName={item.lastName}
                                                role={item.role.name}

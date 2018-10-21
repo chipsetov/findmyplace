@@ -18,7 +18,6 @@ class NewReview extends Component {
             role: this.props.currentUser == null ? "" : this.props.currentUser.role,
             userId: this.props.currentUser == null ? "" : this.props.currentUser.id,
             userName: this.props.currentUser == null ? "" : this.props.currentUser.username,
-
         };
         this.onLogin = this.props.onLogin;
         this.handleChange = this.handleChange.bind(this);
@@ -56,6 +55,7 @@ class NewReview extends Component {
                         userId: this.state.userId,
                         placeId: this.props.placeId,
                         userName: this.state.userName,
+                        avatarUrl: this.props.avatarUrl
                     });
                     this.setState({
                         comment: ''
