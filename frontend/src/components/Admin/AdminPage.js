@@ -46,7 +46,7 @@ class AdminPage extends Component {
                 this.setState({
                     firstName: response['firstName'],
                     lastName: response['lastName'],
-                    userName: response['nickName'],
+                    userName: response['username'],
                     email: response['email'],
                     phone: response['phone'],
                     avatar: response['avatar'],

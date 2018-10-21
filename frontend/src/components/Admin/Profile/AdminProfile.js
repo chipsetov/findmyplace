@@ -100,7 +100,8 @@ class AdminProfile extends Component {
         updateUserPassword(password)
             .then(response => {
                 this.message(response.message);
-            });
+            })
+            .catch(error => this.message(error.message));
     }
 
     render() {
