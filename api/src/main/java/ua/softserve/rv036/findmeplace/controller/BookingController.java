@@ -16,7 +16,9 @@ import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
+import ua.softserve.rv036.findmeplace.service.UserService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +33,9 @@ public class BookingController {
     private UserRepository userRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private BookingRepository bookingRepository;
 
     @Autowired
@@ -42,7 +47,7 @@ public class BookingController {
 
         final Long userId = principal.getId();
 
-        return bookingRepository.findAllByUserId(userId);
+        return bookingRepository.findAllByUserId(userId).stream().filter(booking -> !booking.isClosed()).collect(Collectors.toList());
     }
 
     @DeleteMapping("/{bookingId}/delete")
@@ -77,21 +82,6 @@ public class BookingController {
         }
 
         final Long placeId = bookingRequest.getPlaceId();
-        final Optional<Place> opt = placeRepository.findById(placeId);
-        final Place place = opt.orElse(null);
-
-        if (place == null) {
-            return ResponseEntity.badRequest().body(new ApiResponse(false, "Place does't exist"));
-        }
-
-        final int countFreePlaces = place.getCountFreePlaces();
-
-        if (countFreePlaces == 0) {
-            return ResponseEntity.ok().body(new ApiResponse(true, "It hasn't free places"));
-        }
-
-        place.decrementFreePlaces();
-        placeRepository.save(place);
 
         final Long userId = user.getId();
         final String bookingTime = bookingRequest.getBookingTime();
@@ -109,10 +99,83 @@ public class BookingController {
             List<Long> placeIds = placeManagers.stream().map(Place_Manager::getPlaceId).collect(Collectors.toList());
             List<Booking> bookings = bookingRepository.findByPlaceIdIn(placeIds);
 
+            bookings = bookings.stream().filter(booking -> booking.getStatus() == 0).collect(Collectors.toList());
+
             return ResponseEntity.ok().body(bookings);
         } catch (Error e) {
-            return new ResponseEntity(new ApiResponse(false, e.getMessage()),
-                    HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @PostMapping("/{bookingId}/approve")
+    public ResponseEntity approveBooking(@PathVariable Long bookingId) {
+        Booking booking = bookingRepository.findByIdWithPlaceNameAndUserName(bookingId).orElse(null);
+
+        if (booking == null) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Booking doesn't exist"));
+        }
+
+        final Long placeId = booking.getPlaceId();
+
+        Place place = placeRepository.findById(placeId).orElse(null);
+
+        if (place == null) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Place does't exist"));
+        }
+
+        final int countFreePlaces = place.getCountFreePlaces();
+
+        if (countFreePlaces == 0) {
+            return ResponseEntity.ok().body(new ApiResponse(true, "It hasn't free places"));
+        }
+
+        place.decrementFreePlaces();
+        placeRepository.save(place);
+
+        booking.setStatus(1);
+        bookingRepository.save(booking);
+
+        User user = userRepository.findById(booking.getUserId()).orElse(null);
+
+        if (user == null) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "User doesn't exist"));
+        }
+
+        try {
+            userService.sendBookingConfirmation(user, booking);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(new ApiResponse(false, e.getMessage()));
+        }
+
+        return ResponseEntity.ok().body(new ApiResponse(false,
+                "Booking has been approved successfully"));
+    }
+
+    @DeleteMapping("/{bookingId}/reject")
+    public ResponseEntity rejectBooking(@PathVariable Long bookingId) {
+        Booking booking = bookingRepository.findByIdWithPlaceNameAndUserName(bookingId).orElse(null);
+
+        if (booking == null) {
+            return new ResponseEntity(new ApiResponse(false, "Booking doesn't exist"),
+                HttpStatus.BAD_REQUEST);
+        }
+
+        User user = userRepository.findById(booking.getUserId()).orElse(null);
+
+        if (user == null) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "User doesn't exist"));
+        }
+
+        try {
+            userService.sendBookingReject(user, booking);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(new ApiResponse(false, e.getMessage()));
+        }
+
+        bookingRepository.delete(booking);
+
+        return ResponseEntity.ok().body(bookingId);
     }
 }
