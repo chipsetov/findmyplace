@@ -176,6 +176,7 @@ public class BookingController {
 
         bookingRepository.delete(booking);
 
-        return ResponseEntity.ok().body(bookingId);
+        return ResponseEntity.ok().body(new ApiResponse(false,
+                "Booking has been rejected successfully"));
     }
 }
