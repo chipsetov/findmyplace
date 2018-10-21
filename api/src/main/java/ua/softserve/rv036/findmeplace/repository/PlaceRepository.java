@@ -15,16 +15,16 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     @Query("SELECT p FROM Place p WHERE p.approved = true and p.rejected = false")
     List<Place> findAll();
 
-    @Query("SELECT p FROM Place p WHERE p.approved = true and p.rejected = false")
-    List<Place> findByPlaceType(PlaceType placeType);
+    @Query("SELECT p FROM Place p WHERE p.approved = true and p.rejected = false and p.placeType = :placeType")
+    List<Place> findByPlaceType(@Param("placeType") PlaceType placeType);
 
-    @Query("select p from Place p where p.approved = true and p.rejected = false")
     List<Place> findByPlaceTypeIn(List<PlaceType> placeTypes);
 
-    @Query("select p from Place p where p.approved = true and p.rejected = false")
     List<Place> findByNameIn(String searchValue);
 
     List<Place> findAllByOwnerId(Long id);
+
+    Boolean existsByIdAndOwnerId(Long id, Long ownerId);
 
     Optional<Place> findById(Long id);
 

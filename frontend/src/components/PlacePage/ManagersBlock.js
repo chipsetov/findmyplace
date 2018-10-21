@@ -87,7 +87,7 @@ class ManagersBlock extends Component {
                                 <p>{item.userEmail}</p>
                             </Col>
                             <Col s={2}>
-                                <Button waves='light' onClick={() => {
+                                <Button className="red" waves='light' onClick={() => {
                                     this.handleDelete(item.id);
                                 }}>Fire manager</Button>
                             </Col>
@@ -98,7 +98,8 @@ class ManagersBlock extends Component {
                         }
                         <Row>
                             <Col s={1} offset="s11">
-                                <Button title="Add new manager for this place!" waves='light' onClick={() => {
+                                <Button className="black" title="Add new manager for this place!" waves='light'
+                                        onClick={() => {
                                     this.setState({viewAddManagers: true})
                                 }}><Icon>person_add</Icon></Button>
                             </Col>

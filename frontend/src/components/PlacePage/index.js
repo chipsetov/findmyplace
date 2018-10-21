@@ -4,7 +4,6 @@ import '../../styles/PlacePage.css';
 import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
 import ManagersBlock from './ManagersBlock.js';
-import ReviewBlock from './ReviewsBlock';
 import Info from './Info.js';
 import {changeCountFreePlaces} from "../../util/APIUtils";
 import {checkBookingTime, PAGE_CHANGED, Session} from "../../utils";
@@ -62,7 +61,6 @@ class PlacePage extends Component {
 
         addMark(markRequest)
             .then(response => {
-                console.log(response);
                 this.setState({
                     rating: response,
                 });
@@ -79,7 +77,7 @@ class PlacePage extends Component {
     }
 
     viewManagers() {
-        if (this.state.viewManager) {
+        if (this.state.viewManager && (Session.userId() == this.state.place.ownerId)) {
             return (
                 <ManagersBlock
                     placeId={this.props.match.params.placeId}
@@ -89,7 +87,6 @@ class PlacePage extends Component {
     }
 
     countChange = (count) => {
-        console.log(this.state.place);
         changeCountFreePlaces(this.props.match.params.placeId, count)
             .then((result) => {
                 this.setState({
@@ -129,6 +126,7 @@ class PlacePage extends Component {
                     />
                     <Info openTime={place.open}
                           closeTime={place.close}
+                          placeId={this.props.match.params.placeId}
                           freePlaces={place.countFreePlaces}
                           description={place.description}
                           countChange={this.countChange}/>

@@ -15,6 +15,7 @@ class AdminProfile extends Component {
             email: props.email,
             oldPassword: "",
             newPassword: "",
+            confirmPassword: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -75,12 +76,18 @@ class AdminProfile extends Component {
     updatePassword() {
         const oldPassword = this.state.oldPassword;
         const newPassword = this.state.newPassword;
+        const confirmPassword = this.state.confirmPassword;
 
         if (newPassword.length) {
             if (!oldPassword.length) {
                 this.message("You have to enter your old password");
                 return;
             }
+        }
+
+        if (newPassword !== confirmPassword) {
+            this.message("Passwords doesn't match");
+            return;
         }
 
         const userId = localStorage.getItem(USER_ID);
@@ -173,6 +180,16 @@ class AdminProfile extends Component {
                         <Col s={3}>
                             <Input type="password"
                                    onChange={e => this.handleChange("newPassword", e.target.value)}
+                            />
+                        </Col>
+                    </Row>
+                    <Row className="admin-profile-field">
+                        <Col s={2} className="field-name">
+                            <p>Confirm new password:</p>
+                        </Col>
+                        <Col s={3}>
+                            <Input type="password"
+                                   onChange={e => this.handleChange("confirmPassword", e.target.value)}
                             />
                         </Col>
                     </Row>

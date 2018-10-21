@@ -26,7 +26,10 @@ class NewReview extends Component {
     }
 
     handleChange(key, value) {
-        this.setState({[key]: value});
+        this.setState({
+            [key]: value,
+            error: ""
+        });
     }
 
     handleSubmit(event) {
@@ -90,9 +93,8 @@ class NewReview extends Component {
                             s={12}
                         />
                         <div className="errorMsg">{this.state.error}</div>
-                            <Button className="add_comment_btn"  type="submit">Add comment</Button>
+                            <Button className="add_comment_btn black"  type="submit">Add comment</Button>
                     </Row>
-
                 </form>
             </div>
         );

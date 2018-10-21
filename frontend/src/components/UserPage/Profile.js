@@ -191,6 +191,11 @@ export default class Profile extends BasePage {
                 this.error("You have to confirm new password!");
                 return;
             }
+
+            if (newPassword !== confirmPassword) {
+                this.error("Passwords doesn't match");
+                return;
+            }
         }
 
         const userId = localStorage.getItem(USER_ID);

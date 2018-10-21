@@ -38,15 +38,18 @@ class BookingModal extends Component {
                     <Row className="modal-msg">
                         <p>Please, check the time you want to book this place</p>
                     </Row>
-                    <Input
-                        type="time"
-                        validate
-                        required
-                        label="Open time"
-                        defaultValue="00:00"
-                        options = {{twelvehour: false}}
-                        onChange={e => this.onChangeTimeHandler("time", e.target.value)}
-                    />
+                    <Row>
+                        <Input
+                            s={12}
+                            type="time"
+                            validate
+                            required
+                            label="Open time"
+                            defaultValue="00:00"
+                            options = {{twelvehour: false}}
+                            onChange={e => this.onChangeTimeHandler("time", e.target.value)}
+                        />
+                    </Row>
                     <Row className="modal-btn">
                         <Button className="grey darken-4" onClick={this.onBookCompleteHandler}>Yes</Button>
                     </Row>

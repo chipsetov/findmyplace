@@ -99,6 +99,14 @@ public class PlaceController {
         return new ResponseEntity(placeManagerRepository.findAllByUserId(managerId), HttpStatus.OK);
     }
 
+    @GetMapping("/places/{placeId}/access-user/{userId}")
+    ResponseEntity getAccessToSetCountFreePlaces(@PathVariable Long placeId, @PathVariable Long userId){
+        Boolean accessOwner = placeRepository.existsByIdAndOwnerId(placeId, userId);
+        Boolean accessManager = placeManagerRepository.existsByUserIdAndPlaceId(userId, placeId);
+
+        return new ResponseEntity((accessManager || accessOwner), HttpStatus.OK);
+    }
+
     @PostMapping("/places/{id}/add-manager/{value}")
     ResponseEntity addPlaceManager(@Valid @PathVariable Long id, @Valid @PathVariable String value) {
         try {
