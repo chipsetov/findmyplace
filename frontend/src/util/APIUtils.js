@@ -66,6 +66,20 @@ export function setUserAvatar(avatarImage) {
     });
 }
 
+export function uploadPlaceImages(images, placeId) {
+    const formData = new FormData();
+
+    for(let i = 0; i < images.length; i++) {
+        formData.append('files', images[i])
+    }
+
+    return uploadFileRequest({
+        url: API_BASE_URL + '/places/upload-images/' + placeId,
+        method: 'POST',
+        body: formData
+    });
+}
+
 
 export function login(loginRequest) {
     return request({

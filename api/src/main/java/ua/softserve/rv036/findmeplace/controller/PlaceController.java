@@ -231,15 +231,15 @@ public class PlaceController {
 
     @PostMapping("/places/upload-images/{placeId}")
     @RolesAllowed({"ROLE_OWNER"})
-    public ResponseEntity uploadPlaceImages(@RequestParam("file") MultipartFile[] files, @PathVariable Long placeId) {
+    public ResponseEntity uploadPlaceImages(@RequestParam("files") MultipartFile[] files, @PathVariable Long placeId) {
 
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Optional<Place> optional = placeRepository.findById(placeId);
         Place place = optional.get();
 
-        if(place.getOwnerId() != userPrincipal.getId()) {
-            return new ResponseEntity(new ApiResponse(false, "Access denied"), HttpStatus.BAD_REQUEST);
+        if(!place.getOwnerId().equals(userPrincipal.getId())) {
+            return new ResponseEntity(new ApiResponse(false, "Access denied"), HttpStatus.FORBIDDEN);
         }
 
         for (MultipartFile file : files) {

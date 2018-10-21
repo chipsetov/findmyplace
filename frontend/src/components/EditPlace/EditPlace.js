@@ -23,6 +23,7 @@ class EditPlace extends Component {
             closeTime: "00:00",
             placeType: "",
             description: "",
+            ownerId: "",
 
 
             placeTypes: [],
@@ -222,7 +223,7 @@ class EditPlace extends Component {
                 <Button className="grey darken-4" waves="light" onClick={this.handleSubmit}>
                     Save changes
                 </Button>
-                <EditImages/>
+                <EditImages placeId={this.props.match.params.placeId}/>
             </div>
         );
     }
