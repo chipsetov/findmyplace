@@ -47,7 +47,9 @@ export default class Routes extends Component {
                     <Route path="/register-place" component={RegisterPlace}/>
                     <Route path="/forgot-password" component={ForgotPasswordForm}/>
                     <Route path="/restore/:token(\b.{8}-.{4}-.{4}-.{4}-.{12}\b)" component={RestorePasswordForm}/>
-                    <Route path="/admin-page" component={AdminPage}/>
+                    <Route path="/admin-page" render={(props) =>
+                        <AdminPage handleAvatarUpdated={this.props.handleAvatarUpdated} {...props}/>}
+                    />
 
                     <Route path="/map" component={MapForm}/>
                     <Route path="/sign-in"
@@ -57,7 +59,8 @@ export default class Routes extends Component {
 
                     <Route path={`/user/${userId}/places`} component={UserPlaces}/>
                     <Route path={`/user/${userId}/managers`} component={UserManagers}/>
-                    <Route path={`/manager-page`} render={(props) => <ManagerPage userId={userId} {...props} />}/>
+                    <Route path={`/manager-page`} render={(props) =>
+                        <ManagerPage userId={userId} handleAvatarUpdated={this.props.handleAvatarUpdated} {...props} />}/>
                     <Route path="/place/:placeId"
                            render={(props) => <PlacePage
                                handleLogout={this.props.handleLogout}

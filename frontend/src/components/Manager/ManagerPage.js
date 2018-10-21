@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ManagerProfile from "./ManagerProfile";
+import ManagerProfile from "../UserPage/Profile";
 import ManagerBookings from "./ManagerBookings";
 import {approveBooking, getManagerBookings, getUserProfile, rejectBooking} from "../../util/APIUtils";
 import {Link, withRouter} from "react-router-dom";
@@ -62,6 +62,7 @@ export class ManagerPage extends Component {
                                                   lastName={this.state.lastName}
                                                   email={this.state.email}
                                                   userName={this.state.userName}
+                                                    handleAvatarUpdated={this.props.handleAvatarUpdated}
                                     />
                                 </Tab>
                             </Tabs>
