@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import BookingItem from "./BookingItem";
-import BasePage from "./BasePage";
 
-export default class Booking extends BasePage {
+export  default class UserBookings extends Component {
     render() {
         return (
-            <div ref="root">
-                <div className="container">
-                    {
-                        this.props.bookings.map((item, i) => {
-                            console.log(item);
-
-                            return (
-                                <BookingItem key={i} booking={item} cancelBooking={this.props.cancelBooking.bind(this)}/>
-                            );
-                        })
-                    }
-                </div>
+            <div>
+                {
+                    this.props.bookings.map(booking =>
+                        <BookingItem
+                            isManager={false} booking={booking}
+                            approveBooking={this.props.approveBooking}
+                            rejectBooking={this.props.rejectBooking}
+                            cancelBooking={this.props.cancelBooking}
+                        />)
+                }
             </div>
         );
     }
+
+
 }

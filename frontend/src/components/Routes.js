@@ -40,6 +40,7 @@ export default class Routes extends Component {
                     <Route path={`/user/${userId}/places`} component={UserPlaces}/>
                     <Route path="/user/profile"
                            render={(routeProps) => <UserPage
+                               userId={userId}
                                handleAvatarUpdated={this.props.handleAvatarUpdated}
                                {...routeProps}/>}/>
                     <Route path="/user/:id/places" component={UserPlaces}/>

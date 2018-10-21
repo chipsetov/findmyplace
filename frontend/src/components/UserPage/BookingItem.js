@@ -4,7 +4,7 @@ import AppModal from "../Modal/AppModal";
 import "../../styles/Booking.css";
 
 const STATUS = [
-    "SEND",
+    "SENT",
     "APPROVED",
     "CLOSED"
 ];
