@@ -7,22 +7,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ua.softserve.rv036.findmeplace.model.Place;
-import ua.softserve.rv036.findmeplace.model.Place_Manager;
-import ua.softserve.rv036.findmeplace.model.User;
-import ua.softserve.rv036.findmeplace.model.PlaceReject;
+import ua.softserve.rv036.findmeplace.model.*;
 import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 import ua.softserve.rv036.findmeplace.model.enums.Role;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
-import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
-import ua.softserve.rv036.findmeplace.repository.PlaceRejectRepository;
-import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
-import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
-import ua.softserve.rv036.findmeplace.repository.UserRepository;
+import ua.softserve.rv036.findmeplace.repository.*;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 import ua.softserve.rv036.findmeplace.service.FileStorageService;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
@@ -45,6 +39,9 @@ public class PlaceController {
 
     @Autowired
     private FileStorageService fileStorageService;
+
+    @Autowired
+    private PlaceImageRepository placeImageRepository;
 
     @GetMapping("place/map")
     List<Place> getPlace() {
@@ -242,21 +239,60 @@ public class PlaceController {
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Optional<Place> optional = placeRepository.findById(placeId);
+
+        if(!optional.isPresent()) {
+            return new ResponseEntity<>(new ApiResponse(false, "Place not exist"), HttpStatus.BAD_REQUEST);
+        }
+
         Place place = optional.get();
 
         if(!place.getOwnerId().equals(userPrincipal.getId())) {
-            return new ResponseEntity(new ApiResponse(false, "Access denied"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new ApiResponse(false, "Access denied"), HttpStatus.FORBIDDEN);
         }
 
         for (MultipartFile file : files) {
             if(FileStorageService.isImage(file)) {
                 String link = fileStorageService.storeFile(file, "places/" + place.getId());
-                //user.setAvatarUrl(link);
-                //userRepository.save(user);
+                PlaceImage placeImage = new PlaceImage(place.getId(), link);
+                placeImageRepository.save(placeImage);
             }
         }
 
-        return new ResponseEntity(new ApiResponse(true, "Images successful saved"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ApiResponse(true, "Images successful saved"), HttpStatus.OK);
+    }
+
+    @GetMapping("/places/download-images/{placeId}")
+    public List<PlaceImage> downloadPlaceImages(@PathVariable Long placeId) {
+        return placeImageRepository.findAllByPlaceId(placeId);
+    }
+
+    @RolesAllowed("ROLE_OWNER")
+    @DeleteMapping("/places/images/**")
+    public ResponseEntity deletePlaceImage(HttpServletRequest request) {
+
+        String imageUrl = request.getRequestURI().replace("/places/images/", "");
+
+        Optional<PlaceImage> optionalPlaceImage = placeImageRepository.findByImageUrl(imageUrl);
+        if(!optionalPlaceImage.isPresent()) {
+            return new ResponseEntity<>(new ApiResponse(false, "Can't find image"), HttpStatus.BAD_REQUEST);
+        }
+        PlaceImage placeImage = optionalPlaceImage.get();
+
+        Optional<Place> optionalPlace = placeRepository.findById(placeImage.getPlaceId());
+        if(!optionalPlace.isPresent()) {
+            return new ResponseEntity<>(new ApiResponse(false, "Can't find place"), HttpStatus.BAD_REQUEST);
+        }
+        Place place = optionalPlace.get();
+
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(!userPrincipal.getId().equals(place.getOwnerId())) {
+            return new ResponseEntity<>(new ApiResponse(false, "Access denied"), HttpStatus.FORBIDDEN);
+        }
+
+        fileStorageService.deleteFile(imageUrl.replace("download/", ""));
+        placeImageRepository.deleteById(placeImage.getId());
+
+        return new ResponseEntity<>(new ApiResponse(true, "Image successful deleted"), HttpStatus.OK);
     }
 
 }

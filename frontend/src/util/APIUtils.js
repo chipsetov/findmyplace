@@ -249,6 +249,13 @@ export function deleteManagerByPlace(placeId, managerId) {
     });
 }
 
+export function deletePlaceImage(imageUrl) {
+    return deleteRequest({
+        url: API_BASE_URL + "/places/images/" + imageUrl,
+        method: 'DELETE'
+    });
+}
+
 export function getCurrentPlaces(managerId, ownerId) {
     return request({
         url: API_BASE_URL + "/manager/" + managerId + "/places-by-owner/" + ownerId,

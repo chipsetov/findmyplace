@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Button, Col, Row} from "react-materialize";
 import ImageUploader from "react-images-upload";
 import Gallery from 'react-grid-gallery';
-import {uploadPlaceImages} from "../../util/APIUtils";
+import {deletePlaceImage, uploadPlaceImages} from "../../util/APIUtils";
 
 class EditImages extends Component {
     constructor(props) {
@@ -10,10 +10,13 @@ class EditImages extends Component {
 
         this.onDrop = this.onDrop.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onSelectImage = this.onSelectImage.bind(this);
         this.state = {
             picturesFromServer: [],
             pictures: [],
             visible: false,
+            preview: false,
+            uploaderKey: 0,
         }
     };
 
@@ -22,18 +25,48 @@ class EditImages extends Component {
 
         uploadPlaceImages(this.state.pictures, this.props.placeId)
             .then(response => {
-                console.log(response);
-            });
-        //TODO: Send images to server
+                if (response.ok) {
+                    this.setState({
+                        pictures: [],
+                        uploaderKey: this.state.uploaderKey + 1,
+                    });
+                    this.downloadImages();
+                }
+            })
     }
 
+    downloadImages = () => {
+        fetch("/places/download-images/" + this.props.placeId)
+            .then(res => res.json())
+            .then(
+                (pictures) => {
+
+                    const picturesFromServer = [];
+                    pictures.map((image) => {
+                        picturesFromServer.push({
+                            imageUrl: image.imageUrl,
+                            src: image.imageUrl,
+                            thumbnail: image.imageUrl,
+                            thumbnailWidth: 500,
+                            thumbnailHeight: 350,
+                        })
+                    });
+
+                    this.setState({
+                        picturesFromServer: picturesFromServer,
+                    });
+                }
+            );
+    };
+
     componentDidMount() {
-        //TODO: Extract images from server
+        this.downloadImages();
     }
 
     onDrop(pictureFiles, pictureDataURLs) {
         this.setState({
             pictures: pictureFiles,
+            preview: true,
         });
     }
 
@@ -45,42 +78,38 @@ class EditImages extends Component {
         }
     };
 
-    render() {
-        console.log(this.state.pictures[0]);
-        const images = [
-            {
-                src: './img/avatar.png',
-                thumbnail: './img/avatar.png',
-                thumbnailWidth: 500,
-                thumbnailHeight: 350
-            },
-            {
-                src: './img/place.jpg',
-                thumbnail: './img/place.jpg',
-                thumbnailWidth: 500,
-                thumbnailHeight: 350
-            },
-            {
-                src: './img/restaurant.jpeg',
-                thumbnail: './img/restaurant.jpeg',
-                thumbnailWidth: 500,
-                thumbnailHeight: 350
-            }
-        ];
+    onSelectImage(index, image) {
+        console.log("ok" + index);
+        let images = this.state.picturesFromServer.slice();
+        let img = images[index];
+        if (img.hasOwnProperty("isSelected"))
+            img.isSelected = !img.isSelected;
+        else
+            img.isSelected = true;
 
+        this.setState({
+            picturesFromServer: images,
+        });
+    };
+
+    render() {
         return (
             <React.Fragment>
                 <Row>
                     <Col className="grey lighten-2" s={12}>
-                        <Gallery images={images}/>
+                        <Gallery
+                            images={this.state.picturesFromServer}
+                            onSelectImage={this.onSelectImage}
+                            preloadNextImage={false}/>
                     </Col>
                 </Row>
-                <ImageUploader withIcon={false}
+                <ImageUploader key={this.state.uploaderKey}
+                               withIcon={false}
                                buttonText='ADD IMAGES'
                                withLabel={false}
                                onChange={this.onDrop}
-                               withPreview
-                               imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                               withPreview={this.state.preview}
+                               imgExtension={['.jpg', '.gif', '.png', '.gif', 'jpeg']}
                                maxFileSize={5242880}
                 />
                 {this.renderSendButton()}

@@ -220,4 +220,23 @@
             </column>
         </createTable>
     </changeSet>
+
+    <!--PlaceImages-->
+    <changeSet id="7" author="rv036">
+        <createTable tableName="place_images">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="place_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_place_id" references="places(id)"
+                             deleteCascade="true"/>
+            </column>
+
+            <column name="image_url" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

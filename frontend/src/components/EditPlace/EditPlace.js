@@ -114,10 +114,24 @@ class EditPlace extends Component {
             .then(
                 (place) => {
                     console.log(place);
+
+                    if(place === null) {
+                        this.setState({
+                            redirect: true,
+                        });
+                        return;
+                    }
+
+                    //Must be '!='. Don't touch this!
+                    if(Session.userId() != place.ownerId) {
+                        console.log(Session.userId() + "    " + place.ownerId);
+                        this.setState({
+                            redirect: true,
+                        });
+                        return;
+                    }
                     this.setState({
                         placeName: place.name,
-                        // openTime: place.open,
-                        // closeTime: place.close,
                         openTime: place.open.substring(0, place.open.lastIndexOf(":00")),
                         closeTime: place.close.substring(0, place.close.lastIndexOf(":00")),
                         placeType: place.placeType,
@@ -139,20 +153,12 @@ class EditPlace extends Component {
         });
     }
 
-    renderSendButton = () => {
-        if(this.state.pictures.length > 0) {
-            return (
-                <Button className="grey darken-4" waves='light'>SEND TO SERVER</Button>
-            )
-        }
-    };
-
     render() {
 
         const placeTypes = this.state.placeTypes;
         console.log(this.state.pictures);
         return (
-            <div className="container form-container">
+            <div className="container form-container register-form">
                 {this.renderRedirect()}
                 <Row>
                     <h1>Edit Place</h1>

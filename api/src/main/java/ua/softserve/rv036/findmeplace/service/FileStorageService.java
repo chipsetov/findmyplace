@@ -85,6 +85,17 @@ public class FileStorageService {
         }
     }
 
+    public boolean deleteFile(String filePath) {
+        //git filePath = filePath.replace("download/", "");
+        Path file = fileStorageLocation.resolve(filePath.replace("/download/", ""));
+        try {
+            Files.delete(file);
+            return true;
+        } catch (IOException e) {
+            throw new FileNotFoundException("Can't find file: " + filePath, e);
+        }
+    }
+
     public static boolean isImage(MultipartFile file) {
 
         String[] imageExtensions = {"jpg", "png", "gif"};
