@@ -28,6 +28,7 @@ class PlacesFilter extends Component {
 
     handleChange(key, value) {
         this.setState({[key]: value});
+        this.handleFilter();
     }
 
     handleFilter() {
@@ -59,7 +60,6 @@ class PlacesFilter extends Component {
                             }
                     </Input>
                 </Col>
-                <Button onClick={this.handleFilter}>Filter</Button>
             </Row>
         );
     }

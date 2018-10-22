@@ -49,7 +49,7 @@ class MarkModal extends Component {
                     </Col>
                 </div>
 
-                <Modal open={open} onClose={this.openAndCloseModal} center>
+                <Modal open={open} onClose={this.openAndCloseModal} blockScroll={false} center>
                     <Row className="modal-msg-rate">
                         <p>{this.props.message}</p>
                     </Row>

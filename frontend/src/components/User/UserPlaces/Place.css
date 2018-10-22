@@ -27,6 +27,11 @@
     color: #e23c52;
 }
 
+.places-container {
+    height: 630px;
+    overflow: auto;
+}
+
 .places-container .small {
     width: 400px;
     min-height: 480px !important;

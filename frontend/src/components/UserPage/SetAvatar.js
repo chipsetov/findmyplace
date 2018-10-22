@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Row, Col, Input, Button } from 'react-materialize';
 import AvatarEditor from 'react-avatar-editor';
 import {getAvatar, setUserAvatar} from '../../util/APIUtils';
+import "../../styles/Avatar.css"
 
 
 class SetAvatar extends Component {
@@ -85,7 +86,7 @@ class SetAvatar extends Component {
         if(this.state.changeAvatar) {
             return(
                 <React.Fragment>
-                    <Row>
+                    <Row className="avatar-form">
                         <Input
                             type="file"
                             label="Choose file"
@@ -96,6 +97,7 @@ class SetAvatar extends Component {
                     <Row className="center-align">
                         <Button
                             type="submit"
+                            className="red"
                             label="Choose file"
                             onClick={this.handleSubmit}
                         >
@@ -107,7 +109,7 @@ class SetAvatar extends Component {
         } else {
             return(
                 <Row className="center-align">
-                    <Button onClick={this.handleKeyChangeAvatar}>
+                    <Button className="black" onClick={this.handleKeyChangeAvatar}>
                         Change avatar
                     </Button>
                 </Row>
@@ -125,12 +127,13 @@ class SetAvatar extends Component {
                         width={300}
                         height={300}
                         border={20}
-                        color={[255, 255, 255, 0.6]}
+                        color={[0, 0, 0, 0.3]}
                     />
                 </Row>
-                {this.renderChangeAvatarButton()}
                 <Row>
-
+                    <Col s={6}>
+                    {this.renderChangeAvatarButton()}
+                    </Col>
                 </Row>
             </div>
         );

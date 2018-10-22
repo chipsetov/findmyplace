@@ -5,6 +5,11 @@
     padding: 30px;
 }
 
+.register-form .dropdown-content {
+    background-color: white;
+    z-index: 1001;
+}
+
 .form-container input::placeholder, textarea::placeholder {
     color: rgb(103, 109, 108) !important;
 }

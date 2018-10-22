@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ua.softserve.rv036.findmeplace.model.Booking;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.User;
@@ -180,11 +181,21 @@ public class UserService {
         return userRepository.findAllByIdIn(idUsersList);
     }
 
-    public void sendBookingConfirmation(User user) throws IOException {
+    public void sendBookingConfirmation(User user, Booking booking) throws IOException {
         if (!StringUtils.isEmpty(user.getEmail())) {
-            String message = "Your booking was approved!";
+            String message = "Hi, " + booking.getUserName() + "! Your booking on " + booking.getPlaceName()
+                    + " was approved!";
 
-            mailSender.send(user.getEmail(), "Your booking was approved!", message);
+            mailSender.send(user.getEmail(), "Approve!", message);
+        }
+    }
+
+    public void sendBookingReject(User user, Booking booking) throws IOException {
+        if (!StringUtils.isEmpty(user.getEmail())) {
+            String message = "Hi, " + booking.getUserName() + "! Your booking on " + booking.getPlaceName()
+                    + " was rejected!";
+
+            mailSender.send(user.getEmail(), "Reject!", message);
         }
     }
 

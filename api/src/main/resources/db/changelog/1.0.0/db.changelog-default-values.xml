@@ -75,12 +75,12 @@
             <column name="close" value="23:00:00"/>
             <column name="count_free_places" value="5"/>
             <column name="place_type" value="CAFE"/>
-            <column name="owner_id" value="1"/>
+            <column name="owner_id" value="3"/>
             <column name="is_approved" value="TRUE"/>
             <column name="is_rejected" value="FALSE"/>
         </insert>
         <insert tableName="places">
-            <column name="name" value="Манхетен"/>
+            <column name="name" value="Manhattan"/>
             <column name="address" value="Rivne"/>
             <column name="rating" value="4.3"/>
             <column name="description" value="The best hotel in city with many beautiful rooms"/>
@@ -90,7 +90,7 @@
             <column name="close" value="23:59:00"/>
             <column name="count_free_places" value="10"/>
             <column name="place_type" value="HOTEL"/>
-            <column name="owner_id" value="2"/>
+            <column name="owner_id" value="3"/>
             <column name="is_approved" value="TRUE"/>
             <column name="is_rejected" value="FALSE"/>
         </insert>
@@ -110,7 +110,7 @@
             <column name="is_rejected" value="FALSE"/>
         </insert>
         <insert tableName="places">
-            <column name="name" value="МакДональдз"/>
+            <column name="name" value="McDonald's"/>
             <column name="address" value="Rivne"/>
             <column name="rating" value="5"/>
             <column name="description" value="Fast food restaurant"/>
@@ -173,7 +173,7 @@
             <column name="user_id" value="1"/>
             <column name="place_id" value="1"/>
             <column name="booking_time" value="10:00"/>
-            <column name="status" value="0"/>
+            <column name="status" value="1"/>
         </insert>
         <insert tableName="booking">
             <column name="user_id" value="1"/>
@@ -183,9 +183,27 @@
         </insert>
         <insert tableName="booking">
             <column name="user_id" value="1"/>
-            <column name="place_id" value="3"/>
+            <column name="place_id" value="2"/>
             <column name="booking_time" value="13:30"/>
             <column name="status" value="2"/>
+        </insert>
+        <insert tableName="booking">
+            <column name="user_id" value="2"/>
+            <column name="place_id" value="2"/>
+            <column name="booking_time" value="14:30"/>
+            <column name="status" value="0"/>
+        </insert>
+        <insert tableName="booking">
+            <column name="user_id" value="3"/>
+            <column name="place_id" value="1"/>
+            <column name="booking_time" value="16:00"/>
+            <column name="status" value="0"/>
+        </insert>
+        <insert tableName="booking">
+            <column name="user_id" value="1"/>
+            <column name="place_id" value="2"/>
+            <column name="booking_time" value="9:00"/>
+            <column name="status" value="0"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

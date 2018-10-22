@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Col, Row, Tab, Tabs} from "react-materialize";
 import {getUserProfile} from "../../util/APIUtils";
 import {USER_ID} from "../../constants";
-import AdminProfile from "./Profile/AdminProfile";
+import AdminProfile from "../UserPage/Profile";
 import {Link, Redirect, withRouter} from "react-router-dom";
 import UsersList from "./Users/UsersList";
 import Places from "./Places/Places";
@@ -46,7 +46,7 @@ class AdminPage extends Component {
                 this.setState({
                     firstName: response['firstName'],
                     lastName: response['lastName'],
-                    userName: response['nickName'],
+                    userName: response['username'],
                     email: response['email'],
                     phone: response['phone'],
                     avatar: response['avatar'],
@@ -136,6 +136,7 @@ class AdminPage extends Component {
                                                   lastName={this.state.lastName}
                                                   email={this.state.email}
                                                   userName={this.state.userName}
+                                                  handleAvatarUpdated={this.props.handleAvatarUpdated}
                                     />
                                 </Tab>
                             </Tabs>

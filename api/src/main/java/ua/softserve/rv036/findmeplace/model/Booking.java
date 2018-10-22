@@ -27,6 +27,8 @@ public class Booking {
 
     private String placeName;
 
+    private String userName;
+
     public Booking(Long userId, Long placeId, String bookingTime) {
         this.userId = userId;
         this.placeId = placeId;
@@ -41,6 +43,16 @@ public class Booking {
         this.bookingTime = bookingTime;
         this.status = status;
         this.placeName = placeName;
+    }
+
+    public Booking(Long id, Long userId, Long placeId, String bookingTime, int status, String placeName, String userName) {
+        this.id = id;
+        this.userId = userId;
+        this.placeId = placeId;
+        this.bookingTime = bookingTime;
+        this.status = status;
+        this.placeName = placeName;
+        this.userName = userName;
     }
 
     public boolean isClosed() {

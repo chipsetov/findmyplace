@@ -38,7 +38,7 @@ class ApprovablePlace extends Component {
 
                 <Row>
                     <Col s={6}>
-                        <Button waves="light" onClick={this.handleApprove}>Approve</Button>
+                        <Button className="black" waves="light" onClick={this.handleApprove}>Approve</Button>
                     </Col>
                     <Col s={6}>
                         <RejectModal

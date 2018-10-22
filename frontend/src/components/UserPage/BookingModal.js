@@ -31,7 +31,7 @@ class BookingModal extends Component {
                         <p className="text">Book Now</p>
                     </Col>
                 </div>
-                <Modal open={open} onClose={this.openAndCloseModal} center>
+                <Modal open={open} onClose={this.openAndCloseModal} blockScroll={false} center>
                     <Row className="modal-msg">
                         <h5>Booking</h5>
                     </Row>

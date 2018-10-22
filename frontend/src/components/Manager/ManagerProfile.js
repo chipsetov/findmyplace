@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Col, Row, Input, Button} from 'react-materialize';
-import {USER_ID} from "../../../constants/index";
-import {updateUserPassword, updateUserProfile} from "../../../util/APIUtils";
+import {USER_ID} from "../../constants/index";
+import {updateUserPassword, updateUserProfile} from "../../util/APIUtils";
 
-class AdminProfile extends Component {
+class ManagerProfile extends Component {
 
     constructor(props) {
         super(props);
@@ -205,4 +205,4 @@ class AdminProfile extends Component {
     }
 }
 
-export default AdminProfile;
+export default ManagerProfile;

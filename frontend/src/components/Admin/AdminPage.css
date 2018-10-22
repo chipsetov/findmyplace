@@ -1,6 +1,6 @@
 .admin-page {
     margin-bottom: 0 !important;
-    min-height: 730px;
+    min-height: 850px;
 }
 
 .admin-menu-wrapper,
@@ -78,7 +78,7 @@
 }
 
 .admin-view-features .admin-profile-field .field-name {
-    width: 10%;
+    width: 20%;
 }
 
 .admin-view-features .input-field,

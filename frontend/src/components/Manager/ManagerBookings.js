@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
-import BookingItem from "./BookingItem";
+import BookingItem from "../UserPage/BookingItem";
 
-export  default class UserBookings extends Component {
+export  default class ManagerBookings extends Component {
     render() {
         return (
             <div>
                 {
                     this.props.bookings.map(booking =>
                         <BookingItem
-                            isManager={false} booking={booking}
+                            isManager={true} booking={booking}
                             approveBooking={this.props.approveBooking}
                             rejectBooking={this.props.rejectBooking}
-                            cancelBooking={this.props.cancelBooking}
                         />)
                 }
             </div>
