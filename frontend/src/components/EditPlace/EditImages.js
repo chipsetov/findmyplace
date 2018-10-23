@@ -11,6 +11,7 @@ class EditImages extends Component {
         this.onDrop = this.onDrop.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onSelectImage = this.onSelectImage.bind(this);
+        this.handleDeleteImages = this.handleDeleteImages.bind(this);
         this.state = {
             picturesFromServer: [],
             pictures: [],
@@ -52,6 +53,7 @@ class EditImages extends Component {
                         })
                     });
 
+                    console.log(picturesFromServer.length);
                     this.setState({
                         picturesFromServer: picturesFromServer,
                     });
@@ -68,6 +70,27 @@ class EditImages extends Component {
             pictures: pictureFiles,
             preview: true,
         });
+    }
+
+    handleDeleteImages(event) {
+        event.preventDefault();
+
+        //Returns not deleted images
+        const imagesAfterDelete = this.state.picturesFromServer.filter(image => {
+            if(image.isSelected) {
+                deletePlaceImage(image.imageUrl)
+                    .then(result => {
+                        if(result.ok)
+                        return !result.ok;
+                    });
+            } else {
+                return true;
+            }
+        });
+
+        this.setState({
+            picturesFromServer: imagesAfterDelete,
+        })
     }
 
     renderSendButton = () => {
@@ -112,6 +135,7 @@ class EditImages extends Component {
                                imgExtension={['.jpg', '.gif', '.png', '.gif', 'jpeg']}
                                maxFileSize={5242880}
                 />
+                <Button className="red" waves='light' onClick={this.handleDeleteImages}>DELETE SELECTED IMAGES</Button>
                 {this.renderSendButton()}
             </React.Fragment>
         );
