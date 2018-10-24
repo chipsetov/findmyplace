@@ -3,6 +3,8 @@ import {Button, Col, Row} from "react-materialize";
 import ImageUploader from "react-images-upload";
 import Gallery from 'react-grid-gallery';
 import {deletePlaceImage, uploadPlaceImages} from "../../util/APIUtils";
+import AppModal from "../Modal/AppModal";
+import "./EditPlace.css"
 
 class EditImages extends Component {
     constructor(props) {
@@ -72,8 +74,7 @@ class EditImages extends Component {
         });
     }
 
-    handleDeleteImages(event) {
-        event.preventDefault();
+    handleDeleteImages() {
 
         //Returns not deleted images
         const imagesAfterDelete = this.state.picturesFromServer.filter(image => {
@@ -125,7 +126,13 @@ class EditImages extends Component {
     renderDeleteButton = () => {
         if(this.state.countSelectedImages > 0) {
             return(
-                <Button className="red" waves='light' onClick={this.handleDeleteImages}>DELETE SELECTED IMAGES</Button>
+                <Row>
+                    <AppModal action={"DELETE SELECTED IMAGES"}
+                              message={"Are you sure you want to delete this images?"}
+                              buttonStyle="red"
+                              handleSubmit={this.handleDeleteImages}
+                    />
+                </Row>
             )
         }
     };
@@ -133,13 +140,11 @@ class EditImages extends Component {
     renderGallery = () => {
         if(this.state.picturesFromServer.length > 0) {
             return(
-                <Row>
-                    <Col className="grey lighten-2" s={12}>
-                        <Gallery
-                            images={this.state.picturesFromServer}
-                            onSelectImage={this.onSelectImage}
-                            preloadNextImage={false}/>
-                    </Col>
+                <Row className="gallery-container">
+                    <Gallery
+                        images={this.state.picturesFromServer}
+                        onSelectImage={this.onSelectImage}
+                        preloadNextImage={false}/>
                 </Row>
             )
         } else {
@@ -159,15 +164,19 @@ class EditImages extends Component {
                 </Row>
                 {this.renderGallery()}
                 {this.renderDeleteButton()}
-                <ImageUploader key={this.state.uploaderKey}
-                               withIcon={false}
-                               buttonText='ADD IMAGES'
-                               withLabel={false}
-                               onChange={this.onDrop}
-                               withPreview={this.state.preview}
-                               imgExtension={['.jpg', '.gif', '.png', '.gif', 'jpeg']}
-                               maxFileSize={5242880}
-                />
+                <Row>
+                    <ImageUploader key={this.state.uploaderKey}
+                                   withIcon={false}
+                                   buttonText='ADD IMAGES'
+                                   className="upload-container"
+                                   buttonClassName="upload-btn black btn"
+                                   withLabel={false}
+                                   onChange={this.onDrop}
+                                   withPreview={this.state.preview}
+                                   imgExtension={['.jpg', '.gif', '.png', '.gif', 'jpeg']}
+                                   maxFileSize={5242880}
+                    />
+                </Row>
                 {this.renderSendButton()}
             </div>
         );

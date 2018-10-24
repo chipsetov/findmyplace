@@ -33,6 +33,14 @@ class Place extends Component {
         }
     }
 
+    renderEdit = () => {
+        if((Session.isOwner() && Session.userId() == this.props.ownerId)) {
+            return(
+                <Link to={`/edit-place/${this.props.id}`}>(Edit place)</Link>
+            )
+        }
+    };
+
     renderForApproved() {
         if(this.props.isApprove) {
             return(
@@ -70,6 +78,9 @@ class Place extends Component {
                     {this.renderForApproved()}
                     <Row className="place-name">
                         <Link to={`/place/${this.props.id}`}>{this.props.name}</Link>
+                    </Row>
+                    <Row>
+                        {this.renderEdit()}
                     </Row>
                     <Row className="place-description">
                         <span>{this.props.description}</span>
