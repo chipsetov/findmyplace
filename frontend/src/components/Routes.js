@@ -20,7 +20,7 @@ import NotFound from "../common/NotFound.js";
 
 import PrivateRoute from '../common/PrivateRoute';
 import LoadingIndicator from "../common/LoadingIndicator";
-import EditPlace from "./EditPlace/EditPlace";
+import EditPlacePage from "./EditPlace/EditPlacePage";
 
 export default class Routes extends Component {
 
@@ -68,7 +68,7 @@ export default class Routes extends Component {
                                currentUser={this.props.currentUser}
                                isAuthenticated={this.props.isAuthenticated}
                                {...props} />}/>
-                    <Route path="/edit-place/:placeId" component={EditPlace}/>
+                    <Route path="/edit-place/:placeId" component={EditPlacePage}/>
                     {/*<Route path="/users/:username"*/}
                     {/*render={(props) => <Profile isAuthenticated={this.props.isAuthenticated}*/}
                     {/*currentUser={this.props.currentUser} {...props}  />}>*/}

@@ -1,8 +1,12 @@
 .form-container {
     text-align: center !important;
     background: #ffffff;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     padding: 30px;
+}
+
+.edit-image {
+    min-height: 630px;
 }
 
 .register-form .dropdown-content {

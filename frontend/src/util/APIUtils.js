@@ -196,6 +196,14 @@ export function registerPlace(registerPlaceRequest) {
     });
 }
 
+export function updatePlace(updatePlaceRequest) {
+    return request({
+        url: API_BASE_URL + "/places/edit",
+        method: 'POST',
+        body: JSON.stringify(updatePlaceRequest)
+    })
+}
+
 export function checkUserAvailability(username, email) {
     return request({
         url: API_BASE_URL + "/auth/checkUserAvailability?username=" + username + "&email=" + email,

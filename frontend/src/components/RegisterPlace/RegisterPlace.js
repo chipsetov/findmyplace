@@ -158,7 +158,6 @@ class RegisterPlace extends Component {
                         type="text"
                         label=" "
                         value={this.state.placeName}
-                        label=" "
                         error={this.state.error_placeName}
                         validate
                         required
@@ -173,7 +172,6 @@ class RegisterPlace extends Component {
                         label=" "
                         value={this.state.address}
                         s={12}
-                        label=" "
                         error={this.state.error_address}
                         validate
                         required
@@ -204,11 +202,10 @@ class RegisterPlace extends Component {
                         type='select'
                         validate
                         required
-                        label=" "
                         error={this.state.error_placeType}
                         label="PLACE TYPE"
                         onChange={e => this.handleChange("placeType", e.target.value)}>
-                                <option className="red" style={{zIndex: 100}}></option>
+                                <option></option>
                             {
                                 placeTypes.map(type => (
                                 <option key={type.name}

@@ -6,6 +6,7 @@ import "../../styles/RegisterPlace.css";
 import '../../styles/Form.css';
 
 import EditImages from "./EditImages";
+import {updatePlace} from "../../util/APIUtils";
 
 
 class EditPlace extends Component {
@@ -15,7 +16,6 @@ class EditPlace extends Component {
         this.isError = false;
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validateData = this.validateData.bind(this);
-        this.onDrop = this.onDrop.bind(this);
         this.state = {
 
             placeName: "",
@@ -24,7 +24,6 @@ class EditPlace extends Component {
             placeType: "",
             description: "",
             ownerId: "",
-
 
             placeTypes: [],
 
@@ -35,8 +34,6 @@ class EditPlace extends Component {
             error_description: "",
 
             redirect: !Session.isOwner(),
-
-            pictures: []
         }
     };
 
@@ -73,26 +70,22 @@ class EditPlace extends Component {
 
         if (!this.isError) {
             const updatePlaceRequest = {
+                id: this.props.placeId,
                 name: this.state.placeName,
                 open: this.state.openTime + ":00",
                 close: this.state.closeTime + ":00",
                 placeType: this.state.placeType.value,
                 description: this.state.description,
             };
-            console.log(JSON.stringify(updatePlaceRequest));
 
-            // registerPlace(registerPlaceRequest)
-            //     .then(registerPlaceRequest => {
-            //
-            //         this.props.history.push("/map");
-            //         window.Materialize.toast("Place registered", 7000);
-            //
-            //     }).catch(error => {
-            //     console.log(error);
-            //     if (error.status === 403)
-            //         window.Materialize.toast("You are not the owner", 3000);
-            //     else window.Materialize.toast(error.message, 3000);
-            // });
+            updatePlace(updatePlaceRequest)
+                .then(response => {
+                    window.Materialize.toast("Place successful updated", 7000);
+
+                }).catch(error => {
+                window.Materialize.toast("Sorry! Something went wrong. Please try again!", 7000);
+            })
+
         } else {
             window.Materialize.toast("Check the fields", 3000);
         }
@@ -109,13 +102,11 @@ class EditPlace extends Component {
                 }
             );
 
-        fetch("/places/" + this.props.match.params.placeId)
+        fetch("/places/" + this.props.placeId)
             .then(res => res.json())
-            .then(
-                (place) => {
-                    console.log(place);
+            .then(place => {
 
-                    if(place === null) {
+                    if (place === null) {
                         this.setState({
                             redirect: true,
                         });
@@ -123,13 +114,13 @@ class EditPlace extends Component {
                     }
 
                     //Must be '!='. Don't touch this!
-                    if(Session.userId() != place.ownerId) {
-                        console.log(Session.userId() + "    " + place.ownerId);
+                    if (Session.userId() != place.ownerId) {
                         this.setState({
                             redirect: true,
                         });
                         return;
                     }
+
                     this.setState({
                         placeName: place.name,
                         openTime: place.open.substring(0, place.open.lastIndexOf(":00")),
@@ -147,21 +138,15 @@ class EditPlace extends Component {
         }
     };
 
-    onDrop(pictureFiles, pictureDataURLs) {
-        this.setState({
-            pictures: pictureFiles,
-        });
-    }
-
     render() {
 
         const placeTypes = this.state.placeTypes;
-        console.log(this.state.pictures);
+
         return (
-            <div className="container form-container register-form">
+            <div>
                 {this.renderRedirect()}
                 <Row>
-                    <h1>Edit Place</h1>
+                    <h1>Edit Information</h1>
                 </Row>
                 <Row>
                     <Input
@@ -229,7 +214,6 @@ class EditPlace extends Component {
                 <Button className="grey darken-4" waves="light" onClick={this.handleSubmit}>
                     Save changes
                 </Button>
-                <EditImages placeId={this.props.match.params.placeId}/>
             </div>
         );
     }

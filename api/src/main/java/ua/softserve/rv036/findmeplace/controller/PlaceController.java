@@ -11,6 +11,7 @@ import ua.softserve.rv036.findmeplace.model.*;
 import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 import ua.softserve.rv036.findmeplace.model.enums.Role;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
+import ua.softserve.rv036.findmeplace.payload.UpdatePlaceRequest;
 import ua.softserve.rv036.findmeplace.repository.*;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 import ua.softserve.rv036.findmeplace.service.FileStorageService;
@@ -176,6 +177,38 @@ public class PlaceController {
         }
     }
 
+    @PostMapping("/places/edit")
+    @RolesAllowed("ROLE_OWNER")
+    ResponseEntity updatePlace(@Valid @RequestBody UpdatePlaceRequest updatePlaceRequest) {
+        Optional<Place> optionalPlace = placeRepository.findById(updatePlaceRequest.getId());
+
+        if(!optionalPlace.isPresent()) {
+            ApiResponse response = new ApiResponse(false,
+                    "Place with id doesn't exist!");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+        Place place = optionalPlace.get();
+
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(!userPrincipal.getId().equals(place.getOwnerId())) {
+            return new ResponseEntity<>(new ApiResponse(false, "Access denied"), HttpStatus.FORBIDDEN);
+        }
+
+        place.setName(updatePlaceRequest.getName());
+        place.setOpen(updatePlaceRequest.getOpen());
+        place.setClose(updatePlaceRequest.getClose());
+        place.setPlaceType(updatePlaceRequest.getPlaceType());
+        place.setDescription(updatePlaceRequest.getDescription());
+
+        if(place.isRejected()) {
+            place.setRejected(false);
+        }
+
+        placeRepository.save(place);
+
+        return new ResponseEntity<>(new ApiResponse(true, "Place successful updated"), HttpStatus.OK);
+    }
+
     @PostMapping("/places/reject")
     @RolesAllowed("ROLE_ADMIN")
     ResponseEntity rejectPlace(@Valid @RequestBody PlaceReject placeReject) {
@@ -184,26 +217,26 @@ public class PlaceController {
         if(!optionalPlace.isPresent()) {
             ApiResponse response = new ApiResponse(false,
                     "Place with id " + placeReject.getPlaceId() + " doesn't exist!");
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         Place place = optionalPlace.get();
 
         if(place.isApproved()) {
             ApiResponse response = new ApiResponse(false,
                     "Place with id " + placeReject.getPlaceId() + " already approved!");
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
         if(place.isRejected()) {
             ApiResponse response = new ApiResponse(false,
                     "Place with id " + placeReject.getPlaceId() + " already rejected!");
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         place.setRejected(true);
         placeRepository.save(place);
         placeRejectRepository.save(placeReject);
 
-        return new ResponseEntity(new ApiResponse(true, "Place successful rejected"), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(true, "Place successful rejected"), HttpStatus.OK);
     }
 
     @PutMapping("/places/approve/{id}")
@@ -222,14 +255,14 @@ public class PlaceController {
         if(place.isApproved()) {
             ApiResponse response = new ApiResponse(false,
                     "Place with id " + place.getId() + " already approved!");
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
         place.setRejected(false);
         place.setApproved(true);
 
         placeRepository.save(place);
-        return new ResponseEntity(new ApiResponse(true, "Place successful approved"), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(true, "Place successful approved"), HttpStatus.OK);
     }
 
     @PostMapping("/places/upload-images/{placeId}")

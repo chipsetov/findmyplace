@@ -18,6 +18,7 @@ class EditImages extends Component {
             visible: false,
             preview: false,
             uploaderKey: 0,
+            countSelectedImages: 0,
         }
     };
 
@@ -53,7 +54,6 @@ class EditImages extends Component {
                         })
                     });
 
-                    console.log(picturesFromServer.length);
                     this.setState({
                         picturesFromServer: picturesFromServer,
                     });
@@ -90,8 +90,29 @@ class EditImages extends Component {
 
         this.setState({
             picturesFromServer: imagesAfterDelete,
+            countSelectedImages: 0,
         })
     }
+
+    onSelectImage(index, image) {
+        console.log("ok" + index);
+        let images = this.state.picturesFromServer.slice();
+        let countSelectedImages = this.state.countSelectedImages;
+        let img = images[index];
+
+        if (img.hasOwnProperty("isSelected")) {
+            img.isSelected = !img.isSelected;
+            img.isSelected ? countSelectedImages++ : countSelectedImages--;
+        } else {
+            img.isSelected = true;
+            countSelectedImages++;
+        }
+
+        this.setState({
+            picturesFromServer: images,
+            countSelectedImages: countSelectedImages,
+        });
+    };
 
     renderSendButton = () => {
         if (this.state.pictures.length > 0) {
@@ -101,23 +122,17 @@ class EditImages extends Component {
         }
     };
 
-    onSelectImage(index, image) {
-        console.log("ok" + index);
-        let images = this.state.picturesFromServer.slice();
-        let img = images[index];
-        if (img.hasOwnProperty("isSelected"))
-            img.isSelected = !img.isSelected;
-        else
-            img.isSelected = true;
-
-        this.setState({
-            picturesFromServer: images,
-        });
+    renderDeleteButton = () => {
+        if(this.state.countSelectedImages > 0) {
+            return(
+                <Button className="red" waves='light' onClick={this.handleDeleteImages}>DELETE SELECTED IMAGES</Button>
+            )
+        }
     };
 
-    render() {
-        return (
-            <React.Fragment>
+    renderGallery = () => {
+        if(this.state.picturesFromServer.length > 0) {
+            return(
                 <Row>
                     <Col className="grey lighten-2" s={12}>
                         <Gallery
@@ -126,6 +141,24 @@ class EditImages extends Component {
                             preloadNextImage={false}/>
                     </Col>
                 </Row>
+            )
+        } else {
+            return (
+                <Row>
+                    <h3 align="left">There are no images yet</h3>
+                </Row>
+            )
+        }
+    };
+
+    render() {
+        return (
+            <div className="edit-image">
+                <Row>
+                    <h1>Edit Pictures</h1>
+                </Row>
+                {this.renderGallery()}
+                {this.renderDeleteButton()}
                 <ImageUploader key={this.state.uploaderKey}
                                withIcon={false}
                                buttonText='ADD IMAGES'
@@ -135,9 +168,8 @@ class EditImages extends Component {
                                imgExtension={['.jpg', '.gif', '.png', '.gif', 'jpeg']}
                                maxFileSize={5242880}
                 />
-                <Button className="red" waves='light' onClick={this.handleDeleteImages}>DELETE SELECTED IMAGES</Button>
                 {this.renderSendButton()}
-            </React.Fragment>
+            </div>
         );
     }
 }
