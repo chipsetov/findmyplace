@@ -10,6 +10,7 @@ import {checkBookingTime, PAGE_CHANGED, Session} from "../../utils";
 import {bookPlace} from "../../util/APIUtils";
 import StarRatings from "react-star-ratings";
 import {addMark} from '../../util/APIUtils';
+import Gallery from "react-grid-gallery";
 
 const toast = window["Materialize"].toast;
 
@@ -18,16 +19,19 @@ class PlacePage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            place: {},
-            rating: 0,
 
-        };
         this.changeRating = this.changeRating.bind(this);
         this.state = {
             place: {},
-            viewManager: Session.isOwner()
+            picturesFromServer: [],
+            rating: 0,
+            viewManager: Session.isOwner(),
         };
+
+        // this.state = {
+        //     place: {},
+        //     viewManager: Session.isOwner()
+        // };
     }
 
     componentWillMount() {
@@ -49,8 +53,34 @@ class PlacePage extends Component {
                         rating: result.rating
                     });
                 }
-            )
+            );
+
+        this.downloadImages();
     }
+
+    downloadImages = () => {
+        fetch("/places/download-images/" + this.props.match.params.placeId)
+            .then(res => res.json())
+            .then(
+                (pictures) => {
+
+                    const picturesFromServer = [];
+                    pictures.map((image) => {
+                        picturesFromServer.push({
+                            imageUrl: image.imageUrl,
+                            src: image.imageUrl,
+                            thumbnail: image.imageUrl,
+                            thumbnailWidth: 500,
+                            thumbnailHeight: 350,
+                        })
+                    });
+
+                    this.setState({
+                        picturesFromServer: picturesFromServer,
+                    });
+                }
+            );
+    };
 
     changeRating(newRating) {
         const markRequest = {
@@ -95,7 +125,26 @@ class PlacePage extends Component {
             }).catch((error) => {
             console.error('error', error);
         });
-    }
+    };
+
+    renderGallery = () => {
+
+        if(this.state.picturesFromServer.length > 0) {
+            return(
+                <div>
+                    <Row>
+                        <h1>Gallery</h1>
+                    </Row>
+                    <Row className="gallery-container">
+                        <Gallery
+                            images={this.state.picturesFromServer}
+                            enableImageSelection={false}
+                            preloadNextImage={false}/>
+                    </Row>
+                </div>
+            );
+        }
+    };
 
     render() {
 
@@ -129,7 +178,9 @@ class PlacePage extends Component {
                           placeId={this.props.match.params.placeId}
                           freePlaces={place.countFreePlaces}
                           description={place.description}
+                          placeImage={this.state.picturesFromServer[0]}
                           countChange={this.countChange}/>
+                    {this.renderGallery()}
                     <ReviewsBlock placeId={this.props.match.params.placeId}
                                   currentUser={this.props.currentUser}
                                   isAuthenticated={this.props.isAuthenticated}

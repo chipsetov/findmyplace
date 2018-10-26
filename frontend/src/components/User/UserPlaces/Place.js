@@ -13,6 +13,40 @@ class Place extends Component {
 
         this.handleDelete = this.handleDelete.bind(this);
         this.viewModalWindow = this.viewModalWindow.bind(this);
+
+        this.state = {
+            imageUrl: "",
+        }
+    }
+
+    componentDidMount() {
+        fetch("/places/download-images/" + this.props.id)
+            .then(res => res.json())
+            .then(
+                (pictures) => {
+
+                    if(pictures[0]) {
+                        this.setState({
+                           imageUrl: pictures[0].imageUrl,
+                        });
+                    }
+
+                    // const picturesFromServer = [];
+                    // pictures.map((image) => {
+                    //     picturesFromServer.push({
+                    //         imageUrl: image.imageUrl,
+                    //         src: image.imageUrl,
+                    //         thumbnail: image.imageUrl,
+                    //         thumbnailWidth: 500,
+                    //         thumbnailHeight: 350,
+                    //     })
+                    // });
+                    //
+                    // this.setState({
+                    //     picturesFromServer: picturesFromServer,
+                    // });
+                }
+            );
     }
 
     handleDelete() {
@@ -70,7 +104,10 @@ class Place extends Component {
 
     render() {
         return(
-            <Card className='small' header={<CardTitle image='img/place.jpg'/>} >
+            <Card
+                className='small'
+                header={<CardTitle image={this.state.imageUrl ? this.state.imageUrl : 'img/empty.png'}/>}
+            >
                 <Row className="place-info">
                     <Row className="place-type">
                         <span>{this.props.placeType}</span>

@@ -90,7 +90,6 @@ class UserPlaces extends Component {
 
         return(
             <Row className="user-places-wrapper places-wrapper">
-                <Row className="title"></Row>
                 {this.renderRedirect()}
                 {this.renderTop()}
                 <Row className="places-search">

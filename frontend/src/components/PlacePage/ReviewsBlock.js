@@ -37,6 +37,10 @@ class ReviewsBlock extends Component {
                     this.setState({
                         avatarUrl: response
                     })
+                } else {
+                    this.setState({
+                        avatarUrl: './img/avatar.png'
+                    })
                 }
             })
     }
@@ -47,7 +51,6 @@ class ReviewsBlock extends Component {
         this.setState(pervState => ({
             reviews: [reviev, ...pervState.reviews]
         }));
-        //this.componentDidMount();
     }
 
     handleDelete(id) {
@@ -89,7 +92,7 @@ class ReviewsBlock extends Component {
                             userName={item.userName}
                             comment={item.comment}
                             creationDate={item.creationDate}
-                            avatar={item.avatarUrl === null ? "./favicon.ico" : item.avatarUrl}
+                            avatar={item.avatarUrl === null ? "./img/avatar.png" : item.avatarUrl}
                             handleDelete={this.handleDelete}
                             currentUser={this.props.currentUser}
                     />

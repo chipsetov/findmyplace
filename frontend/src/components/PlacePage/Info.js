@@ -49,6 +49,21 @@ class Info extends Component {
         )
     }
 
+    // renderPlaceImage = () => {
+    //     if(this.props.placeImage) {
+    //         return(
+    //             <Col className="image-container" s={6}>
+    //                 <img className="place-image" src={this.props.placeImage.imageUrl}/>
+    //             </Col>
+    //         )
+    //     } else {
+    //         return(
+    //             <Col className="image-container" s={6}>
+    //                 <img className="place-image" src="./img/empty.png"/>
+    //             </Col>
+    //         )
+    //     }
+    // };
 
     render() {
         console.log("accessUser = " + this.state.accessUser);
@@ -61,7 +76,9 @@ class Info extends Component {
                 </Row>
                 <Row>
                     <Col className="image-container" s={6}>
-                        <img className="place-image" src="./img/presto-pizza.jpg"/>
+                        <img
+                            className="place-image"
+                            src={this.props.placeImage ? this.props.placeImage.imageUrl : "./img/empty.png"}/>
                     </Col>
                     <Col s={6}>
                         <p>Open time: {this.props.openTime}</p>
