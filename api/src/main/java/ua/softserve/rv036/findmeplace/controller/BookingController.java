@@ -95,7 +95,7 @@ public class BookingController {
 
             if (manager != null && place != null) {
                 try {
-                    userService.sendNewBooking(manager, user, place);j
+                    userService.sendNewBooking(manager, user, place);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
