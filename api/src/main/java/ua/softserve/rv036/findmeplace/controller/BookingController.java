@@ -87,6 +87,21 @@ public class BookingController {
         final String bookingTime = bookingRequest.getBookingTime();
         final Booking booking = new Booking(userId, placeId, bookingTime);
 
+        List<Place_Manager> placeManagers = placeManagerRepository.findAllByPlaceId(placeId);
+
+        for (Place_Manager pm : placeManagers) {
+            User manager = userRepository.findById(pm.getUserId()).orElse(null);
+            Place place = placeRepository.findById(placeId).orElse(null);
+
+            if (manager != null && place != null) {
+                try {
+                    userService.sendNewBooking(manager, user, place);j
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         bookingRepository.save(booking);
 
         return ResponseEntity.ok().body(new ApiResponse(true, "You have booked this place"));
