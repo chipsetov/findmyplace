@@ -361,7 +361,15 @@ export const rejectBooking = (bookingId) => request({
 
 export function emailToUser(emailToUserRequest) {
     return request({
-        url: API_BASE_URL + "/email-user",
+        url: API_BASE_URL + "/email/to-user",
+        method: 'POST',
+        body: JSON.stringify(emailToUserRequest)
+    });
+}
+
+export function emailToAdmin(emailToUserRequest) {
+    return request({
+        url: API_BASE_URL + "/email/to-admin",
         method: 'POST',
         body: JSON.stringify(emailToUserRequest)
     });

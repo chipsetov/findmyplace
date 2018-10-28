@@ -18,7 +18,7 @@ class AppFooter extends Component {
                         <p><Link to="/">Customer Support</Link></p>
                     </Col>
                     <Col>
-                        <p><Link to="/">Contact Us</Link></p>
+                        <p><Link to="/contact-us">Contact Us</Link></p>
                     </Col>
                     <Col>
                         <p>Social:</p>

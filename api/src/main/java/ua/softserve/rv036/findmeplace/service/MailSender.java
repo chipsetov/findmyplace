@@ -20,21 +20,24 @@ public class MailSender {
     @Value("${spring.mail.mailName}")
     private String mailName;
 
-
-    public void send(String emailTo, String subject, String message) {
+    //But google don't allow to rewrite 'from'
+    public void sendFromTo(String from, String emailTo, String subject, String message) {
         try {
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
 
             mimeMessage.setContent(message, "text/html; charset=UTF-8");
-            helper.setFrom(mailName);
+            helper.setFrom(from);
             helper.setTo(emailTo);
             helper.setSubject(subject);
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+    }
 
+    public void send(String emailTo, String subject, String message) {
+        sendFromTo(mailName, emailTo, subject, message);
 
 //        SimpleMailMessage mailMessage = new SimpleMailMessage();
 //
@@ -44,5 +47,10 @@ public class MailSender {
 //        mailMessage.setText(message);
 //
 //        mailSender.send(mailMessage);
+    }
+
+    public void sendWithUserEmail(String userEmail, String emailTo, String subject, String message) {
+        String fullMessage = "<h3>From: " + userEmail + "</h3>\n" + message;
+        send(emailTo, subject, fullMessage);
     }
 }

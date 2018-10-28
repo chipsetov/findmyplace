@@ -10,10 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.User;
-import ua.softserve.rv036.findmeplace.payload.ApiResponse;
-import ua.softserve.rv036.findmeplace.payload.EmailToUserRequest;
-import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
-import ua.softserve.rv036.findmeplace.payload.UserSummary;
+import ua.softserve.rv036.findmeplace.model.enums.Role;
+import ua.softserve.rv036.findmeplace.payload.*;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
@@ -226,7 +224,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/email-user")
+    @PostMapping("/email/to-user")
     @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity emailToUser(@Valid @RequestBody EmailToUserRequest emailToUserRequest) {
         Optional<User> userOptional = userRepository.findById(emailToUserRequest.getUserId());
@@ -241,6 +239,19 @@ public class UserController {
         String subject = emailToUserRequest.getSubject();
         String message = emailToUserRequest.getMessage();
         mailSender.send(email, subject, message);
+
+        return new ResponseEntity<>(new ApiResponse(true, "Email has been sent"), HttpStatus.OK);
+    }
+
+    @PostMapping("/email/to-admin")
+    public ResponseEntity emailToAdmin(@Valid @RequestBody EmailToAdminRequest emailToAdminRequest) {
+        String from = emailToAdminRequest.getUserEmail();
+        String subject = emailToAdminRequest.getSubject();
+        String message = emailToAdminRequest.getMessage();
+
+        List<User> admins = userRepository.findAllByRole(Role.ROLE_ADMIN);
+
+        admins.forEach(admin -> mailSender.sendWithUserEmail(from, admin.getEmail(), subject, message));
 
         return new ResponseEntity<>(new ApiResponse(true, "Email has been sent"), HttpStatus.OK);
     }
