@@ -41,3 +41,7 @@
 .users-list-table .delete-user {
     width: 80px;
 }
+
+.users-list-table .send-email {
+    width: 180px;
+}

@@ -358,3 +358,11 @@ export const rejectBooking = (bookingId) => request({
     url: API_BASE_URL + `/booking/${bookingId}/reject`,
     method: "DELETE"
 });
+
+export function emailToUser(emailToUserRequest) {
+    return request({
+        url: API_BASE_URL + "/email-user",
+        method: 'POST',
+        body: JSON.stringify(emailToUserRequest)
+    });
+}

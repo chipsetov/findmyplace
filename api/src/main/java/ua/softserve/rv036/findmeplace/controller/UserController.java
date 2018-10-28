@@ -11,6 +11,7 @@ import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
+import ua.softserve.rv036.findmeplace.payload.EmailToUserRequest;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
 import ua.softserve.rv036.findmeplace.payload.UserSummary;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
@@ -20,6 +21,7 @@ import ua.softserve.rv036.findmeplace.repository.UserRepository;
 import ua.softserve.rv036.findmeplace.security.CurrentUser;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 import ua.softserve.rv036.findmeplace.service.FileStorageService;
+import ua.softserve.rv036.findmeplace.service.MailSender;
 import ua.softserve.rv036.findmeplace.service.Place_ManagerService;
 import ua.softserve.rv036.findmeplace.service.UserService;
 
@@ -52,9 +54,11 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     @Autowired
     private FileStorageService fileStorageService;
+
+    @Autowired
+    private MailSender mailSender;
 
     @GetMapping("/user/me")
     @RolesAllowed({"ROLE_USER", "ROLE_MANAGER", "ROLE_OWNER", "ROLE_ADMIN"})
@@ -222,4 +226,22 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("/email-user")
+    @RolesAllowed("ROLE_ADMIN")
+    public ResponseEntity emailToUser(@Valid @RequestBody EmailToUserRequest emailToUserRequest) {
+        Optional<User> userOptional = userRepository.findById(emailToUserRequest.getUserId());
+
+        if(!userOptional.isPresent()) {
+            ApiResponse apiResponse = new ApiResponse(false, "User does not exist");
+            return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        User user = userOptional.get();
+        String email = user.getEmail();
+        String subject = emailToUserRequest.getSubject();
+        String message = emailToUserRequest.getMessage();
+        mailSender.send(email, subject, message);
+
+        return new ResponseEntity<>(new ApiResponse(true, "Email has been sent"), HttpStatus.OK);
+    }
 }
