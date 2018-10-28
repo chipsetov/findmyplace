@@ -25,18 +25,18 @@ class ButtonsBlock extends Component {
         return (
             <CardPanel className="card-panel-btn blue lighten-5">
                 <Row className="center">
-                    <Link to="/map">
+                    <Link to="#">
                         <Col>
                             <Icon className="black-text" large>place</Icon>
                             <p className="text">On the map</p>
                         </Col>
                     </Link>
-                    <Link to="/">
+                    <div onClick={this.props.addToFavorite}>
                         <Col>
-                            <Icon className="black-text" large>call</Icon>
-                            <p className="text">Call Now</p>
+                            <Icon className="black-text" large>mood</Icon>
+                            <p className="text">Favorite</p>
                         </Col>
-                    </Link>
+                    </div>
                     <BookingModal onBookCompleteHandler={this.props.onBookCompleteHandler}/>
                     {this.action()}
                 </Row>

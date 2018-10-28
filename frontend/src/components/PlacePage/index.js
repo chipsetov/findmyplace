@@ -5,7 +5,7 @@ import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
 import ManagersBlock from './ManagersBlock.js';
 import Info from './Info.js';
-import {changeCountFreePlaces} from "../../util/APIUtils";
+import {addFavorite, changeCountFreePlaces} from "../../util/APIUtils";
 import {checkBookingTime, PAGE_CHANGED, Session} from "../../utils";
 import {bookPlace} from "../../util/APIUtils";
 import StarRatings from "react-star-ratings";
@@ -119,6 +119,7 @@ class PlacePage extends Component {
 
                 <div className="container content-container">
                     <ButtonsBlock onBookCompleteHandler={this.onBookCompleteHandler.bind(this)}
+                                  addToFavorite={this.addToFavorite.bind(this)}
                                   placeId={place.id}
                                   rating={this.state.rating}
                                   changeRating={this.changeRating}
@@ -148,6 +149,14 @@ class PlacePage extends Component {
                 name: "place-page"
             }
         }));
+    }
+
+    addToFavorite() {
+        addFavorite(this.state.place.id).then(response => {
+            toast(response.message, 3000);
+        }).catch(error => {
+            toast(error.message, 3000);
+        });
     }
 
     onBookCompleteHandler(time) {
