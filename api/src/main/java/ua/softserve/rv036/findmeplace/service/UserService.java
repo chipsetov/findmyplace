@@ -199,5 +199,16 @@ public class UserService {
         }
     }
 
+    public void sendNewBooking(User manager, User client, Place place) throws IOException {
+        if (!StringUtils.isEmpty(manager.getEmail())) {
+            String message = "Hi, " + manager.getFirstName() + " " + manager.getLastName()
+                    + "! Your client " + client.getFirstName() + " " + client.getLastName()
+                    + " sent new booking on " + place.getName() + "!";
+
+            mailSender.send(manager.getEmail(), "New booking!", message);
+        }
+    }
+
+
 
 }
