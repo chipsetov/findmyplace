@@ -359,6 +359,21 @@ export const rejectBooking = (bookingId) => request({
     method: "DELETE"
 });
 
+export const addFavorite = (placeId) => request({
+    url: API_BASE_URL + `/favorite/${placeId}/add`,
+    method: "POST"
+});
+
+export const getFavorites = () => request({
+    url: API_BASE_URL + "/favorite/get",
+    method: "GET"
+});
+
+export const removeFavorite = (placeId) => request({
+    url: API_BASE_URL + `/favorite/${placeId}/remove`,
+    method: "DELETE"
+});
+
 export function emailToUser(emailToUserRequest) {
     return request({
         url: API_BASE_URL + "/email/to-user",

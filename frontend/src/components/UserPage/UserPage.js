@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Profile from "./Profile";
+import Favorite from "./Favorite";
 import UserBookings from "./Booking";
-import {cancelBooking, getBookings, getUserProfile} from "../../util/APIUtils";
+import {cancelBooking, getBookings, getFavorites, getUserProfile, removeFavorite} from "../../util/APIUtils";
 import {Link, withRouter} from "react-router-dom";
 import {Col, Row, Tab, Tabs} from "react-materialize";
 
@@ -19,9 +20,11 @@ export class UserPage extends Component {
             oldPassword: "",
             newPassword: "",
             bookings: [],
+            favorites: [],
             // adminProfileIsOpened: false,
             // usersListIsOpened: false,
             profileIsOpened: true,
+            favoriteIsOpened: true,
             approvePlacesIsOpened: false
         };
     }
@@ -51,6 +54,12 @@ export class UserPage extends Component {
                                         Bookings
                                     </Link>
                                 </Row>
+                                <Row>
+                                    <Link to="#" onClick={this.showFavorites.bind(this)}>
+                                        <img src="img/admin/users.png" alt="users"/>
+                                        Favorites
+                                    </Link>
+                                </Row>
                             </Row>
                         </div>
                     </Col>
@@ -75,6 +84,13 @@ export class UserPage extends Component {
                                 // rejectBooking={this.rejectBooking.bind(this)}
                             />
                         </Row>
+                        <Row className={!this.state.favoriteIsOpened ? 'hidden' : 'feature-row'}>
+                            <Favorite
+                                favorites={this.state.favorites}
+                                bookPlace={this.bookPlace.bind(this)}
+                                removeFavorite={this.removeFavorite.bind(this)}
+                            />
+                        </Row>
                     </Col>
                 </Row>
             </div>
@@ -88,16 +104,21 @@ export class UserPage extends Component {
 
                 getBookings(userId)
                     .then(bookings => {
-                        console.log("bookings:", bookings);
+                        getFavorites().then((favorites) => {
+                            console.log(favorites);
 
-                        this.setState({
-                            firstName: profile['firstName'],
-                            lastName: profile['lastName'],
-                            userName: profile['username'],
-                            email: profile['email'],
-                            phone: profile['phone'],
-                            avatar: profile['avatar'],
-                            bookings: bookings
+                            this.setState({
+                                firstName: profile['firstName'],
+                                lastName: profile['lastName'],
+                                userName: profile['username'],
+                                email: profile['email'],
+                                phone: profile['phone'],
+                                avatar: profile['avatar'],
+                                bookings: bookings,
+                                favorites: favorites
+                            });
+                        }).catch((error) => {
+                            this.showError(error.message);
                         });
                     })
                     .catch(error => console.log("error", error));
@@ -119,6 +140,11 @@ export class UserPage extends Component {
         this.state.bookingsIsOpened = true;
     }
 
+    showFavorites() {
+        this.hideComponents();
+        this.state.favoriteIsOpened = true;
+    }
+
     showError(message) {
         window["Materialize"]['toast'](message, 3000);
     }
@@ -137,6 +163,25 @@ export class UserPage extends Component {
                     .catch(error => this.showError(error));
             })
             .catch(error => this.showError(error));
+    }
+
+    bookPlace(placeId) {
+        console.log("book place:", placeId);
+    }
+
+    removeFavorite(placeId) {
+        console.log("remove favorite:", placeId);
+
+        removeFavorite(placeId).then(() => {
+            getFavorites().then((favorites) => {
+                this.setState({
+                    favorites: favorites
+                });
+            }).catch((error) => {
+                this.showError(error.message);
+            });
+        }).catch(error => this.showError(error.message));
+
     }
 
     /*
