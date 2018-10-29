@@ -24,7 +24,7 @@ export class UserPage extends Component {
             // adminProfileIsOpened: false,
             // usersListIsOpened: false,
             profileIsOpened: true,
-            favoriteIsOpened: true,
+            favoriteIsOpened: false,
             approvePlacesIsOpened: false
         };
     }
