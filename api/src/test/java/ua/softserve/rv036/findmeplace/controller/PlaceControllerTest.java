@@ -16,12 +16,10 @@ import ua.softserve.rv036.findmeplace.utils.TestUtil;
 import java.util.Collections;
 import java.util.List;
 
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -77,6 +75,21 @@ public class PlaceControllerTest {
     @Test
     public void setCountFreePlacesTest() throws Exception {
         mvc.perform(post("/places/{id}/free-places/{count}", 1L, 1))
+                .andExpect(status().isOk());
+    }
+
+
+    @Test
+    public void updatePlace() throws Exception {
+        String placeQuery = "{\"name\":\"NewName\"," +
+                "\"open\":\"08:00:00\"," +
+                "\"close\":\"18:00:00\"," +
+                "\"placeType\":\"CAFE\"," +
+                "\"description\":\"NewDescription\"}";
+
+        mvc.perform(post("/places/edit")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(placeQuery))
                 .andExpect(status().isOk());
     }
 }
