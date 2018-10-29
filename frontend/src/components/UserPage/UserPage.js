@@ -128,6 +128,7 @@ export class UserPage extends Component {
     hideComponents() {
         this.state.profileIsOpened = false;
         this.state.bookingsIsOpened = false;
+        this.state.favoriteIsOpened = false;
     }
 
     showProfile() {
