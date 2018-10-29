@@ -3,6 +3,7 @@ import {Row, Input, Button, Col} from 'react-materialize';
 import {withRouter} from "react-router-dom";
 import "./ContactUs.css"
 import {emailToAdmin, registerPlace} from "../../util/APIUtils";
+import LoadingIndicator from "../../common/LoadingIndicator";
 
 class ContactUs extends Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class ContactUs extends Component {
             email: "",
             subject: "",
             message: "",
+            isLoading: false,
         };
         this.isError = false;
     };
@@ -44,8 +46,15 @@ class ContactUs extends Component {
                 message: this.state.message,
             };
 
+            this.setState({
+                isLoading: true
+            });
+
             emailToAdmin(emailToAdminRequest)
                 .then(response => {
+                    this.setState({
+                        isLoading: false,
+                    });
                     this.props.history.goBack();
                     window.Materialize.toast("Email has been sent", 3000);
                 }).catch(err => {
@@ -85,6 +94,9 @@ class ContactUs extends Component {
     };
 
     render() {
+        if (this.state.isLoading) {
+                return <LoadingIndicator/>
+        }
         return(
             <div className="contact-form-wrapper">
                 <div className="contact-form">
