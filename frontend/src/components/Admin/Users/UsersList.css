@@ -35,7 +35,7 @@
 }
 
 .users-list-table .user-email {
-    color: #f1c40f;
+    color: #000000;
 }
 
 .users-list-table .delete-user {
@@ -43,5 +43,5 @@
 }
 
 .users-list-table .send-email {
-    width: 180px;
+    width: 168px;
 }

@@ -1,16 +1,19 @@
 import React, {Component} from "react";
 import {Card, CardTitle, Col, Row, Button} from "react-materialize";
 import {Link} from "react-router-dom";
-import RejectModal from "./RejectModal";
-import {approvePlace} from "../../util/APIUtils";
+import {approvePlace, rejectPlace} from "../../util/APIUtils";
+import InputModal from "../Modal/InputModal";
 
 class ApprovablePlace extends Component {
 
     constructor(props) {
         super(props);
+
+        this.handleApprove = this.handleApprove.bind(this);
+        this.handleReject = this.handleReject.bind(this);
     }
 
-    handleApprove = () => {
+    handleApprove() {
         approvePlace(this.props.placeId)
             .then(response => {
                 if(response.success) {
@@ -20,6 +23,23 @@ class ApprovablePlace extends Component {
                 else window.Materialize.toast(response.message, 1500);
             });
     };
+
+    handleReject(message) {
+
+        const data = {
+            placeId: this.props.placeId,
+            rejectMessage: message,
+        };
+
+        rejectPlace(data)
+            .then(response => {
+                if(response.success) {
+                    window.Materialize.toast("Place rejected", 1500);
+                    this.props.handleUpdate();
+                }
+                else window.Materialize.toast(response.message, 1500);
+            });
+    }
 
     render() {
         return(
@@ -41,11 +61,12 @@ class ApprovablePlace extends Component {
                         <Button className="black" waves="light" onClick={this.handleApprove}>Approve</Button>
                     </Col>
                     <Col s={6}>
-                        <RejectModal
-                            handleUpdate = {this.props.handleUpdate}
-                            placeId={this.props.placeId}
+                        <InputModal
                             header="Write the reason of reject"
-                        />
+                            actionName="reject"
+                            buttonClassName="red"
+                            modalTitle="Write the reason of reject"
+                            handleAction={this.handleReject}/>
                     </Col>
                 </Row>
             </Card>

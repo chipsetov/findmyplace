@@ -3,7 +3,7 @@ import {Input, Col, Button, Row} from "react-materialize";
 import Modal from 'react-responsive-modal';
 import {rejectPlace} from "../../util/APIUtils";
 
-class RejectModal extends Component {
+class InputModal extends Component {
     constructor(props) {
         super(props);
 
@@ -11,7 +11,7 @@ class RejectModal extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             isOpen: false,
-            rejectMessage: ""
+            message: ""
         }
     }
 
@@ -26,24 +26,12 @@ class RejectModal extends Component {
     handleChange(key, value) {
         this.setState({
             [key]: value,
-            formChanged: true
         });
     }
 
     handleSubmit() {
-        const data = {
-            placeId: this.props.placeId,
-            rejectMessage: this.state.rejectMessage,
-        };
-
-        rejectPlace(data)
-            .then(response => {
-                if(response.success) {
-                    window.Materialize.toast("Place rejected", 1500);
-                    this.props.handleUpdate();
-                }
-                else window.Materialize.toast(response.message, 1500);
-            });
+        const message = this.state.message;
+        this.props.handleAction(message);
         this.handleClose();
     };
 
@@ -55,30 +43,34 @@ class RejectModal extends Component {
             <div>
                 <Button
                     onClick={this.handleOpen}
-                    className="red darken-1"
-                    waves="light">Reject</Button>
+                    className={this.props.buttonClassName}
+                    waves="light">
+                    {this.props.actionName}
+                </Button>
                 <Modal styles={{
                     modal: {
                         width: 800,
-                        }
-                    }}
-                    open={isOpen}
-                    onClose={this.handleClose}
-                    header={this.props.header}
-                    showCloseIcon={false}
-                    closeOnOverlayClick={false}
+                    }
+                }}
+                       open={isOpen}
+                       onClose={this.handleClose}
+                       header={this.props.header}
+                       showCloseIcon={false}
+                       closeOnOverlayClick={false}
+                       blockScroll={false}
                 >
                     <div>
-                        <b>Write the reason of reject</b>
+                        <b>{this.props.modalTitle}</b>
                     </div>
                     <Input
                         s={12}
                         type='textarea'
-                        onChange={e => this.handleChange("rejectMessage", e.target.value)}/>
+                        onChange={e => this.handleChange("message", e.target.value)}/>
                     <Row style={{margin: 0}}>
                         <Col className="right">
                             <Button
                                 waves="light"
+                                className="black"
                                 onClick={this.handleClose}
                             >
                                 Close
@@ -86,11 +78,11 @@ class RejectModal extends Component {
                         </Col>
                         <Col className="right">
                             <Button
-                                className="red darken-1"
+                                className={this.props.buttonClassName}
                                 waves="light"
                                 onClick={this.handleSubmit}
                             >
-                                Reject
+                                {this.props.actionName}
                             </Button>
                         </Col>
                     </Row>
@@ -100,4 +92,4 @@ class RejectModal extends Component {
     }
 }
 
-export default RejectModal
+export default InputModal

@@ -5,6 +5,7 @@ import Moment from "react-moment";
 import {Button} from 'react-materialize';
 import EmailModal from "../../Modal/EmailModal";
 import {emailToUser} from "../../../util/APIUtils";
+import InputModal from "../../Modal/InputModal";
 
 class User extends Component {
 
@@ -13,6 +14,7 @@ class User extends Component {
 
         this.handleDelete = this.handleDelete.bind(this);
         this.sendEmail = this.sendEmail.bind(this);
+        this.banUser = this.banUser.bind(this);
     }
 
     handleDelete() {
@@ -35,6 +37,10 @@ class User extends Component {
                 console.log(err);
                 window.Materialize.toast("Server error", 3000);
             })
+    }
+
+    banUser(message) {
+        //TODO: Send data to server
     }
 
     render() {
@@ -67,8 +73,16 @@ class User extends Component {
                                 handleSubmit={this.sendEmail}/>
                 </td>
                 <td className="delete-user">
-                    <AppModal action={"Delete"}
-                              buttonStyle="btn-delete"
+                    <InputModal
+                        header="Write the reason of ban"
+                        actionName="ban"
+                        buttonClassName="orange darken-2"
+                        modalTitle="Write the reason of ban"
+                        handleAction={this.handleReject}/>
+                </td>
+                <td className="delete-user">
+                    <AppModal action={"DELETE"}
+                              buttonStyle="red"
                               message={"Are you sure you want to delete this user?"}
                               handleSubmit={this.handleDelete}
                     />

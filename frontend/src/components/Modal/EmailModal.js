@@ -38,7 +38,7 @@ class EmailModal extends Component {
         const {isOpen} = this.state;
 
         return(
-            <div>
+            <React.Fragment>
                 <Button className={this.props.buttonStyle} onClick={this.openAndCloseModal}>{this.props.action}</Button>
                 <Modal className="email-container" styles={{
                     modal: {
@@ -84,7 +84,7 @@ class EmailModal extends Component {
                         </Row>
                     </div>
                 </Modal>
-            </div>
+            </React.Fragment>
         );
     }
 
