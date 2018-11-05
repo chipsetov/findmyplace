@@ -4,7 +4,7 @@ import AppModal from "../../Modal/AppModal";
 import Moment from "react-moment";
 import {Button} from 'react-materialize';
 import EmailModal from "../../Modal/EmailModal";
-import {emailToUser} from "../../../util/APIUtils";
+import {banUser, emailToUser} from "../../../util/APIUtils";
 import InputModal from "../../Modal/InputModal";
 
 class User extends Component {
@@ -14,7 +14,7 @@ class User extends Component {
 
         this.handleDelete = this.handleDelete.bind(this);
         this.sendEmail = this.sendEmail.bind(this);
-        this.banUser = this.banUser.bind(this);
+        this.handleBanUser = this.handleBanUser.bind(this);
     }
 
     handleDelete() {
@@ -39,8 +39,19 @@ class User extends Component {
             })
     }
 
-    banUser(message) {
-        //TODO: Send data to server
+    handleBanUser(reason) {
+        const data = {
+            banReason: reason,
+            userId: this.props.id,
+        };
+
+        banUser(data)
+            .then(response => {
+                window.Materialize.toast("User has been banned", 3000);
+            }).catch(err => {
+                console.log(err);
+                window.Materialize.toast(err.message, 3000);
+        })
     }
 
     render() {
@@ -78,7 +89,7 @@ class User extends Component {
                         actionName="ban"
                         buttonClassName="orange darken-2"
                         modalTitle="Write the reason of ban"
-                        handleAction={this.handleReject}/>
+                        handleAction={this.handleBanUser}/>
                 </td>
                 <td className="delete-user">
                     <AppModal action={"DELETE"}

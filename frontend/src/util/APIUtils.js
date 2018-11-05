@@ -389,3 +389,11 @@ export function emailToAdmin(emailToUserRequest) {
         body: JSON.stringify(emailToUserRequest)
     });
 }
+
+export function banUser(banUserRequest) {
+    return request({
+        url: API_BASE_URL + "/user/ban",
+        method: 'POST',
+        body: JSON.stringify(banUserRequest)
+    });
+}

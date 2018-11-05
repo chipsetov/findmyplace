@@ -7,17 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ua.softserve.rv036.findmeplace.model.Booking;
-import ua.softserve.rv036.findmeplace.model.Place;
-import ua.softserve.rv036.findmeplace.model.Place_Manager;
-import ua.softserve.rv036.findmeplace.model.User;
+import ua.softserve.rv036.findmeplace.model.*;
 import ua.softserve.rv036.findmeplace.model.enums.BanStatus;
 import ua.softserve.rv036.findmeplace.model.enums.Role;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
 import ua.softserve.rv036.findmeplace.payload.UpdateProfileRequest;
 import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
 import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
+import ua.softserve.rv036.findmeplace.repository.UserBanRepository;
 import ua.softserve.rv036.findmeplace.repository.UserRepository;
+import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,6 +49,9 @@ public class UserService {
 
     @Autowired
     private Place_ManagerRepository placeManagerRepository;
+
+    @Autowired
+    private UserBanRepository userBanRepository;
 
 
     public boolean createUser(User user) {
@@ -207,6 +209,33 @@ public class UserService {
 
             mailSender.send(manager.getEmail(), "New booking!", message);
         }
+    }
+
+    public ResponseEntity banUser(UserBan userBan) {
+        Optional<User> optionalUser = userRepository.findById(userBan.getUserId());
+        User user = null;
+
+        if(!optionalUser.isPresent()) {
+            ApiResponse response = new ApiResponse(false,
+                    "User doesn't exist!");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        user = optionalUser.get();
+
+        if(user.getBanStatus() == BanStatus.BAN) {
+            ApiResponse response = new ApiResponse(false,
+                    "User already banned");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        } else {
+            user.setBanStatus(BanStatus.BAN);
+            userRepository.save(user);
+        }
+
+        userBanRepository.save(userBan);
+
+        ApiResponse response = new ApiResponse(true, "User successful banned");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 

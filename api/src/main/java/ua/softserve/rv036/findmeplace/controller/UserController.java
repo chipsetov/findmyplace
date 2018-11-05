@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.softserve.rv036.findmeplace.model.Place;
 import ua.softserve.rv036.findmeplace.model.Place_Manager;
 import ua.softserve.rv036.findmeplace.model.User;
+import ua.softserve.rv036.findmeplace.model.UserBan;
 import ua.softserve.rv036.findmeplace.model.enums.Role;
 import ua.softserve.rv036.findmeplace.payload.*;
 import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
@@ -254,5 +255,10 @@ public class UserController {
         admins.forEach(admin -> mailSender.sendWithUserEmail(from, admin.getEmail(), subject, message));
 
         return new ResponseEntity<>(new ApiResponse(true, "Email has been sent"), HttpStatus.OK);
+    }
+
+    @PostMapping("/user/ban")
+    public ResponseEntity banUser(@Valid @RequestBody UserBan userBan) {
+        return userService.banUser(userBan);
     }
 }
