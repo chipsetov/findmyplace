@@ -258,7 +258,14 @@ public class UserController {
     }
 
     @PostMapping("/user/ban")
+    @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity banUser(@Valid @RequestBody UserBan userBan) {
         return userService.banUser(userBan);
+    }
+
+    @PostMapping("/user/unban/{id}")
+    @RolesAllowed("ROLE_ADMIN")
+    public ResponseEntity unbanUser(@PathVariable("id") Long id) {
+        return userService.unbanUser(id);
     }
 }

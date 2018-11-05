@@ -238,6 +238,34 @@ public class UserService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    public ResponseEntity unbanUser(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        User user = null;
+
+        if(!optionalUser.isPresent()) {
+            ApiResponse response = new ApiResponse(false,
+                    "User doesn't exist!");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        user = optionalUser.get();
+
+        if(user.getBanStatus() == BanStatus.NOT_BAN) {
+            ApiResponse response = new ApiResponse(false,
+                    "User already not banned");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        } else {
+            user.setBanStatus(BanStatus.NOT_BAN);
+            userRepository.save(user);
+        }
+
+        List<UserBan> userBans = userBanRepository.findAllByUserId(userId);
+        userBanRepository.deleteAll(userBans);
+
+        ApiResponse response = new ApiResponse(true, "User successful unbanned");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 
 
 }

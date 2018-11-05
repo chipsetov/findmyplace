@@ -397,3 +397,10 @@ export function banUser(banUserRequest) {
         body: JSON.stringify(banUserRequest)
     });
 }
+
+export function unbanUser(userId) {
+    return request({
+        url: API_BASE_URL + `/user/unban/${userId}`,
+        method: 'POST',
+    });
+}

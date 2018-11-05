@@ -4,7 +4,7 @@ import AppModal from "../../Modal/AppModal";
 import Moment from "react-moment";
 import {Button} from 'react-materialize';
 import EmailModal from "../../Modal/EmailModal";
-import {banUser, emailToUser} from "../../../util/APIUtils";
+import {banUser, emailToUser, unbanUser} from "../../../util/APIUtils";
 import InputModal from "../../Modal/InputModal";
 
 class User extends Component {
@@ -15,6 +15,7 @@ class User extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.sendEmail = this.sendEmail.bind(this);
         this.handleBanUser = this.handleBanUser.bind(this);
+        this.handleUnbanUser = this.handleUnbanUser.bind(this);
     }
 
     handleDelete() {
@@ -54,7 +55,45 @@ class User extends Component {
         })
     }
 
+    handleUnbanUser() {
+        unbanUser(this.props.id)
+            .then(response => {
+                window.Materialize.toast("User has been unbanned", 3000);
+            }).catch(err => {
+            console.log(err);
+            window.Materialize.toast("Server error", 3000);
+        })
+    }
+
+    renderBanButton = () => {
+        if(this.props.banStatus.value === "NOT_BAN") {
+            return(
+                <td className="delete-user center">
+                    <InputModal
+                        header="Write the reason of ban"
+                        actionName="ban"
+                        buttonClassName="orange darken-2"
+                        modalTitle="Write the reason of ban"
+                        handleAction={this.handleBanUser}/>
+                </td>
+            );
+        }
+
+        if(this.props.banStatus.value === "BAN") {
+            return(
+                <td className="delete-user">
+                    <AppModal action={"UNBAN"}
+                              buttonStyle="orange darken-2"
+                              message={"Are you sure you want to unban this user?"}
+                              handleSubmit={this.handleUnbanUser}
+                    />
+                </td>
+            );
+        }
+    };
+
     render() {
+        console.log(this.props.banStatus);
         return (
             <tr>
                 <td className="user">
@@ -83,14 +122,7 @@ class User extends Component {
                                 buttonStyle="black"
                                 handleSubmit={this.sendEmail}/>
                 </td>
-                <td className="delete-user">
-                    <InputModal
-                        header="Write the reason of ban"
-                        actionName="ban"
-                        buttonClassName="orange darken-2"
-                        modalTitle="Write the reason of ban"
-                        handleAction={this.handleBanUser}/>
-                </td>
+                {this.renderBanButton()}
                 <td className="delete-user">
                     <AppModal action={"DELETE"}
                               buttonStyle="red"
