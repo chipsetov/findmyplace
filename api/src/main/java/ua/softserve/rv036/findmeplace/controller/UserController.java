@@ -64,7 +64,7 @@ public class UserController {
     @GetMapping("/user/me")
     @RolesAllowed({"ROLE_USER", "ROLE_MANAGER", "ROLE_OWNER", "ROLE_ADMIN"})
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
-        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getRole());
+        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getRole(), currentUser.getBanStatus());
         userSummary.setFirstName(currentUser.getFirstName());
         userSummary.setLastName(currentUser.getLastName());
         userSummary.setEmail(currentUser.getEmail());

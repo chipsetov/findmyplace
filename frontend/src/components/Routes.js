@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import Home from "./Home/Home.js";
 import PlacePage from "./PlacePage/index.js";
 import RegistrationForm from "./authorization/RegistrationForm";
@@ -22,8 +22,19 @@ import PrivateRoute from '../common/PrivateRoute';
 import LoadingIndicator from "../common/LoadingIndicator";
 import EditPlacePage from "./EditPlace/EditPlacePage";
 import ContactUs from "./ContactUs/ContactUs";
+import BanPage from "./BanPage";
 
 export default class Routes extends Component {
+
+    renderRedirect = () => {
+        if(this.props.currentUser) {
+            if(this.props.currentUser.banStatus === "BAN") {
+                return(
+                    <Redirect to='/ban'/>
+                );
+            }
+        }
+    };
 
     render() {
         const userId = Session.userId();
@@ -33,8 +44,14 @@ export default class Routes extends Component {
 
         return (
             <div id="router" style={style}>
-
                 <Switch>
+                    <Route path="/ban" component={BanPage}/>
+                    <Route path="/contact-us"
+                           render={(props) => <ContactUs
+                               isAuthenticated={this.props.isAuthenticated}
+                               currentUser={this.props.currentUser}
+                           />}/>
+                    {this.renderRedirect()}
                     <Route path="//" component={Home}/>
                     <Route path="/app-info" component={AppInfo}/>
                     <Route path="/sign-up" component={RegistrationForm}/>
@@ -70,11 +87,6 @@ export default class Routes extends Component {
                                isAuthenticated={this.props.isAuthenticated}
                                {...props} />}/>
                     <Route path="/edit-place/:placeId" component={EditPlacePage}/>
-                    <Route path="/contact-us"
-                           render={(props) => <ContactUs
-                               isAuthenticated={this.props.isAuthenticated}
-                               currentUser={this.props.currentUser}
-                           />}/>
                     {/*<Route path="/users/:username"*/}
                     {/*render={(props) => <Profile isAuthenticated={this.props.isAuthenticated}*/}
                     {/*currentUser={this.props.currentUser} {...props}  />}>*/}

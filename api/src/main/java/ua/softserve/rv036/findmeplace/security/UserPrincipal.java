@@ -30,15 +30,20 @@ public class UserPrincipal implements UserDetails {
 
     private String role;
 
+    private String banStatus;
+
     private List<GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String firstName, String lastName, String nickName, String email, String password, String role, List<GrantedAuthority> authorities, String phone) {
+    public UserPrincipal(Long id, String firstName, String lastName,
+                         String nickName, String email, String password,
+                         String role, String banStatus, List<GrantedAuthority> authorities, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickName = nickName;
         this.email = email;
         this.password = password;
+        this.banStatus = banStatus;
         this.authorities = authorities;
         this.role = role;
         this.phone = phone;
@@ -59,6 +64,7 @@ public class UserPrincipal implements UserDetails {
                 user.getEmail(),
                 user.getPassword(),
                 user.getRole().name(),
+                user.getBanStatus().name(),
                 authorities,
                 user.getPhone()
         );
