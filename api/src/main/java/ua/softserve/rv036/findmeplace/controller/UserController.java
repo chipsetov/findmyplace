@@ -3,6 +3,8 @@ package ua.softserve.rv036.findmeplace.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -62,7 +64,7 @@ public class UserController {
     @GetMapping("/user/me")
     @RolesAllowed({"ROLE_USER", "ROLE_MANAGER", "ROLE_OWNER", "ROLE_ADMIN"})
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
-        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getAuthority().getAuthority());
+        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getRole());
         userSummary.setFirstName(currentUser.getFirstName());
         userSummary.setLastName(currentUser.getLastName());
         userSummary.setEmail(currentUser.getEmail());
@@ -121,6 +123,7 @@ public class UserController {
     }
 
     @PostMapping("/set-avatar")
+    @PreAuthorize("hasAuthority('NOT_BAN')")
     @RolesAllowed({"ROLE_USER", "ROLE_OWNER", "ROLE_MANAGER", "ROLE_ADMIN"})
     public ResponseEntity uploadAvatar(@RequestParam("file") MultipartFile file) {
 
@@ -140,6 +143,7 @@ public class UserController {
     }
 
     @GetMapping("get-avatar")
+    @PreAuthorize("hasAuthority('NOT_BAN')")
     @RolesAllowed({"ROLE_USER", "ROLE_OWNER", "ROLE_MANAGER", "ROLE_ADMIN"})
     public Optional<String> getAvatar() {
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

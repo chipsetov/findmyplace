@@ -8,8 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ua.softserve.rv036.findmeplace.model.User;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 @Data
 public class UserPrincipal implements UserDetails {
@@ -29,24 +28,28 @@ public class UserPrincipal implements UserDetails {
     @JsonIgnore
     private String password;
 
-    private  GrantedAuthority authority;
+    private String role;
 
-    public UserPrincipal(Long id, String firstName, String lastName, String nickName, String email, String password,  GrantedAuthority authority, String phone) {
+    private List<GrantedAuthority> authorities;
+
+    public UserPrincipal(Long id, String firstName, String lastName, String nickName, String email, String password, String role, List<GrantedAuthority> authorities, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickName = nickName;
         this.email = email;
         this.password = password;
-        this.authority = authority;
+        this.authorities = authorities;
+        this.role = role;
         this.phone = phone;
     }
 
     public static UserPrincipal create(User user) {
 
-        String name = user.getRole().name();
+        String roleName = user.getRole().name();
+        String banStatusName = user.getBanStatus().name();
 
-        GrantedAuthority authority = new SimpleGrantedAuthority(name);
+        List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(roleName), new SimpleGrantedAuthority(banStatusName));
 
         return new UserPrincipal(
                 user.getId(),
@@ -55,7 +58,8 @@ public class UserPrincipal implements UserDetails {
                 user.getNickName(),
                 user.getEmail(),
                 user.getPassword(),
-                authority,
+                user.getRole().name(),
+                authorities,
                 user.getPhone()
         );
     }
@@ -63,7 +67,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(authority);
+        return authorities;
     }
 
     @Override

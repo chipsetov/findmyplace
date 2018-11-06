@@ -3,6 +3,7 @@ package ua.softserve.rv036.findmeplace.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -143,6 +144,7 @@ public class PlaceController {
     }
 
     @GetMapping("/places/my-places")
+    @PreAuthorize("hasAuthority('NOT_BAN')")
     @RolesAllowed("ROLE_OWNER")
     List<Place> getAllMyPlaces() {
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -151,6 +153,7 @@ public class PlaceController {
     }
 
     @PostMapping("/places/register")
+    @PreAuthorize("hasAuthority('NOT_BAN')")
     @RolesAllowed({"ROLE_OWNER", "ROLE_USER"})
     ResponseEntity registerPlace(@Valid @RequestBody Place place) {
 
@@ -178,6 +181,7 @@ public class PlaceController {
     }
 
     @PostMapping("/places/edit")
+    @PreAuthorize("hasAuthority('NOT_BAN')")
     @RolesAllowed("ROLE_OWNER")
     ResponseEntity updatePlace(@Valid @RequestBody UpdatePlaceRequest updatePlaceRequest) {
         Optional<Place> optionalPlace = placeRepository.findById(updatePlaceRequest.getId());
@@ -266,6 +270,7 @@ public class PlaceController {
     }
 
     @PostMapping("/places/upload-images/{placeId}")
+    @PreAuthorize("hasAuthority('NOT_BAN')")
     @RolesAllowed({"ROLE_OWNER"})
     public ResponseEntity uploadPlaceImages(@RequestParam("files") MultipartFile[] files, @PathVariable Long placeId) {
 
@@ -300,6 +305,7 @@ public class PlaceController {
     }
 
     @RolesAllowed("ROLE_OWNER")
+    @PreAuthorize("hasAuthority('NOT_BAN')")
     @DeleteMapping("/places/images/**")
     public ResponseEntity deletePlaceImage(HttpServletRequest request) {
 
