@@ -5,6 +5,7 @@ import UserBookings from "./Booking";
 import {cancelBooking, getBookings, getFavorites, getUserProfile, removeFavorite} from "../../util/APIUtils";
 import {Link, withRouter} from "react-router-dom";
 import {Col, Row, Tab, Tabs} from "react-materialize";
+import History from "./History";
 
 export class UserPage extends Component {
     constructor(props) {
@@ -25,7 +26,8 @@ export class UserPage extends Component {
             // usersListIsOpened: false,
             profileIsOpened: true,
             favoriteIsOpened: true,
-            approvePlacesIsOpened: false
+            approvePlacesIsOpened: false,
+            historyIsOpened: false,
         };
     }
 
@@ -60,6 +62,12 @@ export class UserPage extends Component {
                                         Favorites
                                     </Link>
                                 </Row>
+                                <Row>
+                                    <Link to="#" onClick={this.showHistory.bind(this)}>
+                                        <img src="img/admin/users.png" alt="users"/>
+                                        History
+                                    </Link>
+                                </Row>
                             </Row>
                         </div>
                     </Col>
@@ -89,6 +97,11 @@ export class UserPage extends Component {
                                 favorites={this.state.favorites}
                                 bookPlace={this.bookPlace.bind(this)}
                                 removeFavorite={this.removeFavorite.bind(this)}
+                            />
+                        </Row>
+                        <Row className={!this.state.historyIsOpened ? 'hidden' : 'feature-row'}>
+                            <History
+
                             />
                         </Row>
                     </Col>
@@ -128,6 +141,8 @@ export class UserPage extends Component {
     hideComponents() {
         this.state.profileIsOpened = false;
         this.state.bookingsIsOpened = false;
+        this.state.favoriteIsOpened = false;
+        this.state.historyIsOpened = false;
     }
 
     showProfile() {
@@ -143,6 +158,11 @@ export class UserPage extends Component {
     showFavorites() {
         this.hideComponents();
         this.state.favoriteIsOpened = true;
+    }
+
+    showHistory() {
+        this.hideComponents();
+        this.state.historyIsOpened = true;
     }
 
     showError(message) {
