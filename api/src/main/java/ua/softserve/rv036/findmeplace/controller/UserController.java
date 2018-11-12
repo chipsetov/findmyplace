@@ -277,4 +277,26 @@ public class UserController {
 
         return placeVisitHistoryRepository.findAllByUserId(id);
     }
+
+    @DeleteMapping("user/visit-history/delete/{id}")
+    public ResponseEntity deleteVisitHistory(@PathVariable("id") Long id, @CurrentUser UserPrincipal currentUser) {
+
+        Optional<PlaceVisitHistory> historyOptional = placeVisitHistoryRepository.findById(id);
+
+        if(!historyOptional.isPresent()) {
+            ApiResponse apiResponse = new ApiResponse(false, "Visit history item not exists");
+            return new ResponseEntity<>(apiResponse,  HttpStatus.BAD_REQUEST);
+        }
+
+        PlaceVisitHistory historyItem = historyOptional.get();
+
+        if(!historyItem.getUserId().equals(currentUser.getId())) {
+            ApiResponse apiResponse = new ApiResponse(false, "Access denied");
+            return new ResponseEntity<>(apiResponse,  HttpStatus.BAD_REQUEST);
+        }
+
+        placeVisitHistoryRepository.deleteById(id);
+
+        return new ResponseEntity<>(new ApiResponse(true, "Visit history item has been deleted"), HttpStatus.OK);
+    }
 }

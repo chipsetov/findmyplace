@@ -1,3 +1,7 @@
+.history-container {
+    height: 800px;
+    overflow: auto;
+}
 
 .history-item-wrapper {
     background-color: #ffffff;

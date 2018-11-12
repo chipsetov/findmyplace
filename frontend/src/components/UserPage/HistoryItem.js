@@ -8,6 +8,7 @@ import AppModal from "../Modal/AppModal";
 import "./History.css"
 import {Session} from "../../utils";
 import Moment from "react-moment";
+import {deleteVisitHistoryItem} from "../../util/APIUtils";
 
 export default class HistoryItem extends Component {
 
@@ -48,6 +49,12 @@ export default class HistoryItem extends Component {
             );
     }
 
+    deleteSubmit = () => {
+        const id = this.props.id;
+
+        deleteVisitHistoryItem(id);
+    };
+
     render() {
 
         return (
@@ -78,6 +85,13 @@ export default class HistoryItem extends Component {
                                     Visit time: <Moment format="DD MMM YYYY HH:mm">{this.props.visitTime}</Moment>
                                 </p>
                             </div>
+                        </Row>
+                        <Row>
+                            <AppModal
+                                action="Delete from history"
+                                message="Are you sure you want to delete this history item?"
+                                buttonStyle="btn-delete"
+                                handleSubmit={this.deleteSubmit}/>
                         </Row>
                     </Col>
                 </Row>

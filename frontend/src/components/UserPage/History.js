@@ -30,10 +30,11 @@ class History extends Component {
         console.log(visits);
 
         return(
-            <Row className="places-container">
+            <Row className="history-container">
                 {
                     visits.map((visit, index) =>
                         <HistoryItem
+                            id={visit.id}
                             key={index}
                             placeId={visit.placeId}
                             visitTime={visit.visitTime}

@@ -25,7 +25,7 @@ export class UserPage extends Component {
             // adminProfileIsOpened: false,
             // usersListIsOpened: false,
             profileIsOpened: true,
-            favoriteIsOpened: true,
+            favoriteIsOpened: false,
             approvePlacesIsOpened: false,
             historyIsOpened: false,
         };
@@ -100,9 +100,7 @@ export class UserPage extends Component {
                             />
                         </Row>
                         <Row className={!this.state.historyIsOpened ? 'hidden' : 'feature-row'}>
-                            <History
-
-                            />
+                            <History/>
                         </Row>
                     </Col>
                 </Row>

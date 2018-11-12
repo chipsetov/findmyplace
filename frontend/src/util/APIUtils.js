@@ -409,3 +409,8 @@ export const getVisitHistory = () => request({
     url: API_BASE_URL + "/user/visit-history",
     method: "GET"
 });
+
+export const deleteVisitHistoryItem = (id) => request({
+    url: API_BASE_URL + `/user/visit-history/delete/${id}/`,
+    method: "DELETE"
+});
