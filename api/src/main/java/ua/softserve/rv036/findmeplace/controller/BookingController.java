@@ -13,6 +13,8 @@ import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 import ua.softserve.rv036.findmeplace.service.UserService;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -139,7 +141,7 @@ public class BookingController {
         final int countFreePlaces = place.getCountFreePlaces();
 
         if (countFreePlaces == 0) {
-            return ResponseEntity.ok().body(new ApiResponse(true, "It hasn't free places"));
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "It hasn't free places"));
         }
 
         place.decrementFreePlaces();
@@ -157,7 +159,21 @@ public class BookingController {
         PlaceVisitHistory placeVisitHistory = new PlaceVisitHistory();
         placeVisitHistory.setPlaceId(place.getId());
         placeVisitHistory.setUserId(user.getId());
-        placeVisitHistory.setVisitTime(new Date());
+
+        Date visitDate;
+        Date currentDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat();
+        format.applyPattern("HH:mm");
+
+        try {
+            visitDate = format.parse(booking.getBookingTime());
+            visitDate.setDate(currentDate.getDate());
+            visitDate.setMonth(currentDate.getMonth());
+            visitDate.setYear(currentDate.getYear());
+        } catch (ParseException e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, e.getMessage()));
+        }
+        placeVisitHistory.setVisitTime(visitDate);
 
         placeVisitHistoryRepository.save(placeVisitHistory);
 

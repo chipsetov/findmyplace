@@ -404,3 +404,8 @@ export function unbanUser(userId) {
         method: 'POST',
     });
 }
+
+export const getVisitHistory = () => request({
+    url: API_BASE_URL + "/user/visit-history",
+    method: "GET"
+});
