@@ -418,3 +418,8 @@ export const unbanPlace = (placeId) => request({
     url: API_BASE_URL + `/places/${placeId}/unban`,
     method: "POST"
 });
+
+export const getBanDetails = () => request({
+    url: API_BASE_URL + "/user/ban/details",
+    method: "GET"
+});

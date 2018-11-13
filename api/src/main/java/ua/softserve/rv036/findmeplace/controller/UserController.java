@@ -15,10 +15,7 @@ import ua.softserve.rv036.findmeplace.model.User;
 import ua.softserve.rv036.findmeplace.model.UserBan;
 import ua.softserve.rv036.findmeplace.model.enums.Role;
 import ua.softserve.rv036.findmeplace.payload.*;
-import ua.softserve.rv036.findmeplace.repository.FeedbackRepository;
-import ua.softserve.rv036.findmeplace.repository.PlaceRepository;
-import ua.softserve.rv036.findmeplace.repository.Place_ManagerRepository;
-import ua.softserve.rv036.findmeplace.repository.UserRepository;
+import ua.softserve.rv036.findmeplace.repository.*;
 import ua.softserve.rv036.findmeplace.security.CurrentUser;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 import ua.softserve.rv036.findmeplace.service.FileStorageService;
@@ -51,6 +48,9 @@ public class UserController {
 
     @Autowired
     private FeedbackRepository feedbackRepository;
+
+    @Autowired
+    private UserBanRepository userBanRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -271,5 +271,17 @@ public class UserController {
     @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity unbanUser(@PathVariable("id") Long id) {
         return userService.unbanUser(id);
+    }
+
+    @GetMapping("/user/ban/details")
+    @PreAuthorize("hasAuthority('BAN')")
+    public UserBan getBanDetails(@CurrentUser UserPrincipal userPrincipal) {
+        Optional<UserBan> userBanOptional = userBanRepository.findFirstByUserIdOrderByIdDesc(userPrincipal.getId());
+
+        if(!userBanOptional.isPresent()) {
+            return null;
+        }
+
+        return userBanOptional.get();
     }
 }
