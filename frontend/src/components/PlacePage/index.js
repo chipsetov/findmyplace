@@ -11,6 +11,7 @@ import {bookPlace} from "../../util/APIUtils";
 import StarRatings from "react-star-ratings";
 import {addMark} from '../../util/APIUtils';
 import Gallery from "react-grid-gallery";
+import {withRouter} from 'react-router-dom';
 
 const toast = window["Materialize"].toast;
 
@@ -48,6 +49,11 @@ class PlacePage extends Component {
             .then(res => res.json())
             .then(
                 (result) => {
+                    if (result.banned) {
+                        this.props.history.push("/");
+                        return;
+                    }
+
                     this.setState({
                         place: result,
                         rating: result.rating
@@ -228,4 +234,4 @@ class PlacePage extends Component {
     }
 }
 
-export default PlacePage;
+export default withRouter(PlacePage);
