@@ -9,6 +9,7 @@ import Places from "./Places/Places";
 import './AdminPage.css';
 import {Session} from "../../utils";
 import ApprovablePlaces from "../ApprovePlace/ApprovablePlaces";
+import BanPlaces from './Places/Ban/BanPlaces';
 
 class AdminPage extends Component {
 
@@ -24,10 +25,12 @@ class AdminPage extends Component {
             avatar: "",
             oldPassword: "",
             newPassword: "",
+            places: [],
             adminProfileIsOpened: true,
             usersListIsOpened: false,
             placesIsOpened: false,
-            approvePlacesIsOpened: false
+            approvePlacesIsOpened: false,
+            banPlaceIsOpened: false
         };
 
         this.hideComponents = this.hideComponents.bind(this);
@@ -36,23 +39,34 @@ class AdminPage extends Component {
         this.showPlaces = this.showPlaces.bind(this);
         this.showApprovePlaces = this.showApprovePlaces.bind(this);
         this.renderRedirect = this.renderRedirect.bind(this);
+        this.showBanPlaces = this.showBanPlaces.bind(this);
     }
 
-    componentDidMount() {
+    updateList() {
         const userId = localStorage.getItem(USER_ID);
 
         getUserProfile(userId)
             .then((response) => {
-                this.setState({
-                    firstName: response['firstName'],
-                    lastName: response['lastName'],
-                    userName: response['username'],
-                    email: response['email'],
-                    phone: response['phone'],
-                    avatar: response['avatar'],
-                });
-            });
+                fetch("/map")
+                    .then((response) => response.json())
+                    .then((places) => {
+                        console.log(places);
 
+                        this.setState({
+                            firstName: response['firstName'],
+                            lastName: response['lastName'],
+                            userName: response['username'],
+                            email: response['email'],
+                            phone: response['phone'],
+                            avatar: response['avatar'],
+                            places: places
+                        });
+                    });
+            });
+    }
+
+    componentDidMount() {
+        this.updateList();
     }
 
     hideComponents(){
@@ -60,11 +74,17 @@ class AdminPage extends Component {
         this.state.usersListIsOpened = false;
         this.state.placesIsOpened = false;
         this.state.approvePlacesIsOpened = false;
+        this.state.banPlaceIsOpened = false;
     }
 
     showProfile() {
         this.hideComponents();
         this.state.adminProfileIsOpened = true;
+    }
+
+    showBanPlaces() {
+        this.hideComponents();
+        this.state.banPlaceIsOpened = true;
     }
 
     showUsersList() {
@@ -125,6 +145,12 @@ class AdminPage extends Component {
                                         Approve/Reject places
                                     </Link>
                                 </Row>
+                                <Row>
+                                    <Link to="#" onClick = { this.showBanPlaces }>
+                                        <img src="img/admin/user.png" alt="place"/>
+                                        Ban Place
+                                    </Link>
+                                </Row>
                             </Row>
                         </div>
                     </Col>
@@ -145,10 +171,20 @@ class AdminPage extends Component {
                             <UsersList/>
                         </Row>
                         <Row className={!this.state.placesIsOpened ? 'hidden' : 'feature-row'}>
-                            <Places/>
+                            <Places
+                                places = { this.state.places }
+                                onDeletePlaceHandler = { this.onDeletePlaceHandler.bind(this) }
+                                onBanPlaceHandler = { this.onBanPlaceHandler.bind(this) }
+                            />
                         </Row>
                         <Row className={!this.state.approvePlacesIsOpened ? 'hidden' : 'feature-row'}>
                             <ApprovablePlaces/>
+                        </Row>
+                        <Row className={!this.state.banPlaceIsOpened ? 'hidden' : 'feature-row'}>
+                            <BanPlaces
+                                places = { this.state.places }
+                                onUnbanPlaceHandler = { this.onUnbanPlaceHandler.bind(this) }
+                            />
                         </Row>
                     </Col>
                 </Row>
@@ -156,6 +192,17 @@ class AdminPage extends Component {
         );
     }
 
+    onDeletePlaceHandler() {
+        this.updateList();
+    }
+
+    onBanPlaceHandler() {
+        this.updateList();
+    }
+
+    onUnbanPlaceHandler() {
+        this.updateList();
+    }
 }
 
 export default withRouter(AdminPage);

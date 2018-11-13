@@ -69,6 +69,10 @@ public class Place {
 
     @Column(name = "is_rejected")
     private boolean rejected;
+
+    @Column(name = "is_banned")
+    private boolean banned;
+
     public void incrementFreePlaces() {
         countFreePlaces++;
     }

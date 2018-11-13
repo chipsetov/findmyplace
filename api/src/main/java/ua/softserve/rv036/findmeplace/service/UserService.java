@@ -211,6 +211,24 @@ public class UserService {
         }
     }
 
+    public void sendBanMessage(User owner, String placeName, String banMessage) throws IOException {
+        if (!StringUtils.isEmpty(owner.getEmail())) {
+            String message = "Hi, " + owner.getFirstName() + " " + owner.getLastName()
+                    + "! Your place " + placeName + " was banned because: \n" + banMessage + "!";
+
+            mailSender.send("lewadece@daabox.com"/*owner.getEmail()*/, "Ban!", message);
+        }
+    }
+
+    public void sendUnbanMessage(User owner, String placeName) throws IOException {
+        if (!StringUtils.isEmpty(owner.getEmail())) {
+            String message = "Hi, " + owner.getFirstName() + " " + owner.getLastName()
+                    + ", congratulations! Your place " + placeName + " was unbanned.";
+
+            mailSender.send("lewadece@daabox.com"/*owner.getEmail()*/, "Good news!", message);
+        }
+    }
+
     public ResponseEntity banUser(UserBan userBan) {
         Optional<User> optionalUser = userRepository.findById(userBan.getUserId());
         User user = null;

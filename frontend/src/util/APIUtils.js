@@ -404,3 +404,17 @@ export function unbanUser(userId) {
         method: 'POST',
     });
 }
+
+export const banPlace = (placeId, message) => request({
+    url: API_BASE_URL + `/places/ban`,
+    method: "POST",
+    body: JSON.stringify({
+        placeId: placeId,
+        message: message
+    })
+});
+
+export const unbanPlace = (placeId) => request({
+    url: API_BASE_URL + `/places/${placeId}/unban`,
+    method: "POST"
+});

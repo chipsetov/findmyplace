@@ -12,14 +12,17 @@ import ua.softserve.rv036.findmeplace.model.*;
 import ua.softserve.rv036.findmeplace.model.enums.PlaceType;
 import ua.softserve.rv036.findmeplace.model.enums.Role;
 import ua.softserve.rv036.findmeplace.payload.ApiResponse;
+import ua.softserve.rv036.findmeplace.payload.BanPlace;
 import ua.softserve.rv036.findmeplace.payload.UpdatePlaceRequest;
 import ua.softserve.rv036.findmeplace.repository.*;
 import ua.softserve.rv036.findmeplace.security.UserPrincipal;
 import ua.softserve.rv036.findmeplace.service.FileStorageService;
+import ua.softserve.rv036.findmeplace.service.UserService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +47,8 @@ public class PlaceController {
 
     @Autowired
     private PlaceImageRepository placeImageRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("place/map")
     List<Place> getPlace() {
@@ -59,9 +64,6 @@ public class PlaceController {
     Optional<Place> getPlaceById(@PathVariable Long id) {
         return placeRepository.findById(id);
     }
-
-
-
 
     @GetMapping("/places/{id}/managers")
     List<Place_Manager> managersByPlaceId(@PathVariable("id") Long id) {
@@ -178,6 +180,70 @@ public class PlaceController {
 
             return new ResponseEntity(result, HttpStatus.CREATED);
         }
+    }
+
+    @PostMapping("/places/ban")
+    @RolesAllowed("ROLE_ADMIN")
+    ResponseEntity banPlace(@RequestBody BanPlace banPlace) {
+        final Place place = placeRepository.findById(banPlace.getPlaceId()).orElse(null);
+
+        if(place == null) {
+            return ResponseEntity.ok().body(new ApiResponse(false, "Place doesn't exist"));
+        }
+
+        if (place.isBanned()) {
+            return ResponseEntity.ok().body(new ApiResponse(false, "Place has already banned"));
+        }
+
+        final Long ownerId = place.getOwnerId();
+        final User owner = userRepository.findById(ownerId).orElse(null);
+
+        if (owner != null)
+        {
+            try {
+                userService.sendBanMessage(owner, place.getName(), banPlace.getMessage());
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        place.setBanned(true);
+        placeRepository.save(place);
+
+        return ResponseEntity.ok().body(new ApiResponse(true, "Place was banned successfully"));
+    }
+
+    @PostMapping("/places/{id}/unban")
+    @RolesAllowed("ROLE_ADMIN")
+    ResponseEntity unbanPlace(@PathVariable Long id) {
+        Place place = placeRepository.findById(id).orElse(null);
+
+        if(place == null) {
+            return ResponseEntity.ok().body(new ApiResponse(false, "Place doesn't exist"));
+        }
+
+        if (!place.isBanned()) {
+            return ResponseEntity.ok().body(new ApiResponse(false, "Place isn't banned"));
+        }
+
+        final Long ownerId = place.getOwnerId();
+        final User owner = userRepository.findById(ownerId).orElse(null);
+
+        if (owner != null)
+        {
+            try {
+                userService.sendUnbanMessage(owner, place.getName());
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        place.setBanned(false);
+        placeRepository.save(place);
+
+        return ResponseEntity.ok().body(new ApiResponse(true, "Place was unbanned successfully"));
     }
 
     @PostMapping("/places/edit")

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {deleteUserPlace} from "../../../util/APIUtils";
+import {banPlace, deleteUserPlace} from "../../../util/APIUtils";
 import {Row} from "react-materialize";
 import Place from "../../User/UserPlaces/Place";
 import PlacesFilter from "./Filter/PlacesFilter";
@@ -11,42 +11,34 @@ class Places extends Component {
         super(props);
 
         this.state = {
-            places: [],
+            // places: [],
             filteredPlaces: []
         };
 
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleBan = this.handleBan.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
     }
-
-    componentDidMount() {
-        fetch("/map")
-            .then((response) => response.json())
-            .then((result) => {
-                this.setState({
-                    places: result,
-                    filteredPlaces: result
-                });
-            })
-    };
 
     handleDelete(id) {
         deleteUserPlace(id)
             .then((data) => {
-                let places = this.state.places.filter((place) => {
-                    return id !== place.id;
-                });
-
-                this.setState({
-                    places: places,
-                    filteredPlaces: places
-                });
-
+                this.props.onDeletePlaceHandler();
                 window["Materialize"].toast("Place deleted", 3000);
             }).catch((error) => {
             console.error('error', error);
         });
     };
+
+    handleBan(placeId, message) {
+        console.log("ban place: ", placeId, message);
+
+        banPlace(placeId, message)
+            .then(response => {
+                this.props.onBanPlaceHandler();
+            })
+            .catch(error => console.log(error));
+    }
 
     handleUpdate = (places) => {
         this.setState({
@@ -55,7 +47,7 @@ class Places extends Component {
     };
 
     render() {
-        const places = this.state.filteredPlaces;
+        const places = this.getPlaces();
 
         return(
             <Row className="places-wrapper">
@@ -63,7 +55,7 @@ class Places extends Component {
                     <h5>Places</h5>
                 </Row>
                 <Row className="places-filter">
-                    <PlacesFilter   places={this.state.places}
+                    <PlacesFilter   places={this.props.places}
                                     filteredPlaces={this.state.filteredPlaces}
                                     handleUpdate={this.handleUpdate}
                     />
@@ -80,8 +72,11 @@ class Places extends Component {
                                        countFreePlaces={item.countFreePlaces}
                                        isApprove={item.approved}
                                        isRejected={item.rejected}
+                                       isBanned={item.banned}
+                                       showBan={true}
                                        ownerId={item.ownerId}
                                        handleDelete={this.handleDelete}
+                                       handleBan={this.handleBan}
                                 />
                             )
                         )
@@ -91,6 +86,14 @@ class Places extends Component {
         );
     }
 
+    getPlaces() {
+        const otherPlaces = this.state.filteredPlaces;
+
+        return this.props.places.filter(place => {
+            console.log(place.id, otherPlaces.indexOf(place));
+            return otherPlaces.indexOf(place) == -1
+        });
+    }
 }
 
 export default Places;

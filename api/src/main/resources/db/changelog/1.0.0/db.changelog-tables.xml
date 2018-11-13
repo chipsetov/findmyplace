@@ -126,6 +126,10 @@
             <column name="is_rejected" type="boolean">
                 <constraints nullable="false"/>
             </column>
+
+            <column name="is_banned" type="boolean">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

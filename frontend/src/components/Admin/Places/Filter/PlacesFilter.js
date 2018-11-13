@@ -34,9 +34,9 @@ class PlacesFilter extends Component {
     handleFilter() {
         let places = this.props.places.filter((place) => {
             if ((this.state.selectedPlaceType === "None")) {
-                return place;
+                return !place;
             } else {
-                return place.placeType.name === this.state.selectedPlaceType;
+                return place.placeType.name !== this.state.selectedPlaceType;
             }
         });
 

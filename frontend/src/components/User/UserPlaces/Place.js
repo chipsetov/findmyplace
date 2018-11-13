@@ -5,6 +5,7 @@ import StarRatings from 'react-star-ratings';
 import AppModal from "../../Modal/AppModal";
 import './Place.css';
 import {Session} from "../../../utils";
+import InputModal from "../../Modal/InputModal";
 
 class Place extends Component {
 
@@ -12,6 +13,7 @@ class Place extends Component {
         super(props);
 
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleBan = this.handleBan.bind(this);
         this.viewModalWindow = this.viewModalWindow.bind(this);
 
         this.state = {
@@ -54,14 +56,34 @@ class Place extends Component {
         this.props.handleDelete(id);
     }
 
+    handleBan(message) {
+        const id = this.props.id;
+        this.props.handleBan(id, message);
+    }
+
     viewModalWindow() {
         if(Session.isAdmin() || (Session.isOwner() && Session.userId() == this.props.ownerId)) {
+            const style = "black padding-left" + ((this.props.isBanned === false && this.props.showBan === true) ? "" : " hidden");
+
             return (
-                <AppModal action={"Delete"}
-                          message={"Are you sure you want to delete this place?"}
-                          buttonStyle="btn-delete"
-                          handleSubmit={this.handleDelete}
-                />
+                <Row>
+                    <Col s={4}>
+                        <InputModal
+                            header="Write the reason of bun"
+                            actionName="Ban"
+                            buttonClassName={style}
+                            modalTitle="Write the reason of bun"
+                            handleAction={this.handleBan}
+                        />
+                    </Col>
+                    <Col offset="s4" s={4}>
+                        <AppModal action={"Delete"}
+                                  message={"Are you sure you want to delete this place?"}
+                                  buttonStyle="btn-delete"
+                                  handleSubmit={this.handleDelete}
+                        />
+                    </Col>
+                </Row>
             )
 
         }
@@ -125,10 +147,10 @@ class Place extends Component {
                 </Row>
 
                 <Row className="additional-info">
-                    <Col s={6} className="free-places">
+                    <Col s={4} className="free-places">
                         Free places: {this.props.countFreePlaces}
                     </Col>
-                    <Col s={6} className="place-modal">
+                    <Col s={8} className="place-modal">
                         {this.viewModalWindow()}
                     </Col>
                 </Row>

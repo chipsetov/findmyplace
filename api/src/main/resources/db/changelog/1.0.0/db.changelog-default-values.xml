@@ -78,6 +78,7 @@
             <column name="owner_id" value="3"/>
             <column name="is_approved" value="TRUE"/>
             <column name="is_rejected" value="FALSE"/>
+            <column name="is_banned" value="FALSE"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="Manhattan"/>
@@ -93,6 +94,7 @@
             <column name="owner_id" value="3"/>
             <column name="is_approved" value="TRUE"/>
             <column name="is_rejected" value="FALSE"/>
+            <column name="is_banned" value="FALSE"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="Стоянка МИР"/>
@@ -108,6 +110,7 @@
             <column name="owner_id" value="3"/>
             <column name="is_approved" value="TRUE"/>
             <column name="is_rejected" value="FALSE"/>
+            <column name="is_banned" value="FALSE"/>
         </insert>
         <insert tableName="places">
             <column name="name" value="McDonald's"/>
@@ -123,6 +126,7 @@
             <column name="owner_id" value="3"/>
             <column name="is_approved" value="TRUE"/>
             <column name="is_rejected" value="FALSE"/>
+            <column name="is_banned" value="FALSE"/>
         </insert>
     </changeSet>
 

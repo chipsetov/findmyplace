@@ -48,10 +48,10 @@ class InputModal extends Component {
                     {this.props.actionName}
                 </Button>
                 <Modal styles={{
-                    modal: {
-                        width: 800,
-                    }
-                }}
+                            modal: {
+                                width: 800,
+                            }
+                       }}
                        open={isOpen}
                        onClose={this.handleClose}
                        header={this.props.header}
