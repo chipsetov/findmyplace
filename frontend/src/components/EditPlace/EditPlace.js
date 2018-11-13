@@ -4,6 +4,7 @@ import {Session} from "../../utils";
 import {Redirect} from 'react-router-dom';
 import "../../styles/RegisterPlace.css";
 import '../../styles/Form.css';
+import { withRouter } from "react-router-dom";
 
 import EditImages from "./EditImages";
 import {updatePlace} from "../../util/APIUtils";
@@ -105,12 +106,17 @@ class EditPlace extends Component {
         fetch("/places/" + this.props.placeId)
             .then(res => res.json())
             .then(place => {
-
                     if (place === null) {
                         this.setState({
                             redirect: true,
                         });
                         return;
+                    }
+
+                    if (place.banned) {
+                        this.setState({
+                            redirect: true
+                        });
                     }
 
                     //Must be '!='. Don't touch this!
@@ -219,4 +225,4 @@ class EditPlace extends Component {
     }
 }
 
-export default EditPlace;
+export default withRouter(EditPlace);
