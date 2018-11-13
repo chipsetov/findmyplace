@@ -423,3 +423,12 @@ export const getBanDetails = () => request({
     url: API_BASE_URL + "/user/ban/details",
     method: "GET"
 });
+export const getVisitHistory = () => request({
+    url: API_BASE_URL + "/user/visit-history",
+    method: "GET"
+});
+
+export const deleteVisitHistoryItem = (id) => request({
+    url: API_BASE_URL + `/user/visit-history/delete/${id}/`,
+    method: "DELETE"
+});

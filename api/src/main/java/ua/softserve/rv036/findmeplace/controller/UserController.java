@@ -9,10 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ua.softserve.rv036.findmeplace.model.Place;
-import ua.softserve.rv036.findmeplace.model.Place_Manager;
-import ua.softserve.rv036.findmeplace.model.User;
-import ua.softserve.rv036.findmeplace.model.UserBan;
+import ua.softserve.rv036.findmeplace.model.*;
 import ua.softserve.rv036.findmeplace.model.enums.Role;
 import ua.softserve.rv036.findmeplace.payload.*;
 import ua.softserve.rv036.findmeplace.repository.*;
@@ -51,6 +48,9 @@ public class UserController {
 
     @Autowired
     private UserBanRepository userBanRepository;
+
+    @Autowired
+    private PlaceVisitHistoryRepository placeVisitHistoryRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -283,5 +283,35 @@ public class UserController {
         }
 
         return userBanOptional.get();
+    }
+
+    @GetMapping("user/visit-history")
+    @RolesAllowed({"ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN", "ROLE_OWNER"})
+    public List<PlaceVisitHistory> userHistoryVisit(@CurrentUser UserPrincipal currentUser) {
+        long id = currentUser.getId();
+
+        return placeVisitHistoryRepository.findAllByUserId(id);
+    }
+
+    @DeleteMapping("user/visit-history/delete/{id}")
+    public ResponseEntity deleteVisitHistory(@PathVariable("id") Long id, @CurrentUser UserPrincipal currentUser) {
+
+        Optional<PlaceVisitHistory> historyOptional = placeVisitHistoryRepository.findById(id);
+
+        if(!historyOptional.isPresent()) {
+            ApiResponse apiResponse = new ApiResponse(false, "Visit history item not exists");
+            return new ResponseEntity<>(apiResponse,  HttpStatus.BAD_REQUEST);
+        }
+
+        PlaceVisitHistory historyItem = historyOptional.get();
+
+        if(!historyItem.getUserId().equals(currentUser.getId())) {
+            ApiResponse apiResponse = new ApiResponse(false, "Access denied");
+            return new ResponseEntity<>(apiResponse,  HttpStatus.BAD_REQUEST);
+        }
+
+        placeVisitHistoryRepository.deleteById(id);
+
+        return new ResponseEntity<>(new ApiResponse(true, "Visit history item has been deleted"), HttpStatus.OK);
     }
 }

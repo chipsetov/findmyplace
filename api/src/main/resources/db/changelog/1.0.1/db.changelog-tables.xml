@@ -42,4 +42,28 @@
             </column>
         </createTable>
     </changeSet>
+
+    <!-- Place visit history -->
+    <changeSet id="3" author="rv036">
+        <createTable tableName="place_visit_history">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="place_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_place_id" references="places(id)"
+                             deleteCascade="true"/>
+            </column>
+
+            <column name="user_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_user_id" references="users(id)"
+                             deleteCascade="true"/>
+            </column>
+
+            <column name="visit_time" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>
