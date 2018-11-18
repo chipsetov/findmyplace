@@ -20,19 +20,24 @@ class UsersList extends Component {
         this.handleUpdate = this.handleUpdate.bind(this);
     }
 
-    componentDidMount() {
-        fetch("/users")
-            .then((response) => response.json())
-            .then((result) => {
-                let users = result.filter((user) => {
-                    return user.id != Session.userId();
-                });
-                this.setState({
-                    users: users,
-                    filteredUsers: users
-                });
 
-            })
+    updateList = () => {
+        fetch("/users")
+                    .then((response) => response.json())
+                    .then((result) => {
+                        let users = result.filter((user) => {
+                            return user.id != Session.userId();
+                        });
+                        this.setState({
+                            users: users,
+                            filteredUsers: users
+                        });
+
+                    })
+    }
+
+    componentDidMount() {
+        this.updateList();
     };
 
     handleDelete(id) {
@@ -98,6 +103,7 @@ class UsersList extends Component {
                                                lastUpdateDate={item.lastUpdateDate}
                                                banStatus={item.banStatus}
                                                email={item.email}
+                                               update={this.updateList}
                                                handleDelete={this.handleDelete}
                                         />
                                     )

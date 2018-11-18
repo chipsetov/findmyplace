@@ -21,6 +21,7 @@ class User extends Component {
     handleDelete() {
         const id = this.props.id;
         this.props.handleDelete(id);
+        this.props.update();
     }
 
     sendEmail(subject, message) {
@@ -49,6 +50,7 @@ class User extends Component {
         banUser(data)
             .then(response => {
                 window.Materialize.toast("User has been banned", 3000);
+                this.props.update();
             }).catch(err => {
                 console.log(err);
                 window.Materialize.toast(err.message, 3000);
@@ -59,6 +61,7 @@ class User extends Component {
         unbanUser(this.props.id)
             .then(response => {
                 window.Materialize.toast("User has been unbanned", 3000);
+                this.props.update();
             }).catch(err => {
             console.log(err);
             window.Materialize.toast("Server error", 3000);

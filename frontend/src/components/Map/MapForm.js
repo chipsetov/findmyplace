@@ -39,11 +39,14 @@ class MapForm extends Component {
     }
 
     componentDidMount() {
+        console.clear();
+        console.log('update map');
+
         fetch("/map")
             .then(response => response.json())
             .then(
                 result => {
-                    this.setState({places: result});
+                    this.setState({places: result.filter(place => !place.banned)});
                     console.log("state", this.state.places)
                 })
     }
@@ -105,6 +108,13 @@ class MapForm extends Component {
     showAll() {
         showAllPlaces()
             .then(result => {
+                result = result.filter(place => {
+                    console.log(place.id, place.banned);
+                    return place.banned == false;
+                });
+
+                console.log(result);
+
                 this.setState({
                     places: result,
                     latitude: result[0].latitude,
