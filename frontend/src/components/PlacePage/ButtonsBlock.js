@@ -25,7 +25,13 @@ class ButtonsBlock extends Component {
         return (
             <CardPanel className="card-panel-btn blue lighten-5">
                 <Row className="center">
-                    <Link to="#">
+                    <Link to={{
+                        pathname: '/map',
+                        state: {
+                            latitude: this.props.latitude,
+                            longitude: this.props.longitude,
+                        }
+                    }}>
                         <Col>
                             <Icon className="black-text" large>place</Icon>
                             <p className="text">On the map</p>

@@ -173,6 +173,8 @@ class PlacePage extends Component {
                                   rating={this.state.rating}
                                   changeRating={this.changeRating}
                                   isAuthenticated={this.props.isAuthenticated}
+                                  latitude={this.state.place.latitude}
+                                  longitude={this.state.place.longitude}
                     />
                     <Info openTime={place.open}
                           closeTime={place.close}

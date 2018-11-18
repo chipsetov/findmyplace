@@ -9,11 +9,23 @@ class MapForm extends Component {
 
     constructor(props) {
         super(props);
+
+        let latitude, longitude;
+
+        if(this.props.location.state) {
+            latitude = this.props.location.state.latitude ? this.props.location.state.latitude : 50.6219427;
+            longitude = this.props.location.state.longitude ? this.props.location.state.longitude : 26.2493254;
+        } else {
+            latitude = 50.6219427;
+            longitude = 26.2493254;
+        }
+
+
         this.state = {
             places: [],
-            latitude: 50.6219427,
+            latitude: latitude,
             currentLatitude: ' ',
-            longitude: 26.2493254,
+            longitude: longitude,
             currentLongitude: ' ',
             zoom: 15,
             active: true,
