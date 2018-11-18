@@ -3,7 +3,6 @@ package ua.softserve.rv036.findmeplace.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +18,7 @@ import ua.softserve.rv036.findmeplace.service.FileStorageService;
 import ua.softserve.rv036.findmeplace.service.MailSender;
 import ua.softserve.rv036.findmeplace.service.Place_ManagerService;
 import ua.softserve.rv036.findmeplace.service.UserService;
+import ua.softserve.rv036.findmeplace.utils.SearchUser;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
@@ -79,9 +79,14 @@ public class UserController {
 //        return userSummary;
 //    }
 
-    @GetMapping("/users")
-    List<User> getAll() {
-        return userRepository.findAll();
+//    @GetMapping("/users")
+//    List<User> getAll() {
+//        return userRepository.findAll();
+//    }
+
+    @PostMapping("/users/search")
+    List<User> searchUsers(@RequestBody SearchUser searchUserObj) {
+        return userRepository.findByNickNameIn(searchUserObj.getSearchValue());
     }
 
     @GetMapping("/users/{id}")
@@ -136,10 +141,10 @@ public class UserController {
             String link = fileStorageService.storeFile(file, "users/" + user.getId());
             user.setAvatarUrl(link);
             userRepository.save(user);
-            return new ResponseEntity(new ApiResponse(true, "Avatar changed"), HttpStatus.OK);
+            return new ResponseEntity<>(new ApiResponse(true, "Avatar changed"), HttpStatus.OK);
         }
 
-        return new ResponseEntity(new ApiResponse(false, "Avatar not changed"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ApiResponse(false, "Avatar not changed"), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("get-avatar")

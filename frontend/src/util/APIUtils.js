@@ -181,6 +181,14 @@ export function searchPlace(searchRequest) {
     });
 }
 
+export function searchUser(searchUserRequest) {
+    return request({
+        url: API_BASE_URL + "/users/search",
+        method: 'POST',
+        body: JSON.stringify(searchUserRequest)
+    })
+}
+
 export function showAllPlaces() {
     return request({
         url: API_BASE_URL + "/map/all",
