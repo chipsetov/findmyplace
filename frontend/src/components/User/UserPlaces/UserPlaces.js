@@ -64,7 +64,7 @@ class UserPlaces extends Component {
     renderTop = () => {
         if(this.state.places.length === 0) {
             return(
-                <Row>
+                <Row className="missing-text">
                     <h3>You are not the owner. To become an owner, register at least one place.</h3>
                 </Row>
             )

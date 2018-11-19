@@ -3,6 +3,11 @@
     margin-bottom: 30px;
 }
 
+.missing-text h3 {
+    margin: 0;
+    padding-top: 20px;
+}
+
 .user-places-wrapper h5 {
     padding-top: 20px;
     margin: 0;
