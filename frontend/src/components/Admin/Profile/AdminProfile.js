@@ -36,18 +36,21 @@ class AdminProfile extends Component {
         const lastName = this.state.lastName;
         const userName = this.state.userName;
         const email = this.state.email;
+        const oldPassword = this.state.oldPassword;
+        const newPassword = this.state.newPassword;
+        const confirmPassword = this.state.confirmPassword;
 
-        if (!firstName.length) {
-            this.message("Please enter your first name");
+        if (firstName.length < 3) {
+            this.message("Please enter valid first name");
             return;
         }
 
-        if (!lastName.length) {
-            this.message("Please enter your last name");
+        if (lastName.length < 3) {
+            this.message("Please enter valid last name");
             return;
         }
 
-        if (!userName.length) {
+        if (userName.length < 3) {
             this.message("Please enter your username");
             return;
         }
@@ -58,15 +61,27 @@ class AdminProfile extends Component {
             return;
         }
 
+        if (!oldPassword.length) {
+            this.message("Please enter your password");
+            return;
+        }
+
         const userId = localStorage.getItem(USER_ID);
         const profile = {
             userId: userId,
             firstName: firstName,
             lastName: lastName,
             nickName: userName,
-            email: email
+            email: email,
+            password: oldPassword
         };
 
+        if (newPassword.length) {
+            if (newPassword != confirmPassword) {
+                this.message("Please enter your password");
+                return;
+            }
+        }
         updateUserProfile(profile)
             .then(response => {
                 this.message(response.message);

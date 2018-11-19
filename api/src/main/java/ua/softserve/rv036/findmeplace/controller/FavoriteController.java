@@ -43,6 +43,24 @@ public class FavoriteController {
         return favoriteRepository.findAllWithPlaceByUserId(userId);
     }
 
+    @GetMapping("/{placeId}/check")
+    public boolean checkFavorite(@PathVariable Long placeId) {
+        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        final Long userId = principal.getId();
+        System.out.println(userId);
+        final Favorite favorite = favoriteRepository.findByPlaceIdAndUserId(placeId, userId);
+
+        System.out.println("favorite");
+        System.out.println(favorite);
+
+        if (favorite == null) {
+            return false;
+        }
+
+        return true;
+    }
+
     @DeleteMapping("/{placeId}/remove")
     public ResponseEntity removeFavoritePlace(@PathVariable Long placeId) {
         UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

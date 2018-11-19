@@ -37,7 +37,7 @@ export default class FavoriteItem extends Component {
                     </Row>
                     <Row>
                         <Col s={6} className="free-places">
-                            <Button className={"btn-book grey darken-4"} onClick={() => { this.props.bookPlace(this.props.id); }}>Yes</Button>
+                            <Button className={"btn-book grey darken-4"} onClick={() => { this.props.bookPlace(this.props.id); }}>Book</Button>
                         </Col>
                         <Col s={6} className="free-places">
                             <AppModal action={"Delete"}

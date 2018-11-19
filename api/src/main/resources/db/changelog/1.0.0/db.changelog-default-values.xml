@@ -172,42 +172,42 @@
     </changeSet>
 
     <!-- Booking -->
-    <changeSet id="6" author="rv036">
-        <insert tableName="booking">
-            <column name="user_id" value="1"/>
-            <column name="place_id" value="1"/>
-            <column name="booking_time" value="10:00"/>
-            <column name="status" value="1"/>
-        </insert>
-        <insert tableName="booking">
-            <column name="user_id" value="1"/>
-            <column name="place_id" value="2"/>
-            <column name="booking_time" value="12:00"/>
-            <column name="status" value="1"/>
-        </insert>
-        <insert tableName="booking">
-            <column name="user_id" value="1"/>
-            <column name="place_id" value="2"/>
-            <column name="booking_time" value="13:30"/>
-            <column name="status" value="2"/>
-        </insert>
-        <insert tableName="booking">
-            <column name="user_id" value="2"/>
-            <column name="place_id" value="2"/>
-            <column name="booking_time" value="14:30"/>
-            <column name="status" value="0"/>
-        </insert>
-        <insert tableName="booking">
-            <column name="user_id" value="3"/>
-            <column name="place_id" value="1"/>
-            <column name="booking_time" value="16:00"/>
-            <column name="status" value="0"/>
-        </insert>
-        <insert tableName="booking">
-            <column name="user_id" value="1"/>
-            <column name="place_id" value="2"/>
-            <column name="booking_time" value="9:00"/>
-            <column name="status" value="0"/>
-        </insert>
-    </changeSet>
+    <!--<changeSet id="6" author="rv036">-->
+        <!--<insert tableName="booking">-->
+            <!--<column name="user_id" value="1"/>-->
+            <!--<column name="place_id" value="1"/>-->
+            <!--<column name="booking_time" value="10:00"/>-->
+            <!--<column name="status" value="1"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="booking">-->
+            <!--<column name="user_id" value="1"/>-->
+            <!--<column name="place_id" value="2"/>-->
+            <!--<column name="booking_time" value="12:00"/>-->
+            <!--<column name="status" value="1"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="booking">-->
+            <!--<column name="user_id" value="1"/>-->
+            <!--<column name="place_id" value="2"/>-->
+            <!--<column name="booking_time" value="13:30"/>-->
+            <!--<column name="status" value="2"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="booking">-->
+            <!--<column name="user_id" value="2"/>-->
+            <!--<column name="place_id" value="2"/>-->
+            <!--<column name="booking_time" value="14:30"/>-->
+            <!--<column name="status" value="0"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="booking">-->
+            <!--<column name="user_id" value="3"/>-->
+            <!--<column name="place_id" value="1"/>-->
+            <!--<column name="booking_time" value="16:00"/>-->
+            <!--<column name="status" value="0"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="booking">-->
+            <!--<column name="user_id" value="1"/>-->
+            <!--<column name="place_id" value="2"/>-->
+            <!--<column name="booking_time" value="9:00"/>-->
+            <!--<column name="status" value="0"/>-->
+        <!--</insert>-->
+    <!--</changeSet>-->
 </databaseChangeLog>
