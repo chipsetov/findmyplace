@@ -23,4 +23,6 @@ public interface BookingRepository extends CrudRepository<Booking, Long> {
     @Query("select new Booking (b.id, b.userId, b.placeId, b.bookingTime, b.status, p.name, u.nickName)" +
             "from Booking  b, Place p, User u where  u.id = b.userId and p.id = b.placeId and b.id = :id")
     Optional<Booking> findByIdWithPlaceNameAndUserName(@Param("id") Long id);
+
+    Optional<Booking> findByUserIdAndPlaceId(Long userId, Long placeId);
 }

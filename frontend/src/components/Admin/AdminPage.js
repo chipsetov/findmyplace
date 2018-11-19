@@ -163,6 +163,7 @@ class AdminPage extends Component {
                                                   email={this.state.email}
                                                   userName={this.state.userName}
                                                   handleAvatarUpdated={this.props.handleAvatarUpdated}
+                                                  handleRefresh={this.handleRefresh.bind(this)}
                                     />
                                 </Tab>
                             </Tabs>
@@ -190,6 +191,10 @@ class AdminPage extends Component {
                 </Row>
             </div>
         );
+    }
+
+    handleRefresh() {
+        this.componentDidMount();
     }
 
     onDeletePlaceHandler() {

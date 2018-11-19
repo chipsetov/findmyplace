@@ -5,7 +5,7 @@ import ButtonsBlock from './ButtonsBlock.js';
 import ReviewsBlock from './ReviewsBlock.js';
 import ManagersBlock from './ManagersBlock.js';
 import Info from './Info.js';
-import {addFavorite, changeCountFreePlaces} from "../../util/APIUtils";
+import {addFavorite, changeCountFreePlaces, checkFavorite, removeFavorite} from "../../util/APIUtils";
 import {checkBookingTime, PAGE_CHANGED, Session} from "../../utils";
 import {bookPlace} from "../../util/APIUtils";
 import StarRatings from "react-star-ratings";
@@ -26,6 +26,7 @@ class PlacePage extends Component {
             place: {},
             picturesFromServer: [],
             rating: 0,
+            favorite: false,
             viewManager: Session.isOwner(),
         };
 
@@ -54,10 +55,13 @@ class PlacePage extends Component {
                         return;
                     }
 
-                    this.setState({
-                        place: result,
-                        rating: result.rating
-                    });
+                    checkFavorite(result.id).then((favorite => {
+                        this.setState({
+                            place: result,
+                            rating: result.rating,
+                            favorite: favorite
+                        });
+                    }));
                 }
             );
 
@@ -178,6 +182,7 @@ class PlacePage extends Component {
                                   addToFavorite={this.addToFavorite.bind(this)}
                                   placeId={place.id}
                                   rating={this.state.rating}
+                                  favorite={this.state.favorite}
                                   changeRating={this.changeRating}
                                   isAuthenticated={this.props.isAuthenticated}
                                   latitude={this.state.place.latitude}
@@ -211,12 +216,24 @@ class PlacePage extends Component {
         }));
     }
 
-    addToFavorite() {
-        addFavorite(this.state.place.id).then(response => {
-            toast(response.message, 3000);
-        }).catch(error => {
-            toast(error.message, 3000);
-        });
+    addToFavorite(add) {
+        if (add) {
+            addFavorite(this.state.place.id).then(response => {
+                toast(response.message, 3000);
+                this.state['favorite'] = true;
+                this.setState({state: this.state});
+            }).catch(error => {
+                toast(error.message, 3000);
+            });
+        } else {
+            removeFavorite(this.state.place.id).then(response => {
+                toast(response.message, 3000);
+                this.state['favorite'] = false;
+                this.setState({state: this.state});
+            }).catch(error => {
+                toast(error.message, 3000);
+            });
+        }
     }
 
     onBookCompleteHandler(time) {
@@ -228,7 +245,8 @@ class PlacePage extends Component {
                 bookingTime: time
             }).then((response) => {
                 console.log(response);
-            });
+                toast(response.message, 3000);
+            }).catch(error => toast(error.message, 3000));
             return;
         }
 

@@ -84,6 +84,13 @@ public class BookingController {
         final Long placeId = bookingRequest.getPlaceId();
 
         final Long userId = user.getId();
+
+        final Booking activeBooking = bookingRepository.findByUserIdAndPlaceId(userId, placeId).orElse(null);
+
+        if (activeBooking != null) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "You have already book this place"));
+        }
+
         final String bookingTime = bookingRequest.getBookingTime();
         final Booking booking = new Booking(userId, placeId, bookingTime);
 

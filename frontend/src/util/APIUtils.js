@@ -382,6 +382,11 @@ export const removeFavorite = (placeId) => request({
     method: "DELETE"
 });
 
+export const checkFavorite = (placeId) => request({
+    url: API_BASE_URL + `/favorite/${placeId}/check`,
+    method: "GET"
+});
+
 export function emailToUser(emailToUserRequest) {
     return request({
         url: API_BASE_URL + "/email/to-user",
