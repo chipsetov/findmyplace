@@ -76,7 +76,7 @@ public class UserService {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String URL = backendURL + "auth/activate/" + user.getActivationCode() ;
 
-            String context = new String(Files.readAllBytes(Paths.get("api/src/main/resources/emailConfirmation.html")));
+            String context = new String(Files.readAllBytes(Paths.get("src/main/resources/emailConfirmation.html")));
 
             String message = String.format(
                     context,
@@ -93,7 +93,7 @@ public class UserService {
 
             String context = null;
             try {
-                context = new String(Files.readAllBytes(Paths.get("api/src/main/resources/passwordRestore.html")));
+                context = new String(Files.readAllBytes(Paths.get("src/main/resources/passwordRestore.html")));
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
