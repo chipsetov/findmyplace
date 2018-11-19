@@ -31,7 +31,7 @@ class BanPage extends Component {
                         <h3>Reason: {this.state.banReason}</h3>
                     </div>
                     <Link to="/contact-us">
-                        <h2>write to administrator</h2>
+                        <h2>Contact Admin</h2>
                     </Link>
                 </div>
             </div>

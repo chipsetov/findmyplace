@@ -26,16 +26,18 @@ export default class MapLayout extends Component {
                             <Tooltip direction="top">
                                 {place.name}
                             </Tooltip>
-                            <Popup className="places-container">
-                                <Place id={place.id}
-                                       name={place.name}
-                                       placeType={place.placeType.name}
-                                       description={place.description}
-                                       rating={place.rating}
-                                       countFreePlaces={place.countFreePlaces}
-                                       isApprove={place.approved}
-                                       isRejected={place.rejected}
-                                />
+                            <Popup >
+                                <div className="places-container map-place">
+                                    <Place id={place.id}
+                                           name={place.name}
+                                           placeType={place.placeType.name}
+                                           description={place.description}
+                                           rating={place.rating}
+                                           countFreePlaces={place.countFreePlaces}
+                                           isApprove={place.approved}
+                                           isRejected={place.rejected}
+                                    />
+                                </div>
                             </Popup>
                         </Marker>
                     ))}

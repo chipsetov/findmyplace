@@ -2,6 +2,7 @@ import Autosuggest from 'react-autosuggest';
 import {Button, Col, Row, Icon} from 'react-materialize';
 import React, {Component} from 'react';
 import '../../styles/searchStyle.css'
+import {searchUser} from "../../util/APIUtils";
 
 export default class SearchUsers extends Component {
     constructor() {
@@ -14,24 +15,24 @@ export default class SearchUsers extends Component {
         };
     }
 
-    componentDidMount() {
-        fetch("/users")
-            .then(response => response.json())
-            .then(
-                result => {
-                    this.setState({users: result});
-                    console.log("state", this.state.users)
-                })
-    }
+    // componentDidMount() {
+    //     fetch("/users")
+    //         .then(response => response.json())
+    //         .then(
+    //             result => {
+    //                 this.setState({users: result});
+    //                 console.log("state", this.state.users)
+    //             })
+    // }
 
-    getSuggestions = value => {
-        const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
-
-        return inputLength === 0 ? [] : this.state.users.filter(user =>
-            user.nickName.toLowerCase().slice(0, inputLength) === inputValue
-        );
-    };
+    // getSuggestions = value => {
+    //     const inputValue = value.trim().toLowerCase();
+    //     const inputLength = inputValue.length;
+    //
+    //     return inputLength === 0 ? [] : this.state.users.filter(user =>
+    //         user.nickName.toLowerCase().slice(0, inputLength) === inputValue
+    //     );
+    // };
 
     getSuggestionValue = suggestion => suggestion.nickName;
 
@@ -48,9 +49,16 @@ export default class SearchUsers extends Component {
     );
 
     onSuggestionsFetchRequested = ({value}) => {
-        this.setState({
-            suggestions: this.getSuggestions(value)
-        });
+        const data = {
+            searchValue: value,
+        };
+
+        searchUser(data)
+            .then(res => {
+                this.setState({
+                    suggestions: res
+                })
+            });
     };
 
     onSuggestionsClearRequested = () => {

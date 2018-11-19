@@ -32,6 +32,19 @@
     overflow: auto;
 }
 
+.map-place {
+    overflow: visible;
+}
+
+.leaflet-popup-content {
+    margin: 0 !important;
+}
+
+.leaflet-popup {
+    width: 420px;
+    overflow: visible !important;
+}
+
 .places-container .small {
     width: 400px;
     min-height: 480px !important;
