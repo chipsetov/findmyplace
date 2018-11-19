@@ -102,7 +102,7 @@ class User extends Component {
                 <td className="user">
                     <img src={this.props.userAvatar} alt="user"/>
                     <Link to="/user/profile" className="user-name">
-                        {this.props.fistName} {this.props.lastName}
+                        {this.props.nickName}
                     </Link>
                     <span className="user-role">{this.props.role}</span>
                 </td>

@@ -159,8 +159,10 @@ class PlacePage extends Component {
         return (
             <div className="place-page">
                 <Row className="place-header">
-                    <h2>{place.name}</h2>
-                    <h2>{place.address}</h2>
+                    <div className="place-title">
+                        <h1>{place.name}</h1>
+                        <h2>{place.address}</h2>
+                    </div>
                     <StarRatings
                         rating={this.state.rating}
                         starRatedColor="#ff8d15"
@@ -168,7 +170,6 @@ class PlacePage extends Component {
                         starDimension="40px"
                         starSpacing="10px"
                     />
-
                 </Row>
 
 

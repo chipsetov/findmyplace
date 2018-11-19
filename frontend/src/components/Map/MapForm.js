@@ -168,11 +168,11 @@ class MapForm extends Component {
                             })
                         }}><Icon>gps_fixed</Icon></Button>
                     </Col>
-                    <Col s={1}>
-                        <Button title="Reset all filters" id="filter" waves='light' onClick={() => {
-                            this.showAll()
-                        }}><Icon>clear_all</Icon></Button>
-                    </Col>
+                    {/*<Col s={1}>*/}
+                        {/*<Button title="Reset all filters" id="filter" waves='light' onClick={() => {*/}
+                            {/*this.showAll()*/}
+                        {/*}}><Icon>clear_all</Icon></Button>*/}
+                    {/*</Col>*/}
                     <Col s={3} offset="s1">
                         <SearchPlace updateData={this.updateData}/>
                     </Col>

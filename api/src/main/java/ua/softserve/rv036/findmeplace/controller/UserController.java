@@ -79,10 +79,10 @@ public class UserController {
 //        return userSummary;
 //    }
 
-//    @GetMapping("/users")
-//    List<User> getAll() {
-//        return userRepository.findAll();
-//    }
+    @GetMapping("/users")
+    List<User> getAll() {
+        return userRepository.findAll();
+    }
 
     @PostMapping("/users/search")
     List<User> searchUsers(@RequestBody SearchUser searchUserObj) {

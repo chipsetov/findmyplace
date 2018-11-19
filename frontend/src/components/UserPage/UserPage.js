@@ -52,19 +52,19 @@ export class UserPage extends Component {
                                 </Row>
                                 <Row>
                                     <Link to="#" onClick={this.showBookings.bind(this)}>
-                                        <img src="img/admin/users.png" alt="users"/>
+                                        <img src="img/admin/booking.png" alt="bookings"/>
                                         Bookings
                                     </Link>
                                 </Row>
                                 <Row>
                                     <Link to="#" onClick={this.showFavorites.bind(this)}>
-                                        <img src="img/admin/users.png" alt="users"/>
+                                        <img src="img/admin/favorite.png" alt="users"/>
                                         Favorites
                                     </Link>
                                 </Row>
                                 <Row>
                                     <Link to="#" onClick={this.showHistory.bind(this)}>
-                                        <img src="img/admin/users.png" alt="users"/>
+                                        <img src="img/admin/history.png" alt="users"/>
                                         History
                                     </Link>
                                 </Row>

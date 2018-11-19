@@ -141,13 +141,13 @@ class AdminPage extends Component {
                                 </Row>
                                 <Row>
                                     <Link to="#"  onClick={this.showApprovePlaces}>
-                                        <img src="img/admin/place.png" alt="place"/>
+                                        <img src="img/admin/add-place.png" alt="place"/>
                                         Approve/Reject places
                                     </Link>
                                 </Row>
                                 <Row>
                                     <Link to="#" onClick = { this.showBanPlaces }>
-                                        <img src="img/admin/user.png" alt="place"/>
+                                        <img src="img/admin/ban-place.png" alt="place"/>
                                         Ban Place
                                     </Link>
                                 </Row>

@@ -75,6 +75,13 @@ h1 {
     max-width: 100%;
 }
 
+.place-title {
+    background-color: rgba(29, 33, 32, 0.56);
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
 .managers-container .btn {
     font-size: 17px;
     color: #edd9c0;
