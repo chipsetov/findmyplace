@@ -98,6 +98,7 @@ class UsersList extends Component {
                                                userAvatar={item.avatarUrl === null ? "img/admin/user-avatar.png" : item.avatarUrl}
                                                fistName={item.fistName}
                                                lastName={item.lastName}
+                                               nickName={item.nickName}
                                                role={item.role.name}
                                                registrationDate={item.registrationDate}
                                                lastUpdateDate={item.lastUpdateDate}

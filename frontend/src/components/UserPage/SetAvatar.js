@@ -91,6 +91,7 @@ class SetAvatar extends Component {
                             type="file"
                             label="Choose file"
                             onChange={e => this.handleChange("avatar", e.target.files[0])}
+                            accept="image/gif,image/jpeg,image/jpg,image/png"
                             s={11}
                         />
                     </Row>

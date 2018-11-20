@@ -37,10 +37,10 @@ class ButtonsBlock extends Component {
                             <p className="text">On the map</p>
                         </Col>
                     </Link>
-                    <div onClick={this.props.addToFavorite}>
+                    <div onClick={() => { this.props.addToFavorite(!this.props.favorite); }}>
                         <Col>
-                            <Icon className="black-text" large>mood</Icon>
-                            <p className="text">Favorite</p>
+                            <Icon className="black-text" large>{ this.getIcon() }</Icon>
+                            <p className="text">{ this.getText() }</p>
                         </Col>
                     </div>
                     <BookingModal onBookCompleteHandler={this.props.onBookCompleteHandler}/>
@@ -48,6 +48,14 @@ class ButtonsBlock extends Component {
                 </Row>
             </CardPanel>
         );
+    }
+
+    getIcon() {
+        return this.props.favorite ? "mood_bad" : "mood";
+    }
+
+    getText() {
+        return this.props.favorite ? "Remove favorite" : "Add favorite";
     }
 }
 

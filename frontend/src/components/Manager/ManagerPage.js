@@ -63,6 +63,7 @@ export class ManagerPage extends Component {
                                                   email={this.state.email}
                                                   userName={this.state.userName}
                                                     handleAvatarUpdated={this.props.handleAvatarUpdated}
+                                                    handleRefresh={this.handleRefresh.bind(this)}
                                     />
                                 </Tab>
                             </Tabs>
@@ -101,6 +102,10 @@ export class ManagerPage extends Component {
                     })
                     .catch(error => console.log("error", error));
             });
+    }
+
+    handleRefresh() {
+        this.componentDidMount();
     }
 
     hideComponents() {

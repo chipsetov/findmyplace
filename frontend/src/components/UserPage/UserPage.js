@@ -52,19 +52,19 @@ export class UserPage extends Component {
                                 </Row>
                                 <Row>
                                     <Link to="#" onClick={this.showBookings.bind(this)}>
-                                        <img src="img/admin/users.png" alt="users"/>
+                                        <img src="img/admin/booking.png" alt="bookings"/>
                                         Bookings
                                     </Link>
                                 </Row>
                                 <Row>
                                     <Link to="#" onClick={this.showFavorites.bind(this)}>
-                                        <img src="img/admin/users.png" alt="users"/>
+                                        <img src="img/admin/favorite.png" alt="users"/>
                                         Favorites
                                     </Link>
                                 </Row>
                                 <Row>
                                     <Link to="#" onClick={this.showHistory.bind(this)}>
-                                        <img src="img/admin/users.png" alt="users"/>
+                                        <img src="img/admin/history.png" alt="users"/>
                                         History
                                     </Link>
                                 </Row>
@@ -80,6 +80,7 @@ export class UserPage extends Component {
                                              email={this.state.email}
                                              userName={this.state.userName}
                                              handleAvatarUpdated={this.props.handleAvatarUpdated}
+                                             handleRefresh={this.handleRefresh.bind(this)}
                                     />
                                 </Tab>
                             </Tabs>
@@ -136,6 +137,10 @@ export class UserPage extends Component {
             });
     }
 
+    handleRefresh() {
+        this.componentDidMount();
+    }
+
     hideComponents() {
         this.state.profileIsOpened = false;
         this.state.bookingsIsOpened = false;
@@ -185,6 +190,7 @@ export class UserPage extends Component {
 
     bookPlace(placeId) {
         console.log("book place:", placeId);
+        this.props.history.push(`/place/${placeId}`);
     }
 
     removeFavorite(placeId) {

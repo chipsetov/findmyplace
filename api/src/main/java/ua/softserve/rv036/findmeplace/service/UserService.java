@@ -134,6 +134,13 @@ public class UserService {
         String nickName = updateProfileRequest.getNickName();
         String email = updateProfileRequest.getEmail();
 
+        final String password = updateProfileRequest.getPassword();
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            ApiResponse response = new ApiResponse(false, "You have entered invalid password");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setNickName(nickName);
@@ -156,10 +163,19 @@ public class UserService {
         User user = optional.get();
         String password = updateProfileRequest.getPassword();
         String newPassword = updateProfileRequest.getNewPassword();
+        String confirmPassword = updateProfileRequest.getConfirmPassword();
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
             ApiResponse response = new ApiResponse(false, "You have entered invalid password");
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (password.equals(newPassword)) {
+            return ResponseEntity.ok(new ApiResponse(false, "The new password must be different from the old one"));
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            return ResponseEntity.ok(new ApiResponse(false, "Enter password verification"));
         }
 
         user.setPassword(passwordEncoder.encode(newPassword));

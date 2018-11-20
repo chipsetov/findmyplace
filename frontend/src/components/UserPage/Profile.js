@@ -37,18 +37,19 @@ class Profile extends Component {
         const lastName = this.state.lastName;
         const userName = this.state.userName;
         const email = this.state.email;
+        const oldPassword = this.state.oldPassword;
 
-        if (!firstName.length) {
+        if (firstName.length < 3) {
             this.message("Please enter your first name");
             return;
         }
 
-        if (!lastName.length) {
+        if (lastName.length < 3) {
             this.message("Please enter your last name");
             return;
         }
 
-        if (!userName.length) {
+        if (userName.length < 3) {
             this.message("Please enter your username");
             return;
         }
@@ -59,19 +60,30 @@ class Profile extends Component {
             return;
         }
 
+        console.clear();
+        console.log(oldPassword);
+
+        if (!oldPassword.length) {
+            this.message("Please enter your password");
+            return;
+        }
+
         const userId = localStorage.getItem(USER_ID);
         const profile = {
             userId: userId,
             firstName: firstName,
             lastName: lastName,
             nickName: userName,
-            email: email
+            email: email,
+            password: oldPassword
         };
 
         updateUserProfile(profile)
             .then(response => {
                 this.message(response.message);
-            });
+                this.props.handleRefresh();
+            })
+            .catch(error => this.message(error.message));
     }
 
     updatePassword() {
@@ -79,11 +91,14 @@ class Profile extends Component {
         const newPassword = this.state.newPassword;
         const confirmPassword = this.state.confirmPassword;
 
-        if (newPassword.length) {
-            if (!oldPassword.length) {
-                this.message("You have to enter your old password");
-                return;
-            }
+        if (newPassword.length < 3) {
+            this.message("You have to enter your new password");
+            return;
+        }
+
+        if (!oldPassword.length) {
+            this.message("You have to enter your old password");
+            return;
         }
 
         if (newPassword !== confirmPassword) {
@@ -95,12 +110,14 @@ class Profile extends Component {
         const password = {
             userId: userId,
             password: oldPassword,
-            newPassword: newPassword
+            newPassword: newPassword,
+            confirmPassword: confirmPassword
         };
 
         updateUserPassword(password)
             .then(response => {
                 this.message(response.message);
+                this.props.handleRefresh();
             })
             .catch(error => this.message(error.message));
     }
