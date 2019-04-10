@@ -45,7 +45,7 @@ jobs:
     #   # run tests!
     #   - run: mvn integration-test
 
-  buildfed:
+  build1:
     docker:
       - image: circleci/node:10.0-browsers
     working_directory:  ~/frontend
