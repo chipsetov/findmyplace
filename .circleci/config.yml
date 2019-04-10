@@ -53,15 +53,15 @@ jobs:
       - run: npm install
       - run: npm start
 
-  build_db:
-      - image: circleci/postgres:9.6.2-alpine
-        environment:
-          POSTGRES_USER: developer
-          POSTGRES_PASSWORD: repoleved
-          POSTGRES_DB: fmp_db
+  # build_db:
+  #     - image: circleci/postgres:9.6.2-alpine
+  #       environment:
+  #         POSTGRES_USER: developer
+  #         POSTGRES_PASSWORD: repoleved
+  #         POSTGRES_DB: fmp_db
 
-  build_api:
-      - image: circleci/openjdk:8-jdk-browsers
+  # build_api:
+  #     - image: circleci/openjdk:8-jdk-browsers
 
-    steps:
-      - checkout
+  #   steps:
+  #     - checkout
