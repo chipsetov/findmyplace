@@ -66,8 +66,8 @@ jobs:
 
     steps:
       - checkout
-      
-...                          
+
+                          
 workflows:
   version: 2
   build_and_test: # name of your workflow
