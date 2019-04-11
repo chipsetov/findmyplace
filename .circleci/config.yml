@@ -47,9 +47,11 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      - run: ls -la
+      
       - run: mvn dependency:go-offline
 
-      - run: ls -la
+
 
       - save_cache:
           paths:
