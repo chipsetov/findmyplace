@@ -50,7 +50,7 @@ jobs:
       # - run: cd api
 
       # - run: mvn dependency:go-offline
-      - run: cd api && mvn dependency
+      - run: cd api && mvn dependency:resolve
       - run: cd api && mvn tests
 
 
