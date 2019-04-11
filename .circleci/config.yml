@@ -47,11 +47,11 @@ jobs:
       #       # fallback to using the latest cache if no exact match is found
       #       - v1-dependencies-
 
-      - run: cd api
+      # - run: cd api
 
       # - run: mvn dependency:go-offline
-      - run: mvn dependency
-      - run: mvn tests
+      - run: cd api && mvn dependency
+      - run: cd api && mvn tests
 
 
 
