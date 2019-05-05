@@ -18,10 +18,8 @@
 #
 version: 2
 jobs:
-  build:
-    branches:
-      only:
-        - circleci
+  api:
+
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
@@ -31,14 +29,15 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
 
-    working_directory: ~/repo
+    working_directory: ~/repo/api
 
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
 
-    steps:
-      - checkout
+    # steps:
+    #   - checkout:
+    #       path: ~/repo
 
       # Download and cache dependencies
       # - restore_cache:
@@ -50,16 +49,60 @@ jobs:
       # - run: cd api
 
       # - run: mvn dependency:go-offline
-      - run: cd api && mvn -B dependency:resolve
-      - run: cd api && mvn test
-
-
-
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }} 
+            - v1-dependencies-
+      - run: mvn dependency:go-offline
       - save_cache:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
-      # run tests!
-      - run: mvn integration-test
 
+
+      # - save_cache:
+      #     paths:
+      #       - ~/.m2
+      #     key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      # # run tests!
+      # - run: mvn integration-test
+
+  client:
+    docker:
+      - image: circleci/node:8.10.0
+    working_directory: ~/repo/client
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-npm
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: npm run build
+          command: npm run build
+
+
+workflows:
+  version: 2
+  api_and_client_test:
+    jobs:
+      - api:
+          filters:
+            branches: 
+              only: circleci
+      - client:
+          filters:
+            branches: 
+              only: circleci
