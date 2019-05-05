@@ -75,7 +75,7 @@ jobs:
 
   client:
     docker:
-      - image: circleci/node:8.10.0
+      - image: circleci/node:10.0.0
     working_directory: ~/repo/frontend
     steps:
       - checkout:
@@ -91,7 +91,7 @@ jobs:
       #       - ./node_modules
       - run:
           name: npm run build
-          command: npm run build --skip-tests --skip-e2e
+          command: npm run build
 
 
 workflows:
