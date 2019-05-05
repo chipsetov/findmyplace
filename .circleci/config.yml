@@ -91,7 +91,7 @@ jobs:
       #       - ./node_modules
       - run:
           name: npm run build
-          command: npm start
+          command: run build
 
 
 workflows:
