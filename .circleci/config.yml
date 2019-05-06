@@ -75,7 +75,7 @@ jobs:
 
   client:
     docker:
-      - image: circleci/node:10.0.0
+      - image: circleci/node:10
     working_directory: ~/repo/frontend
     steps:
       - checkout:
