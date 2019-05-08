@@ -51,7 +51,7 @@ jobs:
       # - run: mvn dependency:go-offline
     steps:
       - checkout:
-          path: ~/repo
+          path: ~/repohfghfg
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }} 
